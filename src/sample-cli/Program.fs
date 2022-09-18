@@ -9,6 +9,11 @@ let main argv =
         config.AddCommand<Hello>("greet")
             .WithAlias("g")
             .WithDescription("Greets the user running the application.")
+            |> ignore
+
+        config.AddCommand<TableExample>("table")
+            .WithAlias("t")
+            .WithDescription("Shows usage of tables.")
             |> ignore)
 
     app.Run(argv)
