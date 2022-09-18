@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Include="commands/Hello.fs" />
     <Compile Include="commands/Table.fs" />
+    <Compile Include="commands/Prompt.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
