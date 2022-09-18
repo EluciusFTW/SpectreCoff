@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0848893D-D544-4E68-8EB5-DB05559AED31}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "spectre-fs-sample-cli", "src\sample-cli\spectre-fs-sample-cli.fsproj", "{A8C08A1D-1F2C-49D1-9DA8-69C4C199E8BF}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "spectre-fs", "src\spectre-fs\spectre-fs.fsproj", "{37E16031-FE81-416F-AA48-74A776AFDD02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8C08A1D-1F2C-49D1-9DA8-69C4C199E8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C08A1D-1F2C-49D1-9DA8-69C4C199E8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C08A1D-1F2C-49D1-9DA8-69C4C199E8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C08A1D-1F2C-49D1-9DA8-69C4C199E8BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37E16031-FE81-416F-AA48-74A776AFDD02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37E16031-FE81-416F-AA48-74A776AFDD02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37E16031-FE81-416F-AA48-74A776AFDD02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37E16031-FE81-416F-AA48-74A776AFDD02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A8C08A1D-1F2C-49D1-9DA8-69C4C199E8BF} = {0848893D-D544-4E68-8EB5-DB05559AED31}
+		{37E16031-FE81-416F-AA48-74A776AFDD02} = {0848893D-D544-4E68-8EB5-DB05559AED31}
+	EndGlobalSection
+EndGlobal

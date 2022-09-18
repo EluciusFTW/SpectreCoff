@@ -3,16 +3,19 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>fsharp_spectre_console_template</RootNamespace>
+    <RootNamespace>spectre_fs_samples</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="spectre/Output.fs" />
     <Compile Include="commands/Hello.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.44.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\spectre-fs\spectre-fs.fsproj" />
   </ItemGroup>
 </Project>
