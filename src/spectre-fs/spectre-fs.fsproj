@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>spectre_fs</RootNamespace>
@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Include="Table.fs" />
     <Compile Include="Output.fs" />
+    <Compile Include="Prompt.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.44.0" />
