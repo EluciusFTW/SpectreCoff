@@ -1,16 +1,24 @@
-# FSharp Spectre.Console Template
+# Spectre.Fs
+A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console) in F#.
 
-This repository contains a small, ready-to-go starting point for developing a console application in F#, using the [Spectre.Console](https://github.com/spectreconsole/spectre.console) library.
+## Spectre.Fs api
+The source code for the nuget package can be found in the subfolder `/src/spectre-fs/`. It provides convenient functions, idiomatic to the F# codeing style, around the C# api of Spectre.
 
-Spectre.Console uses _commands_ together with _settings_ to create strongly typed bindings to console arguments. It also provides help and documentation and default values in a simple manner.
+To find out what is currently supported, please see the sources, or try the sample cli below!
 
-This sample contains one command, _greet_, to which you can provide your name (using `-n|--name`) as a parameter:
+## Sample Cli
+Additionally to the package, this repository contains a sample console project demonstrating how to use each of the provided wrappers.
+You can see each command in action by navigating to `/src/sample-api/` and running
 
 ```PS
-dotnet run greet -n "John"
+dotnet run <command>
 ````
+or compiling the cli and running the exe.
 
-Feel free to clone it and start your application from here!
+The currently supported commands, also discoverable by `dotnet run -- -h` (the funky dashes are needed, else dotnet run consumes the arguments!) are
+* `greet`, taken over from the starter template, to be renamed
+* `table` 
+* `prompt`
 
 ## Feedback and Contributing
 All feedback welcome!
