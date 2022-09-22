@@ -2,7 +2,7 @@
 A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console) in F#.
 
 ## Spectre.Fs api
-The source code for the nuget package can be found in the subfolder `/src/spectre-fs/`. It provides convenient functions, idiomatic to the F# codeing style, around the C# api of Spectre.
+The source code for the nuget package can be found in the subfolder `/src/spectre-fs/`. It provides convenient functions, idiomatic to the F# coding style, around the C# api of Spectre.
 
 To find out what is currently supported, please see the sources, or try the sample cli below!
 

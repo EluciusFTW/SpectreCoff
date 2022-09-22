@@ -115,3 +115,6 @@ ModelManifest.xml
 NDependOut/
 **/*.ndproj
 *.orig
+
+# JetBrains
+.idea/

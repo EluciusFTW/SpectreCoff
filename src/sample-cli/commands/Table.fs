@@ -10,16 +10,16 @@ type TableExample() =
     inherit Command<TableExampleSettings>()
     interface ICommandLimiter<TableExampleSettings>
 
-    override _.Execute(_context, _) = 
-        
-        let colums = ["Firstname"; "Lastname"; "Age"]
-        let rows = [ 
+    override _.Execute(_context, _) =
+
+        let columns = ["Firstname"; "Lastname"; "Age"]
+        let rows = [
             ["Jacob"; "Josephsson"; "31"]
-            ["Tim"; "Turner"; "49"] 
+            ["Tim"; "Turner"; "49"]
             ["Walter"; ""; "72"]
             ["Fred"; "Flintstone" ] ]
-        print (stable colums rows) 
+        print (stable columns rows)
 
         let numericRows = [ [1; 2]; [31; 42; 53] ]
-        print (stable colums numericRows)
+        print (stable columns numericRows)
         0
