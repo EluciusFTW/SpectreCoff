@@ -19,6 +19,14 @@ type Hello() =
     interface ICommandLimiter<HelloSettings>
 
     override _.Execute(_context, settings) = 
-        printMarkedUp $"Hello {emphasize settings.name}! Enjoy the Spectre.Console starter template for F#."
+        printMarkedUp $"Hello {emphasize settings.name}!"
+
+        printMarkedUp $"""See how I {emphasize "emphasized"} your name?"""
+        printMarkedUp $"""In the same way, I can also {warn "warn you"} about something."""
+        
+        printMarkedUp $"""You can change how I behave, though ..."""
+        SpectreFs.Output.emphasizeStyle <- "fuchsia"
+        SpectreFs.Output.warningStyle <- "yellow"
+        printMarkedUp $"""Maybe {emphasize "these colors"} suit you {warn "better"}?"""
         0
 
