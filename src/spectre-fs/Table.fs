@@ -13,14 +13,14 @@ let toColumn (value: string) =
 let toColumns values =
     values |> List.map(fun v -> toColumn (v.ToString()))
 
-let table (columns: TableColumn list) (rows: TableRow list) =
-    let t = Table()
-    columns |> List.iter (fun c -> t.AddColumn(c) |> ignore)
-    rows |> List.iter (fun r -> t.AddRow(r) |> ignore)
-    t
+let table (columns: TableColumn list) (rows: TableRow list) = 
+    let table = new Table()
+    columns |> List.iter (fun column -> table.AddColumn(column) |> ignore)
+    rows |> List.iter (fun row -> table.AddRow(row) |> ignore)
+    table
 
 let stable columns rows =
     table (toColumns columns) (rows |> List.map toStringRow)
 
-let print tab = AnsiConsole.Write (tab: Table)
+let print table = AnsiConsole.Write (table: Table)
 let printcr columns rows = print (table rows columns)
