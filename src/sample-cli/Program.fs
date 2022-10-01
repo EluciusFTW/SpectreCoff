@@ -10,10 +10,15 @@ let main argv =
             .WithAlias("g")
             .WithDescription("Greets the user running the application.")
             |> ignore
-            
+
         config.AddCommand<PromptExample>("prompt")
-            .WithAlias("t")
+            .WithAlias("p")
             .WithDescription("Shows examples of prompts.")
+            |> ignore
+
+        config.AddCommand<RuleExample>("rule")
+            .WithAlias("r")
+            .WithDescription("Shows examples for rendering rules.")
             |> ignore
 
         config.AddCommand<TableExample>("table")
