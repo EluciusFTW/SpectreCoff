@@ -19,14 +19,44 @@ type Hello() =
     interface ICommandLimiter<HelloSettings>
 
     override _.Execute(_context, settings) = 
-        printMarkedUp $"Hello {emphasize settings.name}!"
+        // printMarkedUp $"Hello {emphasize settings.name}!"
 
-        printMarkedUp $"""See how I {emphasize "emphasized"} your name?"""
-        printMarkedUp $"""In the same way, I can also {warn "warn you"} about something."""
+        // printMarkedUp $"""See how I {emphasize "emphasized"} your name?"""
+        // printMarkedUp $"""In the same way, I can also {warn "warn you"} about something."""
         
-        printMarkedUp $"""You can change how I behave, though ..."""
-        SpectreFs.Output.emphasizeStyle <- "fuchsia"
-        SpectreFs.Output.warningStyle <- "yellow"
-        printMarkedUp $"""Maybe {emphasize "these colors"} suit you {warn "better"}?"""
+        // printMarkedUp $"""You can change how I behave, though ..."""
+        // SpectreFs.Output.emphasizeStyle <- "fuchsia"
+        // SpectreFs.Output.warningStyle <- "yellow"
+        // printMarkedUp $"""Maybe {emphasize "these colors"} suit you {warn "better"}?"""
+        
+        // put [Standard "Hello "; Emphasized "from[...] "; StandardLine " [[//]]put!"; WarningLine "-_-_ [] ??"]
+        
+        // printfn ""
+        // putSeparatedBy " *** " ["some"; Emphasized "things"; "are"; [1;2;3]; Warning "magic!"]
+
+        
+        emphasizeStyle <- "fuchsia underline"
+        warningStyle <- "red"
+        standardStyle <- "green"
+
+        printfn ""
+        putLines [
+            "So ..."
+            "This is how you'd output several lines."
+            ""
+            "Some are more important." |> Emphasized
+            "Some [/ ... /] contain markup, but show it just fine," |> Warning
+            ""
+            [
+                "Multiple things can be " |> Standard
+                "printed " |> Emphasized
+                "in one " |> Standard
+                "line, too." |> Warning
+            ]
+            ""
+            "It's possible to print arbitrary objects as well, like:"
+            seq<obj> { "... tuples: "; (1,2) }
+            seq<obj> { "... collections: "; seq<obj> { "Jane "; "Jon "; Emphasized "Carlos" } }
+        ]
         0
 
