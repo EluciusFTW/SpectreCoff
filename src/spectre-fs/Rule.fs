@@ -2,15 +2,18 @@
 open Spectre.Console
 
 let ruleEmpty =
-    AnsiConsole.Write(Rule())
+    Rule()
+    |> AnsiConsole.Write
 
 let ruleContent content =
-    AnsiConsole.Write(Rule(content))
+    content
+    |> Rule
+    |> AnsiConsole.Write
 
 let ruleContentLeft content =
-    let rule = Rule(content).LeftAligned()
-    AnsiConsole.Write(rule)
+    Rule(content).LeftAligned()
+    |> AnsiConsole.Write
 
 let ruleContentRight content =
-    let rule = Rule(content).RightAligned()
-    AnsiConsole.Write(rule)
+    Rule(content).RightAligned()
+    |> AnsiConsole.Write
