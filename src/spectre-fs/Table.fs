@@ -23,5 +23,4 @@ let stable columns rows =
     table (toColumns columns) (rows |> List.map toStringRow)
 
 let print table = AnsiConsole.Write (table: Table)
-
 let printcr columns rows = print (table rows columns)
