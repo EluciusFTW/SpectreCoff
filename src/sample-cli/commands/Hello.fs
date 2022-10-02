@@ -39,6 +39,11 @@ type Hello() =
         warningStyle <- "red"
         standardStyle <- "green"
 
+        let sequenceOfObjects = seq<obj> { Emphasized "Jane "; Warning "Jon "; Standard "Carlos" } 
+        let nestedSequenceOfObjects = seq<obj> { "... collections: "; seq<obj> { "Jane "; "Jon "; Emphasized "Carlos" } }
+        let listOfMarkedUp = [ Emphasized "Jane "; Warning "Jon "; Standard "Carlos" ]
+
+        // 1st Version
         printfn ""
         putLines [
             "So ..."
@@ -50,13 +55,56 @@ type Hello() =
             [
                 "Multiple things can be " |> Standard
                 "printed " |> Emphasized
-                "in one " |> Standard
-                "line, too." |> Warning
+                "in one line, too." |> Warning
             ]
             ""
             "It's possible to print arbitrary objects as well, like:"
-            seq<obj> { "... tuples: "; (1,2) }
-            seq<obj> { "... collections: "; seq<obj> { "Jane "; "Jon "; Emphasized "Carlos" } }
+            sequenceOfObjects
+            nestedSequenceOfObjects
         ]
+
+        
+        // 2nd Version
+        let friends = [ E "Jane "; W "Jon "; S "Carlos" ]
+        printfn ""
+        
+        putComplexLines [
+            S "So ..."
+            S "This is how you'd output several lines."
+            NL 
+            E "Some are more important."
+            W "Some [/ ... /] contain markup, but show it just fine," 
+            CO [
+                S "Multiple things can be "; 
+                E "printed"; 
+                W " in one line, too." 
+            ]
+            CO (sequenceOfObjects |> Seq.map OB |> List.ofSeq )
+            CO friends
+            NL
+            S "Let me be clearer. Have you seen: "
+            BI friends
+        ]
+
+        bulletItemPrefix <- "  ->> "
+        putComplexLines [
+            S "HAVE YOU SEEN: "
+            BI friends
+        ]
+
+        putStandardLines [
+            "Sometimes you"
+            "Just want to"
+            "Write a decent text"
+            "Without being bothered by"
+            "Symbols, types and other things ... "
+        ]
+        // printfn ""
+        // putComplexThings [
+        //     S "Hello!"; NL
+        //     S "Hi there, "; E "dude!"; NL 
+        //     S "Have you seen"; SP; CO friends; S "?"
+        // ]
+
         0
 
