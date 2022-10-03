@@ -19,6 +19,7 @@ The currently supported commands, also discoverable by `dotnet run -- -h` (the f
 * `greet`, taken over from the starter template, to be renamed
 * `table` 
 * `prompt`
+* `rule`
 
 ## Feedback and Contributing
 All feedback welcome!
