@@ -12,8 +12,8 @@ type RuleExample() =
     interface ICommandLimiter<RuleExampleSettings>
 
     override this.Execute(_context, _settings) =
-        ruleContentLeft $"""{emphasize "Hello"}"""
-        ruleContent "Fellow"
-        ruleContentRight $"""{warn "Developer"}"""
-        ruleEmpty
+        alignedRule Left  $"""{emphasize "Hello"}"""
+        rule "Fellow"
+        alignedRule Right $"""{warn "Developer"}"""
+        emptyRule
         0

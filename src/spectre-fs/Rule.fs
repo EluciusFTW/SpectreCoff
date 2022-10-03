@@ -1,19 +1,23 @@
 ﻿module SpectreFs.Rule
 open Spectre.Console
 
-let ruleEmpty =
+type Alignment =
+    | Left
+    | Center
+    | Right
+
+let mutable defaultAlignment = Center
+
+let emptyRule =
     Rule()
     |> AnsiConsole.Write
 
-let ruleContent content =
-    content
-    |> Rule
+let alignedRule alignment content =
+    match alignment with
+    | Left -> Rule(content).LeftAligned()
+    | Center -> Rule(content)
+    | Right -> Rule(content).RightAligned()
     |> AnsiConsole.Write
 
-let ruleContentLeft content =
-    Rule(content).LeftAligned()
-    |> AnsiConsole.Write
-
-let ruleContentRight content =
-    Rule(content).RightAligned()
-    |> AnsiConsole.Write
+let rule content =
+    alignedRule defaultAlignment content
