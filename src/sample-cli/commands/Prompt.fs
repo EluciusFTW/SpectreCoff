@@ -30,7 +30,7 @@ type PromptDocumentation() =
     
     override _.Execute(_context, _) = 
 
-        Theme.setGeneralStyle
+        Theme.setDocumentationStyle
         
         printfn ""
         alignedRule Left (emphasize "Prompt module")

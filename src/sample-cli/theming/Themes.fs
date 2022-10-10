@@ -3,7 +3,8 @@ open SpectreFs.Output
 
 module Theme = 
 
-    let setGeneralStyle = 
-        bulletItemPrefix <- " >> "
-        emphasizeStyle <- "yellow"
+    let setDocumentationStyle = 
+        bulletItemPrefix <- "   >> "
+        emphasizeColor <- "yellow"
+        emphasizeStyle <- "italic"
         ()
