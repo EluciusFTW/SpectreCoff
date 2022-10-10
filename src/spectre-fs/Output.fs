@@ -2,115 +2,86 @@ module SpectreFs.Output
 open Spectre.Console
 
 // Styles
-let mutable standardStyle = "blue"
-let mutable emphasizeStyle = "green"
-let mutable warningStyle = "red"
+let mutable standardStyle = ""
+let mutable standardColor = "blue"
+
+let mutable emphasizeStyle = "bold"
+let mutable emphasizeColor = "lightpink4"
+
+let mutable warningStyle = "italic"
+let mutable warningColor = "red"
 
 // Special strings
 let mutable bulletItemPrefix = " + "
 
 // Basic output
-let private markup style content = $"[{style}]{Markup.Escape content}[/]"
+let markup color style content = 
+    match style with
+    | "" -> $"[{color}]{Markup.Escape content}[/]"
+    | _ -> $"[{color} {style}]{Markup.Escape content}[/]"
 
-let emphasize content = markup emphasizeStyle content
-let warn content = markup warningStyle content
-let standard content = markup standardStyle content
+let emphasize content = markup emphasizeColor emphasizeStyle content
+let warn content = markup warningColor warningStyle content
+let standard content = markup standardColor standardStyle content
 
 let printMarkedUp content = AnsiConsole.Markup $"{content}"
 let printMarkedUpNL content = AnsiConsole.Markup $"{content}{System.Environment.NewLine}"
 
-// -------------- MarkedUp Version 1 ---------------
-type MarkedUpString = 
-| Standard of string
-| StandardLine of string
-| Emphasized of string
-| EmphasizedLine of string
-| Warning of string
-| WarningLine of string
+// let putSeparatedBy separator (parts: obj list) = 
+//     Seq.initInfinite (fun _ -> separator)
+//     |> Seq.zip parts 
+//     |> Seq.map (fun pair -> [fst pair; snd pair])
+//     |> Seq.collect (fun value -> value)
+//     |> put 
 
-let putMarkedUp (parts: seq<MarkedUpString>) = 
-    for part in parts do
-        match part with
-        | Standard s -> printMarkedUp (standard s)
-        | Emphasized s -> printMarkedUp (emphasize s) 
-        | Warning s -> printMarkedUp (warn s)
-        | StandardLine s -> printMarkedUpNL (standard s)
-        | EmphasizedLine s -> printMarkedUpNL (emphasize s)
-        | WarningLine s -> printMarkedUpNL (warn s)
+type PrintPayload = 
+    | S of string
+    | Standard of string
+    | E of string
+    | Emphasize of string
+    | W of string
+    | Warn of string
+    | C of string
+    | Custom of string
+    | CO of PrintPayload list
+    | Collection of PrintPayload list
+    | BI of PrintPayload list
+    | BulletItems of PrintPayload list
+    | NewLine    
+    | Many of string list
+    | ManyMarkedUp of PrintPayload list
 
-let rec toMarkedUpString (parts: seq<obj>) = 
-    parts
-    |> Seq.map (fun part -> 
-        match part with
-        | :? MarkedUpString as ms->  seq { ms }
-        | :? seq<obj> as lineParts -> toMarkedUpString lineParts
-        | other -> seq { Standard (other.ToString()) })
-    |> Seq.collect (fun part -> part)
+let printInline (payload: PrintPayload) = 
+    match payload with
+    | S value
+    | Standard value ->  printMarkedUp (standard value)
+    | E value 
+    | Emphasize value -> printMarkedUp (emphasize value)
+    | W value
+    | Warn value -> printMarkedUp (warn value)
+    | C value
+    | Custom value -> printMarkedUp value
+    | _ -> ()
 
-let rec put (parts: seq<obj>) =
-    parts
-    |> toMarkedUpString
-    |> putMarkedUp
-
-let putSeparatedBy separator (parts: obj list) = 
-    Seq.initInfinite (fun _ -> separator)
-    |> Seq.zip parts 
-    |> Seq.map (fun pair -> [fst pair; snd pair])
-    |> Seq.collect (fun value -> value)
-    |> put 
-
-let putLines parts =
-    putSeparatedBy System.Environment.NewLine parts
-
-// ---------------- 2nd Version ----------
-type complexOutput = 
-| S of string
-| E of string
-| W of string
-| NL | SP 
-| MU of MarkedUpString
-| CO of complexOutput list
-| BI of complexOutput list
-| OB of obj
-
-let rec toMarkedUp (parts: seq<complexOutput>) = 
-    parts
-    |> Seq.map (fun part -> 
-        match part with
-        | S s -> seq { Standard s }
-        | E s -> seq { Emphasized s }
-        | W s -> seq { Warning s }
-        | NL -> seq { Standard System.Environment.NewLine }
-        | SP -> seq { Standard " " }
-        | MU ms->  seq { ms }
-        | CO items -> toMarkedUp items
-        | BI items -> 
-            items 
-            |> List.map (fun item -> CO [S bulletItemPrefix; item; NL])
-            |> toMarkedUp
-        | OB other -> seq { Standard (other.ToString()) })
-    |> Seq.collect (fun part -> part)
-
-let rec putComplex (parts: seq<complexOutput>) =
-    parts
-    |> toMarkedUp
-    |> putMarkedUp
-
-let putComplexSeparatedBy separator (parts: complexOutput list) = 
-    Seq.initInfinite (fun _ -> separator)
-    |> Seq.zip parts 
-    |> Seq.map (fun pair -> [fst pair; snd pair])
-    |> Seq.collect (fun value -> value)
-    |> putComplex 
-
-let putComplexWords (parts: complexOutput list) =
-    putComplexSeparatedBy (S " ") parts
-
-let putComplexThings (parts: complexOutput list) =
-    putComplex parts
-
-let putComplexLines (parts: complexOutput list) =
-    putComplexSeparatedBy (S System.Environment.NewLine) parts
-
-let putStandardLines (parts: string list) =
-    putComplexSeparatedBy (S System.Environment.NewLine) (parts |> List.map S)
+let rec toConsole (payload: PrintPayload) = 
+    match payload with
+    | S value
+    | Standard value ->  printMarkedUpNL (standard value)
+    | E value
+    | Emphasize value -> printMarkedUpNL (emphasize value)
+    | W value
+    | Warn value -> printMarkedUpNL (warn value)
+    | C value
+    | Custom value -> printMarkedUpNL value
+    | NewLine -> printfn ""
+    | CO items
+    | Collection items -> 
+        items |> List.iter printInline
+        printfn ""
+    | BI items
+    | BulletItems items -> 
+        items 
+        |> List.map (fun item -> CO [S bulletItemPrefix; item])
+        |> List.iter toConsole
+    | Many values -> values |> List.iter (fun value -> printMarkedUpNL (standard value))
+    | ManyMarkedUp markedUp -> markedUp |> List.iter toConsole
