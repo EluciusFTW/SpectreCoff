@@ -17,7 +17,9 @@ type TableExample() =
             ["Jacob"; "Josephsson"; "31"]
             ["Tim"; "Turner"; "49"]
             ["Walter"; ""; "72"]
-            ["Fred"; "Flintstone" ] ]
+            ["Fred"; "Flintstone" ] 
+        ]
+        
         print (stable columns rows)
 
         let numericRows = [ [1; 2]; [31; 42; 53] ]
