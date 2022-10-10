@@ -1,4 +1,4 @@
-﻿namespace SpectreFs.Commands
+﻿namespace SpectreFs.Sample.Commands
 
 open Spectre.Console.Cli
 open SpectreFs.Rule
