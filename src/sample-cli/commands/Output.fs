@@ -23,11 +23,11 @@ type Output() =
         S "S is a short for Standard." |> toConsole
         NewLine |> toConsole
         
-        Emphasize "This let's you use an alternate style for the line. You can also use it with just S." |> toConsole
+        Emphasize "This let's you use an alternate style for the line." |> toConsole
         E "E is a short for Emphasize." |> toConsole
         NewLine |> toConsole
         
-        Warn "This let's you use an alternate style for the line. You can also use it with just S." |> toConsole
+        Warn "This let's you use an alternate style for the line." |> toConsole
         W "W is a short for Warn." |> toConsole
         NewLine |> toConsole
 

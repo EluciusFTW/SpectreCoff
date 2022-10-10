@@ -27,13 +27,6 @@ let standard content = markup standardColor standardStyle content
 let printMarkedUp content = AnsiConsole.Markup $"{content}"
 let printMarkedUpNL content = AnsiConsole.Markup $"{content}{System.Environment.NewLine}"
 
-// let putSeparatedBy separator (parts: obj list) = 
-//     Seq.initInfinite (fun _ -> separator)
-//     |> Seq.zip parts 
-//     |> Seq.map (fun pair -> [fst pair; snd pair])
-//     |> Seq.collect (fun value -> value)
-//     |> put 
-
 type PrintPayload = 
     | S of string
     | Standard of string
