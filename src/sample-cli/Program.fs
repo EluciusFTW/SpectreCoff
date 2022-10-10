@@ -11,11 +11,6 @@ let main argv =
             .WithDescription("Shows examples of printing things to the console.")
             |> ignore
 
-        config.AddCommand<PromptExample>("prompt")
-            .WithAlias("p")
-            .WithDescription("Shows examples of prompts.")
-            |> ignore
-
         config.AddCommand<RuleExample>("rule")
             .WithAlias("r")
             .WithDescription("Shows examples for rendering rules.")
@@ -24,6 +19,19 @@ let main argv =
         config.AddCommand<TableExample>("table")
             .WithAlias("t")
             .WithDescription("Shows examples of tables.")
-            |> ignore)
+            |> ignore
+
+        config.AddBranch("prompt", fun(add: IConfigurator<PromptSettings>) ->
+            add.AddCommand<PromptExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of prompts.")
+                |> ignore
+
+            add.AddCommand<PromptDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Creates a .ffrc containing the working directory as well as all found variables.")
+                |> ignore)
+        )
+
 
     app.Run(argv)
