@@ -1,14 +1,14 @@
 ﻿open Spectre.Console.Cli
-open SpectreFs.Commands
+open SpectreFs.Sample.Commands
 
 [<EntryPoint>]
 let main argv =
 
     let app = CommandApp()
     app.Configure(fun config ->
-        config.AddCommand<Hello>("greet")
-            .WithAlias("g")
-            .WithDescription("Greets the user running the application.")
+        config.AddCommand<Output>("output")
+            .WithAlias("o")
+            .WithDescription("Shows examples of printing things to the console.")
             |> ignore
 
         config.AddCommand<PromptExample>("prompt")

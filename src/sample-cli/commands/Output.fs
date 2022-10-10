@@ -3,12 +3,12 @@ namespace SpectreFs.Sample.Commands
 open Spectre.Console.Cli
 open SpectreFs.Output
 
-type HelloSettings() =
+type OutputSettings() =
     inherit CommandSettings()
    
-type Hello() =
-    inherit Command<HelloSettings>()
-    interface ICommandLimiter<HelloSettings>
+type Output() =
+    inherit Command<OutputSettings>()
+    interface ICommandLimiter<OutputSettings>
 
     override _.Execute(_context, _) = 
 
