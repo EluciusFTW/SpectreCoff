@@ -1,9 +1,9 @@
-# Spectre.Fs
-A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console) in F#.
+# SpecteCoff
+_Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console).
 
-## Spectre.Fs
+## SpecteCoff
 ### Goals and Philosophy
-Our goal with Spectre.Fs is two-fold: 
+Our goal with SpecteCoff is two-fold: 
 * Make Spectre.Console available for console application in F# in an idiomatic way, and moreover
 * Provide a very easy, natural and seamless api surface to the underlying functionality of Spectre.
 
@@ -23,8 +23,8 @@ dotnet run table example
 ```
 will showcase the features of the table module in one example.
 
-### The Spectre.Fs api
-Spectre.Fs is organized in modules which mirror the features of Spectre.Console. The source code for the nuget package can be found in the subfolder `/src/spectre-fs/`.
+### The SpecteCoff api
+SpecteCoff is organized in modules which mirror the features of Spectre.Console. The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
 
 #### Output and Markup
 
@@ -34,9 +34,8 @@ Spectre.Fs is organized in modules which mirror the features of Spectre.Console.
 
 #### Rule
 
-## Sample Cli
-Additionally to the package, this repository contains a sample console project demonstrating how to use each of the provided wrappers.
-You can see each command in action by navigating to `/src/sample-api/` and running
+## SpectreCoff Cli - Samples and Documentation
+Additionally to the package, this repository contains a console project demonstrating how to use each of the provided wrappers. You can see each command in action by navigating to `/src/spectrecoff-cli/` and running
 
 ```PS
 dotnet run <command> 
@@ -44,7 +43,7 @@ dotnet run <command>
 or compiling the cli and running the exe.
 
 The currently supported commands, also discoverable by `dotnet run -- -h` (the funky dashes are needed, else dotnet run consumes the arguments!) are
-* `greet`, taken over from the starter template, to be renamed
+* `output`
 * `table` 
 * `prompt`
 * `rule`
