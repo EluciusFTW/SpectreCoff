@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>spectre_fs_samples</RootNamespace>
+    <RootNamespace>SpectreCoff.Cli</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\spectre-fs\spectre-fs.fsproj" />
+    <ProjectReference Include="..\spectrecoff\SpectreCoff.fsproj" />
   </ItemGroup>
 </Project>

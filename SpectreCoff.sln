@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C6C93A29-7462-4BE7-B794-DE2FDA2DC57D}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SpectreCoff", "src\spectrecoff\SpectreCoff.fsproj", "{BA13C3DB-6777-4918-A950-EC45503C9E1F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SpectreCoff.Cli", "src\spectrecoff-cli\SpectreCoff.Cli.fsproj", "{673FDA0F-43A7-4E0F-AACD-0A78C3C2D653}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BA13C3DB-6777-4918-A950-EC45503C9E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA13C3DB-6777-4918-A950-EC45503C9E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA13C3DB-6777-4918-A950-EC45503C9E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA13C3DB-6777-4918-A950-EC45503C9E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{673FDA0F-43A7-4E0F-AACD-0A78C3C2D653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{673FDA0F-43A7-4E0F-AACD-0A78C3C2D653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{673FDA0F-43A7-4E0F-AACD-0A78C3C2D653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{673FDA0F-43A7-4E0F-AACD-0A78C3C2D653}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA13C3DB-6777-4918-A950-EC45503C9E1F} = {C6C93A29-7462-4BE7-B794-DE2FDA2DC57D}
+		{673FDA0F-43A7-4E0F-AACD-0A78C3C2D653} = {C6C93A29-7462-4BE7-B794-DE2FDA2DC57D}
+	EndGlobalSection
+EndGlobal
