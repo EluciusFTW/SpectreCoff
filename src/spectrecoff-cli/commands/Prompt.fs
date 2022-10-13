@@ -1,8 +1,8 @@
-namespace SpectreFs.Sample.Commands
+namespace SpecteCoff.Cli.Commands
 
 open Spectre.Console.Cli
-open SpectreFs.Prompt
-open SpectreFs.Output
+open SpecteCoff.Prompt
+open SpecteCoff.Output
 
 type PromptSettings()  =
     inherit CommandSettings()
@@ -21,8 +21,8 @@ type PromptExample() =
         | false -> printMarkedUp (warn "Ok, maybe later :/")
         0
 
-open SpectreFs.Rule
-open SpectreFs.Sample
+open SpecteCoff.Rule
+open SpecteCoff.Cli
 
 type PromptDocumentation() =
     inherit Command<PromptSettings>()

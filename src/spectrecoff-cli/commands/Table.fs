@@ -1,7 +1,7 @@
-namespace SpectreFs.Sample.Commands
+namespace SpecteCoff.Cli.Commands
 
 open Spectre.Console.Cli
-open SpectreFs.Table
+open SpecteCoff.Table
 
 type TableExampleSettings()  =
     inherit CommandSettings()
