@@ -64,7 +64,7 @@ type Output() =
             NewLine
             E "That is the motivation for the short"
             W "No need to escape markup characters from strings [ ... /] manually." 
-            Collection [
+            CO [
                 S "The CO type can be used to print "; 
                 E "multiple marked up pieces"; 
                 W " in one line, too." 

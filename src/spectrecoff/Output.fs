@@ -89,7 +89,13 @@ let rec toConsole (payload: OutputPayload) =
     | BI items
     | BulletItems items -> 
         items 
-        |> List.map (fun item -> CO [S bulletItemPrefix; item])
+        |> List.map (fun item -> 
+            match item with
+            | CO items
+            | Collection items -> CO ([S bulletItemPrefix]@items)
+            | BI items
+            | BulletItems items -> failwith "Bullet items can't be used within bullet items, sry."
+            | _ -> CO [S bulletItemPrefix; item])
         |> List.iter toConsole
     | Many values -> values |> List.iter (fun value -> printMarkedUpNL (standard value))
     | ManyMarkedUp markedUp -> markedUp |> List.iter toConsole
