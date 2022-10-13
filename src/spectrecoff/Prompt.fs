@@ -1,4 +1,4 @@
-module SpecteCoff.Prompt
+module SpectreCoff.Prompt
 open Spectre.Console 
 
 let selectionPrompt question choices = 

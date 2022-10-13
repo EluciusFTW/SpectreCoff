@@ -1,4 +1,4 @@
-module SpecteCoff.Table
+module SpectreCoff.Table
 open Spectre.Console
 
 let toRenderableRow (items: Rendering.IRenderable list) =

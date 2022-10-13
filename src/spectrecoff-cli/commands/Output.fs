@@ -1,7 +1,7 @@
-namespace SpecteCoff.Cli.Commands
+namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
-open SpecteCoff.Output
+open SpectreCoff.Output
 
 type OutputSettings() =
     inherit CommandSettings()

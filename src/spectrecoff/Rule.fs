@@ -1,4 +1,4 @@
-﻿module SpecteCoff.Rule
+﻿module SpectreCoff.Rule
 open Spectre.Console
 
 type Alignment =

@@ -1,4 +1,4 @@
-module SpecteCoff.Output
+module SpectreCoff.Output
 open Spectre.Console
 
 // Styles
