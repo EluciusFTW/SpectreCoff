@@ -35,12 +35,12 @@ type PromptDocumentation() =
         printfn ""
         alignedRule Left (emphasize "Prompt module")
         ManyMarkedUp [
-            C $"""This module provides functionality from the {emphasize "text prompt"} module of Spectre.Console"""
+            CO [S "This module provides functionality from the "; E "prompt"; S " of Spectre.Console"]
             NewLine
             S "Currently, we expose two basic functionalities:"
             BI [ 
-                CO [S "Confirmation: "; E "confirm = (message: string) -> bool"]
-                CO [S "Choices: "; E "promptChoices = (choices: string list) -> string"]
+                E "confirm = (message: string) -> bool"
+                E "promptChoices = (choices: string list) -> string"
             ]
             S "More to come soon!"
         ] |> toConsole
