@@ -1,9 +1,9 @@
-﻿namespace SpecteCoff.Cli.Commands
+﻿namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
-open SpecteCoff.Rule
-open SpecteCoff.Output
-open SpecteCoff.Cli
+open SpectreCoff.Rule
+open SpectreCoff.Output
+open SpectreCoff.Cli
 
 type RuleSettings()  =
     inherit CommandSettings()

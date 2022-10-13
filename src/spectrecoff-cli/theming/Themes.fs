@@ -1,5 +1,5 @@
-namespace SpecteCoff.Cli
-open SpecteCoff.Output
+namespace SpectreCoff.Cli
+open SpectreCoff.Output
 
 module Theme = 
 

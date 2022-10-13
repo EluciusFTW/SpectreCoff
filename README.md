@@ -1,9 +1,9 @@
-# SpecteCoff
+# SpectreCoff
 _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console).
 
-## SpecteCoff
+## SpectreCoff
 ### Goals and Philosophy
-Our goal with SpecteCoff is two-fold: 
+Our goal with SpectreCoff is two-fold: 
 * Make Spectre.Console available for console application in F# in an idiomatic way, and moreover
 * Provide a very easy, natural and seamless api surface to the underlying functionality of Spectre.
 
@@ -23,8 +23,8 @@ dotnet run table example
 ```
 will showcase the features of the table module in one example.
 
-### The SpecteCoff api
-SpecteCoff is organized in modules which mirror the features of Spectre.Console. The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
+### The SpectreCoff api
+SpectreCoff is organized in modules which mirror the features of Spectre.Console. The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
 
 #### Output and Markup
 

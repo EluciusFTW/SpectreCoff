@@ -1,5 +1,5 @@
 ﻿open Spectre.Console.Cli
-open SpecteCoff.Cli.Commands
+open SpectreCoff.Cli.Commands
 
 [<EntryPoint>]
 let main argv =
