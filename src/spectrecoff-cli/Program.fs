@@ -7,12 +7,10 @@ let main argv =
     let app = CommandApp()
     app.Configure(fun config ->
         config.AddCommand<Output>("output")
-            .WithAlias("o")
             .WithDescription("Shows examples of printing things to the console.")
             |> ignore
 
         config.AddCommand<TableExample>("table")
-            .WithAlias("t")
             .WithDescription("Shows examples of tables.")
             |> ignore
 
