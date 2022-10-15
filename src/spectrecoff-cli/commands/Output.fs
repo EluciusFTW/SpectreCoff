@@ -18,7 +18,14 @@ type Output() =
         
         NewLine |> toConsole
         
-        // There are several ways to print a single line:
+        // There are several ways to print a single line.
+        // Generic way
+        MCS ("underline", "red", "This is underline red") |> toConsole
+        MS ("underline", "This is underline.") |> toConsole
+        MC ("red", "This is red") |> toConsole
+        NewLine |> toConsole
+
+        // Convenience way
         Standard "This utilizes the standard style. " |> toConsole
         S "S is a short for Standard." |> toConsole
         NewLine |> toConsole

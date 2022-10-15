@@ -18,7 +18,10 @@ let mutable bulletItemPrefix = " + "
 let markup color style content = 
     match style with
     | "" -> $"[{color}]{Markup.Escape content}[/]"
-    | _ -> $"[{color} {style}]{Markup.Escape content}[/]"
+    | _ -> 
+        match color with
+        | "" -> $"[{style}]{Markup.Escape content}[/]"
+        | _ ->  $"[{color} {style}]{Markup.Escape content}[/]"
 
 let emphasize content = markup emphasizeColor emphasizeStyle content
 let warn content = markup warningColor warningStyle content
@@ -27,7 +30,13 @@ let standard content = markup standardColor standardStyle content
 let printMarkedUp content = AnsiConsole.Markup $"{content}"
 let printMarkedUpNL content = AnsiConsole.Markup $"{content}{System.Environment.NewLine}"
 
-type PrintPayload = 
+type OutputPayload = 
+    | MCS of string*string*string
+    | MarkupCS of string*string*string
+    | MC of string*string
+    | MarkupC of string*string
+    | MS of string*string
+    | MarkupS of string*string
     | S of string
     | Standard of string
     | E of string
@@ -36,15 +45,15 @@ type PrintPayload =
     | Warn of string
     | C of string
     | Custom of string
-    | CO of PrintPayload list
-    | Collection of PrintPayload list
-    | BI of PrintPayload list
-    | BulletItems of PrintPayload list
+    | CO of OutputPayload list
+    | Collection of OutputPayload list
+    | BI of OutputPayload list
+    | BulletItems of OutputPayload list
     | NewLine    
     | Many of string list
-    | ManyMarkedUp of PrintPayload list
+    | ManyMarkedUp of OutputPayload list
 
-let printInline (payload: PrintPayload) = 
+let printInline (payload: OutputPayload) = 
     match payload with
     | S value
     | Standard value ->  printMarkedUp (standard value)
@@ -56,8 +65,14 @@ let printInline (payload: PrintPayload) =
     | Custom value -> printMarkedUp value
     | _ -> ()
 
-let rec toConsole (payload: PrintPayload) = 
+let rec toConsole (payload: OutputPayload) = 
     match payload with
+    | MCS (color, style, content)
+    | MarkupCS (color, style, content) -> markup color style content |> printMarkedUp
+    | MC (color, content)
+    | MarkupC (color, content) -> markup color "" content |> printMarkedUp
+    | MS (style, content)
+    | MarkupS (style, content) -> markup "" style content |> printMarkedUp
     | S value
     | Standard value ->  printMarkedUpNL (standard value)
     | E value
