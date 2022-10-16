@@ -1,44 +1,82 @@
 module SpectreCoff.Table
+
 open Spectre.Console
-
-type SizingBehaviour =
-    | Expand
-    | Collapse
-
-type Alignment =
-    | Left
-    | Center
-    | Right
+open SpectreCoff.Layout
+open SpectreCoff.Output
 
 type TableLayout = 
-    {
-        Border: TableBorder;
-        Sizing: SizingBehaviour;
-        HideHeaders: bool;
-        Alignment: Alignment
-    }
+    {  Border: TableBorder;
+       Sizing: SizingBehaviour;
+       HideHeaders: bool;
+       Alignment: Alignment }
 
-let (defaultTableLayout: TableLayout) = 
-    {
-        Border = TableBorder.Rounded
-        Sizing = Expand
-        Alignment = Left
-        HideHeaders = false
-    }
+type ColumnLayout = 
+    {  Alignment: Alignment
+       LeftPadding: int
+       RightPadding: int
+       Wrap: bool }
 
-let toRenderableRow (items: Rendering.IRenderable list) =
-    TableRow(items)
+let defaultTableLayout: TableLayout = 
+    {  Border = TableBorder.Rounded
+       Sizing = Expand
+       Alignment = Left
+       HideHeaders = false }
 
-let toStringRow values =
-    toRenderableRow (values |> List.map (fun v -> Markup(v.ToString())))
+let defaultColumnLayout: ColumnLayout = 
+    {  Alignment = Center
+       LeftPadding = 2
+       RightPadding = 2
+       Wrap = true }
 
-let toColumn (value: string) =
-    TableColumn(value)
+type Row = 
+    | Payloads of PrintPayload list
+    | Renderables of Rendering.IRenderable list
+    | Strings of string list
+    | Numbers of int list
 
-let toColumns values =
-    values |> List.map(fun v -> toColumn (v.ToString()))
+type HeaderContent =
+    | Simple of string
+    | Renderable of Rendering.IRenderable
+    | Payload of PrintPayload
 
-let table (layout: TableLayout) (columns: TableColumn list) (rows: TableRow list) =
+type Header = 
+    | DefaultHeader of HeaderContent
+    | CustomHeader of HeaderContent * ColumnLayout
+
+let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
+    match layout.Alignment with
+    | Left -> column.LeftAligned() |> ignore
+    | Right -> column.RightAligned() |> ignore
+    | Center -> column.Centered() |> ignore
+
+    column.PadLeft layout.LeftPadding |> ignore
+    column.PadRight layout.RightPadding |> ignore
+
+    column.NoWrap <- not layout.Wrap
+    column
+
+let private toSpectreContentColumn (content: HeaderContent) =
+    match content with
+    | Simple value -> TableColumn(value) 
+    | Renderable renderable -> TableColumn(renderable) 
+    | Payload renderable -> TableColumn(renderable |> toRenderablePayload)
+
+let private toSpectreColumn (header: Header) =
+    match header with
+    | DefaultHeader content -> toSpectreContentColumn content |> applyLayout defaultColumnLayout
+    | CustomHeader (content, layout) -> toSpectreContentColumn content |> applyLayout layout
+
+let addRow (table: Table) (row: Row) =
+    let values = 
+        match row with
+        | Renderables rs -> rs
+        | Strings values -> values |> List.map (fun value -> Text value)
+        | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
+        | Payloads payloads -> payloads |> List.map (fun payload -> toRenderablePayload payload)
+
+    table.AddRow(values) |> ignore
+
+let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
     let table = new Table()
 
     match layout.Alignment with
@@ -54,12 +92,21 @@ let table (layout: TableLayout) (columns: TableColumn list) (rows: TableRow list
     | true -> table.HideHeaders() |> ignore
     | false -> () |> ignore
     
-    columns |> List.iter (fun column -> table.AddColumn(column) |> ignore)
-    rows |> List.iter (fun row -> table.AddRow(row) |> ignore)
+    headers |> List.iter (
+        fun header -> 
+            toSpectreColumn header 
+            |> table.AddColumn 
+            |> ignore)
+    rows |> List.iter (addRow table)
     table
 
-let stable columns rows =
-    table defaultTableLayout (toColumns columns) (rows |> List.map toStringRow)
+let table =
+    customTable defaultTableLayout
 
-let print table = AnsiConsole.Write (table: Table)
-let printcr columns rows = print (table defaultTableLayout rows columns)
+
+// Output methods
+let toConsole (table: Table) = 
+    table |> AnsiConsole.Write
+
+let printcr columns rows = 
+    customTable defaultTableLayout rows columns |> toConsole

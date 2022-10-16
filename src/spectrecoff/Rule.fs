@@ -1,10 +1,6 @@
 ﻿module SpectreCoff.Rule
+open SpectreCoff.Layout
 open Spectre.Console
-
-type Alignment =
-    | Left
-    | Center
-    | Right
 
 let mutable defaultAlignment = Center
 
