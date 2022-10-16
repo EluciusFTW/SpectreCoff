@@ -1,6 +1,7 @@
 ﻿namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
+open SpectreCoff.Layout
 open SpectreCoff.Rule
 open SpectreCoff.Output
 open SpectreCoff.Cli
