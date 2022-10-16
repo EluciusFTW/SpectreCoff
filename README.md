@@ -38,7 +38,7 @@ will showcase the features of the table module in one example.
 SpectreCoff is organized in modules which mirror the features of Spectre.Console. The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
 
 ### Output and Markup
-Spectre offers very flexible markup by using variations od this command ([see here](https://spectreconsole.net/markup)):
+Spectre offers very flexible markup by using variations of this command ([see here](https://spectreconsole.net/markup)):
 ```Cs
 AnsiConsole.Markup("[red bold]{0}[/]", Markup.Escape("Hello [World]"));
 ```
