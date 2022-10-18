@@ -29,7 +29,7 @@ let defaultColumnLayout: ColumnLayout =
        Wrap = true }
 
 type Row = 
-    | Payloads of PrintPayload list
+    | Payloads of OutputPayload list
     | Renderables of Rendering.IRenderable list
     | Strings of string list
     | Numbers of int list
@@ -37,7 +37,7 @@ type Row =
 type HeaderContent =
     | Simple of string
     | Renderable of Rendering.IRenderable
-    | Payload of PrintPayload
+    | Payload of OutputPayload
 
 type Header = 
     | DefaultHeader of HeaderContent
@@ -69,7 +69,7 @@ let private toSpectreColumn (header: Header) =
 let addRow (table: Table) (row: Row) =
     let values = 
         match row with
-        | Renderables rs -> rs
+        | Renderables renderables -> renderables
         | Strings values -> values |> List.map (fun value -> Text value)
         | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
         | Payloads payloads -> payloads |> List.map (fun payload -> toRenderablePayload payload)
@@ -102,7 +102,6 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
 
 let table =
     customTable defaultTableLayout
-
 
 // Output methods
 let toConsole (table: Table) = 

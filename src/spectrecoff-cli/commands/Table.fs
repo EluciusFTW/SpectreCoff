@@ -4,6 +4,7 @@ open Spectre.Console.Cli
 open SpectreCoff.Table
 open SpectreCoff.Output
 open SpectreCoff.Layout
+open Spectre.Console
 
 type TableExampleSettings()  =
     inherit CommandSettings()
@@ -20,21 +21,34 @@ type TableExample() =
         ]
 
         let rows = [
-            Numbers [1; 2]
-            Strings ["Alfons"; "Schubeck"]
+            Numbers [11; 37]
+            Strings ["Frank"; "Farmington"]
         ]
 
-        let table = table headers rows
-        table |> SpectreCoff.Table.toConsole
-
-        E "Nested tables" |> toConsole
+        E "This shows a table with a default and custom laid-out column." |> toConsole
+        let exampleTable = table headers rows
+        exampleTable |> SpectreCoff.Table.toConsole
         
-        let some = markupString "red" "bold" "some text" |> markup
+        NewLine |> toConsole
+        E "Rows can be added to the same table later on." |> toConsole
+        addRow exampleTable (Numbers [23; 45])
+        exampleTable |> SpectreCoff.Table.toConsole
 
-        let nextRows = [
-            Row.Renderables [ table;  some ]
-            Payloads [ E "Let's"; W " Go!" ] 
-        ]
+        NewLine |> toConsole
+        E "Tables can be nested, or contain other markup" |> toConsole
+        
+        let exampleMarkup = markupString "red" "bold" "some text" |> toMarkup
+        [ 
+          Row.Renderables [ exampleTable;  exampleMarkup ]
+          Payloads [ E "Let's"; W " Go!" ] 
+        ] 
+          |> table headers 
+          |> SpectreCoff.Table.toConsole
 
-        (table headers nextRows) |> SpectreCoff.Table.toConsole
+        NewLine |> toConsole
+        E "The table can be customized, too." |> toConsole
+        customTable  
+            { defaultTableLayout with Sizing = Collapse; Border = TableBorder.Minimal } headers rows 
+            |> SpectreCoff.Table.toConsole
+        
         0
