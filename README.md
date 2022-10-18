@@ -80,13 +80,22 @@ The convenience styles can be altered by mutating the variables, e.g.,
 emphasizeColor <- "yellow"
 emphasizeStyle <- "italic"
 ```
-For a full list of all union cases, please check the [source](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff/Output.fs), and for more complete examples the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
+
+Similar to `ManyMarkedUp`, there is also `Many` which just takes a list of strings, and when sent to the console, prints each string on a separate line, in the _standard style_. 
+
+For a full list of all cases, please check the [source](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff/Output.fs), and for more complete examples the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
 
 ### Prompt
+The prompt module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
 
 ### Rule
+The rule module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
 
 ### Table
+The table module is currently in the works!
+
+### Others
+... to be implemented.
 
 ## SpectreCoff Cli
 Additionally to the package, this repository contains a console project demonstrating how to use each of the provided wrappers. You can see each command in action by navigating to `/src/spectrecoff-cli/` and running
