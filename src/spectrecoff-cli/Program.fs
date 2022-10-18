@@ -35,6 +35,17 @@ let main argv =
                 .WithAlias("d")
                 .WithDescription("Shows the documentation for the prompt module.")
                 |> ignore)
+
+        config.AddBranch("panel", fun(add: IConfigurator<PanelSettings>) ->
+            add.AddCommand<PanelExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of panels.")
+                |> ignore
+
+            add.AddCommand<PanelDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the panel module.")
+                |> ignore)
         )
 
     app.Run(argv)

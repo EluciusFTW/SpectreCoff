@@ -10,6 +10,7 @@
     <Compile Include="theming/Themes.fs" />
     <Compile Include="commands/Output.fs" />
     <Compile Include="commands/Table.fs" />
+    <Compile Include="commands/Panel.fs" />
     <Compile Include="commands/Prompt.fs" />
     <Compile Include="commands/Rule.fs" />
     <Compile Include="Program.fs" />
