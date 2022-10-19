@@ -6,6 +6,7 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
 - [Documentation](#documentation)
 - [SpectreCoff Package](#spectrecoff-package)
   * [Output and Markup](#output-and-markup)
+  * [Panel](#panel)
   * [Prompt](#prompt)
   * [Rule](#rule)
   * [Table](#table)
@@ -84,6 +85,9 @@ emphasizeStyle <- "italic"
 Similar to `ManyMarkedUp`, there is also `Many` which just takes a list of strings, and when sent to the console, prints each string on a separate line, in the _standard style_. 
 
 For a full list of all cases, please check the [source](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff/Output.fs), and for more complete examples the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
+
+### Panel
+The panel module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
 
 ### Prompt
 The prompt module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
