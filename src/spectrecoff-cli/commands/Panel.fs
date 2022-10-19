@@ -12,10 +12,10 @@ type PanelExample() =
     interface ICommandLimiter<PanelSettings>
 
     override _.Execute(_context, _) = 
-        let examplePanel = panel "First !" "This is my first panel content" 
+        let examplePanel = panel "First !" "Important text can be highlighted by surrounding it with a border and title." 
         examplePanel |> toConsole    
 
-        let custom = customPanel { defaultPanelLayout with Sizing = Expand } "Custom !!" "This is my first panel content" 
+        let custom = customPanel { defaultPanelLayout with Sizing = Expand } "Custom !!" "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed." 
         custom |> toConsole
         0
 
