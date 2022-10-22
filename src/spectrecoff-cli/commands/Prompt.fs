@@ -2,6 +2,7 @@ namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
 open SpectreCoff.Prompt
+open SpectreCoff.Rule
 open SpectreCoff.Output
 
 type PromptSettings()  =
@@ -21,7 +22,7 @@ type PromptExample() =
         | false -> printMarkedUpInline (warn "Ok, maybe later :/")
         0
 
-open SpectreCoff.Rule
+
 open SpectreCoff.Layout
 open SpectreCoff.Cli
 
@@ -32,12 +33,12 @@ type PromptDocumentation() =
     override _.Execute(_context, _) = 
 
         Theme.setDocumentationStyle
+        NewLine |> toConsole
+        alignedRule Left (emphasize "Prompt module") |> SpectreCoff.Rule.toConsole
         
-        printfn ""
-        alignedRule Left (emphasize "Prompt module")
         ManyMarkedUp [
             CO [S "This module provides functionality from the "; E "prompt"; S " of Spectre.Console"]
-            NewLine
+            NL
             S "Currently, we expose two basic functionalities:"
             BI [ 
                 E "confirm = (message: string) -> bool"
