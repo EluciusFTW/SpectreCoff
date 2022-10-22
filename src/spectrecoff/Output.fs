@@ -52,6 +52,7 @@ type OutputPayload =
     | Collection of OutputPayload list
     | BI of OutputPayload list
     | BulletItems of OutputPayload list
+    | NL
     | NewLine    
     | Many of string list
     | ManyMarkedUp of OutputPayload list
@@ -97,6 +98,7 @@ let rec toConsole (payload: OutputPayload) =
     | Warn value -> printMarkedUp (warn value)
     | C value
     | Custom value -> printMarkedUp value
+    | NL
     | NewLine -> printfn ""
     | CO items
     | Collection items -> 
