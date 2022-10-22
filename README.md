@@ -1,6 +1,7 @@
 # SpectreCoff
 _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console).
 
+> <b>Note</b>: SpectreCoff is as of now still under construction and not yet pubished as a Nuget package. Early, incomplete preview versions will be published soon. 
 ## Table of Contents
 - [Goals and Philosophy](#goals-and-philosophy)
 - [Documentation](#documentation)
@@ -38,6 +39,8 @@ will showcase the features of the table module in one example.
 ## SpectreCoff Package
 SpectreCoff is organized in modules which mirror the features of Spectre.Console. The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
 
+> <b>Note</b>: Although we speak of package, SpectreCoff is as of now not yet pubished as a Nuget package.
+
 ### Output and Markup
 Spectre offers very flexible markup by using variations of this command ([see here](https://spectreconsole.net/markup)):
 ```Cs
@@ -45,44 +48,44 @@ AnsiConsole.Markup("[red bold]{0}[/]", Markup.Escape("Hello [World]"));
 ```
 Doing exactly the same in SpectreCoff looks like this:
 ```Fs
-markup "red" "bold" "Hello [World]" |> printMarkedUp    
+markup "red" "bold" "Hello [World]" |> printMarkedUpInline    
 ```
-However, there is even a more idiomatic way. SpectreCoff exposes a DU type, `OutputPayload`, that handles all kinds of output and can be passed to a single function `toConsole`. The example above, rewritten using this type, would be:
+However, there is even a more idiomatic way. SpectreCoff exposes a discriminated union type, `OutputPayload`, that handles all kinds of output and can be passed to a single function `toConsole`. The example above, rewritten using this type, would be:
 ```Fs
 MarkupCS ("red", "bold", "Hello [World]") |> toConsole
 ```
-While for single-line and single-style printing this does not make a big difference, this allows to print much more complex and composed constructs in one go, like:
+There are three convenience styles that can be used throughout SpectreCoff, namely `Standard`, `Emphasize` and `Warn`. Using these is even simpler:
 ```Fs
-ManyMarkedUp [
-    MarkupC ("green", "Hello there,")
-    Newline
-    Emphasize "Welcome to my party tomorrow night!"
-    NL
-    S "Please bring ... "
-    BI [
-        S "some snacks,"
-        E "some games,"
-        W "and some creepy stories!"
-    ]
-    NL
-    CO [S "See you "; E "later ... "]
-] |> toConsole
-``` 
-You can see a few new concepts in the example above:
-* All union cases have short abbreviations: `MarkupCS = MCS`, `Newline = NL`, ... 
-* There are contol cases, like `Newline = NL` that allow for formatting text blocks in one go,
-* There are complex subconstructs, like `BulletItems = BI` and `Collections = CO`
-* There are three convenience styles, `Emphasize = E`, `Warn = W`, `Standard = S`.
-
-When using the predefined convenience styles, the reason for the abbreviations becomes apparent. Glancing at the bullet items above, one can see that these allow one to use three different styles very easily, _with same indentation_, and hence, the actual content looks very readable.
-
-The convenience styles can be altered by mutating the variables, e.g.,
+Emphasize "Hello world" |> toConsole
+```
+The convenience styles can be altered by mutating the corresponding variables, e.g.,
 ```Fs
 emphasizeColor <- "yellow"
 emphasizeStyle <- "italic"
 ```
+Using the OutputPayload also enables printing more complex content, as well as printing many lines at once, as you can see in this example,
+```Fs
+ManyMarkedUp [
+    MarkupC ("green", "Hello there,")
+    Newline    
+    Emphasize "Welcome to my party tomorrow night!"
+    NL                                                // short for Newline
+    S "Please bring ... "                             // short for Standard
+    BI [                                              // short for BulletItems
+        S "some snacks,"        
+        E "some games,"                               // short for Emphasize
+        W "and some creepy stories!"                  // short for Warn
+    ]
+    NL
+    CO [S "See you "; E "later ... "]                 // short for Collection
+] |> toConsole
+``` 
+in which we also illustrate a few other concepts:
+* There are control cases, like `Newline` that allow for formatting text blocks in one go,
+* All union cases have short abbreviations: `MarkupCS = MCS`, `Newline = NL`, etc. The reason for this is apparent when looking at the block inside BI: By having one letter abbreviations available, the actual content stays aligned and is not distrated from.
+* There are complex subconstructs, like `BulletItems = BI` and `Collections = CO`
 
-Similar to `ManyMarkedUp`, there is also `Many` which just takes a list of strings, and when sent to the console, prints each string on a separate line, in the _standard style_. 
+Similar to `ManyMarkedUp`, there is also `Many`, which takes a list of strings and when sent to the console, prints each string on a separate line, in the _standard style_. 
 
 For a full list of all cases, please check the [source](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff/Output.fs), and for more complete examples the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
 
@@ -103,7 +106,7 @@ You can see each module in action by using the cli included in this repository i
 ```PS
 dotnet run <command> <example/doc>
 ```
-Each module can (ebentually) be used as a command, with the two subcommands `example` and `doc`. THe former will showcase the module while the latter can be used to discover the documentation of the module. The currently supported commands are
+Each module can (eventually) be used as a command, with the two subcommands `example` and `doc`. The former will showcase the module while the latter can be used to discover the documentation of the module. The currently supported commands are:
 * `output`
 * `panel`
 * `prompt`
