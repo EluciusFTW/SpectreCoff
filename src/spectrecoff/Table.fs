@@ -107,5 +107,3 @@ let table =
 let toConsole (table: Table) = 
     table |> AnsiConsole.Write
 
-let printcr columns rows = 
-    customTable defaultTableLayout rows columns |> toConsole
