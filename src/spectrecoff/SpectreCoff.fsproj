@@ -11,6 +11,7 @@
     <Compile Include="Prompt.fs" />
     <Compile Include="Table.fs" />
     <Compile Include="Rule.fs" />
+    <Compile Include="BarChart.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.45.0" />
