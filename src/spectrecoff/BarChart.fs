@@ -28,7 +28,7 @@ let createBasicChart label =
     chart
 
 // todo each list item can also be a "custom item", containing also the color
-let barChart label (items: List<ChartItem>) =
+let barChart label (items: ChartItem list) =
     let chart = createBasicChart label
     items
     |> List.indexed

@@ -25,7 +25,9 @@ type BarChartExample() =
         ]
         alignment <- Alignment.Left
 
-        items |> barChart "Fruits" |> toConsole
+        items
+        |> barChart "Fruits"
+        |> toConsole
         0
 
 type BarChartDocumentation() =
