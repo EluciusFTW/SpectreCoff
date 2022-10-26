@@ -1,8 +1,9 @@
-﻿module SpectreCoff.Cli.Commands
+﻿namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
 open SpectreCoff.BarChart
 open SpectreCoff.Cli
+open SpectreCoff.Layout
 
 type BarChartSettings() =
     inherit CommandSettings()
@@ -22,8 +23,9 @@ type BarChartExample() =
             ChartItem ("Mango", 16)
             ChartItem ("Peach", 6)
         ]
+        alignment <- Alignment.Left
 
-        items |> barChart |> toConsole
+        items |> barChart "Fruits" |> toConsole
         0
 
 type BarChartDocumentation() =
