@@ -4,7 +4,6 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
 > <b>Note</b>: SpectreCoff is as of now still under construction and not yet pubished as a Nuget package. Early, incomplete preview versions will be published soon. 
 ## Table of Contents
 - [Goals and Philosophy](#goals-and-philosophy)
-- [Documentation](#documentation)
 - [SpectreCoff Package](#spectrecoff-package)
   * [Output and Markup](#output-and-markup)
   * [Panel](#panel)
@@ -16,25 +15,38 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
 - [Feedback and Contributing](#feedback-and-contributing)
 
 ## Goals and Philosophy
-Our goal with SpectreCoff is two-fold: 
-* Make Spectre.Console available for console applications in F# in an idiomatic way, and moreover
-* Provide a very easy, natural and seamless api surface to the underlying functionality of Spectre.
+Before we get into the details, we'd like to outline our goals and our guiding principles for designing the SpectreCoff api surface.
 
-In order to achieve the latter, we are taking a highly opinionated approach. For example, we utilize and support three main styles, _standard_, _emphasized_ and _warn_ that are applied consistently across the different modules. Most modules have one _main style/configuration_, which are used in the core functions of the module. However, functions accepting customized styles and options are provided as well, but will naturally require more arguments. All the standards can also be modified.
+1. Make Spectre.Console available for console applications in F# in an idiomatic way.  
+    We expose separate functionality in differnet modules, as functions, with typed arguments instead of generics resp. object-typing. Since many of Spectres functions can handle multiple different kinds of content that often means wrapping your content in a DU. We beleive that the expressesion of intent as well as the resulting robustness and clarity far outweighs the 'overhead' of wrapping. 
 
-Note that not all functionality and fine-grained configurability of Spectre.Console is exposed. We believe that we have chosen the most important use-cases of each of the modules. If you do need more specific functionality, you can always implement it on your own. Feel free to browse our source code to get inspired!  
+1. Provide a very simple and consistent api surface.  
+    In SpectreCoff, we follow the structure Spectre.Console provides very closely. Features of Spectre are translated into modules of the same name. Whenever possible, each module has a function producing '_the module thing_' that is of same name as the module, as well as a `toConsole` function, which delivers the instance to the console. E.g., for the rule feature,
+    ```fs
+    // rule is the function in the Rule module, 
+    // taking the string content as argument, producing a rule instance
+    // toConsole from the Rule module prints it
+    rule "Example"     
+    |> toConsole 
+    ```
+    Of course, for more complex objects, there will be more parameters needed. To achieve this simplicity, this function uses some defaults (in this example the alignment of the rule). These defaults can be overwritten 'globally' (as they are just static variables in the module, but also, the module exposes functions taking in more arguments as well, e.g.,
+    ```fs
+    // alignedRule takes an Alignment as a further argument
+    alignedRule Left "Example"
+    |> toConsole
 
-## Documentation
-You can (eventually) find all modules and exposed functions documented below in the section on the [SpectreCoff package](#spectrecoff-package). Additionally, the repository includes a [cli project](#spectrecoff-cli) (see below), which demonstrates how to consume the api. The api can be used to discover the api and read the documentation as well: For each module, the api has an analogous command, with two sub-commands, _doc_ and _example_. E.g., in order to explore the _table module_,
+    // if all your rules should be left-aligned, you can also set that as the default, which is used by rule
+    defaultAlignment <- Left
+    ```
 
-```PS
-dotnet run table doc
-```
-will output the documentation for the table module, and 
-```PS
-dotnet run table example
-```
-will showcase the features of the table module in one example.
+1. Bake the cake and eat it, too.  
+    We want to feel the joy, and pain, of using our api in the fullest. That's why we have included a [cli project](#spectrecoff-cli) in this repository, where we expose the full documentation as well as provide examples for each functionality, using the api itself.
+    ```PS
+    dotnet run table doc            // prints the documentation of the table module
+    dotnet run table example        // shows examples of the module in action
+    ```
+
+To achieve even more simplicity and consistency we have also decided to bake in three convencience styles,  called _standard_, _emphasize_ and _warn_ (working titles) which are supported and applied consistently as far as possible across the different modules. These can be modified globally as well, of course.
 
 ## SpectreCoff Package
 SpectreCoff is organized in modules which mirror the features of Spectre.Console. The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
@@ -63,7 +75,7 @@ The convenience styles can be altered by mutating the corresponding variables, e
 emphasizeColor <- "yellow"
 emphasizeStyle <- "italic"
 ```
-Using the OutputPayload also enables printing more complex content, as well as printing many lines at once, as you can see in this example,
+Using the `OutputPayload` also enables printing more complex content, as well as printing many lines at once, as you can see in this example,
 ```Fs
 ManyMarkedUp [
     MarkupC ("green", "Hello there,")
