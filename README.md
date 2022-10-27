@@ -18,10 +18,10 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
 Before we get into the details, we'd like to outline our goals and our guiding principles for designing the SpectreCoff api surface.
 
 1. Make Spectre.Console available for console applications in F# in an idiomatic way.  
-    We expose separate functionality in differnet modules, as functions, with typed arguments instead of generics resp. object-typing. Since many of Spectre's functions can handle multiple different kinds of content that often means wrapping your content in a DU. We beleive that the expressesion of intent as well as the resulting robustness and clarity far outweighs the 'overhead' of wrapping. 
+    We expose separate functionality in different modules, as functions, with typed arguments instead of generics resp. object-typing. Since many of Spectre's functions can handle multiple different kinds of content that often means wrapping your content in a DU. We believe that the expression of intent as well as the resulting robustness and clarity far outweigh the 'overhead' of wrapping. 
 
 1. Provide a very simple and consistent api surface.  
-    In SpectreCoff, we follow the structure Spectre.Console provides very closely. Features of Spectre are translated into modules of the same name. Whenever possible, each module has a function producing '_the module thing_' that is of same name as the module, as well as a `toConsole` function, which delivers the instance to the console. E.g., for the rule feature,
+    In SpectreCoff, we follow the structure Spectre.Console provides very closely. Features of Spectre are translated into modules of the same name. Whenever possible, each module exposes a function producing '_the module thing_' that is of same name as the module, as well as a `toConsole` function, which delivers the instance to the console. E.g., for the rule feature,
     ```fs
     // rule is the function in the Rule module, 
     // taking the string content as argument, producing a rule instance
@@ -29,7 +29,7 @@ Before we get into the details, we'd like to outline our goals and our guiding p
     rule "Example"     
     |> toConsole 
     ```
-    Of course, for more complex objects, there will be more parameters needed. To achieve this simplicity, this function uses some defaults (in this example the alignment of the rule). These defaults can be overwritten 'globally' (as they are just static variables in the module, but also, the module exposes functions taking in more arguments as well, e.g.,
+    Of course, for more complex objects, there will be more parameters needed. To achieve this simplicity, this function uses some defaults (in this example the alignment of the rule). These defaults can be overwritten 'globally' (as they are just static variables in the module). The module also exposes functions taking in more arguments as well, e.g.,
     ```fs
     // alignedRule takes an Alignment as a further argument
     alignedRule Left "Example"
@@ -41,7 +41,7 @@ Before we get into the details, we'd like to outline our goals and our guiding p
 
 1. Bake the cake and eat it, too.  
     We want to feel the joy, and pain, of using our api in the fullest. That's why we have included a [cli project](#spectrecoff-cli) in this repository, where we expose the full documentation as well as provide examples for each functionality, using the api itself.
-    ```PS
+    ```fs
     dotnet run table doc            // prints the documentation of the table module
     dotnet run table example        // shows examples of the module in action
     ```
