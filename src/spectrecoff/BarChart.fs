@@ -21,10 +21,13 @@ let createBasicChart label =
     let chart = BarChart()
     chart.Width <- width
     chart.Label <- label
-    chart.LabelAlignment <- match alignment with
-                            | Left -> Justify.Left
-                            | Center -> Justify.Center
-                            | Right -> Justify.Right
+
+    chart.LabelAlignment <-
+        match alignment with
+        | Left -> Justify.Left
+        | Center -> Justify.Center
+        | Right -> Justify.Right
+
     chart
 
 // todo each list item can also be a "custom item", containing also the color
