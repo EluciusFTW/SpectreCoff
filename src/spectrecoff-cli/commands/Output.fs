@@ -1,6 +1,8 @@
 namespace SpectreCoff.Cli.Commands
 
+open Spectre.Console
 open Spectre.Console.Cli
+open SpectreCoff.Layout
 open SpectreCoff.Output
 
 type OutputSettings() =
@@ -12,17 +14,17 @@ type Output() =
 
     override _.Execute(_context, _) = 
 
-        emphasizeColor <- "fuchsia"
-        warningColor <- "red"
-        standardColor <- "green"
+        emphasizeColor <- Color.Fuchsia
+        warningColor <- Color.BlueViolet
+        standardColor <- Color.Green
         
         NewLine |> toConsole
         
         // There are several ways to print a single line.
         // Generic way
-        MCS ("underline", "red", "This is underline red") |> toConsole
-        MS ("underline", "This is underline.") |> toConsole
-        MC ("red", "This is red") |> toConsole
+        MCS (Color.Red, Underline, "This is underline red") |> toConsole
+        MS (Underline, "This is underline.") |> toConsole
+        MC (Color.Red, "This is red") |> toConsole
         NewLine |> toConsole
 
         // Convenience way
@@ -42,7 +44,7 @@ type Output() =
         Custom "This let's you pass in a complete custom style as defined by Spectre." |> toConsole
         C "C is a short for Custom." |> toConsole
         C "In order to be able to write the styles easily, there are some functions:" |> toConsole
-        C $"""You cau use {markupString "purple" "bold" "the markup"} function,""" |> toConsole
+        C $"""You cau use {markupString (Some Color.Purple) Bold "the markup"} function,""" |> toConsole
         C $"""or {standard "the emphasize"}, {emphasize "the emphasize"} {warn "warn"} functions""" |> toConsole
         C "to utilize the same styles as defined in the current theme." |> toConsole
         C $"""As you can see, {emphasize "Custom"} is especially useful for  styles in {warn "one line!"} (more on that below).""" |> toConsole

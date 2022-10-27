@@ -60,11 +60,11 @@ AnsiConsole.Markup("[red bold]{0}[/]", Markup.Escape("Hello [World]"));
 ```
 Doing exactly the same in SpectreCoff looks like this:
 ```Fs
-markup "red" "bold" "Hello [World]" |> printMarkedUpInline    
+markup (Some Color.Red) Bold "Hello [World]" |> printMarkedUpInline    
 ```
 However, there is even a more idiomatic way. SpectreCoff exposes a discriminated union type, `OutputPayload`, that handles all kinds of output and can be passed to a single function `toConsole`. The example above, rewritten using this type, would be:
 ```Fs
-MarkupCS ("red", "bold", "Hello [World]") |> toConsole
+MarkupCS (Color.Red, Bold, "Hello [World]") |> toConsole
 ```
 There are three convenience styles that can be used throughout SpectreCoff, namely `Standard`, `Emphasize` and `Warn`. Using these is even simpler:
 ```Fs
@@ -72,13 +72,13 @@ Emphasize "Hello world" |> toConsole
 ```
 The convenience styles can be altered by mutating the corresponding variables, e.g.,
 ```Fs
-emphasizeColor <- "yellow"
-emphasizeStyle <- "italic"
+emphasizeColor <- Color.Yellow
+emphasizeStyle <- Style.Italic
 ```
 Using the `OutputPayload` also enables printing more complex content, as well as printing many lines at once, as you can see in this example,
 ```Fs
 ManyMarkedUp [
-    MarkupC ("green", "Hello there,")
+    MarkupC (Color.Green, "Hello there,")
     Newline    
     Emphasize "Welcome to my party tomorrow night!"
     NL                                                // short for Newline

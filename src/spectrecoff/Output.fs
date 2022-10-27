@@ -1,45 +1,50 @@
 module SpectreCoff.Output
+
+open SpectreCoff.Layout
 open Spectre.Console
 
 // Styles
-let mutable standardStyle = ""
-let mutable standardColor = "blue"
+let mutable standardStyle = Standard
+let mutable standardColor = Color.Blue
 
-let mutable emphasizeStyle = "bold"
-let mutable emphasizeColor = "lightpink4"
+let mutable emphasizeStyle = Italic
+let mutable emphasizeColor = Color.LightPink1
 
-let mutable warningStyle = "italic"
-let mutable warningColor = "red"
+let mutable warningStyle = Bold
+let mutable warningColor = Color.DarkRed
 
 // Special strings
 let mutable bulletItemPrefix = " + "
 
 // Basic output
-let markupString color style content =
+let markupString (color: Color option) (style: Layout.Style) content =
     match style with
-    | "" -> $"[{color}]{Markup.Escape content}[/]"
+    | Standard -> 
+        match color with
+        | None -> content
+        | Some c -> $"[{c}]{Markup.Escape content}[/]"
     | _ ->
         match color with
-        | "" -> $"[{style}]{Markup.Escape content}[/]"
-        | _ ->  $"[{color} {style}]{Markup.Escape content}[/]"
+        | None -> $"[{stringifyStyle style}]{Markup.Escape content}[/]"
+        | Some c -> $"[{c} {stringifyStyle style}]{Markup.Escape content}[/]"
 
 let toMarkup content =
     Markup content
 
-let emphasize content = markupString emphasizeColor emphasizeStyle content
-let warn content = markupString warningColor warningStyle content
-let standard content = markupString standardColor standardStyle content
+let emphasize content = markupString (Some emphasizeColor) emphasizeStyle content
+let warn content = markupString (Some warningColor) warningStyle content
+let standard content = markupString (Some standardColor) standardStyle content
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
 let printMarkedUp content = AnsiConsole.Markup $"{content}{System.Environment.NewLine}"
 
 type OutputPayload =
-    | MCS of string*string*string
-    | MarkupCS of string*string*string
-    | MC of string*string
-    | MarkupC of string*string
-    | MS of string*string
-    | MarkupS of string*string
+    | MCS of Color * Layout.Style * string
+    | MarkupCS of Color * Layout.Style * string
+    | MC of Color * string
+    | MarkupC of Color * string
+    | MS of Layout.Style * string
+    | MarkupS of Layout.Style * string
     | S of string
     | Standard of string
     | E of string
@@ -85,11 +90,20 @@ let toConsoleInline (payload: OutputPayload) =
 let rec toConsole (payload: OutputPayload) =
     match payload with
     | MCS (color, style, content)
-    | MarkupCS (color, style, content) -> markupString color style content |> printMarkedUp
+    | MarkupCS (color, style, content) -> 
+        content 
+        |> markupString (Some color) style 
+        |> printMarkedUp
     | MC (color, content)
-    | MarkupC (color, content) -> markupString color "" content |> printMarkedUp
+    | MarkupC (color, content) -> 
+        content 
+        |> markupString (Some color) Layout.Standard 
+        |> printMarkedUp
     | MS (style, content)
-    | MarkupS (style, content) -> markupString "" style content |> printMarkedUp
+    | MarkupS (style, content) -> 
+        content
+        |> markupString None style 
+        |> printMarkedUp
     | S value
     | Standard value ->  printMarkedUp (standard value)
     | E value
