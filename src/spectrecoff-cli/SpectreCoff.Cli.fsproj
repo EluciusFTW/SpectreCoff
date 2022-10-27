@@ -13,6 +13,7 @@
     <Compile Include="commands/Panel.fs" />
     <Compile Include="commands/Prompt.fs" />
     <Compile Include="commands/Rule.fs" />
+    <Compile Include="commands/Figlet.fs" />
     <Compile Include="commands/BarChart.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

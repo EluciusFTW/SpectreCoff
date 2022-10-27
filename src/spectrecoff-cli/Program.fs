@@ -22,7 +22,18 @@ let main argv =
 
             add.AddCommand<RuleDocumentation>("doc")
                 .WithAlias("d")
-                .WithDescription("Shows the documentation for the prompt module.")
+                .WithDescription("Shows the documentation for the rule module.")
+                |> ignore)
+
+        config.AddBranch("figlet", fun(add: IConfigurator<FigletSettings>) ->
+            add.AddCommand<FigletExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples for rendering figlets.")
+                |> ignore
+
+            add.AddCommand<FigletDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the figlet module.")
                 |> ignore)
 
         config.AddBranch("prompt", fun(add: IConfigurator<PromptSettings>) ->

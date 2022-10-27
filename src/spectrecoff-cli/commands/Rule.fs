@@ -46,11 +46,15 @@ type RuleDocumentation() =
             BI [ 
                 E "rule: string -> Rule"
             ]
-            C $"""{standard "This rule will use the default style, which can be changed by modifying "}{emphasize "Rule.defaultAlignment"}."""
-            S "It is set to 'Center' by default. Other rules can be used without changing the default by passing in the alignment as an argument to: "
+            NL
+            CO [S "This rule will use the "; E "Rule.defaultAlignment"; S ", which is set to "; E "Center"; S " but can be modified."]
+            NL
+            S "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [ 
                 E "alignedRule: Alignment -> string -> Rule"
             ]
+            NL
             CO [S "The rule can be printed to the console with the "; E "toConsole"; S " function."]
+            NL
         ] |> toConsole
         0
