@@ -4,7 +4,7 @@ open SpectreCoff.Layout
 open Spectre.Console
 
 // Styles
-let mutable standardStyle = Standard
+let mutable standardStyle = None
 let mutable standardColor = Color.Blue
 
 let mutable emphasizeStyle = Italic
@@ -17,22 +17,22 @@ let mutable warningColor = Color.DarkRed
 let mutable bulletItemPrefix = " + "
 
 // Basic output
-let markupString (color: Color option) (style: Layout.Style) content =
+let markupString (color: Color option) (style: Layout.Style option) content =
     match style with
-    | Standard -> 
+    | None -> 
         match color with
         | None -> content
         | Some c -> $"[{c}]{Markup.Escape content}[/]"
-    | _ ->
+    | Some s ->
         match color with
-        | None -> $"[{stringifyStyle style}]{Markup.Escape content}[/]"
-        | Some c -> $"[{c} {stringifyStyle style}]{Markup.Escape content}[/]"
+        | None -> $"[{stringifyStyle s}]{Markup.Escape content}[/]"
+        | Some c -> $"[{c} {stringifyStyle s}]{Markup.Escape content}[/]"
 
 let toMarkup content =
     Markup content
 
-let emphasize content = markupString (Some emphasizeColor) emphasizeStyle content
-let warn content = markupString (Some warningColor) warningStyle content
+let emphasize content = markupString (Some emphasizeColor) (Some emphasizeStyle) content
+let warn content = markupString (Some warningColor) (Some warningStyle) content
 let standard content = markupString (Some standardColor) standardStyle content
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
@@ -92,17 +92,17 @@ let rec toConsole (payload: OutputPayload) =
     | MCS (color, style, content)
     | MarkupCS (color, style, content) -> 
         content 
-        |> markupString (Some color) style 
+        |> markupString (Some color) (Some style)
         |> printMarkedUp
     | MC (color, content)
     | MarkupC (color, content) -> 
         content 
-        |> markupString (Some color) Layout.Standard 
+        |> markupString (Some color) None
         |> printMarkedUp
     | MS (style, content)
     | MarkupS (style, content) -> 
         content
-        |> markupString None style 
+        |> markupString None (Some style)
         |> printMarkedUp
     | S value
     | Standard value ->  printMarkedUp (standard value)

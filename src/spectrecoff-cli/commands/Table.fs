@@ -39,7 +39,7 @@ type TableExample() =
         
         let exampleMarkup = 
             "some text" 
-            |> markupString (Some Color.Red) Bold  
+            |> markupString (Some Color.Red) (Some Bold)
             |> toMarkup
 
         [ Renderables [ exampleTable;  exampleMarkup ]
