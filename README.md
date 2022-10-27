@@ -9,6 +9,7 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
   * [Panel](#panel)
   * [Prompt](#prompt)
   * [Rule](#rule)
+  * [Figlet](#rule)
   * [Table](#table)
 - [SpectreCoff Cli](#spectrecoff-cli)
 - [License](#license)
@@ -110,6 +111,9 @@ The prompt module is already usable, just now documented yet. In the meantime, p
 ### Rule
 The rule module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
 
+### Figlet
+The figlet module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
+
 ### Table
 The table module is currently in the works!
 
@@ -122,8 +126,9 @@ Each module can (eventually) be used as a command, with the two subcommands `exa
 * `output`
 * `panel`
 * `prompt`
-* `table` 
 * `rule`
+* `figlet`
+* `table` 
 
 ## License
 See the license file included in the repository.
