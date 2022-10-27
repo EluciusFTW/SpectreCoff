@@ -15,7 +15,6 @@ type Padding =
     | TopRightBottomLeft of int*int*int*int
 
 type Style = 
-    | Standard
     | Bold
     | Dim
     | Italic
@@ -29,7 +28,6 @@ type Style =
 
 let stringifyStyle style = 
     match style with
-    | Standard -> ""
     | Bold -> "bold"
     | Dim -> "dim"
     | Italic -> "italic"

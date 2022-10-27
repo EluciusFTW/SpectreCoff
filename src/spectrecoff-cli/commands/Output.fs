@@ -44,7 +44,7 @@ type Output() =
         Custom "This let's you pass in a complete custom style as defined by Spectre." |> toConsole
         C "C is a short for Custom." |> toConsole
         C "In order to be able to write the styles easily, there are some functions:" |> toConsole
-        C $"""You cau use {markupString (Some Color.Purple) Bold "the markup"} function,""" |> toConsole
+        C $"""You cau use {markupString (Some Color.Purple) (Some Bold) "the markup"} function,""" |> toConsole
         C $"""or {standard "the emphasize"}, {emphasize "the emphasize"} {warn "warn"} functions""" |> toConsole
         C "to utilize the same styles as defined in the current theme." |> toConsole
         C $"""As you can see, {emphasize "Custom"} is especially useful for  styles in {warn "one line!"} (more on that below).""" |> toConsole

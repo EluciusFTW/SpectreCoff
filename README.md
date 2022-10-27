@@ -60,7 +60,7 @@ AnsiConsole.Markup("[red bold]{0}[/]", Markup.Escape("Hello [World]"));
 ```
 Doing exactly the same in SpectreCoff looks like this:
 ```Fs
-markup (Some Color.Red) Bold "Hello [World]" |> printMarkedUpInline    
+markup (Some Color.Red) (Some Bold) "Hello [World]" |> printMarkedUpInline    
 ```
 However, there is even a more idiomatic way. SpectreCoff exposes a discriminated union type, `OutputPayload`, that handles all kinds of output and can be passed to a single function `toConsole`. The example above, rewritten using this type, would be:
 ```Fs
