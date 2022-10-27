@@ -46,6 +46,17 @@ let main argv =
                 .WithAlias("d")
                 .WithDescription("Shows the documentation for the panel module.")
                 |> ignore)
+
+        config.AddBranch("bar", fun(add: IConfigurator<BarChartSettings>) ->
+            add.AddCommand<BarChartExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of bar charts.")
+                |> ignore
+
+            add.AddCommand<BarChartDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the bar charts module.")
+                |> ignore)
         )
 
     app.Run(argv)
