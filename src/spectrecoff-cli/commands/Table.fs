@@ -37,13 +37,15 @@ type TableExample() =
         NewLine |> toConsole
         E "Tables can be nested, or contain other markup" |> toConsole
         
-        let exampleMarkup = markupString "red" "bold" "some text" |> toMarkup
-        [ 
-          Row.Renderables [ exampleTable;  exampleMarkup ]
-          Payloads [ E "Let's"; W " Go!" ] 
-        ] 
-          |> table headers 
-          |> SpectreCoff.Table.toConsole
+        let exampleMarkup = 
+            "some text" 
+            |> markupString (Some Color.Red) Bold  
+            |> toMarkup
+
+        [ Renderables [ exampleTable;  exampleMarkup ]
+          Payloads [ E "Let's"; W " Go!" ] ] 
+            |> table headers 
+            |> SpectreCoff.Table.toConsole
 
         NewLine |> toConsole
         E "The table can be customized, too." |> toConsole
