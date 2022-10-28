@@ -112,7 +112,7 @@ The prompt module is already usable, just now documented yet. In the meantime, p
 The rule module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
 
 ### Figlet
-The figlet module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
+The figlet module is already usable, just not documented yet. In the meantime, please see the example command for guidance.
 
 ### Table
 The table module is currently in the works!
