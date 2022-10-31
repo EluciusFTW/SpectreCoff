@@ -1,5 +1,6 @@
 ﻿namespace SpectreCoff.Cli.Commands
 
+open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff.BarChart
 open SpectreCoff.Cli
@@ -22,6 +23,7 @@ type BarChartExample() =
             ChartItem ("Strawberry", 15)
             ChartItem ("Mango", 16)
             ChartItem ("Peach", 6)
+            ChartItemWithColor ("White", 2, Color.White)
         ]
         alignment <- Alignment.Left
 

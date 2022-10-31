@@ -15,7 +15,9 @@ let mutable colors = [
     Color.Lime
 ]
 
-type ChartItem = string * float
+type ChartItem =
+    | ChartItem of string * float
+    | ChartItemWithColor of string * float * Color
 
 let createBasicChart label =
     let chart = BarChart()
@@ -30,12 +32,14 @@ let createBasicChart label =
 
     chart
 
-// todo each list item can also be a "custom item", containing also the color
 let barChart label (items: ChartItem list) =
     let chart = createBasicChart label
     items
     |> List.indexed
-    |> List.map (fun item -> BarChartItem(fst (snd item), snd (snd item), colors[fst item % colors.Length]))
+    |> List.map (fun item ->
+        match snd item with
+        | ChartItem (label, value) -> BarChartItem(label, value, colors[fst item % colors.Length])
+        | ChartItemWithColor (label, value, color) -> BarChartItem(label, value, color))
     |> List.iter (fun item -> chart.AddItem(item) |> ignore)
 
     chart
