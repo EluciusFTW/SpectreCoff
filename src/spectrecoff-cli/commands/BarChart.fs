@@ -16,14 +16,14 @@ type BarChartExample() =
     override _.Execute(_context, _settings) =
         // todo add progress of each feature as meta example here and put screenshot in the readme
         let items = [
-            UncoloredChartItem ("Apple", 12)
-            UncoloredChartItem ("Orange", 3)
-            UncoloredChartItem ("Banana", 6)
-            UncoloredChartItem ("Kiwi", 6)
-            UncoloredChartItem ("Strawberry", 15)
-            UncoloredChartItem ("Mango", 16)
-            UncoloredChartItem ("Peach", 6)
-            ColoredChartItem ("White", 2, Color.White)
+            ChartItem ("Apple", 12)
+            ChartItem ("Orange", 3)
+            ChartItem ("Banana", 6)
+            ChartItem ("Kiwi", 6)
+            ChartItem ("Strawberry", 15)
+            ChartItem ("Mango", 16)
+            ChartItem ("Peach", 6)
+            ChartItemWithColor ("White", 2, Color.White)
         ]
         alignment <- Alignment.Left
 

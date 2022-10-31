@@ -16,8 +16,8 @@ let mutable colors = [
 ]
 
 type ChartItem =
-    | UncoloredChartItem of string * float
-    | ColoredChartItem of string * float * Color
+    | ChartItem of string * float
+    | ChartItemWithColor of string * float * Color
 
 let createBasicChart label =
     let chart = BarChart()
@@ -38,8 +38,8 @@ let barChart label (items: ChartItem list) =
     |> List.indexed
     |> List.map (fun item ->
         match snd item with
-        | UncoloredChartItem (label, value) -> BarChartItem(label, value, colors[fst item % colors.Length])
-        | ColoredChartItem (label, value, color) -> BarChartItem(label, value, color))
+        | ChartItem (label, value) -> BarChartItem(label, value, colors[fst item % colors.Length])
+        | ChartItemWithColor (label, value, color) -> BarChartItem(label, value, color))
     |> List.iter (fun item -> chart.AddItem(item) |> ignore)
 
     chart
