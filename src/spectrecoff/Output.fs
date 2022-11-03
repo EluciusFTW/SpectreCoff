@@ -13,20 +13,31 @@ let mutable emphasizeColor = Color.LightPink1
 let mutable warningStyle = Bold
 let mutable warningColor = Color.DarkRed
 
+let mutable linkColor = emphasizeColor
+
 // Special strings
 let mutable bulletItemPrefix = " + "
 
 // Basic output
+let private markupWithColor color content = 
+    $"[{color}]{Markup.Escape content}[/]"
+
+let private markupWithStyle style content = 
+    $"[{style}]{Markup.Escape content}[/]"
+
+let private markupWithColorAndStyle color (style: string) content = 
+    $"[{color} {style}]{Markup.Escape content}[/]"
+
 let markupString (color: Color option) (style: Layout.Style option) content =
     match style with
     | None -> 
         match color with
         | None -> content
-        | Some c -> $"[{c}]{Markup.Escape content}[/]"
+        | Some c -> markupWithColor c content
     | Some s ->
         match color with
-        | None -> $"[{stringifyStyle s}]{Markup.Escape content}[/]"
-        | Some c -> $"[{c} {stringifyStyle s}]{Markup.Escape content}[/]"
+        | None -> markupWithStyle s content
+        | Some c -> markupWithColorAndStyle c (stringifyStyle s) content
 
 let toMarkup content =
     Markup content
@@ -53,6 +64,8 @@ type OutputPayload =
     | Warn of string
     | C of string
     | Custom of string
+    | Link of string
+    | Emoji of string
     | CO of OutputPayload list
     | Collection of OutputPayload list
     | BI of OutputPayload list
@@ -85,6 +98,11 @@ let toConsoleInline (payload: OutputPayload) =
     | Warn value -> printMarkedUpInline (warn value)
     | C value
     | Custom value -> printMarkedUpInline value
+    | Link link -> 
+        link 
+        |> markupWithColorAndStyle linkColor "link"
+        |> printMarkedUpInline 
+    | Emoji emoji -> Emoji.Replace $":{emoji}:" |> printMarkedUpInline
     | _ -> ()
 
 let rec toConsole (payload: OutputPayload) =
@@ -114,6 +132,11 @@ let rec toConsole (payload: OutputPayload) =
     | Custom value -> printMarkedUp value
     | NL
     | NewLine -> printfn ""
+    | Link link -> 
+        link 
+        |> markupWithColorAndStyle linkColor "link"
+        |> printMarkedUp 
+    | Emoji emoji -> Emoji.Replace $":{emoji}:" |> printMarkedUp 
     | CO items
     | Collection items ->
         items |> List.iter toConsoleInline

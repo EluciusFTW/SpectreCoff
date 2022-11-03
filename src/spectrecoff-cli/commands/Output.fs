@@ -50,6 +50,7 @@ type Output() =
         C $"""As you can see, {emphasize "Custom"} is especially useful for  styles in {warn "one line!"} (more on that below).""" |> toConsole
         NewLine |> toConsole
 
+        
         // You can print multiple lines at once very easily as well:
         Many [
             "Sometimes you"
@@ -69,15 +70,30 @@ type Output() =
             CO [
                 S "The CO type can be used to print "; 
                 E "multiple marked up pieces"; 
-                W " in one line, too." 
+                W " in one line, too ... " 
             ]
             NewLine
         ] |> toConsole 
 
+        // There are special payloads for links and emojis:
+        ManyMarkedUp [
+            CO [
+                S "You can easily render clickable links: "
+                Link "https://www.spectreconsole.net"
+            ]
+            CO [
+                S "You can also use emojis: "
+                Emoji "astonished_face"
+                Emoji "ghost"
+                Emoji "cookie"
+            ]
+            NewLine
+        ] |> toConsole
+
         // You can also easily print bullet items:
         bulletItemPrefix <- "  ->> "
         ManyMarkedUp [
-            S "Another common use-case is: "
+            S "Another common use-case are bullet-items: "
             BulletItems [
                 S "listing"
                 E "several"
@@ -85,4 +101,3 @@ type Output() =
             ]
         ] |> toConsole 
         0
-
