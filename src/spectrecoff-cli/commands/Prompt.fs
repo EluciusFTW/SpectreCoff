@@ -37,6 +37,11 @@ type PromptDocumentation() =
         alignedRule Left (emphasize "Prompt module") |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
+            CO [
+                S "This module provides functionality from the prompts of Spectre.Console ("
+                Link "https://spectreconsole.net/prompts"
+                S ")"
+            ]
             CO [S "This module provides functionality from the "; E "prompt"; S " of Spectre.Console"]
             NL
             S "Currently, we expose two basic functionalities:"
