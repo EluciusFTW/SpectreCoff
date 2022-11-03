@@ -40,7 +40,11 @@ type RuleDocumentation() =
         alignedRule Left (emphasize "Rule module") |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
-            CO [S "This module provides functionality from the "; E "rule widget"; S " of Spectre.Console"]
+            CO [
+                S "This module provides functionality from the rule widget of Spectre.Console ("
+                Link "https://spectreconsole.net/widgets/rule"
+                S ")"
+            ]
             NewLine
             S "The rule can be used by the rule function:"
             BI [ 

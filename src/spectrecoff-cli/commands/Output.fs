@@ -50,7 +50,6 @@ type Output() =
         C $"""As you can see, {emphasize "Custom"} is especially useful for  styles in {warn "one line!"} (more on that below).""" |> toConsole
         NewLine |> toConsole
 
-        
         // You can print multiple lines at once very easily as well:
         Many [
             "Sometimes you"
@@ -70,7 +69,7 @@ type Output() =
             CO [
                 S "The CO type can be used to print "; 
                 E "multiple marked up pieces"; 
-                W " in one line, too ... " 
+                W " in one line, too." 
             ]
             NewLine
         ] |> toConsole 

@@ -35,7 +35,11 @@ type FigletDocumentation() =
         SpectreCoff.Rule.alignedRule Left (emphasize "Figlet module") |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
-            CO [S "This module provides functionality from the "; E "figlet widget"; S " of Spectre.Console"]
+            CO [
+                S "This module provides functionality from the figlet widget of Spectre.Console ("
+                Link "https://spectreconsole.net/widgets/figlet"
+                S ")"
+            ]
             NewLine
             S "The figlet can be used by the figlet function:"
             BI [ 
