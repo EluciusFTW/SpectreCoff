@@ -24,7 +24,6 @@ type Style =
     | Slowblink
     | Rapidblink
     | StrikeThrough
-    | Link
 
 let stringifyStyle style = 
     match style with
@@ -37,4 +36,3 @@ let stringifyStyle style =
     | Slowblink -> "slowblink"
     | Rapidblink -> "rapidblink"
     | StrikeThrough -> "strikethrough"
-    | Link -> "link"
