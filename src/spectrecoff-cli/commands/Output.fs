@@ -8,7 +8,7 @@ open SpectreCoff.Output
 type OutputSettings() =
     inherit CommandSettings()
    
-type Output() =
+type OutputExample() =
     inherit Command<OutputSettings>()
     interface ICommandLimiter<OutputSettings>
 
@@ -102,4 +102,15 @@ type Output() =
                 W "items"
             ]
         ] |> toConsole 
+        0
+
+open SpectreCoff.Cli
+
+type OutputDocumentation() =
+    inherit Command<OutputSettings>()
+    interface ICommandLimiter<OutputSettings>
+
+    override _.Execute(_context, _) =
+        Theme.setDocumentationStyle
+        Warn "Sorry, this documentation is not available yet." |> toConsole    
         0

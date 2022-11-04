@@ -10,4 +10,7 @@ module Theme =
         bulletItemPrefix <- "   >> "
         emphasizeColor <- Color.Yellow
         emphasizeStyle <- Italic
+
+        warningColor <- Color.OrangeRed1
+        warningStyle <- Italic
         ()

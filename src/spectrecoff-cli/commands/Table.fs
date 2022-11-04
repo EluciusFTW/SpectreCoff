@@ -6,12 +6,12 @@ open SpectreCoff.Output
 open SpectreCoff.Layout
 open Spectre.Console
 
-type TableExampleSettings()  =
+type TableSettings()  =
     inherit CommandSettings()
 
 type TableExample() =
-    inherit Command<TableExampleSettings>()
-    interface ICommandLimiter<TableExampleSettings>
+    inherit Command<TableSettings>()
+    interface ICommandLimiter<TableSettings>
 
     override _.Execute(_context, _) =
 
@@ -53,4 +53,15 @@ type TableExample() =
             { defaultTableLayout with Sizing = Collapse; Border = TableBorder.Minimal } headers rows 
             |> SpectreCoff.Table.toConsole
         
+        0
+
+open SpectreCoff.Cli
+
+type TableDocumentation() =
+    inherit Command<TableSettings>()
+    interface ICommandLimiter<TableSettings>
+
+    override _.Execute(_context, _) =
+        Theme.setDocumentationStyle
+        Warn "Sorry, this documentation is not available yet." |> toConsole    
         0

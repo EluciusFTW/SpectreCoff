@@ -6,11 +6,7 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
 - [Goals and Philosophy](#goals-and-philosophy)
 - [SpectreCoff Package](#spectrecoff-package)
   * [Output and Markup](#output-and-markup)
-  * [Panel](#panel)
-  * [Prompt](#prompt)
-  * [Rule](#rule)
-  * [Figlet](#rule)
-  * [Table](#table)
+  * [Modules](#modules)
 - [SpectreCoff Cli](#spectrecoff-cli)
 - [License](#license)
 - [Feedback and Contributing](#feedback-and-contributing)
@@ -35,7 +31,7 @@ Before we get into the details, we'd like to outline our goals and our guiding p
     |> figlet        // main function of the module producing the figlet instance
     |> toConsole     // toConsole function of the figlet module
     ```
-    Of course, for more complex objects, there will be more parameters needed. To achieve this simplicity, teh main function uses some defaults (in this example the alignment of the figlet). These defaults can be overwritten 'globally' (as they are just static variables in the module), or passed to other functions taking in more arguments, e.g.,
+    Of course, for more complex objects, there will be more parameters needed. To achieve this simplicity, the main function uses some defaults (in this example the alignment of the figlet). These defaults can be overwritten 'globally' (as they are just static variables in the module), or passed to other functions taking in more arguments, e.g.,
     ```fs
     "Hello again"
     |> alignedFiglet Left 
@@ -49,8 +45,8 @@ Before we get into the details, we'd like to outline our goals and our guiding p
 
     We want to feel the joy, and pain, of using our api in the fullest. That's why we have included a [cli project](#spectrecoff-cli) in this repository, where we expose the full documentation as well as provide examples for each functionality, using the api itself.
     ```fs
-    dotnet run table doc            // prints the documentation of the table module
-    dotnet run table example        // shows examples of the module in action
+    dotnet run figlet doc            // prints the documentation of the figlet module
+    dotnet run figlet example        // shows examples of the module in action
     ```
 
 To achieve even more simplicity and consistency across the different modules, we have also decided to bake in three convencience styles, called _standard_, _emphasize_ and _warn_ (working titles) which are supported and applied consistently as far as possible across the different modules. These can be modified globally as well, of course.
@@ -107,7 +103,7 @@ emphasizeStyle <- Style.Italic
 ```
 
 #### Composite Payloads
-Some of the payloads listed above in turn accept payloads as arguments. Composing them in this way allows printing more complex content, as well as aggregating all output in one go before printing it. This can be sen in this example,
+Some of the payloads listed above in turn accept payloads as arguments. Composing them in this way allows printing more complex content, as well as aggregating all output in one go before printing it. This can be seen in this example,
 ```Fs
 ManyMarkedUp [
     MarkupC (Color.Green, "Hello friends,")
@@ -127,20 +123,24 @@ ManyMarkedUp [
 These composites are also the motivation for the short aliases of payloads, as these make it possible to focuis on the content and not be distracted too much by the types.
 For more examples, please see the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
 
-### Panel
+### Modules
+#### Panel
 The panel module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
 
-### Prompt
+#### Prompt
 The prompt module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
 
-### Rule
+#### Rule
 The rule module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
 
-### Figlet
+#### Figlet
 The figlet module is already usable, just not documented yet. In the meantime, please see the example command for guidance.
 
-### Table
+#### Table
 The table module is currently in the works!
+
+#### Chart
+The chart module is currently in the works!
 
 ## SpectreCoff Cli
 You can see each module in action by using the cli included in this repository in `/src/spectrecoff-cli/`. 
@@ -149,18 +149,17 @@ Simply run
 dotnet run <command> example | doc
 ```
 for any command with the subcommand `example` or `doc`, depending on if you want to see an example, or the documentation of the command.
-To see all different types of ways to print `OutputPayloads` use output as a command without a subcommand.
-
 The currently supported commands are:
 
 | command  | example   | doc   | 
 | -------- | --------- | ------|
-| rule     | [ x ]     | [ x ] 
-| figlet   | [ x ]     | [ x ]  
-| panel    | [ x ]     | [   ] 
-| prompt   | [ x ]     | [ x ] 
-| table    | [ x ]     | [   ] 
-| barChart | [ x ]     | [   ] 
+| output   | &check;   | &cross; 
+| rule     | &check;   | &check; 
+| figlet   | &check;   | &check;
+| panel    | &check;   | &cross;
+| prompt   | &check;   | &check;
+| table    | &check;   | &cross;
+| barChart | &check;   | &cross;
 
 ## License
 See the license file included in the repository.
