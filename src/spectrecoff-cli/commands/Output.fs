@@ -78,14 +78,17 @@ type Output() =
         ManyMarkedUp [
             CO [
                 S "You can easily render clickable links: "
-                Link "https://www.spectreconsole.net"
+                Link "https://www.spectreconsole.net/markup"
             ]
             CO [
-                S "You can also use emojis: "
-                Emoji "astonished_face"
-                Emoji "ghost"
-                Emoji "cookie"
+                S "You can add a label as well: "
+                LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
             ]
+            CO [
+                S "You can also use emojis by their string literals "
+                Emoji "alien_monster"
+            ]
+            S $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
             NewLine
         ] |> toConsole
 
