@@ -6,13 +6,27 @@ let main argv =
 
     let app = CommandApp()
     app.Configure(fun config ->
-        config.AddCommand<Output>("output")
-            .WithDescription("Shows examples of printing things to the console.")
-            |> ignore
+        config.AddBranch("output", fun(add: IConfigurator<OutputSettings>) ->
+            add.AddCommand<OutputExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of printing things to the console.")
+                |> ignore
+            
+            add.AddCommand<OutputDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation of the output module.")
+                |> ignore)
 
-        config.AddCommand<TableExample>("table")
-            .WithDescription("Shows examples of tables.")
-            |> ignore
+        config.AddBranch("table", fun(add: IConfigurator<TableSettings>) ->
+            add.AddCommand<TableExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of tables.")
+                |> ignore
+            
+            add.AddCommand<TableDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation of the table module.")
+                |> ignore)
 
         config.AddBranch("rule", fun(add: IConfigurator<RuleSettings>) ->
             add.AddCommand<RuleExample>("example")
