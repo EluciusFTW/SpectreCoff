@@ -1,11 +1,10 @@
 namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
+open Spectre.Console
+
 open SpectreCoff.Layout
 open SpectreCoff.Figlet
-open SpectreCoff.Output
-open SpectreCoff.Cli
-open Spectre.Console
 
 type FigletSettings()  =
     inherit CommandSettings()
@@ -17,22 +16,27 @@ type FigletExample() =
     override _.Execute(_context, _settings) =
         "Star ..." 
         |> customFiglet Left Color.SeaGreen1 
-        |> SpectreCoff.Figlet.toConsole
+        |> toConsole
         
         "Wars!" 
         |> figlet
-        |> SpectreCoff.Figlet.toConsole
+        |> toConsole
         0
+
+open SpectreCoff.Cli
+open SpectreCoff.Output
 
 type FigletDocumentation() =
     inherit Command<FigletSettings>()
     interface ICommandLimiter<FigletSettings>
 
     override _.Execute(_context, _settings) =
-        
         Theme.setDocumentationStyle
+
         NewLine |> toConsole
-        SpectreCoff.Rule.alignedRule Left (emphasize "Figlet module") |> SpectreCoff.Rule.toConsole
+        emphasize "Figlet module"
+        |> SpectreCoff.Rule.alignedRule Left 
+        |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
             CO [

@@ -22,7 +22,6 @@ type PromptExample() =
         | false -> printMarkedUpInline (warn "Ok, maybe later :/")
         0
 
-
 open SpectreCoff.Layout
 open SpectreCoff.Cli
 
@@ -31,10 +30,12 @@ type PromptDocumentation() =
     interface ICommandLimiter<PromptSettings>
     
     override _.Execute(_context, _) = 
-
         Theme.setDocumentationStyle
+        
         NewLine |> toConsole
-        alignedRule Left (emphasize "Prompt module") |> SpectreCoff.Rule.toConsole
+        emphasize "Prompt module"
+        |> alignedRule Left 
+        |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
             CO [

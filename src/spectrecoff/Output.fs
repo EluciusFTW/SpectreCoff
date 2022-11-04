@@ -28,6 +28,11 @@ let private markupWithStyle style content =
 let private markupWithColorAndStyle color (style: string) content = 
     $"[{color} {style}]{Markup.Escape content}[/]"
 
+let private padEmoji (emoji: string) = 
+    match emoji.StartsWith ":" with
+    | true -> emoji
+    | false -> $":{emoji}:"
+
 let markupString (color: Color option) (style: Layout.Style option) content =
     match style with
     | None -> 
@@ -65,6 +70,7 @@ type OutputPayload =
     | C of string
     | Custom of string
     | Link of string
+    | LinkWithLabel of string*string
     | Emoji of string
     | CO of OutputPayload list
     | Collection of OutputPayload list
@@ -102,7 +108,14 @@ let toConsoleInline (payload: OutputPayload) =
         link 
         |> markupWithColorAndStyle linkColor "link"
         |> printMarkedUpInline 
-    | Emoji emoji -> Emoji.Replace $":{emoji}:" |> printMarkedUpInline
+    | LinkWithLabel (label, link) -> 
+        label 
+        |> markupWithColorAndStyle linkColor $"link={link}"
+        |> printMarkedUp 
+    | Emoji emoji ->
+        emoji 
+        |> padEmoji 
+        |> printMarkedUpInline
     | _ -> ()
 
 let rec toConsole (payload: OutputPayload) =
@@ -136,7 +149,14 @@ let rec toConsole (payload: OutputPayload) =
         link 
         |> markupWithColorAndStyle linkColor "link"
         |> printMarkedUp 
-    | Emoji emoji -> Emoji.Replace $":{emoji}:" |> printMarkedUp 
+    | LinkWithLabel (label, link) -> 
+        label 
+        |> markupWithColorAndStyle linkColor $"link={link}"
+        |> printMarkedUp 
+    | Emoji emoji -> 
+        emoji 
+        |> padEmoji 
+        |> printMarkedUp 
     | CO items
     | Collection items ->
         items |> List.iter toConsoleInline

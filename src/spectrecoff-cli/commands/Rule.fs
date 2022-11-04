@@ -4,7 +4,6 @@ open Spectre.Console.Cli
 open SpectreCoff.Layout
 open SpectreCoff.Rule
 open SpectreCoff.Output
-open SpectreCoff.Cli
 
 type RuleSettings()  =
     inherit CommandSettings()
@@ -14,30 +13,34 @@ type RuleExample() =
     interface ICommandLimiter<RuleSettings>
 
     override _.Execute(_context, _settings) =
-        $"""{emphasize "Hello"}""" 
-            |> alignedRule Left   
-            |> SpectreCoff.Rule.toConsole
+        emphasize "Hello"
+        |> alignedRule Left   
+        |> SpectreCoff.Rule.toConsole
 
         "Fellow" 
-            |> rule
-            |> SpectreCoff.Rule.toConsole
+        |> rule
+        |> SpectreCoff.Rule.toConsole
          
-        $"""{warn "Developer"}""" 
-            |> alignedRule Right 
-            |> SpectreCoff.Rule.toConsole
+        warn "Developer"
+        |> alignedRule Right 
+        |> SpectreCoff.Rule.toConsole
 
         emptyRule |> SpectreCoff.Rule.toConsole
         0
+
+open SpectreCoff.Cli
 
 type RuleDocumentation() =
     inherit Command<RuleSettings>()
     interface ICommandLimiter<RuleSettings>
 
     override _.Execute(_context, _settings) =
-        
         Theme.setDocumentationStyle
+        
         NewLine |> toConsole
-        alignedRule Left (emphasize "Rule module") |> SpectreCoff.Rule.toConsole
+        emphasize "Rule module"
+        |> alignedRule Left 
+        |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
             CO [
