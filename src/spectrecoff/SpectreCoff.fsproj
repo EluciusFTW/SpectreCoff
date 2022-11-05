@@ -1,8 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
     <RootNamespace>SpectreCoff</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <LangVersion>latest</LangVersion>
+		<Version>0.1.0</Version>
+		<Authors>Guy Buss, Daniel Muckelbauer</Authors>
+		<Title>SpectreCoff - Spectre.Console for FSharp</Title>
+		<Description>A thin, opinionated wrapper around Spectre.Console in FSharp</Description>
+		<PackageTags>cli wrapper-api fsharp fsharp-console console-application</PackageTags>
+		<PackageReleaseNotes> First draft pre-release </PackageReleaseNotes>
+		<PackageId>EluciusFTW.SpectreCoff</PackageId>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/EluciusFTW/SpectreCoff</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/EluciusFTW/SpectreCoff</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Layout.fs" />
