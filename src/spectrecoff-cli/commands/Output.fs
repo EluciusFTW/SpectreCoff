@@ -14,9 +14,9 @@ type OutputExample() =
 
     override _.Execute(_context, _) = 
 
-        emphasizeColor <- Color.Fuchsia
-        warningColor <- Color.BlueViolet
-        standardColor <- Color.Green
+        pumpedColor <- Color.Fuchsia
+        edgyColor <- Color.BlueViolet
+        calmColor <- Color.Green
         
         NewLine |> toConsole
         
@@ -28,26 +28,26 @@ type OutputExample() =
         NewLine |> toConsole
 
         // Convenience way
-        Standard "This utilizes the standard style. " |> toConsole
-        S "S is a short for Standard." |> toConsole
+        Calm "This utilizes the calm style. " |> toConsole
+        C "C is a short for Calm." |> toConsole
         NewLine |> toConsole
         
-        Emphasize "This let's you use an alternate style for the line." |> toConsole
-        E "E is a short for Emphasize." |> toConsole
+        Pumped "This let's you use an alternate style for the line." |> toConsole
+        P "P is a short for Pumped." |> toConsole
         NewLine |> toConsole
         
-        Warn "This let's you use an alternate style for the line." |> toConsole
-        W "W is a short for Warn." |> toConsole
+        Edgy "This let's you use yet another alternate style for the line." |> toConsole
+        E "E is a short for Edgy." |> toConsole
         NewLine |> toConsole
 
-        // Custom and composite styles
-        Custom "This let's you pass in a complete custom style as defined by Spectre." |> toConsole
-        C "C is a short for Custom." |> toConsole
-        C "In order to be able to write the styles easily, there are some functions:" |> toConsole
-        C $"""You cau use {markupString (Some Color.Purple) (Some Bold) "the markup"} function,""" |> toConsole
-        C $"""or {standard "the emphasize"}, {emphasize "the emphasize"} {warn "warn"} functions""" |> toConsole
-        C "to utilize the same styles as defined in the current theme." |> toConsole
-        C $"""As you can see, {emphasize "Custom"} is especially useful for  styles in {warn "one line!"} (more on that below).""" |> toConsole
+        // Vanilla and composite styles
+        Vanilla "This let's you pass in a style as defined by Spectre." |> toConsole
+        V "V is a short for Vanilla." |> toConsole
+        V "In order to be able to write the styles easily, there are some functions:" |> toConsole
+        V $"""You cau use {markupString (Some Color.Purple) (Some Bold) "the markup"} function,""" |> toConsole
+        V $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
+        V "to utilize the same styles as defined in the current theme." |> toConsole
+        V $"""As you can see, {pumped "Vanilla"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
         NewLine |> toConsole
 
         // You can print multiple lines at once very easily as well:
@@ -62,14 +62,14 @@ type OutputExample() =
 
         // You can markup each of the lines individually:
         ManyMarkedUp [
-            S "You can print many marked up lines easily as well."
+            C "You can print many marked up lines easily as well."
             NewLine
-            E "That is the motivation for the short"
-            W "No need to escape markup characters from strings [ ... /] manually." 
+            P "That is the motivation for the short"
+            E "No need to escape markup characters from strings [ ... /] manually." 
             CO [
-                S "The CO type can be used to print "; 
-                E "multiple marked up pieces"; 
-                W " in one line, too." 
+                C "The CO type can be used to print "; 
+                P "multiple marked up pieces"; 
+                E " in one line, too." 
             ]
             NewLine
         ] |> toConsole 
@@ -77,29 +77,29 @@ type OutputExample() =
         // There are special payloads for links and emojis:
         ManyMarkedUp [
             CO [
-                S "You can easily render clickable links: "
+                C "You can easily render clickable links: "
                 Link "https://www.spectreconsole.net/markup"
             ]
             CO [
-                S "You can add a label as well: "
+                C "You can add a label as well: "
                 LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
             ]
             CO [
-                S "You can also use emojis by their string literals "
+                C "You can also use emojis by their string literals "
                 Emoji "alien_monster"
             ]
-            S $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
+            C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
             NewLine
         ] |> toConsole
 
         // You can also easily print bullet items:
         bulletItemPrefix <- "  ->> "
         ManyMarkedUp [
-            S "Another common use-case are bullet-items: "
+            C "Another common use-case is: "
             BulletItems [
-                S "listing"
-                E "several"
-                W "items"
+                C "listing"
+                P "several"
+                E "items"
             ]
         ] |> toConsole 
         0
@@ -112,5 +112,5 @@ type OutputDocumentation() =
 
     override _.Execute(_context, _) =
         Theme.setDocumentationStyle
-        Warn "Sorry, this documentation is not available yet." |> toConsole    
+        Edgy "Sorry, this documentation is not available yet." |> toConsole    
         0

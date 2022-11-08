@@ -5,7 +5,7 @@ open SpectreCoff.Layout
 open SpectreCoff.Output
 
 let mutable defaultAlignment = Center
-let mutable defaultColor = emphasizeColor
+let mutable defaultColor = pumpedColor
 
 let customFiglet (alignment: Alignment) (color: Color) content = 
     let figlet = FigletText content

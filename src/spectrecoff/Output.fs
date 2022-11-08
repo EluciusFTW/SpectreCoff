@@ -4,16 +4,16 @@ open SpectreCoff.Layout
 open Spectre.Console
 
 // Styles
-let mutable standardStyle = None
-let mutable standardColor = Color.Blue
+let mutable calmStyle = None
+let mutable calmColor = Color.Blue
 
-let mutable emphasizeStyle = Italic
-let mutable emphasizeColor = Color.LightPink1
+let mutable pumpedStyle = Italic
+let mutable pumpedColor = Color.LightPink1
 
-let mutable warningStyle = Bold
-let mutable warningColor = Color.DarkRed
+let mutable edgyStyle = Bold
+let mutable edgyColor = Color.DarkRed
 
-let mutable linkColor = emphasizeColor
+let mutable linkColor = pumpedColor
 
 // Special strings
 let mutable bulletItemPrefix = " + "
@@ -47,9 +47,9 @@ let markupString (color: Color option) (style: Layout.Style option) content =
 let toMarkup content =
     Markup content
 
-let emphasize content = markupString (Some emphasizeColor) (Some emphasizeStyle) content
-let warn content = markupString (Some warningColor) (Some warningStyle) content
-let standard content = markupString (Some standardColor) standardStyle content
+let pumped content = markupString (Some pumpedColor) (Some pumpedStyle) content
+let edgy content = markupString (Some edgyColor) (Some edgyStyle) content
+let calm content = markupString (Some calmColor) calmStyle content
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
 let printMarkedUp content = AnsiConsole.Markup $"{content}{System.Environment.NewLine}"
@@ -61,17 +61,17 @@ type OutputPayload =
     | MarkupC of Color * string
     | MS of Layout.Style * string
     | MarkupS of Layout.Style * string
-    | S of string
-    | Standard of string
-    | E of string
-    | Emphasize of string
-    | W of string
-    | Warn of string
-    | C of string
-    | Custom of string
     | Link of string
     | LinkWithLabel of string*string
     | Emoji of string
+    | C of string
+    | Calm of string
+    | P of string
+    | Pumped of string
+    | E of string
+    | Edgy of string
+    | V of string
+    | Vanilla of string
     | CO of OutputPayload list
     | Collection of OutputPayload list
     | BI of OutputPayload list
@@ -83,27 +83,28 @@ type OutputPayload =
 
 let toRenderablePayload (payload: OutputPayload) =
     match payload with
-    | S value
-    | Standard value -> standard value |> toMarkup
-    | E value
-    | Emphasize value -> emphasize value|> toMarkup
-    | W value
-    | Warn value -> warn value |> toMarkup
     | C value
-    | Custom value -> value |> toMarkup
+    | Calm value -> 
+        value 
+        |> calm
+        |> toMarkup
+    | P value
+    | Pumped value -> 
+        value 
+        |> pumped 
+        |> toMarkup
+    | E value
+    | Edgy value -> 
+        value 
+        |> edgy
+        |> toMarkup
+    | V value
+    | Vanilla value -> value |> toMarkup
     | NewLine -> "" |> toMarkup
     | _ -> "" |> toMarkup
 
 let toConsoleInline (payload: OutputPayload) =
     match payload with
-    | S value
-    | Standard value ->  printMarkedUpInline (standard value)
-    | E value
-    | Emphasize value -> printMarkedUpInline (emphasize value)
-    | W value
-    | Warn value -> printMarkedUpInline (warn value)
-    | C value
-    | Custom value -> printMarkedUpInline value
     | Link link -> 
         link 
         |> markupWithColorAndStyle linkColor "link"
@@ -116,6 +117,23 @@ let toConsoleInline (payload: OutputPayload) =
         emoji 
         |> padEmoji 
         |> printMarkedUpInline
+    | C value
+    | Calm value -> 
+        value 
+        |> calm 
+        |> printMarkedUpInline
+    | P value
+    | Pumped value ->
+        value 
+        |> pumped 
+        |> printMarkedUpInline
+    | E value
+    | Edgy value -> 
+        value
+        |> edgy 
+        |> printMarkedUpInline
+    | V value
+    | Vanilla value -> value |> printMarkedUpInline
     | _ -> ()
 
 let rec toConsole (payload: OutputPayload) =
@@ -135,14 +153,23 @@ let rec toConsole (payload: OutputPayload) =
         content
         |> markupString None (Some style)
         |> printMarkedUp
-    | S value
-    | Standard value ->  printMarkedUp (standard value)
-    | E value
-    | Emphasize value -> printMarkedUp (emphasize value)
-    | W value
-    | Warn value -> printMarkedUp (warn value)
     | C value
-    | Custom value -> printMarkedUp value
+    | Calm value -> 
+        value 
+        |> calm 
+        |> printMarkedUp
+    | P value
+    | Pumped value -> 
+        value 
+        |> pumped 
+        |> printMarkedUp
+    | E value
+    | Edgy value -> 
+        value 
+        |> edgy 
+        |> printMarkedUp
+    | V value
+    | Vanilla value -> value |> printMarkedUp
     | NL
     | NewLine -> printfn ""
     | Link link -> 
@@ -167,10 +194,10 @@ let rec toConsole (payload: OutputPayload) =
         |> List.map (fun item ->
             match item with
             | CO items
-            | Collection items -> CO ([S bulletItemPrefix]@items)
+            | Collection items -> CO ([C bulletItemPrefix]@items)
             | BI _
             | BulletItems _ -> failwith "Bullet items can't be used within bullet items, sry."
-            | _ -> CO [S bulletItemPrefix; item])
+            | _ -> CO [C bulletItemPrefix; item])
         |> List.iter toConsole
-    | Many values -> values |> List.iter (fun value -> printMarkedUp (standard value))
+    | Many values -> values |> List.iter (fun value -> calm value |> printMarkedUp)
     | ManyMarkedUp markedUp -> markedUp |> List.iter toConsole

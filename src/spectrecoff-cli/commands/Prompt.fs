@@ -14,12 +14,12 @@ type PromptExample() =
 
     override _.Execute(_context, _) = 
         let chosenFruit = promptChoices "Which shall it be?" ["Kiwi"; "Pear"; "Grape"]
-        printMarkedUpInline $"Excellent choice, a {emphasize chosenFruit}!"
+        printMarkedUpInline $"Excellent choice, a {pumped chosenFruit}!"
 
         let answer = confirm "Do you want to eat it right away?"
         match answer with
-        | true -> printMarkedUpInline (emphasize "Bon apetit!")
-        | false -> printMarkedUpInline (warn "Ok, maybe later :/")
+        | true -> printMarkedUpInline (pumped "Bon apetit!")
+        | false -> printMarkedUpInline (edgy "Ok, maybe later :/")
         0
 
 open SpectreCoff.Layout
@@ -33,23 +33,23 @@ type PromptDocumentation() =
         Theme.setDocumentationStyle
         
         NewLine |> toConsole
-        emphasize "Prompt module"
+        pumped "Prompt module"
         |> alignedRule Left 
         |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
             CO [
-                S "This module provides functionality from the prompts of Spectre.Console ("
+                C "This module provides functionality from the prompts of Spectre.Console ("
                 Link "https://spectreconsole.net/prompts"
-                S ")"
+                C ")"
             ]
-            CO [S "This module provides functionality from the "; E "prompt"; S " of Spectre.Console"]
+            CO [C "This module provides functionality from the "; E "prompt"; C " of Spectre.Console"]
             NL
-            S "Currently, we expose two basic functionalities:"
+            C "Currently, we expose two basic functionalities:"
             BI [ 
-                E "confirm = (message: string) -> bool"
-                E "promptChoices = (choices: string list) -> string"
+                P "confirm = (message: string) -> bool"
+                P "promptChoices = (choices: string list) -> string"
             ]
-            S "More to come soon!"
+            C "More to come soon!"
         ] |> toConsole
         0
