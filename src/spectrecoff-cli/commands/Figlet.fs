@@ -34,35 +34,35 @@ type FigletDocumentation() =
         Theme.setDocumentationStyle
 
         NewLine |> toConsole
-        emphasize "Figlet module"
+        pumped "Figlet module"
         |> SpectreCoff.Rule.alignedRule Left 
         |> SpectreCoff.Rule.toConsole
         
         ManyMarkedUp [
             CO [
-                S "This module provides functionality from the figlet widget of Spectre.Console ("
+                C "This module provides functionality from the figlet widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/figlet"
-                S ")"
+                C ")"
             ]
             NewLine
-            S "The figlet can be used by the figlet function:"
+            C "The figlet can be used by the figlet function:"
             BI [ 
-                E "figlet: string -> FigletText"
+                P "figlet: string -> FigletText"
             ]
             NL
-            S "This figlet will use the"
+            C "This figlet will use the"
             BI [
-                CO [E "Figlet.defaultAlignment"; S ", initialized to "; E "Center"; S ", and"]
-                CO [E "Figlet.defaultColor"; S ", initialized to the emphasize color "; E "Output.emphasizeColor"; S ","]
+                CO [P "Figlet.defaultAlignment"; C ", initialized to "; P "Center"; C ", and"]
+                CO [P "Figlet.defaultColor"; C ", initialized to the pumped color "; P "Output.pumpedColor"; C ","]
             ]
-            S "which both can be modified."
+            C "which both can be modified."
             NL
-            S "Other rules can be used without changing the default by passing in the alignment as an argument to: "
+            C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [ 
-                E "customFiglet: Alignment -> Color -> string -> FigletText"
+                P "customFiglet: Alignment -> Color -> string -> FigletText"
             ]
             NL
-            CO [S "The figlet can be printed to the console with the "; E "toConsole"; S " function."]
+            CO [C "The figlet can be printed to the console with the "; P "toConsole"; C " function."]
             NL
         ] |> toConsole
         0

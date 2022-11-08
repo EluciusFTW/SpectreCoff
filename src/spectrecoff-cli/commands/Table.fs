@@ -25,17 +25,17 @@ type TableExample() =
             Strings ["Frank"; "Farmington"]
         ]
 
-        E "This shows a table with a default and custom laid-out column." |> toConsole
+        P "This shows a table with a default and custom laid-out column." |> toConsole
         let exampleTable = table headers rows
         exampleTable |> SpectreCoff.Table.toConsole
         
         NewLine |> toConsole
-        E "Rows can be added to the same table later on." |> toConsole
+        P "Rows can be added to the same table later on." |> toConsole
         addRow exampleTable (Numbers [23; 45])
         exampleTable |> SpectreCoff.Table.toConsole
 
         NewLine |> toConsole
-        E "Tables can be nested, or contain other markup" |> toConsole
+        P "Tables can be nested, or contain other markup" |> toConsole
         
         let exampleMarkup = 
             "some text" 
@@ -43,12 +43,12 @@ type TableExample() =
             |> toMarkup
 
         [ Renderables [ exampleTable;  exampleMarkup ]
-          Payloads [ E "Let's"; W " Go!" ] ] 
+          Payloads [ P "Let's"; E " Go!" ] ] 
             |> table headers 
             |> SpectreCoff.Table.toConsole
 
         NewLine |> toConsole
-        E "The table can be customized, too." |> toConsole
+        P "The table can be customized, too." |> toConsole
         customTable  
             { defaultTableLayout with Sizing = Collapse; Border = TableBorder.Minimal } headers rows 
             |> SpectreCoff.Table.toConsole
@@ -63,5 +63,5 @@ type TableDocumentation() =
 
     override _.Execute(_context, _) =
         Theme.setDocumentationStyle
-        Warn "Sorry, this documentation is not available yet." |> toConsole    
+        Edgy "Sorry, this documentation is not available yet." |> toConsole    
         0
