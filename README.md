@@ -7,6 +7,7 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
 - [SpectreCoff Package](#spectrecoff-package)
   * [Output and Markup](#output-and-markup)
   * [Modules](#modules)
+  * [Versioning](#versioning)
 - [SpectreCoff Cli](#spectrecoff-cli)
 - [License](#license)
 - [Feedback and Contributing](#feedback-and-contributing)
@@ -142,6 +143,13 @@ The table module is currently in the works!
 
 #### Chart
 The chart module is currently in the works!
+
+### Versioning
+We are using [NerdBank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) and follow the version scheme: `<major>.<minor>.<git-depth>` for out releases. 
+
+Since this package is a wrapper around _Spectre.Console_, we will synchronize our major and minor versions with the ones of the Spectre dependency we are wrapping.
+
+> <b>Note</b>: In particular, the _third number_ in the version does not have the same meaning as the patches in SemVer. In particular, increments in that number may contain breaking changes.
 
 ## SpectreCoff Cli
 You can see each module in action by using the cli included in this repository in `/src/spectrecoff-cli/`. 
