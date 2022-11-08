@@ -162,7 +162,10 @@ The currently supported commands are:
 | barChart | &check;   | &cross;
 
 ## License
-See the license file included in the repository.
+Copyright © Guy Buss, Daniel Muckelbauer
+
+SpectreCoff is provided as-is under the MIT license.
+See the LICENSE.md file included in the repository.
 
 ## Feedback and Contributing
 All feedback welcome!
