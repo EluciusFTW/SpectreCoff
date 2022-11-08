@@ -21,9 +21,9 @@ Before we get into the details, we'd like to outline our goals and our guiding p
 1. **Provide a very simple and consistent api surface.** 
 
     In SpectreCoff, we follow the structure Spectre.Console provides very closely. 
-    1. Features of Spectre are translated into modules of the same name. 
-    1. Whenever possible, each module exposes a function producing '_the module thing_' that is of same name as the module.
-    1. Each module has a `toConsole` function, which delivers the instance to the console.
+    - Features of Spectre are translated into modules of the same name. 
+    - Whenever possible, each module exposes a function producing '_the module thing_' that is of same name as the module.
+    - Each module has a `toConsole` function, which delivers the instance to the console.
 
     In the example of the figlet widget of Spectre, which translates into the figlet module, it looks like this:
     ```fs
@@ -40,6 +40,9 @@ Before we get into the details, we'd like to outline our goals and our guiding p
     // if all your figlets should be left-aligned, you can also set that as the default and use the main figlet function
     defaultAlignment <- Left
     ```
+1. **Add a bit of sprinke on top**
+
+    Spectre is great in providing ways to customize output. We wanted to add a bit on top to make it easier to utilize custom styles consistently throughout applications. Among other things, we decided to include three different semantic levels of output, namely: `calm`, `pumped` and `edgy`, which we also call _convenience styles_. These are supported throughout the modules, and each style can be customized individually.  
 
 1. **Bake the cake and eat it, too.**  
 
@@ -48,8 +51,6 @@ Before we get into the details, we'd like to outline our goals and our guiding p
     dotnet run figlet doc            // prints the documentation of the figlet module
     dotnet run figlet example        // shows examples of the module in action
     ```
-
-To achieve even more simplicity and consistency across the different modules, we have also decided to bake in three convencience styles, called _standard_, _emphasize_ and _warn_ (working titles) which are supported and applied consistently as far as possible across the different modules. These can be modified globally as well, of course.
 
 ## SpectreCoff Package
 SpectreCoff is organized in modules which mirror the features of Spectre.Console. 
@@ -77,29 +78,29 @@ The following table lists all payloads currently available:
 | MarkupS      | MS    | Content marked up with a style             | style: `SpectreCoff.Layout.Style`<br /> content: `string`                              | -              |
 | MarkupC      | MC    | Content marked up with a style             | color: `Spectre.Console.Color`<br /> content: `string`                             | -              |
 | MarkupCS     | MCS   | Content marked up with a color and a style | style: `SpectreCoff.Layout.Style`<br /> color: `Spectre.Console.Color`<br /> content: `string` | - |
-| Standard     | S     | Convenience style for standard output      | content: `string`                                      | color: `Output.standardColor` <br /> style: `Output.standardStyle` |
-| Emphasize    | E     | Convenience style for emphasis             | content: `string`                                | color: `Output.emphasizeColor` <br /> style: `Output.emphasizeStyle` |
-| Warn         | W     | Convenience style for warnings             | content: `string`                             | color: `Output.warningColor` <br /> style: `Output.warningStyle` |
-| Custom       | C     | Raw type, no processing will be done       | content: `string`                             | - 
+| Calm     | C     | Convenience style for calm output      | content: `string`                                      | color: `Output.calmColor` <br /> style: `Output.calmStyle` |
+| Pumped    | P     | Convenience style pumped output             | content: `string`                                | color: `Output.pumpedColor` <br /> style: `Output.pumpedStyle` |
+| Edgy         | E     | Convenience style for edgy output             | content: `string`                             | color: `Output.edgyingColor` <br /> style: `Output.edgyingStyle` |
+| Vanilla       | V     | Raw type, no processing will be done       | content: `string`                             | - 
 | Link         | -     | Clickable link showing the URL             | content: `string`                             | - 
 | LinkWithLabel| -     | Clickable link showing a label             | label: `string` <br /> link: `string`         | - 
 | Collection   | CO    | Aggregate multiple payloads in one line    | items: list of `OutputPayload`                | - 
 | Emoji        | -     | An emoji, given by it's string literal | emoji: `string` | -
 | BulletItems  | BI    | Show list of items with bullet points      | items: list of `OutputPayload` | bullet item prefix: `Output.bulletItemPrefix`
 | Newline      | NL    | An empty line                              | - | -
-| Many         | -     | Prints many lines at once, in the standard style | items: list of `string` | (indirectly via the standard style) 
+| Many         | -     | Prints many lines at once, in the calm style | items: list of `string` | (indirectly via the calm style) 
 | ManyMarkedUp | -     | Prints many payloads at once, each on own line | items: list of `OutputPayload` | -
 
 
 #### Convenience Styles
-The table above lists three convenience styles: `Standard`, `Emphasize` and `Warn`. With these, we can easily provide a consistent, and semantically meaningful, styling across the modules:
+The table above lists three convenience styles: `Calm`, `Pumped` and `Edgy`. With these, we can easily provide a consistent, and semantically meaningful, styling across the modules:
 ```Fs
-Emphasize "Hello world" |> toConsole
+Pumped "Hello world" |> toConsole
 ```
 The convenience styles can be altered by mutating the corresponding variables, e.g.,
 ```Fs
-emphasizeColor <- Color.Yellow
-emphasizeStyle <- Style.Italic
+pumpedColor <- Color.Yellow
+pumpedStyle <- Style.Italic
 ```
 
 #### Composite Payloads
@@ -108,16 +109,16 @@ Some of the payloads listed above in turn accept payloads as arguments. Composin
 ManyMarkedUp [
     MarkupC (Color.Green, "Hello friends,")
     Newline    
-    Emphasize "Welcome to my party tomorrow night!"
+    Pumped "Welcome to my party tomorrow night!"
     NL                                                // short for Newline
-    S "Please bring ... "                             // short for Standard
+    C "Please bring ... "                             // short for Calm
     BI [                                              // short for BulletItems
-        S "some snacks,"        
-        E "some games,"                               // short for Emphasize
-        W "and some creepy stories!"                  // short for Warn
+        C "some snacks,"        
+        P "some games,"                               // short for Pumped
+        E "and some creepy stories!"                  // short for Edgy
     ]
     NL
-    CO [S "See you "; E "later ... "]                 // short for Collection
+    CO [C "See you "; P "later ... "]                 // short for Collection
 ] |> toConsole
 ``` 
 These composites are also the motivation for the short aliases of payloads, as these make it possible to focuis on the content and not be distracted too much by the types.
