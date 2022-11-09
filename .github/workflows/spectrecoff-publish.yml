@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
 
-### First version 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,9 +20,9 @@ jobs:
       - run: "echo 'PackageVer: ${{ steps.nbgv.outputs.NuGetPackageVersion }}'"
       
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v2
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.100
+          dotnet-version: 6.0.x
 
       - name: Restore NuGet Packages & Tools
         run: dotnet restore
@@ -48,13 +47,10 @@ jobs:
           VERSION_STATIC: {{ steps.nbgv.outputs.NuGetPackageVersion }}
 
           # Flag to toggle git tagging, enabled by default
-          TAG_COMMIT: false
+          TAG_COMMIT: true
 
           # Format of the git tag, [*] gets replaced with actual version
           TAG_FORMAT: v*
 
-          API key to authenticate with NuGet server
+          # API key to authenticate with NuGet server
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-
-          NuGet server uri hosting the packages, defaults to https://api.nuget.org
-          NUGET_SOURCE: https://api.nuget.org
