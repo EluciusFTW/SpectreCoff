@@ -3,10 +3,11 @@
     <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
     <RootNamespace>SpectreCoff</RootNamespace>
     <LangVersion>latest</LangVersion>
+    <Version>1.2.3</Version>
 		<Authors>Guy Buss, Daniel Muckelbauer</Authors>
     <Copyright>Guy Buss, Daniel Muckelbauer</Copyright>
 		<Title>SpectreCoff - Spectre.Console for FSharp</Title>
-		<Description>A thin, opinionated wrapper around Spectre.Console in FSharp</Description>
+		<Description>A thin, opinionated wrapper around Spectre.Console in FSharp.</Description>
 		<PackageTags>cli commandline console-application spectre spectre.console wrapper wrapper-api FSharp F#</PackageTags>
 		<PackageReleaseNotes> First draft pre-release </PackageReleaseNotes>
 		<PackageId>EluciusFTW.SpectreCoff</PackageId>

@@ -3,8 +3,6 @@ name: spectrecoff-publish
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   build:
@@ -26,30 +24,14 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - name: Restore NuGet Packages & Tools
+      - name: Restore
         run: dotnet restore
 
       - name: Build
         run: dotnet build src/spectrecoff/*.fsproj --configuration Release --no-restore
 
+      - name: Pack
+        run: dotnet pack -c Release -o . src/spectrecoff/*.fsproj
+      
       - name: Publish
-        id: publish_nuget
-        uses: brandedoutcast/publish-nuget@v2
-        with:
-          # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: src/spectrecoff/SpectreCoff.fsproj
-          
-          # NuGet package id, used for version detection & defaults to project name
-          PACKAGE_NAME: EluciusFTW.SpectreCoff
-
-          # Useful with external providers like Nerdbank.GitVersioning, ignores VERSION_FILE_PATH & VERSION_REGEX
-          VERSION_STATIC: ${{ steps.nbgv.outputs.NuGetPackageVersion }}
-
-          # Flag to toggle git tagging, enabled by default
-          TAG_COMMIT: true
-
-          # Format of the git tag, [*] gets replaced with actual version
-          TAG_FORMAT: v*
-
-          # API key to authenticate with NuGet server
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        run: dotnet nuget push *.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
