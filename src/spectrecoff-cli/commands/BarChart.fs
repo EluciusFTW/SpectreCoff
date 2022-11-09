@@ -5,6 +5,9 @@ open Spectre.Console.Cli
 open SpectreCoff.BarChart
 open SpectreCoff.Cli
 open SpectreCoff.Layout
+open SpectreCoff.Rule
+open SpectreCoff.Output
+open SpectreCoff
 
 type BarChartSettings() =
     inherit CommandSettings()
@@ -15,7 +18,7 @@ type BarChartExample() =
 
     override _.Execute(_context, _settings) =
         // todo add progress of each feature as meta example here and put screenshot in the readme
-        let items = [
+        let fruits = [
             ChartItem ("Apple", 12)
             ChartItem ("Orange", 3)
             ChartItem ("Banana", 6)
@@ -25,11 +28,25 @@ type BarChartExample() =
             ChartItem ("Peach", 6)
             ChartItemWithColor ("White", 2, Color.White)
         ]
-        alignment <- Alignment.Left
+        alignment <- Left
+        Theme.setDocumentationStyle
+        
+        "Inventory"
+        |> alignedRule Left
+        |> Rule.toConsole
 
-        items
+        Many [
+           "This is a summary of all the fruits in the storage."
+           "Please consider when choosing what to eat!" 
+        ] |> toConsole
+
+        fruits
         |> barChart "Fruits"
-        |> toConsole
+        |> BarChart.toConsole
+
+        NewLine |> toConsole
+        Edgy "Don't let them spoil!" |> toConsole
+
         0
 
 type BarChartDocumentation() =
