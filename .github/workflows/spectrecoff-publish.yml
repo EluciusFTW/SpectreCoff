@@ -30,7 +30,7 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build src/spectrecoff/*.fsproj -c Release
+        run: dotnet build src/spectrecoff/*.fsproj --configuration Release --no-restore
 
       - name: Publish
         id: publish_nuget
@@ -38,9 +38,6 @@ jobs:
         with:
           # Filepath of the project to be packaged, relative to root of repository
           PROJECT_FILE_PATH: src/spectrecoff/SpectreCoff.fsproj
-          
-          # Configuration to build and package
-          BUILD_CONFIGURATION: Release
           
           # NuGet package id, used for version detection & defaults to project name
           PACKAGE_NAME: EluciusFTW.SpectreCoff
