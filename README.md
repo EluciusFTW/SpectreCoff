@@ -1,7 +1,8 @@
 # SpectreCoff
 _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console).
 
-> <b>Note</b>: SpectreCoff is as of now still under construction and not yet pubished as a Nuget package. Early, incomplete preview versions will be published soon. 
+Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/EluciusFTW.SpectreCoff/).
+
 ## Table of Contents
 - [Goals and Philosophy](#goals-and-philosophy)
 - [SpectreCoff Package](#spectrecoff-package)
@@ -41,7 +42,7 @@ Before we get into the details, we'd like to outline our goals and our guiding p
     // if all your figlets should be left-aligned, you can also set that as the default and use the main figlet function
     defaultAlignment <- Left
     ```
-1. **Add a bit of sprinke on top**
+1. **Add a bit of sprinke on top.**
 
     Spectre is great in providing ways to customize output. We wanted to add a bit on top to make it easier to utilize custom styles consistently throughout applications. Among other things, we decided to include three different semantic levels of output, namely: `calm`, `pumped` and `edgy`, which we also call _convenience styles_. These are supported throughout the modules, and each style can be customized individually.  
 
@@ -56,7 +57,6 @@ Before we get into the details, we'd like to outline our goals and our guiding p
 ## SpectreCoff Package
 SpectreCoff is organized in modules which mirror the features of Spectre.Console. 
 The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
-> <b>Note</b>: Although we speak of package, SpectreCoff is as of now not yet pubished as a Nuget package.
 
 ### Output and Markup
 Spectre offers very flexible markup by using variations of this command ([see here](https://spectreconsole.net/markup)):
