@@ -7,19 +7,19 @@ open SpectreCoff.Output
 
 type OutputSettings() =
     inherit CommandSettings()
-   
+
 type OutputExample() =
     inherit Command<OutputSettings>()
     interface ICommandLimiter<OutputSettings>
 
-    override _.Execute(_context, _) = 
+    override _.Execute(_context, _) =
 
         pumpedColor <- Color.Fuchsia
         edgyColor <- Color.BlueViolet
         calmColor <- Color.Green
-        
+
         NewLine |> toConsole
-        
+
         // There are several ways to print a single line.
         // Generic way
         MCS (Color.Red, Underline, "This is underline red") |> toConsole
@@ -31,11 +31,11 @@ type OutputExample() =
         Calm "This utilizes the calm style. " |> toConsole
         C "C is a short for Calm." |> toConsole
         NewLine |> toConsole
-        
+
         Pumped "This let's you use an alternate style for the line." |> toConsole
         P "P is a short for Pumped." |> toConsole
         NewLine |> toConsole
-        
+
         Edgy "This let's you use yet another alternate style for the line." |> toConsole
         E "E is a short for Edgy." |> toConsole
         NewLine |> toConsole
@@ -44,7 +44,7 @@ type OutputExample() =
         Vanilla "This let's you pass in a style as defined by Spectre." |> toConsole
         V "V is a short for Vanilla." |> toConsole
         V "In order to be able to write the styles easily, there are some functions:" |> toConsole
-        V $"""You cau use {markupString (Some Color.Purple) (Some Bold) "the markup"} function,""" |> toConsole
+        V $"""You can use {markupString (Some Color.Purple) (Some Bold) "the markup"} function,""" |> toConsole
         V $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
         V "to utilize the same styles as defined in the current theme." |> toConsole
         V $"""As you can see, {pumped "Vanilla"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
@@ -65,14 +65,14 @@ type OutputExample() =
             C "You can print many marked up lines easily as well."
             NewLine
             P "That is the motivation for the short"
-            E "No need to escape markup characters from strings [ ... /] manually." 
+            E "No need to escape markup characters from strings [ ... /] manually."
             CO [
-                C "The CO type can be used to print "; 
-                P "multiple marked up pieces"; 
-                E " in one line, too." 
+                C "The CO type can be used to print ";
+                P "multiple marked up pieces";
+                E " in one line, too."
             ]
             NewLine
-        ] |> toConsole 
+        ] |> toConsole
 
         // There are special payloads for links and emojis:
         ManyMarkedUp [
@@ -101,7 +101,7 @@ type OutputExample() =
                 P "several"
                 E "items"
             ]
-        ] |> toConsole 
+        ] |> toConsole
         0
 
 open SpectreCoff.Cli
@@ -112,5 +112,5 @@ type OutputDocumentation() =
 
     override _.Execute(_context, _) =
         Theme.setDocumentationStyle
-        Edgy "Sorry, this documentation is not available yet." |> toConsole    
+        Edgy "Sorry, this documentation is not available yet." |> toConsole
         0
