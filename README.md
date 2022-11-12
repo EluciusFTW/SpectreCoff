@@ -126,8 +126,15 @@ These composites are also the motivation for the short aliases of payloads, as t
 For more examples, please see the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
 
 ### Modules
+This Bar Chart (created using SpectreCoff) breaks down our progress porting the Spectre.Console modules.
+Much is already usable, but there is still a way to go. 
+
+<div align="center">
+    <img alt="progress" src="assets/progress.png" width="50%" />
+</div>
+
 #### Panel
-The panel module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
+The panel module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
 
 #### Prompt
 The prompt module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
@@ -142,7 +149,7 @@ The figlet module is already usable, just not documented yet. In the meantime, p
 The table module is currently in the works!
 
 #### Chart
-The chart module is currently in the works!
+The chart module is partially completed. In particular, the bar chart is already usable, but undocumented, while the breakdown chart has not been ported yet. Please see the example command for guidance on the bar chart.
 
 ### Versioning
 We are using [NerdBank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) and follow the version scheme: `<major>.<minor>.<git-depth>` for out releases. 

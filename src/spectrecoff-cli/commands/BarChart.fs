@@ -14,7 +14,6 @@ type BarChartExample() =
     interface ICommandLimiter<BarChartSettings>
 
     override _.Execute(_context, _settings) =
-        // todo add progress of each feature as meta example here and put screenshot in the readme
         let items = [
             ChartItem ("Apple", 12)
             ChartItem ("Orange", 3)

@@ -4,31 +4,31 @@ open Spectre.Console
 open SpectreCoff.Layout
 open SpectreCoff.Output
 
-type TableLayout = 
+type TableLayout =
     {  Border: TableBorder;
        Sizing: SizingBehaviour;
        HideHeaders: bool;
        Alignment: Alignment }
 
-type ColumnLayout = 
+type ColumnLayout =
     {  Alignment: Alignment
        LeftPadding: int
        RightPadding: int
        Wrap: bool }
 
-let defaultTableLayout: TableLayout = 
+let defaultTableLayout: TableLayout =
     {  Border = TableBorder.Rounded
        Sizing = Expand
        Alignment = Left
        HideHeaders = false }
 
-let defaultColumnLayout: ColumnLayout = 
+let defaultColumnLayout: ColumnLayout =
     {  Alignment = Center
        LeftPadding = 2
        RightPadding = 2
        Wrap = true }
 
-type Row = 
+type Row =
     | Payloads of OutputPayload list
     | Renderables of Rendering.IRenderable list
     | Strings of string list
@@ -39,7 +39,7 @@ type HeaderContent =
     | Renderable of Rendering.IRenderable
     | Payload of OutputPayload
 
-type Header = 
+type Header =
     | DefaultHeader of HeaderContent
     | CustomHeader of HeaderContent * ColumnLayout
 
@@ -57,8 +57,8 @@ let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
 
 let private toSpectreContentColumn (content: HeaderContent) =
     match content with
-    | Simple value -> TableColumn(value) 
-    | Renderable renderable -> TableColumn(renderable) 
+    | Simple value -> TableColumn(value)
+    | Renderable renderable -> TableColumn(renderable)
     | Payload renderable -> TableColumn(renderable |> toRenderablePayload)
 
 let private toSpectreColumn (header: Header) =
@@ -67,7 +67,7 @@ let private toSpectreColumn (header: Header) =
     | CustomHeader (content, layout) -> toSpectreContentColumn content |> applyLayout layout
 
 let addRow (table: Table) (row: Row) =
-    let values = 
+    let values =
         match row with
         | Renderables renderables -> renderables
         | Strings values -> values |> List.map (fun value -> Text value)
@@ -77,7 +77,7 @@ let addRow (table: Table) (row: Row) =
     table.AddRow(values) |> ignore
 
 let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
-    let table = new Table()
+    let table = Table()
 
     match layout.Alignment with
     | Left -> table.LeftAligned() |> ignore
@@ -90,12 +90,12 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
 
     match layout.HideHeaders with
     | true -> table.HideHeaders() |> ignore
-    | false -> () |> ignore
-    
+    | false -> ()
+
     headers |> List.iter (
-        fun header -> 
-            toSpectreColumn header 
-            |> table.AddColumn 
+        fun header ->
+            toSpectreColumn header
+            |> table.AddColumn
             |> ignore)
     rows |> List.iter (addRow table)
     table
@@ -103,7 +103,6 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
 let table =
     customTable defaultTableLayout
 
-// Output methods
-let toConsole (table: Table) = 
+let toConsole (table: Table) =
     table |> AnsiConsole.Write
 

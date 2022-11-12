@@ -11,7 +11,7 @@ let main argv =
                 .WithAlias("e")
                 .WithDescription("Shows examples of printing things to the console.")
                 |> ignore
-            
+
             add.AddCommand<OutputDocumentation>("doc")
                 .WithAlias("d")
                 .WithDescription("Shows the documentation of the output module.")
@@ -22,7 +22,7 @@ let main argv =
                 .WithAlias("e")
                 .WithDescription("Shows examples of tables.")
                 |> ignore
-            
+
             add.AddCommand<TableDocumentation>("doc")
                 .WithAlias("d")
                 .WithDescription("Shows the documentation of the table module.")
@@ -82,6 +82,10 @@ let main argv =
                 .WithAlias("d")
                 .WithDescription("Shows the documentation for the bar charts module.")
                 |> ignore)
+
+        config.AddCommand<Progress>("progress")
+            .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
+            |> ignore
         )
 
     app.Run(argv)
