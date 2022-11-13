@@ -44,15 +44,33 @@ let markupString (color: Color option) (style: Layout.Style option) content =
         | None -> markupWithStyle s content
         | Some c -> markupWithColorAndStyle c (stringifyStyle s) content
 
-let toMarkup content =
-    Markup content
+let toMarkup = Markup 
 
 let pumped content = markupString (Some pumpedColor) (Some pumpedStyle) content
 let edgy content = markupString (Some edgyColor) (Some edgyStyle) content
 let calm content = markupString (Some calmColor) calmStyle content
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
-let printMarkedUp content = AnsiConsole.Markup $"{content}{System.Environment.NewLine}"
+let printMarkedUp content = Markup $"{content}{System.Environment.NewLine}" |> AnsiConsole.Write
+
+type LinineOutputPayload =
+    | MCS of Color * Layout.Style * string
+    | MarkupCS of Color * Layout.Style * string
+    | MC of Color * string
+    | MarkupC of Color * string
+    | MS of Layout.Style * string
+    | MarkupS of Layout.Style * string
+    | Link of string
+    | LinkWithLabel of string*string
+    | Emoji of string
+    | C of string
+    | Calm of string
+    | P of string
+    | Pumped of string
+    | E of string
+    | Edgy of string
+    | V of string
+    | Vanilla of string
 
 type OutputPayload =
     | MCS of Color * Layout.Style * string
@@ -80,28 +98,39 @@ type OutputPayload =
     | NewLine
     | Many of string list
     | ManyMarkedUp of OutputPayload list
+    | Ren of Rendering.IRenderable
 
-let toRenderablePayload (payload: OutputPayload) =
+let toMarkedUpString (payload: OutputPayload) =
     match payload with
     | C value
-    | Calm value -> 
-        value 
-        |> calm
-        |> toMarkup
+    | Calm value -> value |> calm
     | P value
-    | Pumped value -> 
-        value 
-        |> pumped 
-        |> toMarkup
+    | Pumped value -> value |> pumped 
     | E value
-    | Edgy value -> 
-        value 
-        |> edgy
-        |> toMarkup
+    | Edgy value -> value |> edgy
     | V value
-    | Vanilla value -> value |> toMarkup
-    | NewLine -> "" |> toMarkup
-    | _ -> "" |> toMarkup
+    | Vanilla value -> value 
+    | MCS (color, style, content)
+    | MarkupCS (color, style, content) -> content |> markupString (Some color) (Some style)
+    | MC (color, content)
+    | MarkupC (color, content) -> content |> markupString (Some color) None
+    | MS (style, content)
+    | MarkupS (style, content) -> content |> markupString None (Some style)
+    | Link link -> link |> markupWithColorAndStyle linkColor "link"
+    | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
+    | Emoji emoji -> emoji |> padEmoji 
+    | _ -> ""
+
+// NOTE: Still unhandled cases.
+let payloadToRenderable (payload: OutputPayload) =
+    match payload with  
+    | Ren r -> r
+    | CO
+    | Collection -> 
+    | _ -> payload    
+        |> toMarkedUpString
+        |> toMarkup 
+        :> Rendering.IRenderable
 
 let toConsoleInline (payload: OutputPayload) =
     match payload with
@@ -184,6 +213,7 @@ let rec toConsole (payload: OutputPayload) =
         emoji 
         |> padEmoji 
         |> printMarkedUp 
+    | Ren renderable -> renderable |> AnsiConsole.Write
     | CO items
     | Collection items ->
         items |> List.iter toConsoleInline

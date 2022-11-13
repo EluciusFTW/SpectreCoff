@@ -28,20 +28,9 @@ let defaultColumnLayout: ColumnLayout =
        RightPadding = 2
        Wrap = true }
 
-type Row = 
-    | Payloads of OutputPayload list
-    | Renderables of Rendering.IRenderable list
-    | Strings of string list
-    | Numbers of int list
-
-type HeaderContent =
-    | Simple of string
-    | Renderable of Rendering.IRenderable
-    | Payload of OutputPayload
-
 type Header = 
-    | DefaultHeader of HeaderContent
-    | CustomHeader of HeaderContent * ColumnLayout
+    | Header of OutputPayload
+    | CustomHeader of OutputPayload * ColumnLayout
 
 let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
     match layout.Alignment with
@@ -55,28 +44,18 @@ let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
     column.NoWrap <- not layout.Wrap
     column
 
-let private toSpectreContentColumn (content: HeaderContent) =
-    match content with
-    | Simple value -> TableColumn(value) 
-    | Renderable renderable -> TableColumn(renderable) 
-    | Payload renderable -> TableColumn(renderable |> toRenderablePayload)
+let private toSpectreContentColumn (payload: OutputPayload) =
+    TableColumn(payload |> payloadToRenderable)
 
 let private toSpectreColumn (header: Header) =
     match header with
-    | DefaultHeader content -> toSpectreContentColumn content |> applyLayout defaultColumnLayout
+    | Header content -> toSpectreContentColumn content |> applyLayout defaultColumnLayout
     | CustomHeader (content, layout) -> toSpectreContentColumn content |> applyLayout layout
 
-let addRow (table: Table) (row: Row) =
-    let values = 
-        match row with
-        | Renderables renderables -> renderables
-        | Strings values -> values |> List.map (fun value -> Text value)
-        | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
-        | Payloads payloads -> payloads |> List.map (fun payload -> toRenderablePayload payload)
+let addRow (table: Table) (row: OutputPayload list) =
+    table.AddRow(row |> List.map payloadToRenderable) |> ignore
 
-    table.AddRow(values) |> ignore
-
-let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
+let customTable (layout: TableLayout) (headers: Header list) (rows: OutputPayload list list) =
     let table = new Table()
 
     match layout.Alignment with
@@ -104,6 +83,5 @@ let table =
     customTable defaultTableLayout
 
 // Output methods
-let toConsole (table: Table) = 
-    table |> AnsiConsole.Write
-
+let toPayload (table: Table) = 
+    table :> Rendering.IRenderable |> Ren

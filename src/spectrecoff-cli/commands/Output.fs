@@ -7,7 +7,22 @@ open SpectreCoff.Output
 
 type OutputSettings() =
     inherit CommandSettings()
-   
+
+module ExT = 
+    let exampleTable = 
+        let headers = [
+            SpectreCoff.Table.Header (V "Firstname")
+            SpectreCoff.Table.CustomHeader (P "Age", { SpectreCoff.Table.defaultColumnLayout with Alignment = Right })
+        ]
+
+        let rows = [
+            [ P "11"; E "12"]
+            [C "Frank"; V "Farmington"]
+        ]
+
+        P "This shows a table with a default and custom laid-out column." |> toConsole
+        SpectreCoff.Table.table headers rows |> SpectreCoff.Table.toPayload
+
 type OutputExample() =
     inherit Command<OutputSettings>()
     interface ICommandLimiter<OutputSettings>
@@ -101,6 +116,7 @@ type OutputExample() =
                 P "several"
                 E "items"
             ]
+            ExT.exampleTable
         ] |> toConsole 
         0
 

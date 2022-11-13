@@ -16,43 +16,54 @@ type TableExample() =
     override _.Execute(_context, _) =
 
         let headers = [
-            DefaultHeader (Simple "Firstname")
-            CustomHeader ((Simple "Age"), { defaultColumnLayout with Alignment = Right })
+            Header (V "Firstname")
+            CustomHeader (P "Age", { defaultColumnLayout with Alignment = Right })
         ]
 
         let rows = [
-            Numbers [11; 37]
-            Strings ["Frank"; "Farmington"]
+            [ P "11"; E "12"]
+            [ C "Frank"; V "Farmington"]
         ]
 
         P "This shows a table with a default and custom laid-out column." |> toConsole
         let exampleTable = table headers rows
-        exampleTable |> SpectreCoff.Table.toConsole
+        
+        exampleTable 
+        |> toPayload 
+        |> toConsole
         
         NewLine |> toConsole
         P "Rows can be added to the same table later on." |> toConsole
-        addRow exampleTable (Numbers [23; 45])
-        exampleTable |> SpectreCoff.Table.toConsole
-
-        NewLine |> toConsole
-        P "Tables can be nested, or contain other markup" |> toConsole
+        addRow exampleTable ([P "23";  E "45"])
+        exampleTable |> toPayload |> toConsole
         
-        let exampleMarkup = 
-            "some text" 
-            |> markupString (Some Color.Red) (Some Bold)
-            |> toMarkup
+        let conversions = 
+            [ [ V "1"; V "5"]; [ V "2.54"; V "12.7"] ] 
+            |> table [Header (P "Inches"); Header (P "Centimetres") ] 
+            |> toPayload
 
-        [ Renderables [ exampleTable;  exampleMarkup ]
-          Payloads [ P "Let's"; E " Go!" ] ] 
-            |> table headers 
-            |> SpectreCoff.Table.toConsole
+        let customLayout = 
+            { HideHeaders = true; 
+              Border = TableBorder.Minimal; 
+              Sizing = Collapse;
+              Alignment = Right }
 
-        NewLine |> toConsole
-        P "The table can be customized, too." |> toConsole
-        customTable  
-            { defaultTableLayout with Sizing = Collapse; Border = TableBorder.Minimal } headers rows 
-            |> SpectreCoff.Table.toConsole
-        
+        let nestedTable = 
+            [ [ C "Let's nest"; P "some TABLES!" ] 
+              [ conversions;  exampleTable |> toPayload ] ]
+            |> customTable customLayout [ Header (V "");  Header (V "") ] 
+            |> toPayload
+
+        ManyMarkedUp [
+            NewLine
+            C "A few more things to mention"
+            BI [
+                P "Tables can be nested, or contain other markup" 
+                P "The table can be customized, too!"
+                P "Also, since the table is just another type of payload, you can compose your content in one go!"
+            ]
+            nestedTable
+        ] |> toConsole
         0
 
 open SpectreCoff.Cli
