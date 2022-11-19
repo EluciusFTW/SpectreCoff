@@ -2,6 +2,7 @@ module SpectreCoff.Output
 
 open SpectreCoff.Layout
 open Spectre.Console
+open System
 
 // Styles
 let mutable calmStyle = None
@@ -44,15 +45,24 @@ let markupString (color: Color option) (style: Layout.Style option) content =
         | None -> markupWithStyle s content
         | Some c -> markupWithColorAndStyle c (stringifyStyle s) content
 
-let toMarkup = 
-    Markup 
-
 let pumped content = markupString (Some pumpedColor) (Some pumpedStyle) content
 let edgy content = markupString (Some edgyColor) (Some edgyStyle) content
 let calm content = markupString (Some calmColor) calmStyle content
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
-let printMarkedUp content = AnsiConsole.Markup $"{content}{System.Environment.NewLine}"
+let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
+
+let rec private joinSeparatedBy (separator: string) (strings: string list) =
+    match strings with
+    | [] -> ""
+    | [s] -> s
+    | head::tail -> head + separator + joinSeparatedBy separator tail
+
+let rec private joinSeparatedByNewline = 
+    joinSeparatedBy Environment.NewLine
+
+let appendNewline content = 
+    content + Environment.NewLine
 
 type OutputPayload =
     | MarkupCS of Color * Layout.Style * string
@@ -84,109 +94,49 @@ let CO = Collection
 let BI = BulletItems
 let NL = NewLine
 
-let toMarkedUpString (payload: OutputPayload) =
+let rec toMarkedUpString (payload: OutputPayload) =
     match payload with
-    | Calm value -> value |> calm
-    | Pumped value -> value |> pumped 
-    | Edgy value -> value |> edgy
-    | Vanilla value -> value 
+    | Calm content -> content |> calm
+    | Pumped content -> content |> pumped 
+    | Edgy content -> content |> edgy
+    | Vanilla content -> content 
     | MarkupCS (color, style, content) -> content |> markupString (Some color) (Some style)
     | MarkupC (color, content) -> content |> markupString (Some color) None
     | MarkupS (style, content) -> content |> markupString None (Some style)
     | Link link -> link |> markupWithColorAndStyle linkColor "link"
     | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
-    | Emoji emoji -> emoji |> padEmoji 
-    | _ -> ""
-
-// NOTE: Still unhandled cases.
-let payloadToRenderable (payload: OutputPayload) =
-    match payload with  
-    | Renderable r -> r
-    | _ -> payload    
-        |> toMarkedUpString
-        |> toMarkup 
-        :> Rendering.IRenderable
-
-let toConsoleInline (payload: OutputPayload) =
-    match payload with
-    | Link link -> 
-        link 
-        |> markupWithColorAndStyle linkColor "link"
-        |> printMarkedUpInline 
-    | LinkWithLabel (label, link) -> 
-        label 
-        |> markupWithColorAndStyle linkColor $"link={link}"
-        |> printMarkedUp 
-    | Emoji emoji ->
-        emoji 
-        |> padEmoji 
-        |> printMarkedUpInline
-    | Calm value -> 
-        value 
-        |> calm 
-        |> printMarkedUpInline
-    | Pumped value ->
-        value 
-        |> pumped 
-        |> printMarkedUpInline
-    | Edgy value -> 
-        value
-        |> edgy 
-        |> printMarkedUpInline
-    | Vanilla value -> value |> printMarkedUpInline
-    | _ -> ()
-
-let rec toConsole (payload: OutputPayload) =
-    match payload with
-    | MarkupCS (color, style, content) -> 
-        content 
-        |> markupString (Some color) (Some style)
-        |> printMarkedUp
-    | MarkupC (color, content) -> 
-        content 
-        |> markupString (Some color) None
-        |> printMarkedUp
-    | MarkupS (style, content) -> 
-        content
-        |> markupString None (Some style)
-        |> printMarkedUp
-    | Calm value -> 
-        value 
-        |> calm 
-        |> printMarkedUp
-    | Pumped value -> 
-        value 
-        |> pumped 
-        |> printMarkedUp
-    | Edgy value -> 
-        value 
-        |> edgy 
-        |> printMarkedUp
-    | Vanilla value -> value |> printMarkedUp
-    | NewLine -> printfn ""
-    | Link link -> 
-        link 
-        |> markupWithColorAndStyle linkColor "link"
-        |> printMarkedUp 
-    | LinkWithLabel (label, link) -> 
-        label 
-        |> markupWithColorAndStyle linkColor $"link={link}"
-        |> printMarkedUp 
-    | Emoji emoji -> 
-        emoji 
-        |> padEmoji 
-        |> printMarkedUp 
-    | Renderable renderable -> renderable |> AnsiConsole.Write
-    | Collection items ->
-        items |> List.iter toConsoleInline
-        printfn ""
-    | BulletItems items ->
+    | Emoji emoji -> emoji |> padEmoji
+    | NewLine -> ""
+    | Collection items -> 
+        items 
+        |> List.map toMarkedUpString
+        |> joinSeparatedBy " "
+    | BulletItems items -> 
         items
         |> List.map (fun item ->
             match item with
             | Collection items -> CO ([C bulletItemPrefix]@items)
             | BulletItems _ -> failwith "Bullet items can't be used within bullet items, sry."
             | _ -> CO [C bulletItemPrefix; item])
-        |> List.iter toConsole
-    | Many values -> values |> List.iter (fun value -> calm value |> printMarkedUp)
-    | ManyMarkedUp markedUp -> markedUp |> List.iter toConsole
+        |> List.map toMarkedUpString
+        |> joinSeparatedByNewline
+    | Many strings -> 
+        strings
+        |> joinSeparatedByNewline
+    | ManyMarkedUp payloads -> 
+        payloads
+        |> List.map toMarkedUpString
+        |> joinSeparatedByNewline
+    | Renderable(_) -> failwith "Not Implemented" 
+
+let rec payloadToRenderable (payload: OutputPayload) =
+    payload    
+    |> toMarkedUpString 
+    |> appendNewline
+    |> Markup 
+    :> Rendering.IRenderable
+
+let toConsole (payload: OutputPayload) =
+    payload
+    |> payloadToRenderable
+    |> AnsiConsole.Write
