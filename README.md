@@ -74,7 +74,7 @@ MarkupCS (Color.Red, Bold, "Hello [World]") |> toConsole
 #### Payloads
 The following table lists all payloads currently available:
 
-| Type         | Short | Description                                | Parameters                                    | Configurbility |
+| Type         | Alias | Description                                | Parameters                                    | Configurbility |
 | ------------ | ----- | ------------------------------------------ | --------------------------------------------- | -------------- |
 | MarkupS      | MS    | Content marked up with a style             | style: `SpectreCoff.Layout.Style`<br /> content: `string`                              | -              |
 | MarkupC      | MC    | Content marked up with a style             | color: `Spectre.Console.Color`<br /> content: `string`                             | -              |
@@ -91,6 +91,7 @@ The following table lists all payloads currently available:
 | Newline      | NL    | An empty line                              | - | -
 | Many         | -     | Prints many lines at once, in the calm style | items: list of `string` | (indirectly via the calm style) 
 | ManyMarkedUp | -     | Prints many payloads at once, each on own line | items: list of `OutputPayload` | -
+| Renderable   | -     | Wraps a Spectre.Rendering.IRenderable | content: `Spectre.Rendering.IRenderable` | -
 
 
 #### Convenience Styles
