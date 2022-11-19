@@ -57,9 +57,9 @@ let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
 
 let private toSpectreContentColumn (content: HeaderContent) =
     match content with
-    | Simple value -> TableColumn(value)
-    | Renderable renderable -> TableColumn(renderable)
-    | Payload renderable -> TableColumn(renderable |> toRenderablePayload)
+    | Simple value -> TableColumn(value) 
+    | Renderable renderable -> TableColumn(renderable) 
+    | Payload renderable -> TableColumn(renderable |> payloadToRenderable)
 
 let private toSpectreColumn (header: Header) =
     match header with
@@ -72,7 +72,7 @@ let addRow (table: Table) (row: Row) =
         | Renderables renderables -> renderables
         | Strings values -> values |> List.map (fun value -> Text value)
         | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
-        | Payloads payloads -> payloads |> List.map (fun payload -> toRenderablePayload payload)
+        | Payloads payloads -> payloads |> List.map (fun payload -> payloadToRenderable payload)
 
     table.AddRow(values) |> ignore
 
@@ -103,6 +103,6 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
 let table =
     customTable defaultTableLayout
 
-let toConsole (table: Table) =
+// Output methods
+let toConsole (table: Table) = 
     table |> AnsiConsole.Write
-
