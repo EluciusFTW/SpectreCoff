@@ -67,9 +67,9 @@ type OutputExample() =
             P "That is the motivation for the short"
             E "No need to escape markup characters from strings [ ... /] manually."
             CO [
-                C "The CO type can be used to print ";
-                P "multiple marked up pieces";
-                E " in one line, too."
+                C "The CO type can be used to print"; 
+                P "multiple marked up pieces"; 
+                E "in one line, too." 
             ]
             NewLine
         ] |> toConsole
@@ -77,15 +77,15 @@ type OutputExample() =
         // There are special payloads for links and emojis:
         ManyMarkedUp [
             CO [
-                C "You can easily render clickable links: "
+                C "You can easily render clickable links:"
                 Link "https://www.spectreconsole.net/markup"
             ]
             CO [
-                C "You can add a label as well: "
+                C "You can add a label as well:"
                 LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
             ]
             CO [
-                C "You can also use emojis by their string literals "
+                C "You can also use emojis by their string literals"
                 Emoji "alien_monster"
             ]
             C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""

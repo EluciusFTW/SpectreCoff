@@ -130,11 +130,14 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Renderable(_) -> failwith "Not Implemented" 
 
 let rec payloadToRenderable (payload: OutputPayload) =
-    payload    
-    |> toMarkedUpString 
-    |> appendNewline
-    |> Markup 
-    :> Rendering.IRenderable
+    match payload with
+    | Renderable renderable -> renderable
+    | _ -> 
+        payload    
+        |> toMarkedUpString 
+        |> appendNewline
+        |> Markup 
+        :> Rendering.IRenderable
 
 let toConsole (payload: OutputPayload) =
     payload
