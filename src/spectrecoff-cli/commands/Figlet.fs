@@ -52,8 +52,8 @@ type FigletDocumentation() =
             NL
             C "This figlet will use the"
             BI [
-                CO [P "Figlet.defaultAlignment"; C ", initialized to "; P "Center"; C ", and"]
-                CO [P "Figlet.defaultColor"; C ", initialized to the pumped color "; P "Output.pumpedColor"; C ","]
+                CO [P "Figlet.defaultAlignment,"; C "initialized to"; P "Center,"; C "and"]
+                CO [P "Figlet.defaultColor,"; C "initialized to the pumped color"; P "Output.pumpedColor"; C ","]
             ]
             C "which both can be modified."
             NL
@@ -62,7 +62,7 @@ type FigletDocumentation() =
                 P "customFiglet: Alignment -> Color -> string -> FigletText"
             ]
             NL
-            CO [C "The figlet can be printed to the console with the "; P "toConsole"; C " function."]
+            CO [C "The figlet can be printed to the console with the"; P "toConsole"; C "function."]
             NL
         ] |> toConsole
         0

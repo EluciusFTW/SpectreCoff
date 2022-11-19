@@ -43,7 +43,7 @@ type PromptDocumentation() =
                 Link "https://spectreconsole.net/prompts"
                 C ")"
             ]
-            CO [C "This module provides functionality from the "; E "prompt"; C " of Spectre.Console"]
+            CO [C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"]
             NL
             C "Currently, we expose two basic functionalities:"
             BI [ 

@@ -43,7 +43,7 @@ type TableExample() =
             |> Markup
 
         [ Renderables [ exampleTable;  exampleMarkup ]
-          Payloads [ P "Let's"; E " Go!" ] ] 
+          Payloads [ P "Let's"; E "Go!" ] ] 
             |> table headers 
             |> SpectreCoff.Table.toConsole
 

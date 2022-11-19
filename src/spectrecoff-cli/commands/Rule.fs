@@ -54,14 +54,14 @@ type RuleDocumentation() =
                 P "rule: string -> Rule"
             ]
             NL
-            CO [C "This rule will use the "; P "Rule.defaultAlignment"; C ", which is set to "; P "Center"; C " but can be modified."]
+            CO [C "This rule will use the"; P "Rule.defaultAlignment,"; C "which is set to"; P "Center"; C "but can be modified."]
             NL
             C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [ 
                 P "alignedRule: Alignment -> string -> Rule"
             ]
             NL
-            CO [C "The rule can be printed to the console with the "; P "toConsole"; C " function."]
+            CO [C "The rule can be printed to the console with the"; P "toConsole"; C "function."]
             NL
         ] |> toConsole
         0
