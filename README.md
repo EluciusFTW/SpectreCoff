@@ -103,10 +103,10 @@ pumpedColor <- Color.Yellow
 pumpedStyle <- Style.Italic
 ```
 
-#### Composite Payloads
+#### Composition of Payloads
 Some of the payloads listed above in turn accept payloads as arguments. Composing them in this way allows printing more complex content, as well as aggregating all output in one go before printing it. This can be seen in this example,
 ```Fs
-ManyMarkedUp [
+Many [
     MarkupC (Color.Green, "Hello friends,")
     Newline    
     Pumped "Welcome to my party tomorrow night!"
@@ -121,6 +121,8 @@ ManyMarkedUp [
     CO [C "See you "; P "later ... "]                 // short for Collection
 ] |> toConsole
 ``` 
+In fact, _any other payload_ can be composed using `Many` (including others of type `Many`, they will be flattened) and will be printed once `toConsole` is called.
+
 These composites are also the motivation for the short aliases of payloads, as these make it possible to focuis on the content and not be distracted too much by the types.
 For more examples, please see the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
 
