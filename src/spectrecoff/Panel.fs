@@ -2,6 +2,7 @@ module SpectreCoff.Panel
 
 open Spectre.Console
 open SpectreCoff.Layout
+open SpectreCoff.Output
 
 type PanelLayout =
     {  Border: BoxBorder;
@@ -13,9 +14,9 @@ let defaultPanelLayout: PanelLayout =
        Sizing = Collapse
        Padding = AllEqual 2 }
 
-let customPanel (layout: PanelLayout) (header: string) (content: string) =
-    let panel = Panel(content)
-    panel.Header <- PanelHeader(header)
+let customPanel (layout: PanelLayout) (header: OutputPayload) (content: OutputPayload) =
+    let panel = Panel(content |> toMarkedUpString)
+    panel.Header <- PanelHeader(header |> toMarkedUpString)
 
     match layout.Sizing with
     | Expand -> panel.Expand <- true
@@ -27,9 +28,8 @@ let customPanel (layout: PanelLayout) (header: string) (content: string) =
     | TopRightBottomLeft (l,t,r,b) -> panel.Padding <- Spectre.Console.Padding(l, t, r, b)
 
     panel
+    :> Rendering.IRenderable
+    |> Renderable
 
 let panel =
    customPanel defaultPanelLayout
-
-let toConsole (panel: Panel) =
-    panel |> AnsiConsole.Write
