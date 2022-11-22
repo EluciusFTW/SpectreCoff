@@ -35,7 +35,7 @@ type PromptDocumentation() =
         NewLine |> toConsole
         pumped "Prompt module"
         |> alignedRule Left 
-        |> SpectreCoff.Rule.toConsole
+        |> toConsole
         
         Many [
             CO [
