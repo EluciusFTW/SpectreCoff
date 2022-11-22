@@ -17,9 +17,8 @@ let customFiglet (alignment: Alignment) (color: Color) content =
     | Right -> figlet.RightAligned() |> ignore
 
     figlet
+    :> Rendering.IRenderable
+    |> Renderable
 
 let figlet = 
     customFiglet defaultAlignment defaultColor 
-
-let toConsole (figlet: FigletText) = 
-    figlet |> AnsiConsole.Write

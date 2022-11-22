@@ -5,6 +5,7 @@ open Spectre.Console
 
 open SpectreCoff.Layout
 open SpectreCoff.Figlet
+open SpectreCoff.Output
 
 type FigletSettings()  =
     inherit CommandSettings()
@@ -60,7 +61,7 @@ type FigletDocumentation() =
             NL
             C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [ 
-                P "customFiglet: Alignment -> Color -> string -> FigletText"
+                P "customFiglet: Alignment -> Color -> string -> Renderable"
             ]
             NL
             CO [C "The figlet can be printed to the console with the"; P "toConsole"; C "function."]
