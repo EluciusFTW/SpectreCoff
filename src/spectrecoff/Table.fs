@@ -103,6 +103,5 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
 let table =
     customTable defaultTableLayout
 
-// Output methods
 let toConsole (table: Table) = 
     table |> AnsiConsole.Write

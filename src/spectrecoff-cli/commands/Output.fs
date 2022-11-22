@@ -81,7 +81,7 @@ type OutputExample() =
                 P "several"
                 E "items"
             ]
-            SpectreCoff.Rule.rule "Links  and Emojis"
+            SpectreCoff.Rule.rule "Links and Emojis"
             CO [
                 C "You can easily render clickable links:"
                 Link "https://www.spectreconsole.net/markup"

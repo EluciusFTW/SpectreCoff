@@ -13,17 +13,24 @@ type PanelExample() =
     interface ICommandLimiter<PanelSettings>
 
     override _.Execute(_context, _) = 
-        let principles =  BI [
-            C "Composability over Inheritance" 
-            P "Make illegal states irrepresentable"
-            P "Types are your friend"
-            C "Immutability over, well, mutability"
-            C "Declarative over Imperative"
-        ]
-        panel (P " Guiding principles ") (principles) 
+        let principles =  
+            BI [
+                C "Composability over inheritance" 
+                P "Make illegal states irrepresentable"
+                P "Types are your friend"
+                C "Immutability over, well, mutability"
+                C "Declarative over imperative"
+            ]
+        let header = 
+            P "Guiding principles "
+            |> toMarkedUpString
+
+        principles 
+        |> panel header 
         |> toConsole    
 
-        customPanel { defaultPanelLayout with Sizing = Expand } (E "Custom !!") (P "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed.") 
+        (P "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed.") 
+        |> customPanel { defaultPanelLayout with Sizing = Expand } " Customization " 
         |> toConsole
         0
 
