@@ -24,7 +24,7 @@ type BarChartExample() =
             ChartItem ("Peach", 6)
             ChartItemWithColor ("White", 2, Color.White)
         ]
-        alignment <- Alignment.Left
+        alignment <- Left
 
         items
         |> barChart "Fruits"

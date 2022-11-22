@@ -78,8 +78,7 @@ type OutputPayload =
     | Collection of OutputPayload list
     | BulletItems of OutputPayload list
     | NewLine
-    | Many of string list
-    | ManyMarkedUp of OutputPayload list
+    | Many of OutputPayload list
     | Renderable of Rendering.IRenderable
 
 // Short aliases
@@ -120,10 +119,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
             | _ -> CO [C bulletItemPrefix; item])
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline
-    | Many strings -> 
-        strings
-        |> joinSeparatedByNewline
-    | ManyMarkedUp payloads -> 
+    | Many payloads -> 
         payloads
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline

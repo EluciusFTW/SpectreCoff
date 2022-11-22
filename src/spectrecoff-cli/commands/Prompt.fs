@@ -37,7 +37,7 @@ type PromptDocumentation() =
         |> alignedRule Left 
         |> SpectreCoff.Rule.toConsole
         
-        ManyMarkedUp [
+        Many [
             CO [
                 C "This module provides functionality from the prompts of Spectre.Console ("
                 Link "https://spectreconsole.net/prompts"

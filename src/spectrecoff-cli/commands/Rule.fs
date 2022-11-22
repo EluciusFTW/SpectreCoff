@@ -42,7 +42,7 @@ type RuleDocumentation() =
         |> alignedRule Left 
         |> SpectreCoff.Rule.toConsole
         
-        ManyMarkedUp [
+        Many [
             CO [
                 C "This module provides functionality from the rule widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/rule"

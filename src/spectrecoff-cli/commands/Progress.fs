@@ -32,9 +32,9 @@ type Progress() =
             ChartItemWithColor ("CanvasImage", 0, Color.Red)
             ChartItemWithColor ("TextPath", 0, Color.Red)
         ]
-        alignment <- Alignment.Left
+        alignment <- Left
 
-        ManyMarkedUp [
+        Many [
             NewLine
             C "Below, a breakdown of our progress porting Spectre.Console modules to SpectreCoff:"
             NewLine

@@ -89,10 +89,8 @@ The following table lists all payloads currently available:
 | Emoji        | -     | An emoji, given by it's string literal | emoji: `string` | -
 | BulletItems  | BI    | Show list of items with bullet points      | items: list of `OutputPayload` | bullet item prefix: `Output.bulletItemPrefix`
 | Newline      | NL    | An empty line                              | - | -
-| Many         | -     | Prints many lines at once, in the calm style | items: list of `string` | (indirectly via the calm style) 
-| ManyMarkedUp | -     | Prints many payloads at once, each on own line | items: list of `OutputPayload` | -
+| Many         | -     | Prints many payloads at once, each on own line | items: list of `OutputPayload` | -
 | Renderable   | -     | Wraps a Spectre.Rendering.IRenderable | content: `Spectre.Rendering.IRenderable` | -
-
 
 #### Convenience Styles
 The table above lists three convenience styles: `Calm`, `Pumped` and `Edgy`. With these, we can easily provide a consistent, and semantically meaningful, styling across the modules:
