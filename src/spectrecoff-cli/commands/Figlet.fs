@@ -38,7 +38,7 @@ type FigletDocumentation() =
         |> SpectreCoff.Rule.alignedRule Left 
         |> SpectreCoff.Rule.toConsole
         
-        ManyMarkedUp [
+        Many [
             CO [
                 C "This module provides functionality from the figlet widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/figlet"

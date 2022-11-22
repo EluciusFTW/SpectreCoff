@@ -51,56 +51,52 @@ type OutputExample() =
         NewLine |> toConsole
 
         // You can print multiple lines at once very easily as well:
-        Many [
+        [
             "Sometimes you"
             "Just want to"
             "Write a decent text"
             "Without being bothered by"
             "Symbols, types and other things ... "
-        ] |> toConsole
-        NewLine |> toConsole
+        ] 
+        |> List.map Calm
+        |> Many
+        |> toConsole
 
-        // You can markup each of the lines individually:
-        ManyMarkedUp [
-            C "You can print many marked up lines easily as well."
+        // You can markup each of the lines individually, and compose with any kind of payload:
+        Many [
             NewLine
-            P "That is the motivation for the short"
-            E "No need to escape markup characters from strings [ ... /] manually."
+            C "You can print many marked up lines easily as well."
+            P "That is the motivation for the short alias."
+            E "It preserves indentation and let's you focus on the content."
+            NewLine
             CO [
                 C "The CO type can be used to print"; 
                 P "multiple marked up pieces"; 
                 E "in one line, too." 
             ]
             NewLine
-        ] |> toConsole
-
-        // There are special payloads for links and emojis:
-        ManyMarkedUp [
-            CO [
-                C "You can easily render clickable links:"
-                Link "https://www.spectreconsole.net/markup"
-            ]
-            CO [
-                C "You can add a label as well:"
-                LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
-            ]
-            CO [
-                C "You can also use emojis by their string literals"
-                Emoji "alien_monster"
-            ]
-            C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
-            NewLine
-        ] |> toConsole
-
-        // You can also easily print bullet items:
-        bulletItemPrefix <- "  ->> "
-        ManyMarkedUp [
-            C "Another common use-case is: "
+            C "Or, if you want to list a few items you can use BulletItems: "
             BulletItems [
                 C "listing"
                 P "several"
                 E "items"
             ]
+            NewLine
+            CO [
+                C "You can easily render clickable links:"
+                Link "https://www.spectreconsole.net/markup"
+            ]
+            CO [
+                C "Even with a dedicated display test:"
+                LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
+            ]
+            NewLine
+            CO [
+                C "You can use emojis by their string literals"
+                Emoji "alien_monster"
+            ]
+            C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
+            NewLine
         ] |> toConsole
         0
 
