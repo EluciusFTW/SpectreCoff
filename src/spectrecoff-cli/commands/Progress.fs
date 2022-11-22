@@ -2,7 +2,7 @@
 
 open Spectre.Console
 open Spectre.Console.Cli
-open SpectreCoff
+
 open SpectreCoff.BarChart
 open SpectreCoff.Layout
 open SpectreCoff.Output
@@ -42,5 +42,5 @@ type Progress() =
 
         items
         |> barChart "SpectreCoff Module Progress"
-        |> BarChart.toConsole
+        |> toConsole
         0

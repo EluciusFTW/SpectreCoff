@@ -2,9 +2,10 @@
 
 open Spectre.Console
 open SpectreCoff.Layout
+open SpectreCoff.Output
 
 let mutable width = 60
-let mutable alignment = Alignment.Center
+let mutable alignment = Center
 
 let mutable colors = [
     Color.Blue
@@ -19,11 +20,10 @@ type ChartItem =
     | ChartItem of string * float
     | ChartItemWithColor of string * float * Color
 
-let createBasicChart label =
+let private createBasicChart label =
     let chart = BarChart()
     chart.Width <- width
     chart.Label <- label
-
     chart.LabelAlignment <-
         match alignment with
         | Left -> Justify.Left
@@ -43,6 +43,5 @@ let barChart label (items: ChartItem list) =
     |> List.iter (fun item -> chart.AddItem(item) |> ignore)
 
     chart
-
-let toConsole (barChart: BarChart) =
-    barChart |> AnsiConsole.Write
+    :> Rendering.IRenderable
+    |> Renderable

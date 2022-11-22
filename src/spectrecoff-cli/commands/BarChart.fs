@@ -5,6 +5,7 @@ open Spectre.Console.Cli
 open SpectreCoff.BarChart
 open SpectreCoff.Cli
 open SpectreCoff.Layout
+open SpectreCoff.Output
 
 type BarChartSettings() =
     inherit CommandSettings()
