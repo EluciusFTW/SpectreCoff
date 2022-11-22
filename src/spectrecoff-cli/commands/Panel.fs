@@ -3,6 +3,7 @@ namespace SpectreCoff.Cli.Commands
 open Spectre.Console.Cli
 open SpectreCoff.Panel
 open SpectreCoff.Layout
+open SpectreCoff.Output
 
 type PanelSettings()  =
     inherit CommandSettings()
@@ -12,11 +13,18 @@ type PanelExample() =
     interface ICommandLimiter<PanelSettings>
 
     override _.Execute(_context, _) = 
-        let examplePanel = panel "First !" "Important text can be highlighted by surrounding it with a border and title." 
-        examplePanel |> toConsole    
+        let principles =  BI [
+            C "Composability over Inheritance" 
+            P "Make illegal states irrepresentable"
+            P "Types are your friend"
+            C "Immutability over, well, mutability"
+            C "Declarative over Imperative"
+        ]
+        panel (P " Guiding principles ") (principles) 
+        |> toConsole    
 
-        let custom = customPanel { defaultPanelLayout with Sizing = Expand } "Custom !!" "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed." 
-        custom |> toConsole
+        customPanel { defaultPanelLayout with Sizing = Expand } (E "Custom !!") (P "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed.") 
+        |> toConsole
         0
 
 open SpectreCoff.Cli
