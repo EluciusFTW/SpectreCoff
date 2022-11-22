@@ -59,7 +59,7 @@ let private toSpectreContentColumn (content: HeaderContent) =
     match content with
     | Simple value -> TableColumn(value) 
     | Renderable renderable -> TableColumn(renderable) 
-    | Payload renderable -> TableColumn(renderable |> payloadToRenderable)
+    | Payload renderable -> TableColumn((renderable |> payloadToRenderable).Head)
 
 let private toSpectreColumn (header: Header) =
     match header with
@@ -72,7 +72,7 @@ let addRow (table: Table) (row: Row) =
         | Renderables renderables -> renderables
         | Strings values -> values |> List.map (fun value -> Text value)
         | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
-        | Payloads payloads -> payloads |> List.map (fun payload -> payloadToRenderable payload)
+        | Payloads payloads -> payloads |> List.map (fun payload -> (payloadToRenderable payload).Head)
 
     table.AddRow(values) |> ignore
 

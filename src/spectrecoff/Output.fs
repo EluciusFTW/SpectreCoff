@@ -127,15 +127,16 @@ let rec toMarkedUpString (payload: OutputPayload) =
 
 let rec payloadToRenderable (payload: OutputPayload) =
     match payload with
-    | Renderable renderable -> renderable
+    | Renderable renderable -> [ renderable ]
+    | Many payloads -> payloads |> List.collect payloadToRenderable
     | _ -> 
-        payload    
-        |> toMarkedUpString 
-        |> appendNewline
-        |> Markup 
-        :> Rendering.IRenderable
+        [ payload    
+          |> toMarkedUpString 
+          |> appendNewline
+          |> Markup 
+          :> Rendering.IRenderable ]
 
 let toConsole (payload: OutputPayload) =
     payload
     |> payloadToRenderable
-    |> AnsiConsole.Write
+    |> List.iter AnsiConsole.Write
