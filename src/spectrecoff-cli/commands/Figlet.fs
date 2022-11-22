@@ -25,6 +25,7 @@ type FigletExample() =
 
 open SpectreCoff.Cli
 open SpectreCoff.Output
+open SpectreCoff.Rule
 
 type FigletDocumentation() =
     inherit Command<FigletSettings>()
@@ -35,8 +36,8 @@ type FigletDocumentation() =
 
         NewLine |> toConsole
         pumped "Figlet module"
-        |> SpectreCoff.Rule.alignedRule Left 
-        |> SpectreCoff.Rule.toConsole
+        |> alignedRule Left 
+        |> toConsole
         
         Many [
             CO [
@@ -44,7 +45,7 @@ type FigletDocumentation() =
                 Link "https://spectreconsole.net/widgets/figlet"
                 C ")"
             ]
-            NewLine
+            NL
             C "The figlet can be used by the figlet function:"
             BI [ 
                 P "figlet: string -> FigletText"
@@ -63,6 +64,5 @@ type FigletDocumentation() =
             ]
             NL
             CO [C "The figlet can be printed to the console with the"; P "toConsole"; C "function."]
-            NL
         ] |> toConsole
         0

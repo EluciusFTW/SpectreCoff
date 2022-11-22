@@ -15,17 +15,17 @@ type RuleExample() =
     override _.Execute(_context, _settings) =
         pumped "Hello"
         |> alignedRule Left   
-        |> SpectreCoff.Rule.toConsole
+        |> toConsole
 
         "Fellow" 
         |> rule
-        |> SpectreCoff.Rule.toConsole
+        |> toConsole
          
         edgy "Developer"
         |> alignedRule Right 
-        |> SpectreCoff.Rule.toConsole
+        |> toConsole
 
-        emptyRule |> SpectreCoff.Rule.toConsole
+        emptyRule |> toConsole
         0
 
 open SpectreCoff.Cli
@@ -40,7 +40,7 @@ type RuleDocumentation() =
         NewLine |> toConsole
         pumped "Rule module"
         |> alignedRule Left 
-        |> SpectreCoff.Rule.toConsole
+        |> toConsole
         
         Many [
             CO [
@@ -58,7 +58,7 @@ type RuleDocumentation() =
             NL
             C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [ 
-                P "alignedRule: Alignment -> string -> Rule"
+                P "alignedRule: Alignment -> string -> Renderable"
             ]
             NL
             CO [C "The rule can be printed to the console with the"; P "toConsole"; C "function."]
