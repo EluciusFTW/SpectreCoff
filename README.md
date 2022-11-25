@@ -150,7 +150,7 @@ The figlet module is already usable, just not documented yet. In the meantime, p
 The table module is currently in the works!
 
 #### Chart
-The chart module is partially completed. In particular, the bar chart is already usable, but undocumented, while the breakdown chart has not been ported yet. Please see the example command for guidance on the bar chart.
+The chart module is already usable, just not documented yet. In the meantime, please see the example command for guidance.
 
 ### Versioning
 We are using [NerdBank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) and follow the version scheme: `<major>.<minor>.<git-depth>` for out releases. 

@@ -16,6 +16,7 @@
     <Compile Include="commands/Figlet.fs" />
     <Compile Include="commands/BarChart.fs" />
     <Compile Include="commands/Progress.fs" />
+    <Compile Include="commands/BreakdownChart.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

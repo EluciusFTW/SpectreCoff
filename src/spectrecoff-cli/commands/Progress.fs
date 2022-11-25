@@ -3,8 +3,9 @@
 open Spectre.Console
 open Spectre.Console.Cli
 
-open SpectreCoff.BarChart
+open SpectreCoff.Chart
 open SpectreCoff.Layout
+open SpectreCoff.Chart.BarChart
 open SpectreCoff.Output
 
 type ProgressSettings() =
@@ -20,9 +21,9 @@ type Progress() =
             ChartItem ("Figlet", 10)
             ChartItem ("Output", 8)
             ChartItem ("Panel", 8)
+            ChartItem ("Chart", 7)
             ChartItem ("Table", 6)
             ChartItem ("Prompt", 5)
-            ChartItem ("Chart", 4)
             ChartItemWithColor ("Tree", 0, Color.Red)
             ChartItemWithColor ("Rows", 0, Color.Red)
             ChartItemWithColor ("Calendar", 0, Color.Red)
@@ -31,6 +32,12 @@ type Progress() =
             ChartItemWithColor ("Canvas", 0, Color.Red)
             ChartItemWithColor ("CanvasImage", 0, Color.Red)
             ChartItemWithColor ("TextPath", 0, Color.Red)
+            ChartItemWithColor ("TextPrompt", 0, Color.Red)
+            ChartItemWithColor ("Selection", 0, Color.Red)
+            ChartItemWithColor ("MultiSelection", 0, Color.Red)
+            ChartItemWithColor ("Live Display", 0, Color.Red)
+            ChartItemWithColor ("Progress", 0, Color.Red)
+            ChartItemWithColor ("Status", 0, Color.Red)
         ]
         alignment <- Left
 

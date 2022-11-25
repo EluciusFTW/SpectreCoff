@@ -83,6 +83,17 @@ let main argv =
                 .WithDescription("Shows the documentation for the bar charts module.")
                 |> ignore)
 
+        config.AddBranch("breakdown", fun(add: IConfigurator<BreakdownChartSettings>) ->
+            add.AddCommand<BreakdownChartExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of breakdown charts.")
+                |> ignore
+
+            add.AddCommand<BreakdownChartDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the breakdown chart module.")
+                |> ignore)
+
         config.AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
             |> ignore
