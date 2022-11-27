@@ -141,3 +141,8 @@ let toConsole (payload: OutputPayload) =
     payload
     |> payloadToRenderable
     |> List.iter AnsiConsole.Write
+
+type OutputPayload with 
+    member self.toMarkedUpString = toMarkedUpString self
+    member self.toRenderable = payloadToRenderable self 
+    member self.toConsole = toConsole self

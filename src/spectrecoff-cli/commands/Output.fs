@@ -20,13 +20,13 @@ type OutputExample() =
         NewLine |> toConsole
 
         // There are several ways to print a single line.
-        // Generic way
+        // The generic way
         MCS (Color.Red, Underline, "This is underline red") |> toConsole
         MS (Underline, "This is underline.") |> toConsole
         MC (Color.Red, "This is red") |> toConsole
         NewLine |> toConsole
 
-        // Convenience way
+        // The convenience way
         Calm "This utilizes the calm style. " |> toConsole
         C "C is a short for Calm." |> toConsole
         NewLine |> toConsole
@@ -39,7 +39,7 @@ type OutputExample() =
         E "E is a short for Edgy." |> toConsole
         NewLine |> toConsole
 
-        // Vanilla and composite styles
+        // Using vanilla and composite styles
         Vanilla "This let's you pass in a style as defined by Spectre." |> toConsole
         V "V is a short for Vanilla." |> toConsole
         V "In order to be able to write the styles easily, there are some functions:" |> toConsole
@@ -49,7 +49,7 @@ type OutputExample() =
         V $"""As you can see, {pumped "Vanilla"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
         NewLine |> toConsole
 
-        // You can print multiple lines at once very easily as well:
+        // Multiple lines at once
         [
             "Sometimes you"
             "Just want to"
@@ -61,7 +61,7 @@ type OutputExample() =
         |> Many
         |> toConsole
 
-        // You can markup each of the lines individually, and compose with any kind of payload:
+        // Compose different kinds of payloads
         Many [
             NewLine
             C "You can print many marked up lines easily as well."
@@ -97,6 +97,17 @@ type OutputExample() =
             C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
             NewLine
         ] |> toConsole
+    
+        // Use extensions on the payload
+        let payload = Many [ NL; P "Pinted"; E "Using"; NL; C "... the Extension!"]
+        payload.toConsole
+    
+        // or, if you need to map the payload to a marked up string or renderable
+        let asRenderable = payload.toRenderable
+        let asMarkedUpString = payload.toMarkedUpString
+
+        // Let's test the round-trip!
+        V asMarkedUpString |> toConsole
         0
 
 
