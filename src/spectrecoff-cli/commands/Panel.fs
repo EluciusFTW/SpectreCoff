@@ -19,15 +19,17 @@ type PanelExample() =
                 C "Immutability over, well, mutability"
                 C "Declarative over imperative"
             ]
+            
         let header = 
             P "Guiding principles "
             |> toMarkedUpString
 
-        principles 
+        principles
+        |> toMarkedUpString 
         |> panel header 
         |> toConsole    
 
-        (P "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed.") 
+        pumped "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed."
         |> customPanel { defaultPanelLayout with Sizing = Expand } " Customization " 
         |> toConsole
         0
