@@ -45,7 +45,7 @@ type BreakdownChartDocumentation() =
             NL
             pumped "Breakdown Chart" |> alignedRule Left
             NL
-            E "Under construction...."
+            Edgy "Under construction...."
             NL
         ] |> toConsole
         0
