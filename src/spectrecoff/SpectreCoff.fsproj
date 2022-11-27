@@ -23,7 +23,7 @@
     <Compile Include="Prompt.fs" />
     <Compile Include="Table.fs" />
     <Compile Include="Rule.fs" />
-    <Compile Include="BarChart.fs" />
+    <Compile Include="Chart.fs" />
     <Compile Include="Figlet.fs" />
   </ItemGroup>
   <ItemGroup>

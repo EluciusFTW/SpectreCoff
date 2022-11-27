@@ -2,7 +2,8 @@
 
 open Spectre.Console
 open Spectre.Console.Cli
-open SpectreCoff.BarChart
+open SpectreCoff.Chart
+open SpectreCoff.Chart.BarChart
 open SpectreCoff.Cli
 open SpectreCoff.Layout
 open SpectreCoff.Output

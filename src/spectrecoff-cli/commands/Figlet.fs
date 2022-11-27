@@ -15,17 +15,16 @@ type FigletExample() =
     interface ICommandLimiter<FigletSettings>
 
     override _.Execute(_context, _settings) =
-        "Star ..." 
-        |> customFiglet Left Color.SeaGreen1 
+        "Star ..."
+        |> customFiglet Left Color.SeaGreen1
         |> toConsole
-        
-        "Wars!" 
+
+        "Wars!"
         |> figlet
         |> toConsole
         0
 
 open SpectreCoff.Cli
-open SpectreCoff.Output
 open SpectreCoff.Rule
 
 type FigletDocumentation() =
@@ -37,9 +36,9 @@ type FigletDocumentation() =
 
         NewLine |> toConsole
         pumped "Figlet module"
-        |> alignedRule Left 
+        |> alignedRule Left
         |> toConsole
-        
+
         Many [
             CO [
                 C "This module provides functionality from the figlet widget of Spectre.Console ("
@@ -48,7 +47,7 @@ type FigletDocumentation() =
             ]
             NL
             C "The figlet can be used by the figlet function:"
-            BI [ 
+            BI [
                 P "figlet: string -> FigletText"
             ]
             NL
@@ -60,7 +59,7 @@ type FigletDocumentation() =
             C "which both can be modified."
             NL
             C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
-            BI [ 
+            BI [
                 P "customFiglet: Alignment -> Color -> string -> Renderable"
             ]
             NL
