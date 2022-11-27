@@ -1,3 +1,4 @@
+[<AutoOpen>]
 module SpectreCoff.Panel
 
 open Spectre.Console

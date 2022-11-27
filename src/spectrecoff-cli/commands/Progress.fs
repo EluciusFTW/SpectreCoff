@@ -2,11 +2,7 @@
 
 open Spectre.Console
 open Spectre.Console.Cli
-
-open SpectreCoff.Chart
-open SpectreCoff.Layout
-open SpectreCoff.Chart.BarChart
-open SpectreCoff.Output
+open SpectreCoff
 
 type ProgressSettings() =
     inherit CommandSettings()

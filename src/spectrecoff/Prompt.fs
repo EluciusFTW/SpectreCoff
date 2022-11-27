@@ -1,4 +1,6 @@
+[<AutoOpen>]
 module SpectreCoff.Prompt
+
 open Spectre.Console 
 
 let selectionPrompt question choices = 

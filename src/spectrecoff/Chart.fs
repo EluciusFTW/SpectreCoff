@@ -1,4 +1,5 @@
-﻿module SpectreCoff.Chart
+﻿[<AutoOpen>]
+module SpectreCoff.Chart
 open Spectre.Console
 open SpectreCoff.Layout
 open SpectreCoff.Output
@@ -16,6 +17,7 @@ type ChartItem =
     | ChartItem of string * float
     | ChartItemWithColor of string * float * Color
 
+[<AutoOpen>]
 module BarChart =
     let mutable width = 60
     let mutable alignment = Center
@@ -45,6 +47,7 @@ module BarChart =
         :> Rendering.IRenderable
         |> Renderable
 
+[<AutoOpen>]
 module BreakdownChart =
     let mutable width = 60
 

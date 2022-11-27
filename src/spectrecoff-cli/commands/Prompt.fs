@@ -1,9 +1,7 @@
 namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
-open SpectreCoff.Prompt
-open SpectreCoff.Rule
-open SpectreCoff.Output
+open SpectreCoff
 
 type PromptSettings()  =
     inherit CommandSettings()
@@ -22,15 +20,12 @@ type PromptExample() =
         | false -> printMarkedUpInline (edgy "Ok, maybe later :/")
         0
 
-open SpectreCoff.Layout
-open SpectreCoff.Cli
-
 type PromptDocumentation() =
     inherit Command<PromptSettings>()
     interface ICommandLimiter<PromptSettings>
     
     override _.Execute(_context, _) = 
-        Theme.setDocumentationStyle
+        Cli.Theme.setDocumentationStyle
         
         NewLine |> toConsole
         pumped "Prompt module"
