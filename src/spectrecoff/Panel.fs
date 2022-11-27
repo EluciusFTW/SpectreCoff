@@ -15,8 +15,8 @@ let defaultPanelLayout: PanelLayout =
        Sizing = Collapse
        Padding = AllEqual 2 }
 
-let customPanel (layout: PanelLayout) (header: string) (content: OutputPayload) =
-    let panel = Panel(content |> toMarkedUpString)
+let customPanel (layout: PanelLayout) (header: string) (content: string) =
+    let panel = Panel(content)
     panel.Header <- PanelHeader(header)
 
     match layout.Sizing with
