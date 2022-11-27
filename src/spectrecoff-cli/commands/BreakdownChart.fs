@@ -17,12 +17,6 @@ type BreakdownChartExample() =
     interface ICommandLimiter<BreakdownChartSettings>
 
     override _.Execute(_context, _settings) =
-        Many [
-            NL
-            E "My life as a developer :("
-            NL
-        ] |> toConsole
-
         let items = [
             ChartItem ("Refinements", 2)
             ChartItem ("Dailies", 2)
@@ -32,7 +26,12 @@ type BreakdownChartExample() =
             ChartItemWithColor ("Developing features", 1, Color.Red)
         ]
 
-        breakdownChart items |> toConsole
+        Many [
+            NL
+            E "My life as a developer :("
+            NL
+            breakdownChart items
+        ] |> toConsole
         0
 
 type BreakdownChartDocumentation() =
