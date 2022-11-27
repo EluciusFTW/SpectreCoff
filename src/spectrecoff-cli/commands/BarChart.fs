@@ -2,11 +2,7 @@
 
 open Spectre.Console
 open Spectre.Console.Cli
-open SpectreCoff.Chart
-open SpectreCoff.Chart.BarChart
-open SpectreCoff.Cli
-open SpectreCoff.Layout
-open SpectreCoff.Output
+open SpectreCoff
 
 type BarChartSettings() =
     inherit CommandSettings()
@@ -38,5 +34,5 @@ type BarChartDocumentation() =
     interface ICommandLimiter<BarChartSettings>
 
     override _.Execute(_context, _settings) =
-        Theme.setDocumentationStyle
+        Cli.Theme.setDocumentationStyle
         0

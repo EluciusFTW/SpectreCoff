@@ -1,3 +1,4 @@
+[<AutoOpen>]
 module SpectreCoff.Figlet
 
 open Spectre.Console 

@@ -1,11 +1,8 @@
 namespace SpectreCoff.Cli.Commands
 
-open Spectre.Console.Cli
 open Spectre.Console
-
-open SpectreCoff.Layout
-open SpectreCoff.Figlet
-open SpectreCoff.Output
+open Spectre.Console.Cli
+open SpectreCoff
 
 type FigletSettings()  =
     inherit CommandSettings()
@@ -24,15 +21,12 @@ type FigletExample() =
         |> toConsole
         0
 
-open SpectreCoff.Cli
-open SpectreCoff.Rule
-
 type FigletDocumentation() =
     inherit Command<FigletSettings>()
     interface ICommandLimiter<FigletSettings>
 
     override _.Execute(_context, _settings) =
-        Theme.setDocumentationStyle
+        Cli.Theme.setDocumentationStyle
 
         NewLine |> toConsole
         pumped "Figlet module"

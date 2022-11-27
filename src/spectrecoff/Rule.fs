@@ -1,4 +1,5 @@
-﻿module SpectreCoff.Rule
+﻿[<AutoOpen>]
+module SpectreCoff.Rule
 open SpectreCoff.Layout
 open SpectreCoff.Output
 

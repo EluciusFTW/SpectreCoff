@@ -1,3 +1,4 @@
+[<AutoOpen>]
 module SpectreCoff.Table
 
 open Spectre.Console

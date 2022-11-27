@@ -1,9 +1,7 @@
 ﻿namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console.Cli
-open SpectreCoff.Layout
-open SpectreCoff.Rule
-open SpectreCoff.Output
+open SpectreCoff
 
 type RuleSettings()  =
     inherit CommandSettings()
@@ -28,14 +26,12 @@ type RuleExample() =
         emptyRule |> toConsole
         0
 
-open SpectreCoff.Cli
-
 type RuleDocumentation() =
     inherit Command<RuleSettings>()
     interface ICommandLimiter<RuleSettings>
 
     override _.Execute(_context, _settings) =
-        Theme.setDocumentationStyle
+        Cli.Theme.setDocumentationStyle
         
         NewLine |> toConsole
         pumped "Rule module"

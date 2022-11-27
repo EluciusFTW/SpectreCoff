@@ -1,3 +1,4 @@
+[<AutoOpen>]
 module SpectreCoff.Output
 
 open SpectreCoff.Layout

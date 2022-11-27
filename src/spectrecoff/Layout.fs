@@ -1,3 +1,4 @@
+[<AutoOpen>]
 module SpectreCoff.Layout
 
 type Alignment =

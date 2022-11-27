@@ -2,8 +2,7 @@ namespace SpectreCoff.Cli.Commands
 
 open Spectre.Console
 open Spectre.Console.Cli
-open SpectreCoff.Layout
-open SpectreCoff.Output
+open SpectreCoff
 
 type OutputSettings() =
     inherit CommandSettings()
@@ -81,7 +80,7 @@ type OutputExample() =
                 P "several"
                 E "items"
             ]
-            SpectreCoff.Rule.rule "Links and Emojis"
+            rule "Links and Emojis"
             CO [
                 C "You can easily render clickable links:"
                 Link "https://www.spectreconsole.net/markup"
@@ -100,13 +99,12 @@ type OutputExample() =
         ] |> toConsole
         0
 
-open SpectreCoff.Cli
 
 type OutputDocumentation() =
     inherit Command<OutputSettings>()
     interface ICommandLimiter<OutputSettings>
 
     override _.Execute(_context, _) =
-        Theme.setDocumentationStyle
+        Cli.Theme.setDocumentationStyle
         Edgy "Sorry, this documentation is not available yet." |> toConsole
         0
