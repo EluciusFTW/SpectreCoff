@@ -21,15 +21,14 @@ type PanelExample() =
             ]
             
         let header = 
-            P "Guiding principles "
+            P " Guiding principles "
             |> toMarkedUpString
 
         principles
-        |> toMarkedUpString 
         |> panel header 
         |> toConsole    
 
-        pumped "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed."
+        P "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed."
         |> customPanel { defaultPanelLayout with Sizing = Expand } " Customization " 
         |> toConsole
         0
