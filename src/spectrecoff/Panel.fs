@@ -10,18 +10,14 @@ type PanelLayout =
        Sizing: SizingBehaviour;
        Padding: Padding }
 
-let defaultPanelLayout: PanelLayout =
+let mutable defaultPanelLayout: PanelLayout =
     {  Border = BoxBorder.Heavy
        Sizing = Collapse
        Padding = AllEqual 2 }
 
-let customPanel (layout: PanelLayout) header (content: OutputPayload) =
-    let panel = 
-        match content with
-        | Renderable renderable -> Panel renderable
-        | _ -> Panel (toMarkedUpString content)
-        
-    panel.Header <- PanelHeader header
+let customPanel (layout: PanelLayout) (header: string) (content: OutputPayload) =
+    let panel = Panel((content |> payloadToRenderable).Head)
+    panel.Header <- PanelHeader(header)
 
     match layout.Sizing with
     | Expand -> panel.Expand <- true
