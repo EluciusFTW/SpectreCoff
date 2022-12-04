@@ -12,12 +12,17 @@ type PanelExample() =
 
     override _.Execute(_context, _) = 
         let principles =  
-            BI [
-                C "Composability over inheritance" 
-                P "Make illegal states irrepresentable"
-                P "Types are your friend"
-                C "Immutability over, well, mutability"
-                C "Declarative over imperative"
+            Many [
+                BI [
+                    C "Composability over inheritance" 
+                    P "Make illegal states irrepresentable"
+                    P "Types are your friend"
+                    C "Immutability over, well, mutability"
+                    C "Declarative over imperative"
+                ]
+                rule " and somctimes "
+                figlet "Readability over performance"
+                P "... but not always, duh."
             ]
             
         let header = 
@@ -57,7 +62,6 @@ type PanelDocumentation() =
             NL
             CO [
                 C "While the content can be an arbitrary payload" 
-                E "(known bug: Many does not work inside panel, fix on the way)"
                 C "the header needs to be a string."
                 C "Spectre still will render markup here, though, so all"; 
                 P "stringifyable payloads"; 
@@ -72,7 +76,7 @@ type PanelDocumentation() =
             ]
             NL
             C "In order to produce a panel with other layout, the function"
-            BI [P "customPanel: PanelLayout -> string -> OutputPayload -> Renderable"]
+            BI [P "customPanel: PanelLayout -> string -> OutputPayload -> OutputPayload"]
             NL
             C "can be used. Alternatively, the default can also be modified."
             NL

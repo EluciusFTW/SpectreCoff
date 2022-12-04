@@ -66,6 +66,7 @@ let appendNewline content =
     content + Environment.NewLine
 
 type OutputPayload =
+    | NewLine
     | MarkupCS of Color * Layout.Style * string
     | MarkupC of Color * string
     | MarkupS of Layout.Style * string
@@ -78,7 +79,6 @@ type OutputPayload =
     | Vanilla of string
     | Collection of OutputPayload list
     | BulletItems of OutputPayload list
-    | NewLine
     | Many of OutputPayload list
     | Renderable of Rendering.IRenderable
 
@@ -109,14 +109,23 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | NewLine -> ""
     | Collection items -> 
         items 
-        |> List.map toMarkedUpString
+        |> List.map (fun item ->
+            match item with
+            | Renderable _ -> failwith "Renderables can't be used in collections."
+            | BulletItems _ -> failwith "Bullet items can't be used within bullet items."
+            | Collection items -> 
+                items
+                |> List.map toMarkedUpString
+                |> joinSeparatedBy " "
+            | _ -> toMarkedUpString item)
         |> joinSeparatedBy " "
     | BulletItems items -> 
         items
         |> List.map (fun item ->
             match item with
+            | Renderable _ -> failwith "Renderables can't be used within bullet items."
+            | BulletItems _ -> failwith "Bullet items can't be used within bullet items."
             | Collection items -> CO ([C bulletItemPrefix]@items)
-            | BulletItems _ -> failwith "Bullet items can't be used within bullet items, sry."
             | _ -> CO [C bulletItemPrefix; item])
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline
@@ -124,23 +133,27 @@ let rec toMarkedUpString (payload: OutputPayload) =
         payloads
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline
-    | Renderable(_) -> failwith "Not Implemented" 
+    | Renderable(_) -> failwith "The payload type 'Renderable' is not stringifyable." 
 
 let rec payloadToRenderable (payload: OutputPayload) =
     match payload with
-    | Renderable renderable -> [ renderable ]
-    | Many payloads -> payloads |> List.collect payloadToRenderable
+    | Renderable renderable -> renderable
+    | Many payloads -> 
+        payloads 
+        |> List.map payloadToRenderable
+        |> Rows
+        :> Rendering.IRenderable
     | _ -> 
-        [ payload    
-          |> toMarkedUpString 
-          |> appendNewline
-          |> Markup 
-          :> Rendering.IRenderable ]
+        payload    
+        |> toMarkedUpString 
+        |> Markup 
+        :> Rendering.IRenderable
 
 let toConsole (payload: OutputPayload) =
     payload
     |> payloadToRenderable
-    |> List.iter AnsiConsole.Write
+    |> AnsiConsole.Write
+    AnsiConsole.WriteLine "" 
 
 type OutputPayload with 
     member self.toMarkedUpString = toMarkedUpString self
