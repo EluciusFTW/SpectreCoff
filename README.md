@@ -8,6 +8,7 @@ Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/Eluc
 - [SpectreCoff Package](#spectrecoff-package)
   * [Output and Markup](#output-and-markup)
   * [Modules](#modules)
+  * [Deviations from Spectre.Console](#deviations-from-spectre)
   * [Versioning](#versioning)
 - [SpectreCoff Cli](#spectrecoff-cli)
 - [License](#license)
@@ -24,13 +25,13 @@ Before we get into the details, we'd like to outline our goals and our guiding p
 
     In SpectreCoff, we follow the structure Spectre.Console provides very closely. 
     - Features of Spectre are translated into modules of the same name. 
-    - Whenever possible, each module exposes a function producing '_the module thing_' that is of same name as the module.
-    - Each module has a `toConsole` function, which delivers the instance to the console.
+    - Whenever possible, each module exposes a function producing '_the module thing_' that is of same name as the module. This will be in form of an `OutputPayload`.
+    - The special module `Output` (which also defines the type `OutputPayload`), provides the function `toConsole` with which everything can be printed. 
 
     In the example of the figlet widget of Spectre, which translates into the figlet module, it looks like this:
     ```fs
     "Hello World"    // figlet content
-    |> figlet        // main function of the module producing the figlet instance
+    |> figlet        // main function of the module producing the figlet instance as a Renderable case of OutputPayload 
     |> toConsole     // toConsole function of the figlet module
     ```
     Of course, for more complex objects, there will be more parameters needed. To achieve this simplicity, the main function uses some defaults (in this example the alignment of the figlet). These defaults can be overwritten 'globally' (as they are just static variables in the module), or passed to other functions taking in more arguments, e.g.,
@@ -85,9 +86,9 @@ The following table lists all payloads currently available:
 | Vanilla       | V     | Raw type, no processing will be done       | content: `string`                             | - 
 | Link         | -     | Clickable link showing the URL             | content: `string`                             | - 
 | LinkWithLabel| -     | Clickable link showing a label             | label: `string` <br /> link: `string`         | - 
-| Collection   | CO    | Aggregate multiple payloads in one line    | items: list of `OutputPayload`                | - 
+| Collection   | CO    | Aggregate multiple payloads in one line    | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | - 
 | Emoji        | -     | An emoji, given by it's string literal | emoji: `string` | -
-| BulletItems  | BI    | Show list of items with bullet points      | items: list of `OutputPayload` | bullet item prefix: `Output.bulletItemPrefix`
+| BulletItems  | BI    | Show list of items with bullet points      | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | bullet item prefix: `Output.bulletItemPrefix`
 | Newline      | NL    | An empty line                              | - | -
 | Many         | -     | Prints many payloads at once, each on own line | items: list of `OutputPayload` | -
 | Renderable   | -     | Wraps a Spectre.Rendering.IRenderable | content: `Spectre.Rendering.IRenderable` | -
@@ -152,12 +153,15 @@ The table module is currently in the works!
 #### Chart
 The chart module is already usable, just not documented yet. In the meantime, please see the example command for guidance.
 
+### Deviations from Spectre
+The Spectre widget _Rows_ does not have it's own module as the `Many` case of `OutputPayload` covers the same functionality. 
+
 ### Versioning
 We are using [NerdBank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) and follow the version scheme: `<major>.<minor>.<git-depth>` for out releases. 
 
 Since this package is a wrapper around _Spectre.Console_, we will synchronize our major and minor versions with the ones of the Spectre dependency we are wrapping.
 
-> <b>Note</b>: In particular, the _third number_ in the version does not have the same meaning as the patches in SemVer. In particular, increments in that number may contain breaking changes.
+> <b>Note</b>: In particular, the _third number_ in the version does not have the same meaning as the patches in SemVer. Increments in that number may contain breaking changes, in contrast to patch versions in SemVer.
 
 ## SpectreCoff Cli
 You can see each module in action by using the cli included in this repository in `/src/spectrecoff-cli/`. 
