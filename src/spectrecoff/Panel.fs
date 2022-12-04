@@ -12,11 +12,11 @@ type PanelLayout =
 
 let mutable defaultPanelLayout: PanelLayout =
     {  Border = BoxBorder.Heavy
-       Sizing = Collapse
+       Sizing = Expand
        Padding = AllEqual 2 }
 
 let customPanel (layout: PanelLayout) (header: string) (content: OutputPayload) =
-    let panel = Panel((content |> payloadToRenderable).Head)
+    let panel = Panel(content |> payloadToRenderable)
     panel.Header <- PanelHeader(header)
 
     match layout.Sizing with

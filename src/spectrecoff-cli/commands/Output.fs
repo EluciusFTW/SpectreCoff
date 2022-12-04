@@ -99,7 +99,7 @@ type OutputExample() =
         ] |> toConsole
     
         // Use extensions on the payload
-        let payload = Many [ NL; P "Pinted"; E "Using"; NL; C "... the Extension!"]
+        let payload = Many [ NL; P "Printed"; E "using"; NL; C "... the Extension!"]
         payload.toConsole
     
         // or, if you need to map the payload to a marked up string or renderable
