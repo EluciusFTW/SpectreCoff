@@ -35,14 +35,9 @@ type Row =
     | Strings of string list
     | Numbers of int list
 
-type HeaderContent =
-    | Simple of string
-    | Renderable of Rendering.IRenderable
-    | Payload of OutputPayload
-
 type Header =
-    | DefaultHeader of HeaderContent
-    | CustomHeader of HeaderContent * ColumnLayout
+    | DefaultHeader of OutputPayload
+    | CustomHeader of OutputPayload * ColumnLayout
 
 let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
     match layout.Alignment with
@@ -56,16 +51,18 @@ let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
     column.NoWrap <- not layout.Wrap
     column
 
-let private toSpectreContentColumn (content: HeaderContent) =
-    match content with
-    | Simple value -> TableColumn(value) 
-    | Renderable renderable -> TableColumn(renderable) 
-    | Payload renderable -> TableColumn(renderable |> payloadToRenderable)
+let private toSpectreContentColumn (payload: OutputPayload) =
+    TableColumn(payload |> payloadToRenderable)
 
 let private toSpectreColumn (header: Header) =
     match header with
     | DefaultHeader content -> toSpectreContentColumn content |> applyLayout defaultColumnLayout
     | CustomHeader (content, layout) -> toSpectreContentColumn content |> applyLayout layout
+
+let toOutputPayload table =
+    table 
+    :> Rendering.IRenderable 
+    |> Renderable
 
 let addRow (table: Table) (row: Row) =
     let values =
@@ -88,6 +85,7 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
     match layout.Sizing with
     | Expand -> table.Expand <- true
     | Collapse -> table.Collapse() |> ignore
+    table.Border <- layout.Border
 
     match layout.HideHeaders with
     | true -> table.HideHeaders() |> ignore
@@ -99,10 +97,10 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
             |> table.AddColumn
             |> ignore)
     rows |> List.iter (addRow table)
-    table
+    table 
 
 let table =
     customTable defaultTableLayout
 
-let toConsole (table: Table) = 
-    table |> AnsiConsole.Write
+type Table with 
+    member self.toOutputPayload = toOutputPayload self 

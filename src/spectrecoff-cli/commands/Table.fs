@@ -14,43 +14,41 @@ type TableExample() =
     override _.Execute(_context, _) =
 
         let headers = [
-            DefaultHeader (Simple "Firstname")
-            CustomHeader ((Simple "Age"), { defaultColumnLayout with Alignment = Right })
+            DefaultHeader (Calm "Number")
+            DefaultHeader (Calm "Square")
+            CustomHeader ((Calm "Cube"), { defaultColumnLayout with Alignment = Right })
         ]
 
         let rows = [
-            Numbers [11; 37]
-            Strings ["Frank"; "Farmington"]
+            for i in 1 .. 10 -> Numbers [i; pown i 2; pown i 3]
         ]
 
         P "This shows a table with a default and custom laid-out column." |> toConsole
         let exampleTable = table headers rows
-        exampleTable |> Table.toConsole
+        exampleTable.toOutputPayload |> toConsole
         
         NewLine |> toConsole
         P "Rows can be added to the same table later on." |> toConsole
-        addRow exampleTable (Numbers [23; 45])
-        exampleTable |> Table.toConsole
+        Numbers [20; pown 20 2; pown 20 3] |> addRow exampleTable
+        exampleTable
+        |> toOutputPayload
+        |> toConsole
 
         NewLine |> toConsole
-        P "Tables can be nested, or contain other markup" |> toConsole
+        P "Tables can be nested, contain other Payloads, and be customized" |> toConsole
         
         let exampleMarkup = 
-            "some text" 
+            "The bigger the exponent, the faster the sequence grows." 
             |> markupString (Some Color.Red) (Some Bold)
             |> Markup
 
         [ Renderables [ exampleTable;  exampleMarkup ]
-          Payloads [ P "Let's"; E "Go!" ] ] 
-            |> table headers 
-            |> Table.toConsole
-
-        NewLine |> toConsole
-        P "The table can be customized, too." |> toConsole
-        customTable  
-            { defaultTableLayout with Sizing = Collapse; Border = TableBorder.Minimal } headers rows 
-            |> Table.toConsole
-        
+          Payloads [ P ""; figlet "Wow"] ] 
+            |> customTable 
+                { defaultTableLayout with Sizing = Collapse; Border = TableBorder.DoubleEdge } 
+                [DefaultHeader (Calm "Results"); DefaultHeader (Pumped "Interpretations")] 
+            |> toOutputPayload
+            |> toConsole
         0
 
 type TableDocumentation() =
