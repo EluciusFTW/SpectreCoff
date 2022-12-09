@@ -21,23 +21,23 @@ let mutable linkColor = pumpedColor
 let mutable bulletItemPrefix = " + "
 
 // Basic output
-let private markupWithColor color content = 
+let private markupWithColor color content =
     $"[{color}]{Markup.Escape content}[/]"
 
-let private markupWithStyle style content = 
+let private markupWithStyle style content =
     $"[{style}]{Markup.Escape content}[/]"
 
-let private markupWithColorAndStyle color (style: string) content = 
+let private markupWithColorAndStyle color (style: string) content =
     $"[{color} {style}]{Markup.Escape content}[/]"
 
-let private padEmoji (emoji: string) = 
+let private padEmoji (emoji: string) =
     match emoji.StartsWith ":" with
     | true -> emoji
     | false -> $":{emoji}:"
 
 let markupString (color: Color option) (style: Layout.Style option) content =
     match style with
-    | None -> 
+    | None ->
         match color with
         | None -> content
         | Some c -> markupWithColor c content
@@ -59,10 +59,10 @@ let rec private joinSeparatedBy (separator: string) (strings: string list) =
     | [s] -> s
     | head::tail -> head + separator + joinSeparatedBy separator tail
 
-let rec private joinSeparatedByNewline = 
+let rec private joinSeparatedByNewline =
     joinSeparatedBy Environment.NewLine
 
-let appendNewline content = 
+let appendNewline content =
     content + Environment.NewLine
 
 type OutputPayload =
@@ -97,29 +97,29 @@ let NL = NewLine
 let rec toMarkedUpString (payload: OutputPayload) =
     match payload with
     | Calm content -> content |> calm
-    | Pumped content -> content |> pumped 
+    | Pumped content -> content |> pumped
     | Edgy content -> content |> edgy
-    | Vanilla content -> content 
+    | Vanilla content -> content
     | MarkupCS (color, style, content) -> content |> markupString (Some color) (Some style)
     | MarkupC (color, content) -> content |> markupString (Some color) None
     | MarkupS (style, content) -> content |> markupString None (Some style)
     | Link link -> link |> markupWithColorAndStyle linkColor "link"
     | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
     | Emoji emoji -> emoji |> padEmoji
-    | NewLine -> ""
-    | Collection items -> 
-        items 
+    | NewLine -> Environment.NewLine
+    | Collection items ->
+        items
         |> List.map (fun item ->
             match item with
             | Renderable _ -> failwith "Renderables can't be used in collections."
             | BulletItems _ -> failwith "Bullet items can't be used within bullet items."
-            | Collection items -> 
+            | Collection items ->
                 items
                 |> List.map toMarkedUpString
                 |> joinSeparatedBy " "
             | _ -> toMarkedUpString item)
         |> joinSeparatedBy " "
-    | BulletItems items -> 
+    | BulletItems items ->
         items
         |> List.map (fun item ->
             match item with
@@ -129,33 +129,33 @@ let rec toMarkedUpString (payload: OutputPayload) =
             | _ -> CO [C bulletItemPrefix; item])
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline
-    | Many payloads -> 
+    | Many payloads ->
         payloads
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline
-    | Renderable(_) -> failwith "The payload type 'Renderable' is not stringifyable." 
+    | Renderable _ -> failwith "The payload type 'Renderable' is not stringifyable."
 
 let rec payloadToRenderable (payload: OutputPayload) =
     match payload with
     | Renderable renderable -> renderable
-    | Many payloads -> 
-        payloads 
+    | Many payloads ->
+        payloads
         |> List.map payloadToRenderable
         |> Rows
         :> Rendering.IRenderable
-    | _ -> 
-        payload    
-        |> toMarkedUpString 
-        |> Markup 
+    | _ ->
+        payload
+        |> toMarkedUpString
+        |> Markup
         :> Rendering.IRenderable
 
 let toConsole (payload: OutputPayload) =
     payload
     |> payloadToRenderable
     |> AnsiConsole.Write
-    AnsiConsole.WriteLine "" 
+    AnsiConsole.WriteLine ""
 
-type OutputPayload with 
+type OutputPayload with
     member self.toMarkedUpString = toMarkedUpString self
-    member self.toRenderable = payloadToRenderable self 
+    member self.toRenderable = payloadToRenderable self
     member self.toConsole = toConsole self
