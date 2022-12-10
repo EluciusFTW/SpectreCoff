@@ -55,7 +55,7 @@ type BarChartDocumentation() =
             CO [C "The"; P "ChartItem"; C "union type consists of two options:"]
             BI [
                 CO [P "ChartItem:"; C "Consists of the label and a value for the item."]
-                CO [P "ChartItemWithColor:"; C "Additionally defines a color the item should be rendered in."]
+                CO [P "ChartItemWithColor:"; C "Additionally defines a color the item will be rendered in."]
             ]
             NL
             CO [C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."]
