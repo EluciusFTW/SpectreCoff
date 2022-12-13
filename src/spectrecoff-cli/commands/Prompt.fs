@@ -65,12 +65,29 @@ type PromptDocumentation() =
             ]
             CO [C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"]
             NL
-            C "Currently, we expose three basic functionalities:"
+            emptyRule
+            C "For prompting an answer from the user, the following functions can be used:"
             BI [ 
                 P "ask<'T> = (question: string) -> 'T"
-                P "confirm = (question: string) -> bool"
-                P "chooseFrom = (choices: string list) (question: string) -> string"
+                P "askWith<'T> = (options: PromptOptions) (question: string) -> 'T"
+                P "askSuggesting<'T> = (answer: 'T) (question: string) -> 'T"
+                P "askWithSuggesting<'T> = (options: PromptOptions) (answer: 'T) (question: string) -> 'T"
             ]
-            CO [C "The generic type argument of"; P "ask"; C "let's you specify the expected type. If the answer does not fit, it will be rejected."] 
+            CO [C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"]
+            BI [
+               CO [P "Secret"; C "describes whether the characters are shown (default: false)"]
+               CO [P "Optional"; C "describes whether empty is a valid input (default: false)"]
+            ]
+            NL
+            emptyRule
+            C "If the set of choices is finite, one of the following can be used:"
+            BI [ 
+                P "chooseFrom = (choices: string list) (question: string) -> string"
+                P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"
+            ]
+            NL
+            emptyRule
+            C "And finally, this function is suitable for a yes/no question:"
+            BI [ P "confirm = (question: string) -> bool" ]
         ] |> toConsole
         0
