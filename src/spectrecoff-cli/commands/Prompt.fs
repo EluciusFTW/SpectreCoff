@@ -21,7 +21,7 @@ type PromptExample() =
         | 1 -> 
             if (chosenFruit = chosenFruits.ToArray()[0])
                 then "Makes sense" 
-                else $"Why didn't you pick {chosenFruit} in hte first place?"
+                else $"Why didn't you pick {chosenFruit} in the first place?"
         | _ -> $"Must be nice to like {chosenFruits.Count} different fruit!"
         |> printMarkedUp
         

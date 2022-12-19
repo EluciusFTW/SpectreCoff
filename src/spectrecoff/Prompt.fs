@@ -10,7 +10,7 @@ type PromptOptions =
 let defaultOptions = { Secret = false; Optional = false}
 
 [<RequireQualifiedAccess>]
-module Prompts = 
+module private Prompts = 
     let selectionPrompt question choices = 
         let prompt = SelectionPrompt()
         prompt.AddChoices (choices |> Seq.toArray) |> ignore
