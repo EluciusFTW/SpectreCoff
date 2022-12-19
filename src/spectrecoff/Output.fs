@@ -106,7 +106,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Link link -> link |> markupWithColorAndStyle linkColor "link"
     | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
     | Emoji emoji -> emoji |> padEmoji
-    | NewLine -> ""
+    | NewLine -> Environment.NewLine
     | Collection items ->
         items
         |> List.map (fun item ->
