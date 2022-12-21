@@ -94,6 +94,17 @@ let main argv =
                 .WithDescription("Shows the documentation for the breakdown chart module.")
                 |> ignore)
 
+        config.AddBranch("tree", fun(add: IConfigurator<TreeSettings>) ->
+            add.AddCommand<TreeExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of tree charts.")
+                |> ignore
+
+            add.AddCommand<TreeDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the tree module.")
+                |> ignore)
+
         config.AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
             |> ignore
