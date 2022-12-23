@@ -13,22 +13,19 @@ type TreeExample() =
 
     override _.Execute(_context, _) =
 
-
-        let p v =  
-            customPanel {defaultPanelLayout with Sizing = Collapse} $"{v}" (P $"This is a square number!")
-
         let subNode value = 
-            createNode (p value) []
+            createNode (panel "" (P value)) []
 
         let nodes = 
-            [ for i in 1 .. 10 -> createNode (E $"{i}-th") [] ] 
-            |> List.indexed
-            |> List.map (fun (i,n) -> 
-                match i%2 with 
-                | 0 -> attach [subNode (i*i)] n
-                | _ -> n)
+            [ for i in 1 .. 50 -> (i, createNode (C $"{i}") []) ] 
+            |> List.map (fun (index, node) -> 
+                match index with
+                | i when i % 15 = 0 -> attach [subNode "FizzBuzz"] node
+                | i when i % 5 = 0 -> attach [subNode "Buzz"] node
+                | i when i % 3 = 0 -> attach [subNode "Fizz"] node
+                | _ -> node)
         
-        tree (P "Numbertree!") nodes 
+        tree (P "FizzBuzz-Tree!") nodes 
         |> toOutputPayload 
         |> toConsole
         0
