@@ -14,10 +14,10 @@ type TreeExample() =
     override _.Execute(_context, _) =
 
         let subNode value = 
-            createNode (panel "" (P value)) []
+            node (panel "" (P value)) []
 
         let nodes = 
-            [ for i in 1 .. 50 -> (i, createNode (C $"{i}") []) ] 
+            [ for i in 1 .. 16 -> (i, node (C $"{i}") []) ] 
             |> List.map (fun (index, node) -> 
                 match index with
                 | i when i % 15 = 0 -> attach [subNode "FizzBuzz"] node
