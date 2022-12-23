@@ -37,18 +37,25 @@ let private applyLayout layout (root: Tree) =
     root
 
 let attach (nodes: TreeNode list) (node: TreeNode) =
-    nodes 
-    |> List.iter (fun n -> node.AddNode n |> ignore)
+    nodes |> List.iter (fun n -> node.AddNode n |> ignore)
     node
 
-let createNode (content: OutputPayload) (nodes: TreeNode list) = 
-    let node = TreeNode (content |> payloadToRenderable ) 
-    attach nodes node
+let attachToRoot (nodes: TreeNode list) (root: Tree) = 
+    nodes |> List.iter (fun n -> root.AddNode n |> ignore)
+    root
+
+let node (content: OutputPayload) (nodes: TreeNode list) = 
+    content 
+    |> payloadToRenderable 
+    |> TreeNode
+    |> attach nodes
 
 let customTree (layout: TreeLayout) (rootContent: OutputPayload ) (nodes: TreeNode list) =
-    let tree = Tree(rootContent |> payloadToRenderable) |> applyLayout layout
-    nodes |> List.iter (fun node -> tree.AddNode node |> ignore)
-    tree
+    rootContent 
+    |> payloadToRenderable 
+    |> Tree 
+    |> applyLayout layout
+    |> attachToRoot nodes
 
 let tree: OutputPayload -> TreeNode list -> Tree =
     customTree defaultTreeLayout
