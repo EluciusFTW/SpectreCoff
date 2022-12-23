@@ -97,7 +97,7 @@ let main argv =
         config.AddBranch("tree", fun(add: IConfigurator<TreeSettings>) ->
             add.AddCommand<TreeExample>("example")
                 .WithAlias("e")
-                .WithDescription("Shows examples of tree charts.")
+                .WithDescription("Shows examples of trees.")
                 |> ignore
 
             add.AddCommand<TreeDocumentation>("doc")
