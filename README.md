@@ -128,30 +128,12 @@ These composites are also the motivation for the short aliases of payloads, as t
 For more examples, please see the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
 
 ### Modules
-This Bar Chart (created using SpectreCoff) breaks down our progress porting the Spectre.Console modules.
+This bar chart (created by SpectreCoff, of course - you can generate it with the command `progress`) breaks down our progress porting the Spectre.Console modules.
 Much is already usable, but there is still a way to go. 
 
 <div align="center">
-    <img alt="progress" src="assets/progress.png" width="50%" />
+    <img  alt="progress" src="assets/progress.png"  width="70%"/>
 </div>
-
-#### Panel
-The panel module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
-
-#### Prompt
-The prompt module is already usable, just now documented yet. In the meantime, please see the example command for guidance. 
-
-#### Rule
-The rule module is already usable, just now documented yet. In the meantime, please see the example command for guidance.
-
-#### Figlet
-The figlet module is already usable, just not documented yet. In the meantime, please see the example command for guidance.
-
-#### Table
-The table module is currently in the works!
-
-#### Chart
-The chart module is already usable, just not documented yet. In the meantime, please see the example command for guidance.
 
 ### Deviations from Spectre
 The Spectre widget _Rows_ does not have it's own module as the `Many` case of `OutputPayload` covers the same functionality. 
