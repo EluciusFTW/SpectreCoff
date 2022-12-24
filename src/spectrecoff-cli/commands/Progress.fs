@@ -16,11 +16,11 @@ type Progress() =
             ChartItem ("Rule", 10)
             ChartItem ("Figlet", 10)
             ChartItem ("Panel", 10)
+            ChartItem ("Table", 10)
+            ChartItem ("Output", 9)
             ChartItem ("Prompt", 8)
-            ChartItem ("Output", 8)
-            ChartItem ("Chart", 7)
-            ChartItem ("Table", 7)
-            ChartItemWithColor ("Tree", 0, Color.Red)
+            ChartItem ("Chart", 8)
+            ChartItemWithColor ("Tree", 6, Color.Red)
             ChartItemWithColor ("Calendar", 0, Color.Red)
             ChartItemWithColor ("Grid", 0, Color.Red)
             ChartItemWithColor ("Padder", 0, Color.Red)
@@ -35,11 +35,6 @@ type Progress() =
 
         Many [
             NewLine
-            C "Below, a breakdown of our progress porting Spectre.Console modules to SpectreCoff:"
-            NewLine
+            items |> barChart "SpectreCoff Module Progress"
         ] |> toConsole
-
-        items
-        |> barChart "SpectreCoff Module Progress"
-        |> toConsole
         0
