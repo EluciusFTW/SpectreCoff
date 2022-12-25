@@ -13,16 +13,27 @@ type GuideStyle =
 
 type TreeLayout =
     {  Sizing: SizingBehaviour
-       Guides: GuideStyle }
+       Guides: GuideStyle 
+       ForeGroundColor: Color Option
+       BackGroundColor: Color Option
+       Decoration: Decoration Option}
 
 let defaultTreeLayout: TreeLayout =
     {  Sizing = Collapse
-       Guides = SingleLine }
+       Guides = SingleLine
+       ForeGroundColor = Some calmColor
+       BackGroundColor = None
+       Decoration = None }
 
 let toOutputPayload tree =
     tree 
     :> Rendering.IRenderable 
     |> Renderable
+
+let private toNullable option = 
+    match option with 
+    | None -> System.Nullable<_> ()
+    | Some a -> System.Nullable<_> a
 
 let private applyLayout layout (root: Tree) =
     match layout.Sizing with 
@@ -34,6 +45,8 @@ let private applyLayout layout (root: Tree) =
     | SingleLine -> root.Guide <- TreeGuide.Line
     | DoubleLine -> root.Guide <- TreeGuide.DoubleLine
     | BoldLine -> root.Guide <- TreeGuide.BoldLine
+
+    root.Style <- Style (toNullable layout.ForeGroundColor, toNullable layout.BackGroundColor, toNullable layout.Decoration)
     root
 
 let attach (nodes: TreeNode list) (node: TreeNode) =

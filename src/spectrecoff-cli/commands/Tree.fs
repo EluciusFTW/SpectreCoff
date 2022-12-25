@@ -28,6 +28,16 @@ type TreeExample() =
         tree (P "FizzBuzz-Tree!") nodes 
         |> toOutputPayload 
         |> toConsole
+
+        customTree 
+            { defaultTreeLayout with 
+                ForeGroundColor = Some Color.Green 
+                BackGroundColor = Some Color.Grey
+                Decoration = Some Decoration.Bold } 
+            (P "Custom-Tree!") 
+            [ for i in 1 .. 3 -> node (C $"Node {i}!") [] ] 
+        |> toOutputPayload 
+        |> toConsole
         0
 
 type TreeDocumentation() =
