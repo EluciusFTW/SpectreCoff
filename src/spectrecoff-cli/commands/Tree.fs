@@ -26,7 +26,6 @@ type TreeExample() =
                 | _ -> node)
         
         tree (P "FizzBuzz-Tree!") nodes 
-        |> toOutputPayload 
         |> toConsole
 
         customTree 
@@ -36,7 +35,6 @@ type TreeExample() =
                 Decoration = Some Decoration.Bold } 
             (P "Custom-Tree!") 
             [ for i in 1 .. 3 -> node (C $"Node {i}!") [] ] 
-        |> toOutputPayload 
         |> toConsole
         0
 

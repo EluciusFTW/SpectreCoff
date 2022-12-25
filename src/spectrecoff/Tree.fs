@@ -69,9 +69,8 @@ let customTree (layout: TreeLayout) (rootContent: OutputPayload ) (nodes: TreeNo
     |> Tree 
     |> applyLayout layout
     |> attachToRoot nodes
+    :> Rendering.IRenderable
+    |> Renderable
 
-let tree: OutputPayload -> TreeNode list -> Tree =
+let tree =
     customTree defaultTreeLayout
-
-type Tree with 
-    member self.toOutputPayload = toOutputPayload self 
