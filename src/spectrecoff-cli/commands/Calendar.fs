@@ -11,6 +11,9 @@ type CalendarExample() =
     interface ICommandLimiter<CalendarSettings>
 
     override _.Execute(_context, _) =
+
+        calendar (Year 2021) (Month 11) (Day 23)
+        |> toConsole
         0
 
 type CalendarDocumentation() =
