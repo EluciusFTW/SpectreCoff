@@ -104,6 +104,17 @@ let main argv =
                 .WithAlias("d")
                 .WithDescription("Shows the documentation for the tree module.")
                 |> ignore)
+        
+        config.AddBranch("calendar", fun(add: IConfigurator<CalendarSettings>) ->
+            add.AddCommand<CalendarExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of calendars.")
+                |> ignore
+
+            add.AddCommand<CalendarDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the calendar module.")
+                |> ignore)
 
         config.AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
