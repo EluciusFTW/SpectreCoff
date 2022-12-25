@@ -3,6 +3,10 @@ name: spectrecoff-publish
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "src/spectrecoff-cli/**"
+      - "README.md"
+      - "assets/**"
 
 jobs:
   build:
@@ -18,7 +22,7 @@ jobs:
           setCommonVars: true
 
       - run: "echo 'PackageVer: ${{ steps.nbgv.outputs.NuGetPackageVersion }}'"
-      
+
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
@@ -32,6 +36,6 @@ jobs:
 
       - name: Pack
         run: dotnet pack -c Release -o . src/spectrecoff/*.fsproj
-      
+
       - name: Publish
         run: dotnet nuget push *.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
