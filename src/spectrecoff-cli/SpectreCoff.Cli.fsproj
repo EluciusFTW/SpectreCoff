@@ -7,16 +7,16 @@
   <ItemGroup>
     <Compile Include="theming/Themes.fs" />
     <Compile Include="commands/Output.fs" />
-    <Compile Include="commands/Table.fs" />
     <Compile Include="commands/Panel.fs" />
     <Compile Include="commands/Prompt.fs" />
     <Compile Include="commands/Rule.fs" />
     <Compile Include="commands/Figlet.fs" />
     <Compile Include="commands/BarChart.fs" />
-    <Compile Include="commands/Progress.fs" />
     <Compile Include="commands/BreakdownChart.fs" />
+    <Compile Include="commands/Table.fs" />
     <Compile Include="commands/Tree.fs" />
     <Compile Include="commands/Calendar.fs" />
+    <Compile Include="commands/Progress.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
