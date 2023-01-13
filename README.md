@@ -159,10 +159,13 @@ The currently supported commands are:
 | output   | &check;   | &cross; 
 | rule     | &check;   | &check; 
 | figlet   | &check;   | &check;
-| panel    | &check;   | &cross;
+| panel    | &check;   | &check;
 | prompt   | &check;   | &check;
+| bar      | &check;   | &check;
+| breakdown| &check;   | &check;
 | table    | &check;   | &cross;
-| barChart | &check;   | &cross;
+| tree     | &check;   | &cross;
+| calendar | &check;   | &cross;
 
 ## License
 Copyright © Guy Buss, Daniel Muckelbauer
