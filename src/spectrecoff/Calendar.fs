@@ -9,53 +9,75 @@ type Culture = Culture of string
 let unwrapCulure (Culture c) = c
 
 type Year = Year of int
-let unwrapYear (Year y) = y
+[<RequireQualifiedAccess>]
+module Year = 
+    let unwrap (Year y) = y
 
 type Month = Month of int
-let unwrapMonth (Month m) = m
+[<RequireQualifiedAccess>]
+module Month = 
+    let unwrap (Month m) = m
 
 type Day = Day of int
-let unwrapDay (Day d) = d
+[<RequireQualifiedAccess>]
+module Day = 
+    let unwrap (Day d) = d
 
-type Event = 
-    | Event of Year*Month*Day
-    | SpecificEvent of string*Year*Month*Day
+type Event = Event of Year * Month * Day
+[<RequireQualifiedAccess>]
+module Event =
+    let toTuple event = 
+        match event with
+        | Event (y,m,d) -> (Year.unwrap y, Month.unwrap m, Day.unwrap d)
 
 type CalendarSettings = 
     {  Culture: Culture Option;
        HideHeaders: bool;
        HeaderColor: Color;
-       HeaderStyle: Style;
-       HighlightColor: Color Option }
+       HeaderStyle: Decoration;
+       HighlightColor: Color Option
+       HighlightStyle: Decoration Option }
 
 let defaultCalendarSettings = 
     {  Culture =  None
-       HideHeaders = true
+       HideHeaders = false
        HeaderColor = calmColor
-       HeaderStyle = Bold
-       HighlightColor= Some pumpedColor }
+       HeaderStyle = Decoration.Bold
+       HighlightColor = Some pumpedColor
+       HighlightStyle = Some Decoration.Invert }
 
-let addEvent (calendar: Calendar) event =
-    match event with
-    | Event (y,m,d) -> calendar.AddCalendarEvent (unwrapYear y, unwrapMonth m, unwrapDay d)
-    | SpecificEvent (desc, y, m, d) -> calendar.AddCalendarEvent (desc, unwrapYear y, unwrapMonth m, unwrapDay d)
+let toOutputPayload calendar =
+    calendar 
+    :> Rendering.IRenderable 
+    |> Renderable
+
+let addEvent event (calendar: Calendar) =
+    event 
+    |> Event.toTuple
+    |> calendar.AddCalendarEvent
 
 let applysettings (settings: CalendarSettings) (calendar: Calendar) = 
     match settings.Culture with 
     | Some culture -> calendar.Culture <- unwrapCulure culture |> System.Globalization.CultureInfo
     | _ -> ()
 
-    match settings.HighlightColor with 
-    | Some color -> calendar.HightlightStyle <- Style (color)
-    | _ -> ()
+    calendar.ShowHeader <- not settings.HideHeaders
+    calendar.HeaderStyle <- Style (settings.HeaderColor, System.Nullable(), settings.HeaderStyle)
     
-    Event (Year 2021, Month 11, Day 05) |> addEvent calendar
+    match (settings.HighlightColor, settings.HighlightStyle) with 
+    | Some color, Some style -> calendar.HightlightStyle <- Style (color, System.Nullable(), style)
+    | Some color, None -> calendar.HightlightStyle <- Style (color)
+    | None, Some style -> calendar.HightlightStyle <- Style (System.Nullable(), System.Nullable(), style)
+    | _ -> ()
 
-let customCalendar settings year month day = 
-    Calendar (unwrapYear year, unwrapMonth month, unwrapDay day)
+    calendar
+
+let customCalendar settings year month = 
+    Calendar (Year.unwrap year, Month.unwrap month)
     |> applysettings settings
-    :> Rendering.IRenderable
-    |> Renderable
 
 let calendar =
     customCalendar defaultCalendarSettings
+
+type Calendar with 
+    member self.toOutputPayload = toOutputPayload self 
