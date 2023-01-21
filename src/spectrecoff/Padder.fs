@@ -32,3 +32,6 @@ let padVertical amount =
 
 let padSymmetric horizontal vertical = 
     pad vertical horizontal vertical horizontal
+
+let padAll amount =
+    pad amount amount amount amount

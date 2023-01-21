@@ -6,14 +6,14 @@ open SpectreCoff.Layout
 open SpectreCoff.Output
 
 type PanelLayout =
-    {  Border: BoxBorder;
-       Sizing: SizingBehaviour;
-       Padding: Padding }
+    { Border: BoxBorder;
+      Sizing: SizingBehaviour;
+      Padding: Padding }
 
 let mutable defaultPanelLayout: PanelLayout =
-    {  Border = BoxBorder.Heavy
-       Sizing = Expand
-       Padding = AllEqual 2 }
+    { Border = BoxBorder.Heavy
+      Sizing = Expand
+      Padding = AllEqual 2 }
 
 let customPanel (layout: PanelLayout) (header: string) (content: OutputPayload) =
     let panel = Panel(content |> payloadToRenderable)

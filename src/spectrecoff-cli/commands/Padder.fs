@@ -21,14 +21,14 @@ type PadderExample() =
         // If you want to pad any output, you can simply pipe it through, 
         // even multiple times
         "Invasion!"
-        |> figlet
-        |> padleft 3
-        |> padtop 2
+        |> customFiglet Left Color.Purple
+        |> padleft 2
+        |> padtop 5
         |> toConsole
 
         // These padded elements can be composed
         Many [ 
-            for i in 1 .. 8 -> alienInaAbox |> padleft (24 - 3*i) 
+            for i in 1 .. 5 -> alienInaAbox |> padleft (5*i) 
         ] |> toConsole
         0
 
