@@ -166,6 +166,7 @@ The currently supported commands are:
 | table    | &check;   | &cross;
 | tree     | &check;   | &cross;
 | calendar | &check;   | &cross;
+| padder   | &check;   | &cross;
 
 ## License
 Copyright © Guy Buss, Daniel Muckelbauer
