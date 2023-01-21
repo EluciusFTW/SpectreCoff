@@ -9,7 +9,7 @@
 		<Title>SpectreCoff - Spectre.Console for FSharp</Title>
 		<Description>A thin, opinionated wrapper around Spectre.Console in FSharp.</Description>
 		<PackageTags>cli commandline console-application spectre spectre.console wrapper wrapper-api FSharp F#</PackageTags>
-		<PackageReleaseNotes> Added 'tree' module </PackageReleaseNotes>
+		<PackageReleaseNotes> Added 'padder' module </PackageReleaseNotes>
 		<PackageId>EluciusFTW.SpectreCoff</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/EluciusFTW/SpectreCoff</PackageProjectUrl>
@@ -27,6 +27,7 @@
     <Compile Include="Figlet.fs" />
     <Compile Include="Tree.fs" />
     <Compile Include="Calendar.fs" />
+    <Compile Include="Padder.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Nerdbank.Gitversioning" Version="3.5.119">
