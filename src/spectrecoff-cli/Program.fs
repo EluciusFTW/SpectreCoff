@@ -116,6 +116,17 @@ let main argv =
                 .WithDescription("Shows the documentation for the calendar module.")
                 |> ignore)
 
+        config.AddBranch("padder", fun(add: IConfigurator<PadderSettings>) ->
+            add.AddCommand<PadderExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of calendars.")
+                |> ignore
+
+            add.AddCommand<PadderDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the calendar module.")
+                |> ignore)
+
         config.AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
             |> ignore

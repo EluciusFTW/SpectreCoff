@@ -16,6 +16,7 @@
     <Compile Include="commands/Table.fs" />
     <Compile Include="commands/Tree.fs" />
     <Compile Include="commands/Calendar.fs" />
+    <Compile Include="commands/Padder.fs" />
     <Compile Include="commands/Progress.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
