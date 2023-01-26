@@ -15,9 +15,9 @@ let emptyRule =
 let alignedRule alignment content =
     let rule = 
         match alignment with
-        | Left -> Rule(content).LeftAligned()
-        | Center -> Rule(content)
-        | Right -> Rule(content).RightAligned()
+        | Left -> Rule(content).LeftJustified()
+        | Center -> Rule(content).Centered()
+        | Right -> Rule(content).RightJustified()
 
     rule
     :> Rendering.IRenderable

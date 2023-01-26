@@ -13,9 +13,9 @@ let customFiglet (alignment: Alignment) (color: Color) content =
     figlet.Color <- color
 
     match alignment with
-    | Left -> figlet.LeftAligned() |> ignore
+    | Left -> figlet.LeftJustified() |> ignore
     | Center -> figlet.Centered() |> ignore
-    | Right -> figlet.RightAligned() |> ignore
+    | Right -> figlet.RightJustified() |> ignore
 
     figlet
     :> Rendering.IRenderable
