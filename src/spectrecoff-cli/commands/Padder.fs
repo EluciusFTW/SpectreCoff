@@ -46,7 +46,7 @@ type PadderDocumentation() =
 
         Many [
             CO [
-                C "This module provides functionality from the figlet widget of Spectre.Console ("
+                C "This module provides functionality from the padder widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/padder"
                 C ")"
             ]

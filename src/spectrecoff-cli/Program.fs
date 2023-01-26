@@ -119,12 +119,12 @@ let main argv =
         config.AddBranch("padder", fun(add: IConfigurator<PadderSettings>) ->
             add.AddCommand<PadderExample>("example")
                 .WithAlias("e")
-                .WithDescription("Shows examples of calendars.")
+                .WithDescription("Shows examples of padders.")
                 |> ignore
 
             add.AddCommand<PadderDocumentation>("doc")
                 .WithAlias("d")
-                .WithDescription("Shows the documentation for the calendar module.")
+                .WithDescription("Shows the documentation for the padder module.")
                 |> ignore)
 
         config.AddCommand<Progress>("progress")
