@@ -60,19 +60,25 @@ let private toSpectreColumn (header: Header) =
     | CustomHeader (content, layout) -> toSpectreContentColumn content |> applyLayout layout
 
 let toOutputPayload table =
-    table 
-    :> Rendering.IRenderable 
+    table
+    :> Rendering.IRenderable
     |> Renderable
 
-let addRow (table: Table) (row: Row) =
-    let values =
-        match row with
-        | Renderables renderables -> renderables
-        | Strings values -> values |> List.map (fun value -> Text value)
-        | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
-        | Payloads payloads -> payloads |> List.map payloadToRenderable
+let private getValues (row: Row) =
+    match row with
+    | Renderables renderables -> renderables
+    | Strings values -> values |> List.map (fun value -> Text value)
+    | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
+    | Payloads payloads -> payloads |> List.map payloadToRenderable
+    |> List.toArray
 
+let addRowToTable (table: Table) (row: Row) =
+    let values = getValues row
     table.AddRow(values) |> ignore
+
+let addRowToGrid (grid: Grid) (row: Row) =
+    let values = getValues row
+    grid.AddRow(values) |> ignore
 
 let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
     let table = Table()
@@ -96,11 +102,32 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
             toSpectreColumn header
             |> table.AddColumn
             |> ignore)
-    rows |> List.iter (addRow table)
-    table 
+    rows |> List.iter (addRowToTable table)
+    table
 
 let table =
     customTable defaultTableLayout
 
-type Table with 
-    member self.toOutputPayload = toOutputPayload self 
+let grid (rows: Row list) =
+    let numberOfColumns =
+        rows
+        |> List.map (fun row ->
+           match row with
+           | Numbers numbers -> numbers.Length
+           | Payloads payloads -> payloads.Length
+           | Strings strings -> strings.Length
+           | Renderables renderables -> renderables.Length)
+        |> List.max
+
+    let grid = Grid().AddColumns numberOfColumns
+    rows
+    |> List.map getValues
+    |> List.map grid.AddRow
+    |> ignore
+    grid
+
+type Table with
+    member self.toOutputPayload = toOutputPayload self
+
+type Grid with
+    member self.toOutputPayload = toOutputPayload self
