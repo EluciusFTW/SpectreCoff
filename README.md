@@ -156,17 +156,18 @@ The currently supported commands are:
 
 | command  | example   | doc   | 
 | -------- | --------- | ------|
-| output   | &check;   | &cross; 
-| rule     | &check;   | &check; 
-| figlet   | &check;   | &check;
-| panel    | &check;   | &check;
-| prompt   | &check;   | &check;
-| bar      | &check;   | &check;
-| breakdown| &check;   | &check;
-| table    | &check;   | &cross;
-| tree     | &check;   | &cross;
-| calendar | &check;   | &cross;
-| padder   | &check;   | &cross;
+| output   | ✅   | ❌
+| rule     | ✅   | ✅ 
+| figlet   | ✅   | ✅
+| panel    | ✅   | ✅
+| prompt   | ✅   | ✅
+| bar      | ✅   | ✅
+| breakdown| ✅   | ✅
+| table    | ✅   | ❌
+| tree     | ✅   | ❌
+| calendar | ✅   | ❌
+| padder   | ✅   | ❌
+| textpath | ✅   | ✅
 
 ## License
 Copyright © Guy Buss, Daniel Muckelbauer
