@@ -18,6 +18,7 @@
     <Compile Include="commands/Calendar.fs" />
     <Compile Include="commands/Padder.fs" />
     <Compile Include="commands/Progress.fs" />
+    <Compile Include="commands/Textpath.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

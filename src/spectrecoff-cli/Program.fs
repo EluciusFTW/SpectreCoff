@@ -127,6 +127,17 @@ let main argv =
                 .WithDescription("Shows the documentation for the padder module.")
                 |> ignore)
 
+        config.AddBranch("textpath", fun(add: IConfigurator<TextpathSettings>) ->
+            add.AddCommand<TextpathExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of text paths.")
+                |> ignore
+
+            add.AddCommand<TextpathDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the text path module.")
+                |> ignore)
+
         config.AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
             |> ignore
