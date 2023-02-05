@@ -157,17 +157,18 @@ The currently supported commands are:
 
 | command  | example   | doc   | 
 | -------- | --------- | ------|
-| output   | &check;   | &cross; 
-| rule     | &check;   | &check; 
-| figlet   | &check;   | &check;
-| panel    | &check;   | &check;
-| prompt   | &check;   | &check;
-| bar      | &check;   | &check;
-| breakdown| &check;   | &check;
-| table    | &check;   | &cross;
-| tree     | &check;   | &cross;
-| calendar | &check;   | &cross;
-| padder   | &check;   | &cross;
+| output   | ✅   | ❌
+| rule     | ✅   | ✅ 
+| figlet   | ✅   | ✅
+| panel    | ✅   | ✅
+| prompt   | ✅   | ✅
+| bar      | ✅   | ✅
+| breakdown| ✅   | ✅
+| table    | ✅   | ❌
+| tree     | ✅   | ❌
+| calendar | ✅   | ❌
+| padder   | ✅   | ❌
+| textpath | ✅   | ✅
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):
