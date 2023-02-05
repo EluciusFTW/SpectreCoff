@@ -11,6 +11,7 @@ Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/Eluc
   * [Deviations from Spectre.Console](#deviations-from-spectre)
   * [Versioning](#versioning)
 - [SpectreCoff Cli](#spectrecoff-cli)
+- [Related Work](#related-work)
 - [License](#license)
 - [Feedback and Contributing](#feedback-and-contributing)
 
@@ -167,6 +168,14 @@ The currently supported commands are:
 | tree     | &check;   | &cross;
 | calendar | &check;   | &cross;
 | padder   | &check;   | &cross;
+
+## Related Work
+In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):
+- [fs-spectre](https://github.com/galassie/fs-spectre) - 👻💻 Spectre.Console with F# style.
+
+Also, if you want to create a cli using `Spectre.Console.Cli` (recently the cli part was extracted into a separate package), you can use my starter template:
+- [fsharp-spectre-console-template](https://github.com/EluciusFTW/fsharp-spectre-console-template) - A minimal starter template for using Spectre.Console.Cli in fsharp
+
 
 ## License
 Copyright © Guy Buss, Daniel Muckelbauer
