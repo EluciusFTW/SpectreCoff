@@ -2,39 +2,53 @@
 module SpectreCoff.Json
 
 open Spectre.Console
-open SpectreCoff.Layout
+open Spectre.Console.Json
 open SpectreCoff.Output
 
 let mutable bracesColor = calmColor
-let mutable bracketColor = calmColor
-let mutable colonColor = pumpedColor
-let mutable commaColor = edgyColor
+let mutable bracesDecorations = [ Decoration.None ]
 
-let mutable stringColor = calmColor
-let mutable numberColor = calmColor
-let mutable booleanColor = pumpedColor
-let mutable nullColor = edgyColor
+let mutable bracketsColor = calmColor
+let mutable bracketsDecorations = [ Decoration.None ]
 
-// let private applyColors (path: TextPath) =
-//     path.LeafColor leafColor |> ignore
-//     path.SeparatorColor separatorColor |> ignore
-//     path.StemColor stemColor |> ignore
-//     path.RootColor rootColor
+let mutable colonColor = calmColor
+let mutable colonDecorations = [ Decoration.None ]
 
-// let alignedPath alignment value =
-//     let path = TextPath value
+let mutable commaColor = calmColor
+let mutable commaDecorations = [ Decoration.None ]
 
-//     match alignment with
-//     | Left -> path.LeftJustified() |> ignore
-//     | Center -> path.Centered() |> ignore
-//     | Right -> path.RightJustified() |> ignore
+let mutable memberColor = pumpedColor
+let mutable memberDecorations = [ Decoration.Italic ]
 
-//     path 
-//     |> applyColors 
-//     :> Rendering.IRenderable
-//     |> Renderable
+let mutable stringColor = edgyColor
+let mutable stringDecorations = [ Decoration.Bold ]
+
+let mutable numberColor = edgyColor
+let mutable numberDecorations = [ Decoration.Bold ]
+
+let mutable booleanColor = calmColor
+let mutable booleanDecorations = [ Decoration.Bold ]
+
+let mutable nullColor = calmColor
+let mutable nullDecorations = [ Decoration.Dim; Decoration.Strikethrough ]
+
+let private aggregate decorations =
+    decorations |>  List.reduce (|||)
+
+let private applyColors (json: JsonText) =
+    json.BracesStyle <- Style (bracesColor, System.Nullable(), aggregate bracesDecorations)
+    json.BracketsStyle <- Style (bracketsColor, System.Nullable(), aggregate bracesDecorations)
+    json.ColonStyle <- Style (colonColor, System.Nullable(), aggregate colonDecorations)
+    json.CommaStyle <- Style (commaColor, System.Nullable(), aggregate commaDecorations)
+    json.StringStyle <- Style (stringColor, System.Nullable(), aggregate stringDecorations)
+    json.NumberStyle <- Style (numberColor, System.Nullable(), aggregate numberDecorations)
+    json.BooleanStyle <- Style (booleanColor, System.Nullable(), aggregate booleanDecorations)
+    json.MemberStyle <- Style (memberColor, System.Nullable(), aggregate memberDecorations)
+    json.NullStyle <- Style (nullColor, System.Nullable(), aggregate nullDecorations)
+    json
 
 let json content = 
-    Spectre.Console.JsonText(content)
+    JsonText content
+    |> applyColors
     :> Rendering.IRenderable
     |> Renderable
