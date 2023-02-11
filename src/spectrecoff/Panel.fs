@@ -7,17 +7,22 @@ open SpectreCoff.Output
 
 type PanelLayout =
     { Border: BoxBorder;
+      BorderColor: Color;
       Sizing: SizingBehaviour;
       Padding: Padding }
 
 let mutable defaultPanelLayout: PanelLayout =
-    { Border = BoxBorder.Heavy
-      Sizing = Expand
+    { Border = BoxBorder.Rounded
+      BorderColor = edgyColor
+      Sizing = Collapse
       Padding = AllEqual 2 }
 
 let customPanel (layout: PanelLayout) (header: string) (content: OutputPayload) =
     let panel = Panel(content |> payloadToRenderable)
     panel.Header <- PanelHeader(header)
+
+    panel.Border <- layout.Border
+    panel.BorderColor layout.BorderColor |> ignore
 
     match layout.Sizing with
     | Expand -> panel.Expand <- true
