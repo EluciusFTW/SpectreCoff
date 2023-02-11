@@ -150,12 +150,12 @@ let main argv =
                 |> ignore)
 
         config.AddBranch("json", fun(add: IConfigurator<JsonSettings>) ->
-            add.AddCommand<TextpathExample>("example")
+            add.AddCommand<JsonExample>("example")
                 .WithAlias("e")
                 .WithDescription("Shows examples of json output.")
                 |> ignore
 
-            add.AddCommand<TextpathDocumentation>("doc")
+            add.AddCommand<JsonDocumentation>("doc")
                 .WithAlias("d")
                 .WithDescription("Shows the documentation for the json module.")
                 |> ignore)
