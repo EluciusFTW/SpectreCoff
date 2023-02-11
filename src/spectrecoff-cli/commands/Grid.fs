@@ -61,12 +61,18 @@ type GridDocumentation() =
                 P "row: Row list -> Grid"
             ]
             NL
-            C "Each row is a collection of one of these DUs:"
+            C "Each row is a DU consisting in one of the following union types:"
             BI [
                 CO [P "Payloads"; C "of"; P "OutputPayload list"]
                 CO [P "Renderables"; C "of"; P "IRenderable list"]
                 CO [P "Strings"; C "of"; P "string list"]
                 CO [P "Numbers"; C "of"; P "int list"]
+            ]
+            NL
+            CO [C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."]
+            C "Pipe it into toConsole to easily write the grid to the console:"
+            BI [
+                P "grid.toOutputPayload |> toConsole"
             ]
             NL
             C "The number of columns is automatically set to the number of elements in the longest row."
