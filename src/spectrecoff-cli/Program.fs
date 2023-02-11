@@ -149,6 +149,17 @@ let main argv =
                 .WithDescription("Shows the documentation for the text path module.")
                 |> ignore)
 
+        config.AddBranch("json", fun(add: IConfigurator<JsonSettings>) ->
+            add.AddCommand<TextpathExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of json output.")
+                |> ignore
+
+            add.AddCommand<TextpathDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the json module.")
+                |> ignore)
+
         config.AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
             |> ignore

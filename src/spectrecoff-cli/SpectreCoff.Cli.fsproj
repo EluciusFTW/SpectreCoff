@@ -20,6 +20,7 @@
     <Compile Include="commands/Progress.fs" />
     <Compile Include="commands/Grid.fs" />
     <Compile Include="commands/Textpath.fs" />
+    <Compile Include="commands/Json.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
