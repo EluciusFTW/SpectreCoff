@@ -7,13 +7,13 @@ open System
 
 // Styles
 let mutable calmStyle = None
-let mutable calmColor = Color.Blue
+let mutable calmColor = Color.SteelBlue
 
 let mutable pumpedStyle = Italic
-let mutable pumpedColor = Color.LightPink1
+let mutable pumpedColor = Color.DeepSkyBlue3_1
 
 let mutable edgyStyle = Bold
-let mutable edgyColor = Color.DarkRed
+let mutable edgyColor = Color.DarkTurquoise
 
 let mutable linkColor = pumpedColor
 
