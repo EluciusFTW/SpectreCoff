@@ -158,7 +158,7 @@ The currently supported commands are:
 | command   | example | doc | 
 |-----------|---------|-----|
 | output    | ✅       | ❌   |
-| rule      | ✅       | ✅   | 
+| rule      | ✅       | ✅   |
 | figlet    | ✅       | ✅   |
 | panel     | ✅       | ✅   |
 | prompt    | ✅       | ✅   |
@@ -170,6 +170,7 @@ The currently supported commands are:
 | padder    | ✅       | ❌   |
 | grid      | ✅       | ✅   |
 | textpath  | ✅       | ✅   |
+| json      | ✅       | ✅   |
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):
