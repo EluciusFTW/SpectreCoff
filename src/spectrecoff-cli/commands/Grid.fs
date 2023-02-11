@@ -51,7 +51,7 @@ type GridDocumentation() =
 
         Many [
             CO [
-                C "This module provides functionality from the Grid widget of Spectre.Console ("
+                C "This module provides functionality from the grid widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/Grid"
                 C ")"
             ]
