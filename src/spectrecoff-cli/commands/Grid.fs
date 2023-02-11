@@ -58,7 +58,7 @@ type GridDocumentation() =
             NL
             C "The grid can be used by the grid function:"
             BI [
-                P "row: Row list -> Grid"
+                P "grid: Row list -> Grid"
             ]
             NL
             C "Each row is a DU consisting in one of the following union types:"
