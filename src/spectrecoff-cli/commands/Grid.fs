@@ -19,15 +19,13 @@ type GridExample() =
         Many [
             C "The grid will have as many columns as are needed to accomodate the longest row:"
             numbersGrid.toOutputPayload
-        ]
-        |> toConsole
+        ] |> toConsole
 
         addRowToGrid numbersGrid  (Numbers [3; 4; 5])
         Many [
             C "Rows can later be added to an existing grid. Keep in mind that the number of elements per row must not exceed the number of columns:"
             numbersGrid.toOutputPayload
-        ]
-        |> toConsole
+        ] |> toConsole
 
         let renderableGrid = grid [
             Renderables [numbersGrid; numbersGrid]
@@ -36,8 +34,7 @@ type GridExample() =
         Many [
             C "Aside from strings and numbers, grids can also contain OutputPayloads or other Renderables:"
             renderableGrid.toOutputPayload
-        ]
-        |> toConsole
+        ] |> toConsole
         0
 
 type GridDocumentation() =
