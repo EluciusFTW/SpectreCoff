@@ -33,8 +33,8 @@ type PanelExample() =
         |> panel header 
         |> toConsole    
 
-        P "That surrounding border can be customized easily, e.g., to take up as much horizontal space as needed."
-        |> customPanel { defaultPanelLayout with Sizing = Expand } " Customization " 
+        P "That surrounding border can be customized easily!"
+        |> customPanel { defaultPanelLayout with Sizing = Expand; BorderColor = Spectre.Console.Color.Yellow } " Customization " 
         |> toConsole
         0
 
@@ -70,15 +70,19 @@ type PanelDocumentation() =
             ]
             NL
             CO [
-                C "This panel will use the"; 
-                P "Panel.defaultPanelLayout,"; 
-                C "initialized to heavy border, collapsed expansion behaviour and a padding of 2 units on all sides."
+                C "This panel will use the"
+                P "Panel.defaultPanelLayout," 
+                C "which has the values"
+            ]
+            BI [
+                P "Border: BorderBox.Rounded"
+                P "BorderColor: edgyColor"
+                P "Sizing: Collapse"
+                P "Padding: AllEqual 2" 
             ]
             NL
-            C "In order to produce a panel with other layout, the function"
+            C "In order to produce a panel with other layout, the default values can be modified. This changes the layout for all subsequent panels"
+            C "If the alternative layout shall only be applied to an individual panel, it can be passed to this function:"
             BI [P "customPanel: PanelLayout -> string -> OutputPayload -> OutputPayload"]
-            NL
-            C "can be used. Alternatively, the default can also be modified."
-            NL
         ] |> toConsole
         0
