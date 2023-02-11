@@ -8,7 +8,7 @@
 		<Title>SpectreCoff - Spectre.Console for FSharp</Title>
 		<Description>A thin, opinionated wrapper around Spectre.Console in FSharp.</Description>
 		<PackageTags>cli commandline console-application spectre spectre.console wrapper wrapper-api FSharp F#</PackageTags>
-		<PackageReleaseNotes> Upgraded to Spectre 0.46 </PackageReleaseNotes>
+		<PackageReleaseNotes> Added json module </PackageReleaseNotes>
 		<PackageId>EluciusFTW.SpectreCoff</PackageId>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/EluciusFTW/SpectreCoff</PackageProjectUrl>
@@ -28,6 +28,7 @@
     <Compile Include="Calendar.fs" />
     <Compile Include="Padder.fs" />
     <Compile Include="Textpath.fs" />
+    <Compile Include="Json.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Nerdbank.Gitversioning" Version="3.5.119">
@@ -35,5 +36,6 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Spectre.Console" Version="0.46.0" />
+    <PackageReference Include="Spectre.Console.Json" Version="0.46.0" />
   </ItemGroup>
 </Project>
