@@ -21,7 +21,7 @@ type GridExample() =
             numbersGrid.toOutputPayload
         ] |> toConsole
 
-        addRowToGrid numbersGrid  (Numbers [3; 4; 5])
+        (Numbers [3; 4; 5]) |> numbersGrid.addRow
         Many [
             C "Rows can later be added to an existing grid. Keep in mind that the number of elements per row must not exceed the number of columns:"
             numbersGrid.toOutputPayload

@@ -72,11 +72,11 @@ let private getValues (row: Row) =
     | Payloads payloads -> payloads |> List.map payloadToRenderable
     |> List.toArray
 
-let addRowToTable (table: Table) (row: Row) =
+let private addRowToTable (table: Table) (row: Row) =
     let values = getValues row
     table.AddRow(values) |> ignore
 
-let addRowToGrid (grid: Grid) (row: Row) =
+let private addRowToGrid (grid: Grid) (row: Row) =
     let values = getValues row
     grid.AddRow(values) |> ignore
 
@@ -128,6 +128,8 @@ let grid (rows: Row list) =
 
 type Table with
     member self.toOutputPayload = toOutputPayload self
+    member self.addRow = addRowToTable self
 
 type Grid with
     member self.toOutputPayload = toOutputPayload self
+    member self.addRow = addRowToGrid self

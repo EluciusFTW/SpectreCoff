@@ -29,7 +29,7 @@ type TableExample() =
 
         NewLine |> toConsole
         P "Rows can be added to the same table later on." |> toConsole
-        Numbers [20; pown 20 2; pown 20 3] |> addRowToTable exampleTable
+        Numbers [20; pown 20 2; pown 20 3] |> exampleTable.addRow
         exampleTable
         |> toOutputPayload
         |> toConsole
