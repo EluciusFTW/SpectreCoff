@@ -104,7 +104,7 @@ let main argv =
                 .WithAlias("d")
                 .WithDescription("Shows the documentation for the tree module.")
                 |> ignore)
-        
+
         config.AddBranch("calendar", fun(add: IConfigurator<CalendarSettings>) ->
             add.AddCommand<CalendarExample>("example")
                 .WithAlias("e")
@@ -125,6 +125,17 @@ let main argv =
             add.AddCommand<PadderDocumentation>("doc")
                 .WithAlias("d")
                 .WithDescription("Shows the documentation for the padder module.")
+                |> ignore)
+
+        config.AddBranch("grid", fun(add: IConfigurator<GridSettings>) ->
+            add.AddCommand<GridExample>("example")
+                .WithAlias("e")
+                .WithDescription("Shows examples of grids.")
+                |> ignore
+
+            add.AddCommand<GridDocumentation>("doc")
+                .WithAlias("d")
+                .WithDescription("Shows the documentation for the grid module.")
                 |> ignore)
 
         config.AddBranch("textpath", fun(add: IConfigurator<TextpathSettings>) ->

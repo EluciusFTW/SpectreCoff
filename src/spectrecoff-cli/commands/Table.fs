@@ -26,27 +26,27 @@ type TableExample() =
         P "This shows a table with a default and custom laid-out column." |> toConsole
         let exampleTable = table headers rows
         exampleTable.toOutputPayload |> toConsole
-        
+
         NewLine |> toConsole
         P "Rows can be added to the same table later on." |> toConsole
-        Numbers [20; pown 20 2; pown 20 3] |> addRow exampleTable
+        Numbers [20; pown 20 2; pown 20 3] |> exampleTable.addRow
         exampleTable
         |> toOutputPayload
         |> toConsole
 
         NewLine |> toConsole
         P "Tables can be nested, contain other Payloads, and be customized" |> toConsole
-        
-        let exampleMarkup = 
-            "The bigger the exponent, the faster the sequence grows." 
+
+        let exampleMarkup =
+            "The bigger the exponent, the faster the sequence grows."
             |> markupString (Some Color.Red) (Some Bold)
             |> Markup
 
         [ Renderables [ exampleTable;  exampleMarkup ]
-          Payloads [ P ""; figlet "Wow"] ] 
-            |> customTable 
-                { defaultTableLayout with Sizing = Collapse; Border = TableBorder.DoubleEdge } 
-                [DefaultHeader (Calm "Results"); DefaultHeader (Pumped "Interpretations")] 
+          Payloads [ P ""; figlet "Wow"] ]
+            |> customTable
+                { defaultTableLayout with Sizing = Collapse; Border = TableBorder.DoubleEdge }
+                [DefaultHeader (Calm "Results"); DefaultHeader (Pumped "Interpretations")]
             |> toOutputPayload
             |> toConsole
         0
@@ -57,5 +57,5 @@ type TableDocumentation() =
 
     override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
-        Edgy "Sorry, this documentation is not available yet." |> toConsole    
+        Edgy "Sorry, this documentation is not available yet." |> toConsole
         0
