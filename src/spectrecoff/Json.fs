@@ -30,12 +30,12 @@ let mutable booleanColor = calmColor
 let mutable booleanDecorations = [ Decoration.Bold ]
 
 let mutable nullColor = calmColor
-let mutable nullDecorations = [ Decoration.Dim; Decoration.Strikethrough ]
+let mutable nullDecorations = [ Decoration.Dim ]
 
 let private aggregate decorations =
     decorations |>  List.reduce (|||)
 
-let private applyColors (json: JsonText) =
+let private applyStyles (json: JsonText) =
     json.BracesStyle <- Style (bracesColor, System.Nullable(), aggregate bracesDecorations)
     json.BracketsStyle <- Style (bracketsColor, System.Nullable(), aggregate bracesDecorations)
     json.ColonStyle <- Style (colonColor, System.Nullable(), aggregate colonDecorations)
@@ -49,6 +49,6 @@ let private applyColors (json: JsonText) =
 
 let json content = 
     JsonText content
-    |> applyColors
+    |> applyStyles
     :> Rendering.IRenderable
     |> Renderable
