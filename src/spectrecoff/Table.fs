@@ -31,7 +31,6 @@ let defaultColumnLayout: ColumnLayout =
 
 type Row =
     | Payloads of OutputPayload list
-    | Renderables of Rendering.IRenderable list
     | Strings of string list
     | Numbers of int list
 
@@ -65,10 +64,9 @@ let private toSpectreColumn (definition: ColumnDef) =
 
 let private getValues (row: Row) =
     match row with
-    | Renderables renderables -> renderables
+    | Payloads payloads -> payloads |> List.map payloadToRenderable
     | Strings values -> values |> List.map (fun value -> Text value)
     | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
-    | Payloads payloads -> payloads |> List.map payloadToRenderable
     |> List.toArray
 
 let private addRowToTable (table: Table) (row: Row) =
@@ -78,6 +76,12 @@ let private addRowToTable (table: Table) (row: Row) =
 let private addRowToGrid (grid: Grid) (row: Row) =
     let values = getValues row
     grid.AddRow(values) |> ignore
+
+let toLaidOutColumn layout header =
+     { H = header; F = None; L = Some layout }
+
+let toColumnDefinitions headers = 
+    headers |> List.map (toLaidOutColumn defaultColumnLayout)
 
 let toOutputPayload table =
     table
@@ -118,8 +122,7 @@ let grid (rows: Row list) =
            match row with
            | Numbers numbers -> numbers.Length
            | Payloads payloads -> payloads.Length
-           | Strings strings -> strings.Length
-           | Renderables renderables -> renderables.Length)
+           | Strings strings -> strings.Length)
         |> List.max
 
     let grid = Grid().AddColumns numberOfColumns

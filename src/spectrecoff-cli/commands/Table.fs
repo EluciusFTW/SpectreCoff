@@ -13,40 +13,42 @@ type TableExample() =
 
     override _.Execute(_context, _) =
 
-        let headers = [
-            DefaultHeader (Calm "Number")
-            DefaultHeader (Calm "Square")
-            CustomHeader ((Calm "Cube"), { defaultColumnLayout with Alignment = Right })
-        ]
+        let columns = [
+            Calm "Number"
+            Calm "Square"
+            Calm "Cube"
+        ]         
+        let definitions = toColumnDefinitions columns
+        let rows = [ for i in 1 .. 5 -> Numbers [i; pown i 2; pown i 3] ]
+        
+        let exampleTable = table definitions rows
+        Many [
+            P "This shows a table with a default and custom laid-out column."
+            exampleTable.toOutputPayload
+            NewLine
+        ] |> toConsole
 
-        let rows = [
-            for i in 1 .. 10 -> Numbers [i; pown i 2; pown i 3]
-        ]
+        [ for i in 6 .. 10 -> Numbers [i; pown i 2; pown i 3] ] |> List.iter exampleTable.addRow
+        Many[
+            P "Rows can be added to the same table later on."
+            exampleTable.toOutputPayload
+            NewLine
+        ] |> toConsole
 
-        P "This shows a table with a default and custom laid-out column." |> toConsole
-        let exampleTable = table headers rows
-        exampleTable.toOutputPayload |> toConsole
-
-        NewLine |> toConsole
-        P "Rows can be added to the same table later on." |> toConsole
-        Numbers [20; pown 20 2; pown 20 3] |> exampleTable.addRow
-        exampleTable
-        |> toOutputPayload
-        |> toConsole
-
-        NewLine |> toConsole
         P "Tables can be nested, contain other Payloads, and be customized" |> toConsole
+        let columns = [
+            toLaidOutColumn defaultColumnLayout (Calm "Results")
+            toLaidOutColumn { defaultColumnLayout with Alignment = Right } (Pumped "Interpretations")
+        ]
+        let rows = [ 
+            Payloads [ exampleTable.toOutputPayload;  MCS (Color.Red, Bold, "The bigger the exponent, the faster the sequence grows.") ]
+            Payloads [ P "Under the table"; panel "Wow" (E "ye-haw")] 
+            Strings ["Sum"; "Last"]
+            Numbers [ 55; 10]
+        ]
 
-        let exampleMarkup =
-            "The bigger the exponent, the faster the sequence grows."
-            |> markupString (Some Color.Red) (Some Bold)
-            |> Markup
-
-        [ Renderables [ exampleTable;  exampleMarkup ]
-          Payloads [ P ""; figlet "Wow"] ]
-            |> customTable
-                { defaultTableLayout with Sizing = Collapse; Border = TableBorder.DoubleEdge }
-                [DefaultHeader (Calm "Results"); DefaultHeader (Pumped "Interpretations")]
+        rows
+            |> customTable { defaultTableLayout with Sizing = Collapse; Border = TableBorder.DoubleEdge } columns
             |> toOutputPayload
             |> toConsole
         0

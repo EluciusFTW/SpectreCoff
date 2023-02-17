@@ -28,11 +28,11 @@ type GridExample() =
         ] |> toConsole
 
         let renderableGrid = grid [
-            Renderables [numbersGrid; numbersGrid]
+            Payloads [numbersGrid.toOutputPayload; numbersGrid.toOutputPayload]
             Payloads [Emoji Emoji.Known.SmilingFace; Emoji Emoji.Known.SmilingFace]
         ]
         Many [
-            C "Aside from strings and numbers, grids can also contain OutputPayloads or other Renderables:"
+            C "Aside from strings and numbers, grids can also contain OutputPayloads:"
             renderableGrid.toOutputPayload
         ] |> toConsole
         0
