@@ -35,11 +35,12 @@ type Row =
     | Strings of string list
     | Numbers of int list
 
-type Header =
-    | DefaultHeader of OutputPayload
-    | CustomHeader of OutputPayload * ColumnLayout
+type ColumnDef = 
+    { H: OutputPayload
+      F: Option<OutputPayload>
+      L: Option<ColumnLayout> }
 
-let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
+let private applyDefiniteLayout (layout: ColumnLayout) (column: TableColumn) = 
     match layout.Alignment with
     | Left -> column.LeftAligned() |> ignore
     | Right -> column.RightAligned() |> ignore
@@ -51,18 +52,16 @@ let private applyLayout (layout: ColumnLayout) (column : TableColumn) =
     column.NoWrap <- not layout.Wrap
     column
 
+let private applyLayout (possibleLayout: Option<ColumnLayout>) (column: TableColumn) =
+    match possibleLayout with 
+    | Some layout -> applyDefiniteLayout layout column
+    | None -> column
+
 let private toSpectreContentColumn (payload: OutputPayload) =
     TableColumn(payload |> payloadToRenderable)
 
-let private toSpectreColumn (header: Header) =
-    match header with
-    | DefaultHeader content -> toSpectreContentColumn content |> applyLayout defaultColumnLayout
-    | CustomHeader (content, layout) -> toSpectreContentColumn content |> applyLayout layout
-
-let toOutputPayload table =
-    table
-    :> Rendering.IRenderable
-    |> Renderable
+let private toSpectreColumn (definition: ColumnDef) =
+    toSpectreContentColumn definition.H |> applyLayout definition.L
 
 let private getValues (row: Row) =
     match row with
@@ -80,7 +79,12 @@ let private addRowToGrid (grid: Grid) (row: Row) =
     let values = getValues row
     grid.AddRow(values) |> ignore
 
-let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
+let toOutputPayload table =
+    table
+    :> Rendering.IRenderable
+    |> Renderable
+
+let customTable (layout: TableLayout) (columnDefinitions: ColumnDef list) (rows: Row list) =
     let table = Table()
 
     match layout.Alignment with
@@ -97,11 +101,10 @@ let customTable (layout: TableLayout) (headers: Header list) (rows: Row list) =
     | true -> table.HideHeaders() |> ignore
     | false -> ()
 
-    headers |> List.iter (
-        fun header ->
-            toSpectreColumn header
-            |> table.AddColumn
-            |> ignore)
+    columnDefinitions 
+    |> List.map toSpectreColumn
+    |> List.iter (fun column -> table.AddColumn column |> ignore)
+ 
     rows |> List.iter (addRowToTable table)
     table
 
