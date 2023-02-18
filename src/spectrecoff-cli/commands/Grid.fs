@@ -64,7 +64,6 @@ type GridDocumentation() =
             C "Each row is a DU consisting in one of the following union types:"
             BI [
                 CO [P "Payloads"; C "of"; P "OutputPayload list"]
-                CO [P "Renderables"; C "of"; P "IRenderable list"]
                 CO [P "Strings"; C "of"; P "string list"]
                 CO [P "Numbers"; C "of"; P "int list"]
             ]
