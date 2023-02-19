@@ -142,11 +142,11 @@ let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list)
     table
 
 let withCaption caption (table: Table) =
-    table.Caption <- TableTitle caption
+    table.Caption <- TableTitle (caption, Style (calmColor, System.Nullable(), System.Nullable()))
     table
 
 let withTitle title (table: Table) =
-    table.Title <- TableTitle title
+    table.Title <- TableTitle (title, Style (pumpedColor, System.Nullable(), System.Nullable()))
     table
 
 let table =
