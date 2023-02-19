@@ -164,7 +164,7 @@ The currently supported commands are:
 | prompt    | ✅       | ✅   |
 | bar       | ✅       | ✅   |
 | breakdown | ✅       | ✅   |
-| table     | ✅       | ❌   |
+| table     | ✅       | ✅   |
 | tree      | ✅       | ❌   |
 | calendar  | ✅       | ❌   |
 | padder    | ✅       | ❌   |
