@@ -33,22 +33,21 @@ type TableExample() =
             NewLine
         ] |> toConsole
 
-        P "Tables can be nested, contain other Payloads, have footers, be customized, ..." |> toConsole
+        // Now for a more complete example
         let columns = [
             column (Calm "Results")
             column (Pumped "Interpretations") 
             |> withFooter (Pumped "Footer works, too!") 
             |> withLayout { defaultColumnLayout with Alignment = Right }
         ]
-        
         [ Payloads [ exampleTable.toOutputPayload;  MCS (Spectre.Console.Color.Red, Bold, "The bigger the exponent, the faster the sequence grows.") ]
           Payloads [ P "Under the table"; panel "Wow" (E "ye-haw") ] 
           Strings [ "Sum"; "Last" ]
           Numbers [ 55; 10 ]
         ]
         |> customTable { defaultTableLayout with Sizing = Collapse; Border = Spectre.Console.TableBorder.DoubleEdge; HideHeaders = true } columns
-        |> withTitle "Custom"
-        |> withCaption "This is a custom table"
+        |> withTitle "Tables can be nested, contain other Payloads, have titles ..."
+        |> withCaption "..., have footers, captions, be customized, ..."
         |> toOutputPayload
         |> toConsole
         0
