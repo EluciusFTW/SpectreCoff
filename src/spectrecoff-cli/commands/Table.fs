@@ -47,6 +47,8 @@ type TableExample() =
           Numbers [ 55; 10 ]
         ]
         |> customTable { defaultTableLayout with Sizing = Collapse; Border = Spectre.Console.TableBorder.DoubleEdge; HideHeaders = true } columns
+        |> withTitle "Custom"
+        |> withCaption "This is a custom table"
         |> toOutputPayload
         |> toConsole
         0

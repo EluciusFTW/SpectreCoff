@@ -141,6 +141,13 @@ let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list)
     rows |> List.iter (addRowToTable table)
     table
 
+let withCaption caption (table: Table) =
+    table.Caption <- TableTitle caption
+    table
+
+let withTitle title (table: Table) =
+    table.Title <- TableTitle title
+    table
 
 let table =
     customTable defaultTableLayout
