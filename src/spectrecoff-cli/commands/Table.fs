@@ -68,18 +68,22 @@ type TableDocumentation() =
         Many [
             CO [
                 C "This module provides functionality from the table widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/rule"
+                Link "https://spectreconsole.net/widgets/table"
                 C ")"
             ]
             NewLine
             C "The table can be used by the two functions:"
             BI [ 
-                P "table: ColumnDefinition list -> Row list -> OutputPayload"
-                P "customTable: TableLayout -> ColumnDefinition list -> Row list -> OutputPayload"
+                P "table: ColumnDefinition list -> Row list -> Table"
+                P "customTable: TableLayout -> ColumnDefinition list -> Row list -> Table"
             ]
             CO [C "where the table function uses a"; P"defaultTableLayout"; C"variable for the layout, which can be modified as well."]
             NewLine
-            C "The TableLayout is a record with the following properties:"
+            C "Observe, that the functions return 'Table', not 'OutputPayload', as you might expect. That is because tables are modifyable objects that are often buil up iteratively (e.g., rows of data are added after creation.), whereas 'OutputPayload' is an immutable payload that is to be sent to the console. There is a mapping function to turn it into an 'OutputPayload': "
+            BI [ P "toOutputPayload: Table -> OutputPayload" ]
+            C "This function is also available as an extension method on Table."
+            NewLine
+            C "The 'TableLayout' is a record with the following properties:"
             BI [
                 CO [P "Border"; C ": sets the style of the border (Spectre.TableBorder, default: ),"]
                 CO [P "Sizing"; C ": determines whether the table is expanded or collapsed. (SizingBehaviour, default: ),"]
@@ -88,7 +92,7 @@ type TableDocumentation() =
                 CO [P "HideFooters"; C ": determines whether footers are shown (boolean, default: false)."]
             ]
             NewLine
-            C "In the table function, the columns are defined by passing in a list of ColumnDefinitions, which are records with these properties:"
+            C "In the table function, the columns are defined by passing in a list of 'ColumnDefinitions', which are records with these properties:"
             BI [
                 CO [P "Header"; C ": the content of the header (OutputPayload),"]
                 CO [P "Footer"; C ": the optional content of the footer (Option<OutputPayload>),"]
@@ -103,10 +107,9 @@ type TableDocumentation() =
                 P "withFooters: OutputPayload list -> ColumnDefinition list -> ColumnDefinition list"
                 P "withSameLayout: ColumnLayout -> ColumnDefinition list -> ColumnDefinition list"
             ]
-            C "The column function constructs a column without footer and with the defaultColumnLayout. The singular with* functions add a footer or layout, respectively, to a column."
-            C "withSameLayout adds the same layout to multiple columns at once, and withFooters zips footers to columns."
+            C "The column function constructs a column without footer and with the 'defaultColumnLayout'. The singular with* functions add a footer or layout, respectively, to a column. 'withSameLayout' adds the same layout to multiple columns at once, and withFooters zips footers to columns."
             NewLine
-            C "As you can see above, the column layout can also be specified by an instance of the record ColumnLayout with these properties:"
+            C "As you can see above, the column layout can also be specified by an instance of the record 'ColumnLayout' with these properties:"
             BI [
                 CO [P "Alignment"; C": aligns the content of this column (Alignment, default: Center),"]
                 CO [P "LeftPadding"; C ": determines the left padding of the column content (int, default: 2),"]
@@ -116,5 +119,12 @@ type TableDocumentation() =
             CO [C "The default values are part of the"; P "defaultColumnLayout"; C"instance, which, as usual, can be modified directly as well."]
             NewLine
             CO [C "The data of the table is provided by the Row type, which is the same type as the one used in the"; P "Grid"; C "module. Please see that documentation for more details."]
+            NewLine
+            C "A title and a caption can also be added to the table using:"
+            BI [
+                P "withTitle: string -> Table -> Table"
+                P "withCaption: string -> Table -> Table"
+            ]
+            C "The title is currently shown in the pumped style, and the caption in the calm style (maybe we'll expose changing styles for these later as well)."
         ] |> toConsole
         0
