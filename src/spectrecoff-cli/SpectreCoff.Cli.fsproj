@@ -12,6 +12,7 @@
     <Compile Include="commands/Rule.fs" />
     <Compile Include="commands/Figlet.fs" />
     <Compile Include="commands/BarChart.fs" />
+    <Compile Include="commands/CanvasImage.fs" />
     <Compile Include="commands/BreakdownChart.fs" />
     <Compile Include="commands/Table.fs" />
     <Compile Include="commands/Tree.fs" />
@@ -24,6 +25,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
     <PackageReference Include="Spectre.Console" Version="0.46.0" />
     <PackageReference Include="Spectre.Console.Cli" Version="0.46.0" />
   </ItemGroup>
