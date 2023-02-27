@@ -8,9 +8,9 @@ open Spectre.Console
 let mutable maxWidth = 16
 
 type ImageSource =
-| Bytes of Byte[]
-| Stream of Stream
-| Path of String
+    | Bytes of Byte[]
+    | Stream of Stream
+    | Path of String
 
 let canvasImage source =
     let image =
@@ -20,3 +20,6 @@ let canvasImage source =
         | Path path -> CanvasImage path
     image.MaxWidth <- maxWidth
     image
+
+type CanvasImage with
+    member self.toOutputPayload = toOutputPayload self

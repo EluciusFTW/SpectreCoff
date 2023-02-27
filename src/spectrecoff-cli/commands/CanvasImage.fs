@@ -15,17 +15,17 @@ type CanvasImageExample() =
 
     override _.Execute(_context, _settings) =
         task {
-        use client = new HttpClient()
-        let! response = client.GetByteArrayAsync("https://sample-videos.com/img/Sample-png-image-500kb.png")
-        let image = canvasImage (Bytes response)
-        let rotatedImage = (canvasImage (Bytes response)).Mutate(fun ctx -> ctx.Rotate(45f) |> ignore)
-        Many [
-           P "Print an image directly to the console!"
-           image |> toOutputPayload
-           CO [P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"]
-           P "For example, rotate the image by 45°:"
-           rotatedImage |> toOutputPayload
-           ] |> toConsole
+            use client = new HttpClient()
+            let! response = client.GetByteArrayAsync("https://sample-videos.com/img/Sample-png-image-500kb.png")
+            let image = canvasImage (Bytes response)
+            let rotatedImage = (canvasImage (Bytes response)).Mutate(fun ctx -> ctx.Rotate(45f) |> ignore)
+            Many [
+                P "Print an image directly to the console!"
+                image |> toOutputPayload
+                CO [P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"]
+                P "For example, rotate the image by 45°:"
+                rotatedImage |> toOutputPayload
+            ] |> toConsole
         }
         |> Async.AwaitTask
         |> Async.RunSynchronously
