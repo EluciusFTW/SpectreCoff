@@ -28,6 +28,7 @@
     <Compile Include="Calendar.fs" />
     <Compile Include="Padder.fs" />
     <Compile Include="Textpath.fs" />
+    <Compile Include="CanvasImage.fs" />
     <Compile Include="Json.fs" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +37,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Spectre.Console" Version="0.46.0" />
+    <PackageReference Include="Spectre.Console.ImageSharp" Version="0.46.0" />
     <PackageReference Include="Spectre.Console.Json" Version="0.46.0" />
   </ItemGroup>
 </Project>

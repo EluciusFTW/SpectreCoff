@@ -155,22 +155,23 @@ dotnet run <command> example | doc
 for any command with the subcommand `example` or `doc`, depending on if you want to see an example, or the documentation of the command.
 The currently supported commands are:
 
-| command   | example | doc | 
-|-----------|---------|-----|
-| output    | ✅       | ❌   |
-| rule      | ✅       | ✅   |
-| figlet    | ✅       | ✅   |
-| panel     | ✅       | ✅   |
-| prompt    | ✅       | ✅   |
-| bar       | ✅       | ✅   |
-| breakdown | ✅       | ✅   |
-| table     | ✅       | ✅   |
-| tree      | ✅       | ❌   |
-| calendar  | ✅       | ❌   |
-| padder    | ✅       | ❌   |
-| grid      | ✅       | ✅   |
-| textpath  | ✅       | ✅   |
-| json      | ✅       | ✅   |
+| command     | example | doc | 
+|-------------|---------|-----|
+| output      | ✅       | ❌   |
+| rule        | ✅       | ✅   |
+| figlet      | ✅       | ✅   |
+| panel       | ✅       | ✅   |
+| prompt      | ✅       | ✅   |
+| bar         | ✅       | ✅   |
+| breakdown   | ✅       | ✅   |
+| table       | ✅       | ✅   |
+| tree        | ✅       | ❌   |
+| calendar    | ✅       | ❌   |
+| padder      | ✅       | ❌   |
+| grid        | ✅       | ✅   |
+| textpath    | ✅       | ✅   |
+| json        | ✅       | ✅   |
+| canvasimage | ✅       | ✅   |
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):

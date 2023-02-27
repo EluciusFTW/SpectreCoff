@@ -5,31 +5,31 @@ open Spectre.Console
 open SpectreCoff.Output
 
 type Culture = Culture of string
-let unwrapCulure (Culture c) = c
+let unwrapCulture (Culture c) = c
 
 type Year = Year of int
 [<RequireQualifiedAccess>]
-module Year = 
+module Year =
     let unwrap (Year y) = y
 
 type Month = Month of int
 [<RequireQualifiedAccess>]
-module Month = 
+module Month =
     let unwrap (Month m) = m
 
 type Day = Day of int
 [<RequireQualifiedAccess>]
-module Day = 
+module Day =
     let unwrap (Day d) = d
 
 type Event = Event of Year * Month * Day
 [<RequireQualifiedAccess>]
 module Event =
-    let toTuple event = 
+    let toTuple event =
         match event with
         | Event (y,m,d) -> (Year.unwrap y, Month.unwrap m, Day.unwrap d)
 
-type CalendarSettings = 
+type CalendarSettings =
     {  Culture: Culture Option;
        HideHeaders: bool;
        HeaderColor: Color;
@@ -37,7 +37,7 @@ type CalendarSettings =
        HighlightColor: Color Option
        HighlightStyle: Decoration Option }
 
-let defaultCalendarSettings = 
+let defaultCalendarSettings =
     {  Culture =  None
        HideHeaders = false
        HeaderColor = calmColor
@@ -45,25 +45,20 @@ let defaultCalendarSettings =
        HighlightColor = Some pumpedColor
        HighlightStyle = Some Decoration.Invert }
 
-let toOutputPayload calendar =
-    calendar 
-    :> Rendering.IRenderable 
-    |> Renderable
-
 let addEvent event (calendar: Calendar) =
-    event 
+    event
     |> Event.toTuple
     |> calendar.AddCalendarEvent
 
-let applysettings (settings: CalendarSettings) (calendar: Calendar) = 
-    match settings.Culture with 
-    | Some culture -> calendar.Culture <- unwrapCulure culture |> System.Globalization.CultureInfo
+let applysettings (settings: CalendarSettings) (calendar: Calendar) =
+    match settings.Culture with
+    | Some culture -> calendar.Culture <- unwrapCulture culture |> System.Globalization.CultureInfo
     | _ -> ()
 
     calendar.ShowHeader <- not settings.HideHeaders
     calendar.HeaderStyle <- Style (settings.HeaderColor, System.Nullable(), settings.HeaderStyle)
-    
-    match (settings.HighlightColor, settings.HighlightStyle) with 
+
+    match (settings.HighlightColor, settings.HighlightStyle) with
     | Some color, Some style -> calendar.HightlightStyle <- Style (color, System.Nullable(), style)
     | Some color, None -> calendar.HightlightStyle <- Style (color)
     | None, Some style -> calendar.HightlightStyle <- Style (System.Nullable(), System.Nullable(), style)
@@ -71,12 +66,12 @@ let applysettings (settings: CalendarSettings) (calendar: Calendar) =
 
     calendar
 
-let customCalendar settings year month = 
+let customCalendar settings year month =
     Calendar (Year.unwrap year, Month.unwrap month)
     |> applysettings settings
 
 let calendar =
     customCalendar defaultCalendarSettings
 
-type Calendar with 
-    member self.toOutputPayload = toOutputPayload self 
+type Calendar with
+    member self.toOutputPayload = toOutputPayload self

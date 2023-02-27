@@ -23,22 +23,22 @@ type CalendarExample() =
         |> toConsole
 
         // You can easily add more events to the same calendar and print it again
-        calendar 
+        calendar
         |> addEvent (Event (Year 2021, Month 11, Day 06))
         |> addEvent (Event (Year 2021, Month 11, Day 21))
         |> toOutputPayload
         |> toConsole
 
         // You can use custom settings to control how the calendar is displayed
-        let settings =  
-          { defaultCalendarSettings with 
+        let settings =
+          { defaultCalendarSettings with
                 Culture = Some (Culture "de-DE")
                 HeaderColor = edgyColor
                 HeaderStyle = Decoration.Italic
-                HighlightColor = Some Color.Aquamarine1 
+                HighlightColor = Some Color.Aquamarine1
                 HighlightStyle = Some Decoration.Invert }
 
-        customCalendar settings (Year 2025) (Month 2) 
+        customCalendar settings (Year 2025) (Month 2)
         |> addEvent (Event (Year 2025, Month 2, Day 22))
         |> toOutputPayload
         |> toConsole
@@ -50,5 +50,5 @@ type CalendarDocumentation() =
 
     override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
-        Edgy "Sorry, this documentation is not available yet." |> toConsole    
+        Edgy "Sorry, this documentation is not available yet." |> toConsole
         0

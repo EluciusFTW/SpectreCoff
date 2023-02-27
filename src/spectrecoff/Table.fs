@@ -6,25 +6,25 @@ open SpectreCoff.Layout
 open SpectreCoff.Output
 
 [<AutoOpen>]
-module Column = 
+module Column =
     type ColumnLayout =
         { Alignment: Alignment
           LeftPadding: int
           RightPadding: int
           Wrap: bool }
-    
+
     let defaultColumnLayout: ColumnLayout =
         { Alignment = Center
           LeftPadding = 2
           RightPadding = 2
           Wrap = true }
 
-    type ColumnDefinition = 
+    type ColumnDefinition =
         { Header: OutputPayload
           Footer: Option<OutputPayload>
           Layout: Option<ColumnLayout> }
 
-    let private applyDefiniteLayout (layout: ColumnLayout) (column: TableColumn) = 
+    let private applyDefiniteLayout (layout: ColumnLayout) (column: TableColumn) =
         match layout.Alignment with
         | Left -> column.LeftAligned() |> ignore
         | Right -> column.RightAligned() |> ignore
@@ -37,7 +37,7 @@ module Column =
         column
 
     let private applyLayout (possibleLayout: Option<ColumnLayout>) (column: TableColumn) =
-        match possibleLayout with 
+        match possibleLayout with
         | Some layout -> applyDefiniteLayout layout column
         | None -> column
 
@@ -51,34 +51,34 @@ module Column =
         column
 
     let toSpectreColumn (definition: ColumnDefinition) =
-        toSpectreContentColumn definition.Header 
+        toSpectreContentColumn definition.Header
         |> applyLayout definition.Layout
-        |> addFooter definition.Footer 
-    
+        |> addFooter definition.Footer
+
     let column header =
         { Header = header; Footer = None; Layout = Some defaultColumnLayout }
 
-    let withLayout layout column = 
+    let withLayout layout column =
         { column with Layout = Some layout }
 
-    let withLayouts layouts columns = 
+    let withLayouts layouts columns =
         columns
-        |> List.zip layouts 
+        |> List.zip layouts
         |> List.map (fun (column, layout) -> { column with Layout = Some layout })
 
     let withSameLayout layout columns =
         columns |> List.map (fun column -> { column with Layout = Some layout })
 
-    let withFooter footer column = 
+    let withFooter footer column =
         { column with Footer = Some footer }
 
-    let withFooters footers columns = 
+    let withFooters footers columns =
         columns
-        |> List.zip footers 
+        |> List.zip footers
         |> List.map (fun (column, footer) -> { column with Footer = Some footer })
 
 [<AutoOpen>]
-module Row = 
+module Row =
     type Row =
         | Payloads of OutputPayload list
         | Strings of string list
@@ -110,13 +110,8 @@ let defaultTableLayout: TableLayout =
     {  Border = TableBorder.Rounded
        Sizing = Expand
        Alignment = Left
-       HideHeaders = false 
+       HideHeaders = false
        HideFooters = false }
-
-let toOutputPayload table =
-    table
-    :> Rendering.IRenderable
-    |> Renderable
 
 let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list) (rows: Row list) =
     let table = Table()
@@ -134,10 +129,10 @@ let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list)
     table.ShowHeaders <- not layout.HideHeaders
     table.ShowFooters <- not layout.HideFooters
 
-    columnDefinitions 
+    columnDefinitions
     |> List.map toSpectreColumn
     |> List.iter (fun column -> table.AddColumn column |> ignore)
- 
+
     rows |> List.iter (addRowToTable table)
     table
 

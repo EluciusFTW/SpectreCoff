@@ -94,6 +94,11 @@ let CO = Collection
 let BI = BulletItems
 let NL = NewLine
 
+let toOutputPayload value =
+    value
+    :> Rendering.IRenderable
+    |> Renderable
+
 let rec toMarkedUpString (payload: OutputPayload) =
     match payload with
     | Calm content -> content |> calm
