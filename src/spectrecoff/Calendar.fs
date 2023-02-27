@@ -45,11 +45,6 @@ let defaultCalendarSettings =
        HighlightColor = Some pumpedColor
        HighlightStyle = Some Decoration.Invert }
 
-let toOutputPayload calendar =
-    calendar
-    :> Rendering.IRenderable
-    |> Renderable
-
 let addEvent event (calendar: Calendar) =
     event
     |> Event.toTuple

@@ -24,7 +24,7 @@ type CanvasImageExample() =
                 image |> toOutputPayload
                 CO [P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"]
                 P "For example, rotate the image by 45°:"
-                rotatedImage |> toOutputPayload
+                rotatedImage.toOutputPayload
             ] |> toConsole
         }
         |> Async.AwaitTask
