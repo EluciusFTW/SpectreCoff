@@ -21,9 +21,11 @@ type CanvasImageExample() =
             let rotatedImage = (canvasImage (Bytes response)).Mutate(fun ctx -> ctx.Rotate(45f) |> ignore)
             Many [
                 P "Print an image directly to the console!"
+                NL
                 image |> toOutputPayload
                 CO [P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"]
                 P "For example, rotate the image by 45°:"
+                NL
                 rotatedImage.toOutputPayload
             ] |> toConsole
         }
@@ -59,7 +61,7 @@ type CanvasImageDocumentation() =
             BI [
                 CO [P "Bytes"; C "of"; P "Byte[]"]
                 CO [P "Stream"; C "of"; P "Stream"]
-                CO [P "Path"; C "of"; P "String"]
+                CO [P "Path"; C "of"; P "string"]
             ]
             NL
             CO [C "The canvas image module exposes the mutable variable"; P "maxWidth."]

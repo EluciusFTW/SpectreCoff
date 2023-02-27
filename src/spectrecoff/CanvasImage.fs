@@ -10,7 +10,7 @@ let mutable maxWidth = 16
 type ImageSource =
     | Bytes of Byte[]
     | Stream of Stream
-    | Path of String
+    | Path of string
 
 let canvasImage source =
     let image =
