@@ -53,6 +53,7 @@ type CanvasImageDocumentation() =
             BI [
                 P "canvasImage: ImageSource -> CanvasImage"
             ]
+            CO [C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."]
             NL
             CO [C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"]
             BI [
