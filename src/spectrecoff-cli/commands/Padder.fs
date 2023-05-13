@@ -12,13 +12,13 @@ type PadderExample() =
     interface ICommandLimiter<PadderSettings>
 
     override _.Execute(_context, _settings) =
-        
+
         // Let's build some boxes first
-        let alienInaAbox = 
+        let alienInaAbox =
             (Emoji "alien_monster")
-            |> customPanel { defaultPanelLayout with Sizing = Collapse; Padding = AllEqual 0 } (pumped "Pad me!") 
-        
-        // If you want to pad any output, you can simply pipe it through, 
+            |> customPanel { defaultPanelLayout with Sizing = Collapse; Padding = AllEqual 0 } (pumped "Pad me!")
+
+        // If you want to pad any output, you can simply pipe it through,
         // even multiple times
         "Invasion!"
         |> customFiglet Left Color.Purple
@@ -27,8 +27,8 @@ type PadderExample() =
         |> toConsole
 
         // These padded elements can be composed
-        Many [ 
-            for i in 1 .. 5 -> alienInaAbox |> padleft (5*i) 
+        Many [
+            for i in 1 .. 5 -> alienInaAbox |> padleft (5*i)
         ] |> toConsole
         0
 
@@ -45,7 +45,7 @@ type PadderDocumentation() =
         |> toConsole
 
         Many [
-            CO [
+            Many [
                 C "This module provides functionality from the padder widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/padder"
                 C ")"

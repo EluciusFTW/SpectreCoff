@@ -50,7 +50,7 @@ type GridDocumentation() =
         |> toConsole
 
         Many [
-            CO [
+            Many [
                 C "This module provides functionality from the grid widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/Grid"
                 C ")"
@@ -63,12 +63,12 @@ type GridDocumentation() =
             NL
             C "Each row is a DU consisting in one of the following union types:"
             BI [
-                CO [P "Payloads"; C "of"; P "OutputPayload list"]
-                CO [P "Strings"; C "of"; P "string list"]
-                CO [P "Numbers"; C "of"; P "int list"]
+                Many [P "Payloads"; C "of"; P "OutputPayload list"]
+                Many [P "Strings"; C "of"; P "string list"]
+                Many [P "Numbers"; C "of"; P "int list"]
             ]
             NL
-            CO [C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."]
+            Many [C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."]
             C "Pipe it into toConsole to easily write the grid to the console:"
             BI [
                 P "grid.toOutputPayload |> toConsole"

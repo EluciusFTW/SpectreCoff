@@ -77,7 +77,6 @@ type OutputPayload =
     | Pumped of string
     | Edgy of string
     | Vanilla of string
-    | Collection of OutputPayload list
     | BulletItems of OutputPayload list
     | Many of OutputPayload list
     | Renderable of Rendering.IRenderable
@@ -90,7 +89,6 @@ let C = Calm
 let P = Pumped
 let E = Edgy
 let V = Vanilla
-let CO = Collection
 let BI = BulletItems
 let NL = NewLine
 
@@ -112,26 +110,13 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
     | Emoji emoji -> emoji |> padEmoji
     | NewLine -> Environment.NewLine
-    | Collection items ->
-        items
-        |> List.map (fun item ->
-            match item with
-            | Renderable _ -> failwith "Renderables can't be used in collections."
-            | BulletItems _ -> failwith "Bullet items can't be used within bullet items."
-            | Collection items ->
-                items
-                |> List.map toMarkedUpString
-                |> joinSeparatedBy " "
-            | _ -> toMarkedUpString item)
-        |> joinSeparatedBy " "
     | BulletItems items ->
         items
         |> List.map (fun item ->
             match item with
             | Renderable _ -> failwith "Renderables can't be used within bullet items."
             | BulletItems _ -> failwith "Bullet items can't be used within bullet items."
-            | Collection items -> CO ([C bulletItemPrefix]@items)
-            | _ -> CO [C bulletItemPrefix; item])
+            | _ -> Many [C bulletItemPrefix; item])
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline
     | Many payloads ->

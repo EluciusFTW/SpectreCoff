@@ -34,7 +34,7 @@ type FigletDocumentation() =
         |> toConsole
 
         Many [
-            CO [
+            Many [
                 C "This module provides functionality from the figlet widget of Spectre.Console ("
                 Link "https://spectreconsole.net/widgets/figlet"
                 C ")"
@@ -47,8 +47,8 @@ type FigletDocumentation() =
             NL
             C "This figlet will use the"
             BI [
-                CO [P "Figlet.defaultAlignment,"; C "initialized to"; P "Center,"; C "and"]
-                CO [P "Figlet.defaultColor,"; C "initialized to the pumped color"; P "Output.pumpedColor"; C ","]
+                Many [P "Figlet.defaultAlignment,"; C "initialized to"; P "Center,"; C "and"]
+                Many [P "Figlet.defaultColor,"; C "initialized to the pumped color"; P "Output.pumpedColor"; C ","]
             ]
             C "which both can be modified."
             NL
@@ -57,6 +57,6 @@ type FigletDocumentation() =
                 P "customFiglet: Alignment -> Color -> string -> Renderable"
             ]
             NL
-            CO [C "The figlet can be printed to the console with the"; P "toConsole"; C "function."]
+            Many [C "The figlet can be printed to the console with the"; P "toConsole"; C "function."]
         ] |> toConsole
         0

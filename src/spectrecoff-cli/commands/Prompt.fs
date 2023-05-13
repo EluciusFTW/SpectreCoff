@@ -10,7 +10,7 @@ type PromptExample() =
     inherit Command<PromptSettings>()
     interface ICommandLimiter<PromptSettings>
 
-    override _.Execute(_context, _) = 
+    override _.Execute(_context, _) =
 
         let fruits = ["Kiwi"; "Pear"; "Grape"; "Plum"; "Banana" ; "Orange"; "Durian"]
         let chosenFruit = "If you had to pick one, which would it be?" |> chooseFrom fruits
@@ -18,70 +18,70 @@ type PromptExample() =
 
         match chosenFruits.Count with
         | 0 -> "You don't like any fruit??"
-        | 1 -> 
+        | 1 ->
             if (chosenFruit = chosenFruits.ToArray()[0])
-                then "Makes sense" 
+                then "Makes sense"
                 else $"Why didn't you pick {chosenFruit} in the first place?"
         | _ -> $"Must be nice to like {chosenFruits.Count} different fruit!"
         |> printMarkedUp
-        
-        let amount = 
-            $"How many {chosenFruit} do you want?" 
-            |> ask<int> 
-        
-        let amountAgain = 
-            $"I'll ask again, but this time I'll suggest 16, it's your secret :)" 
+
+        let amount =
+            $"How many {chosenFruit} do you want?"
+            |> ask<int>
+
+        let amountAgain =
+            $"I'll ask again, but this time I'll suggest 16, it's your secret :)"
             |> askWithSuggesting<int> { defaultOptions with Secret = true } 16
 
         if (amount = amountAgain)
-            then "You didn't flinch, huh?" 
+            then "You didn't flinch, huh?"
             else $"I see you changed your mind ..."
         |> printMarkedUp
 
         let answer = confirm $"Do you want to eat them right away?"
         match answer with
         | true -> Pumped "Bon apetit!"
-        | false -> Edgy "Ok, maybe later :/" 
+        | false -> Edgy "Ok, maybe later :/"
         |> toConsole
         0
 
 type PromptDocumentation() =
     inherit Command<PromptSettings>()
     interface ICommandLimiter<PromptSettings>
-    
-    override _.Execute(_context, _) = 
+
+    override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
-        
+
         NewLine |> toConsole
         pumped "Prompt module"
-        |> alignedRule Left 
+        |> alignedRule Left
         |> toConsole
-        
+
         Many [
-            CO [
+            Many [
                 C "This module provides functionality from the prompts of Spectre.Console ("
                 Link "https://spectreconsole.net/prompts"
                 C ")"
             ]
-            CO [C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"]
+            Many [C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"]
             NL
             emptyRule
             C "For prompting an answer from the user, the following functions can be used:"
-            BI [ 
+            BI [
                 P "ask<'T> = (question: string) -> 'T"
                 P "askWith<'T> = (options: PromptOptions) (question: string) -> 'T"
                 P "askSuggesting<'T> = (answer: 'T) (question: string) -> 'T"
                 P "askWithSuggesting<'T> = (options: PromptOptions) (answer: 'T) (question: string) -> 'T"
             ]
-            CO [C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"]
+            Many [C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"]
             BI [
-               CO [P "Secret"; C "describes whether the characters are shown (default: false)"]
-               CO [P "Optional"; C "describes whether empty is a valid input (default: false)"]
+               Many [P "Secret"; C "describes whether the characters are shown (default: false)"]
+               Many [P "Optional"; C "describes whether empty is a valid input (default: false)"]
             ]
             NL
             emptyRule
             C "If the set of choices is finite, one of the following can be used:"
-            BI [ 
+            BI [
                 P "chooseFrom = (choices: string list) (question: string) -> string"
                 P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"
             ]

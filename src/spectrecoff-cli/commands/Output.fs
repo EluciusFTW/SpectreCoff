@@ -56,7 +56,7 @@ type OutputExample() =
             "Write a decent text"
             "Without being bothered by"
             "Symbols, types and other things ... "
-        ] 
+        ]
         |> List.map Calm
         |> Many
         |> toConsole
@@ -68,10 +68,10 @@ type OutputExample() =
             P "That is the motivation for the short alias."
             E "It preserves indentation and let's you focus on the content."
             NewLine
-            CO [
-                C "The CO type can be used to print"; 
-                P "multiple marked up pieces"; 
-                E "in one line, too." 
+            Many [
+                C "The CO type can be used to print";
+                P "multiple marked up pieces";
+                E "in one line, too."
             ]
             NewLine
             C "Or, if you want to list a few items you can use BulletItems: "
@@ -81,27 +81,27 @@ type OutputExample() =
                 E "items"
             ]
             rule "Links and Emojis"
-            CO [
+            Many [
                 C "You can easily render clickable links:"
                 Link "https://www.spectreconsole.net/markup"
             ]
-            CO [
+            Many [
                 C "Even with a dedicated display test:"
                 LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
             ]
             NewLine
-            CO [
+            Many [
                 C "You can use emojis by their string literals"
                 Emoji "alien_monster"
             ]
             C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
             NewLine
         ] |> toConsole
-    
+
         // Use extensions on the payload
         let payload = Many [ NL; P "Printed"; E "using"; NL; C "... the Extension!"]
         payload.toConsole
-    
+
         // or, if you need to map the payload to a marked up string or renderable
         let asRenderable = payload.toRenderable
         let asMarkedUpString = payload.toMarkedUpString
