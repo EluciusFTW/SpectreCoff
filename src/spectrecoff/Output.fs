@@ -6,16 +6,18 @@ open Spectre.Console
 open System
 
 // Styles
-let mutable calmStyle = None
-let mutable calmColor = Color.SteelBlue
+let mutable calmLook: Look = 
+    { Color = Color.SteelBlue
+      Decoration = Decoration.None }
+let mutable pumpedLook: Look = 
+    { Color = Color.DeepSkyBlue3_1
+      Decoration = Decoration.Italic }
 
-let mutable pumpedStyle = Italic
-let mutable pumpedColor = Color.DeepSkyBlue3_1
+let mutable edgyLook: Look = 
+    { Color = Color.DarkTurquoise
+      Decoration = Decoration.Bold }
 
-let mutable edgyStyle = Bold
-let mutable edgyColor = Color.DarkTurquoise
-
-let mutable linkColor = pumpedColor
+let mutable linkColor = pumpedLook.Color
 
 // Special strings
 let mutable bulletItemPrefix = " + "
@@ -35,7 +37,7 @@ let private padEmoji (emoji: string) =
     | true -> emoji
     | false -> $":{emoji}:"
 
-let markupString (color: Color option) (style: Layout.Style option) content =
+let markupString (color: Color option) (style: Decoration option) content =
     match style with
     | None ->
         match color with
@@ -44,11 +46,11 @@ let markupString (color: Color option) (style: Layout.Style option) content =
     | Some s ->
         match color with
         | None -> markupWithStyle s content
-        | Some c -> markupWithColorAndStyle c (stringifyStyle s) content
+        | Some c -> markupWithColorAndStyle c (s.ToString()) content
 
-let pumped content = markupString (Some pumpedColor) (Some pumpedStyle) content
-let edgy content = markupString (Some edgyColor) (Some edgyStyle) content
-let calm content = markupString (Some calmColor) calmStyle content
+let pumped content = content |> markupString (Some pumpedLook.Color) (Some pumpedLook.Decoration)
+let edgy content = content |> markupString (Some edgyLook.Color) (Some edgyLook.Decoration)
+let calm content = content |> markupString (Some calmLook.Color)  (Some calmLook.Decoration)
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
 let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
@@ -67,9 +69,9 @@ let appendNewline content =
 
 type OutputPayload =
     | NewLine
-    | MarkupCS of Color * Layout.Style * string
+    | MarkupCS of Color * Decoration * string
     | MarkupC of Color * string
-    | MarkupS of Layout.Style * string
+    | MarkupS of Decoration * string
     | Link of string
     | LinkWithLabel of string*string
     | Emoji of string
@@ -105,9 +107,9 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Pumped content -> content |> pumped
     | Edgy content -> content |> edgy
     | Vanilla content -> content
-    | MarkupCS (color, style, content) -> content |> markupString (Some color) (Some style)
+    | MarkupCS (color, decoration, content) -> content |> markupString (Some color) (Some decoration)
     | MarkupC (color, content) -> content |> markupString (Some color) None
-    | MarkupS (style, content) -> content |> markupString None (Some style)
+    | MarkupS (decoration, content) -> content |> markupString None (Some decoration)
     | Link link -> link |> markupWithColorAndStyle linkColor "link"
     | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
     | Emoji emoji -> emoji |> padEmoji

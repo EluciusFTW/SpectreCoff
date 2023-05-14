@@ -5,10 +5,10 @@ open Spectre.Console
 open SpectreCoff.Layout
 open SpectreCoff.Output
 
-let mutable stemColor = calmColor
-let mutable rootColor = calmColor
-let mutable separatorColor = pumpedColor
-let mutable leafColor = edgyColor
+let mutable stemColor = calmLook.Color
+let mutable rootColor = calmLook.Color
+let mutable separatorColor = pumpedLook.Color
+let mutable leafColor = edgyLook.Color
 
 let mutable defaultAlignment = Left
 

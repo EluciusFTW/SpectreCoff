@@ -5,31 +5,31 @@ open Spectre.Console
 open Spectre.Console.Json
 open SpectreCoff.Output
 
-let mutable bracesColor = calmColor
+let mutable bracesColor = calmLook.Color
 let mutable bracesDecorations = [ Decoration.None ]
 
-let mutable bracketsColor = calmColor
+let mutable bracketsColor = calmLook.Color
 let mutable bracketsDecorations = [ Decoration.None ]
 
-let mutable colonColor = calmColor
+let mutable colonColor = calmLook.Color
 let mutable colonDecorations = [ Decoration.None ]
 
-let mutable commaColor = calmColor
+let mutable commaColor = calmLook.Color
 let mutable commaDecorations = [ Decoration.None ]
 
-let mutable memberColor = pumpedColor
+let mutable memberColor = pumpedLook.Color
 let mutable memberDecorations = [ Decoration.Italic ]
 
-let mutable stringColor = edgyColor
+let mutable stringColor = edgyLook.Color
 let mutable stringDecorations = [ Decoration.Bold ]
 
-let mutable numberColor = edgyColor
+let mutable numberColor = edgyLook.Color
 let mutable numberDecorations = [ Decoration.Bold ]
 
-let mutable booleanColor = calmColor
+let mutable booleanColor = calmLook.Color
 let mutable booleanDecorations = [ Decoration.Bold ]
 
-let mutable nullColor = calmColor
+let mutable nullColor = calmLook.Color
 let mutable nullDecorations = [ Decoration.Dim ]
 
 let private aggregate decorations =

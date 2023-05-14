@@ -13,7 +13,7 @@ type PanelLayout =
 
 let mutable defaultPanelLayout: PanelLayout =
     { Border = BoxBorder.Rounded
-      BorderColor = edgyColor
+      BorderColor = edgyLook.Color
       Sizing = Collapse
       Padding = AllEqual 2 }
 

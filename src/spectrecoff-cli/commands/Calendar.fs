@@ -33,10 +33,8 @@ type CalendarExample() =
         let settings =
           { defaultCalendarSettings with
                 Culture = Some (Culture "de-DE")
-                HeaderColor = edgyColor
-                HeaderStyle = Decoration.Italic
-                HighlightColor = Some Color.Aquamarine1
-                HighlightStyle = Some Decoration.Invert }
+                HeaderLook = { Color = edgyLook.Color; Decoration = Decoration.Italic }
+                HighlightLook = { Color = Color.Aquamarine1; Decoration = Decoration.Invert } }
 
         customCalendar settings (Year 2025) (Month 2)
         |> addEvent (Event (Year 2025, Month 2, Day 22))
