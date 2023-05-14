@@ -21,7 +21,7 @@ type TreeLayout =
 let defaultTreeLayout: TreeLayout =
     {  Sizing = Collapse
        Guides = SingleLine
-       ForeGroundColor = Some calmColor
+       ForeGroundColor = Some calmLook.Color
        BackGroundColor = None
        Decoration = None }
 

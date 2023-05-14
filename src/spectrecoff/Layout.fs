@@ -1,6 +1,8 @@
 [<AutoOpen>]
 module SpectreCoff.Layout
 
+
+
 type Alignment =
     | Left
     | Center
@@ -37,3 +39,11 @@ let stringifyStyle style =
     | Slowblink -> "slowblink"
     | Rapidblink -> "rapidblink"
     | StrikeThrough -> "strikethrough"
+
+open Spectre.Console
+type Look = 
+    { Decoration: Decoration;
+      Color: Color }
+
+let toStyle look = 
+    Style (look.Color, System.Nullable(), look.Decoration)

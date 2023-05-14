@@ -8,9 +8,13 @@ module Theme =
 
     let setDocumentationStyle = 
         bulletItemPrefix <- "   >> "
-        pumpedColor <- Color.Yellow
-        pumpedStyle <- Italic
+        
+        pumpedLook <- 
+            { Color = Color.Yellow
+              Decoration = Decoration.Italic }
 
-        edgyColor <- Color.OrangeRed1
-        edgyStyle <- Italic
+        edgyLook <- 
+            { Color = Color.OrangeRed1
+              Decoration = Decoration.Italic }
+        
         ()
