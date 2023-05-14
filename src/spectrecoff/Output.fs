@@ -122,7 +122,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Many payloads ->
         payloads
         |> List.map toMarkedUpString
-        |> joinSeparatedByNewline
+        |> joinSeparatedBy " "
     | Renderable _ -> failwith "The payload type 'Renderable' is not stringifyable."
 
 let rec payloadToRenderable (payload: OutputPayload) =
