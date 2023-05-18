@@ -41,7 +41,7 @@ type TableExample() =
             |> withFooter (Pumped "Footer works, too!") 
             |> withLayout { defaultColumnLayout with Alignment = Right }
         ]
-        [ Payloads [ exampleTable.toOutputPayload;  MCS (Color.Red, Decoration.Bold, "The bigger the exponent, the faster the sequence grows.") ]
+        [ Payloads [ exampleTable.toOutputPayload;  MCS (Color.Red, [ Decoration.Bold ], "The bigger the exponent, the faster the sequence grows.") ]
           Payloads [ P "Under the table"; panel "Wow" (E "ye-haw") ] 
           Strings [ "Sum"; "Last" ]
           Numbers [ 55; 10 ]
