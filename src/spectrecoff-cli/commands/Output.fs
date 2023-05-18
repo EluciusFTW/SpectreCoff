@@ -21,8 +21,8 @@ type OutputExample() =
 
         // There are several ways to print a single line.
         // The generic way
-        MCS (Color.Red, Decoration.Underline, "This is underline red") |> toConsole
-        MS (Decoration.Underline, "This is underline.") |> toConsole
+        MCS (Color.Red, [ Decoration.Underline ], "This is underline red") |> toConsole
+        MS ([ Decoration.Underline; Decoration.Dim ], "This is underline.") |> toConsole
         MC (Color.Red, "This is red") |> toConsole
         NewLine |> toConsole
 
@@ -43,7 +43,7 @@ type OutputExample() =
         Vanilla "This let's you pass in a style as defined by Spectre." |> toConsole
         V "V is a short for Vanilla." |> toConsole
         V "In order to be able to write the styles easily, there are some functions:" |> toConsole
-        V $"""You can use {markupString (Some Color.Purple) (Some Decoration.Bold) "the markup"} function,""" |> toConsole
+        V $"""You can use {markupString (Some Color.Purple) [ Decoration.Bold ] "the markup"} function,""" |> toConsole
         V $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
         V "to utilize the same styles as defined in the current theme." |> toConsole
         V $"""As you can see, {pumped "Vanilla"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole

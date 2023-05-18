@@ -8,58 +8,58 @@ open System
 // Styles
 let mutable calmLook: Look = 
     { Color = Color.SteelBlue
-      Decoration = Decoration.None }
+      Decoration = [ Decoration.None ] }
 let mutable pumpedLook: Look = 
     { Color = Color.DeepSkyBlue3_1
-      Decoration = Decoration.Italic }
+      Decoration = [ Decoration.Italic ]}
 
 let mutable edgyLook: Look = 
     { Color = Color.DarkTurquoise
-      Decoration = Decoration.Bold }
+      Decoration = [ Decoration.Bold ] }
 
-let mutable linkColor = pumpedLook.Color
+let mutable linkLook = 
+    { Color = pumpedLook.Color
+      Decoration = [ Decoration.Underline; Decoration.Italic ] }
 
-// Special strings
 let mutable bulletItemPrefix = " + "
-
-// Basic output
-let private markupWithColor color content =
-    $"[{color}]{Markup.Escape content}[/]"
-
-let private markupWithStyle style content =
-    $"[{style}]{Markup.Escape content}[/]"
-
-let private markupWithColorAndStyle color (style: string) content =
-    $"[{color} {style}]{Markup.Escape content}[/]"
 
 let private padEmoji (emoji: string) =
     match emoji.StartsWith ":" with
     | true -> emoji
     | false -> $":{emoji}:"
 
-let markupString (color: Color option) (style: Decoration option) content =
-    match style with
-    | None ->
-        match color with
-        | None -> content
-        | Some c -> markupWithColor c content
-    | Some s ->
-        match color with
-        | None -> markupWithStyle s content
-        | Some c -> markupWithColorAndStyle c (s.ToString()) content
-
-let pumped content = content |> markupString (Some pumpedLook.Color) (Some pumpedLook.Decoration)
-let edgy content = content |> markupString (Some edgyLook.Color) (Some edgyLook.Decoration)
-let calm content = content |> markupString (Some calmLook.Color)  (Some calmLook.Decoration)
-
-let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
-let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
-
 let rec private joinSeparatedBy (separator: string) (strings: string list) =
     match strings with
     | [] -> ""
     | [s] -> s
     | head::tail -> head + separator + joinSeparatedBy separator tail
+
+let private stringify (decorations: Decoration list) = 
+    decorations |> List.map (fun s -> s.ToString())
+
+let private css colorOption decorations = 
+    let parts = 
+        match colorOption with 
+        | Some color -> [color.ToString()]@(stringify decorations)
+        | None -> (stringify decorations)
+    parts |> joinSeparatedBy " "
+
+ // Basic output
+let markupString (colorOption: Color option) (decorations: Decoration list) content =
+    $"[{css colorOption decorations}]{Markup.Escape content}[/]"
+
+let markupLink link label =
+    let linkCss = css (Some linkLook.Color) linkLook.Decoration
+    match label with
+    | "" -> $"[{linkCss} link]{Markup.Escape link}[/]"
+    | _ -> $"[{linkCss} link={link}]{Markup.Escape label}[/]"
+
+let pumped content = content |> markupString (Some pumpedLook.Color) (pumpedLook.Decoration)
+let edgy content = content |> markupString (Some edgyLook.Color) (edgyLook.Decoration)
+let calm content = content |> markupString (Some calmLook.Color)  (calmLook.Decoration)
+
+let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
+let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
 
 let rec private joinSeparatedByNewline =
     joinSeparatedBy Environment.NewLine
@@ -69,9 +69,9 @@ let appendNewline content =
 
 type OutputPayload =
     | NewLine
-    | MarkupCS of Color * Decoration * string
+    | MarkupCS of Color * Decoration list * string
     | MarkupC of Color * string
-    | MarkupS of Decoration * string
+    | MarkupS of Decoration list * string
     | Link of string
     | LinkWithLabel of string*string
     | Emoji of string
@@ -107,11 +107,11 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Pumped content -> content |> pumped
     | Edgy content -> content |> edgy
     | Vanilla content -> content
-    | MarkupCS (color, decoration, content) -> content |> markupString (Some color) (Some decoration)
-    | MarkupC (color, content) -> content |> markupString (Some color) None
-    | MarkupS (decoration, content) -> content |> markupString None (Some decoration)
-    | Link link -> link |> markupWithColorAndStyle linkColor "link"
-    | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
+    | MarkupCS (color, decorations, content) -> content |> markupString (Some color) decorations
+    | MarkupC (color, content) -> content |> markupString (Some color) []
+    | MarkupS (decorations, content) -> content |> markupString None decorations
+    | Link link -> link |> markupLink "" 
+    | LinkWithLabel (label, link) -> label |> markupLink link //$"link={link}"
     | Emoji emoji -> emoji |> padEmoji
     | NewLine -> Environment.NewLine
     | Collection items ->
