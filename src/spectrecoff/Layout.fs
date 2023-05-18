@@ -1,8 +1,6 @@
 [<AutoOpen>]
 module SpectreCoff.Layout
 
-
-
 type Alignment =
     | Left
     | Center
@@ -17,33 +15,13 @@ type Padding =
     | HorizontalVertical of int*int
     | TopRightBottomLeft of int*int*int*int
 
-type Style = 
-    | Bold
-    | Dim
-    | Italic
-    | Underline
-    | Invert
-    | Conceal
-    | Slowblink
-    | Rapidblink
-    | StrikeThrough
-
-let stringifyStyle style = 
-    match style with
-    | Bold -> "bold"
-    | Dim -> "dim"
-    | Italic -> "italic"
-    | Underline -> "underline"
-    | Invert -> "invert"
-    | Conceal -> "conceal"
-    | Slowblink -> "slowblink"
-    | Rapidblink -> "rapidblink"
-    | StrikeThrough -> "strikethrough"
-
 open Spectre.Console
 type Look = 
-    { Decoration: Decoration;
+    { Decoration: Decoration list;
       Color: Color }
 
+let private aggregate decorations =
+    decorations |>  List.reduce (|||)
+
 let toStyle look = 
-    Style (look.Color, System.Nullable(), look.Decoration)
+    Style (look.Color, System.Nullable(), aggregate look.Decoration)
