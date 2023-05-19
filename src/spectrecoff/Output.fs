@@ -1,6 +1,7 @@
 [<AutoOpen>]
 module SpectreCoff.Output
 
+open Spectre.Console.Rendering
 open SpectreCoff.Layout
 open Spectre.Console
 open System
@@ -79,7 +80,7 @@ type OutputPayload =
     | Vanilla of string
     | BulletItems of OutputPayload list
     | Many of OutputPayload list
-    | Renderable of Rendering.IRenderable
+    | Renderable of IRenderable
 
 // Short aliases
 let MCS = MarkupCS
@@ -94,7 +95,7 @@ let NL = NewLine
 
 let toOutputPayload value =
     value
-    :> Rendering.IRenderable
+    :> IRenderable
     |> Renderable
 
 let rec toMarkedUpString (payload: OutputPayload) =
@@ -130,14 +131,15 @@ let rec payloadToRenderable (payload: OutputPayload) =
     | Renderable renderable -> renderable
     | Many payloads ->
         payloads
-        |> List.map payloadToRenderable
-        |> Rows
-        :> Rendering.IRenderable
+        |> List.map toMarkedUpString
+        |> joinSeparatedBy " "
+        |> Markup
+        :> IRenderable
     | _ ->
         payload
         |> toMarkedUpString
         |> Markup
-        :> Rendering.IRenderable
+        :> IRenderable
 
 let toConsole (payload: OutputPayload) =
     payload
