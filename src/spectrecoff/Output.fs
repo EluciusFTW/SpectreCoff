@@ -131,6 +131,7 @@ let rec payloadToRenderable (payload: OutputPayload) =
     | Renderable renderable -> renderable
     | Many payloads ->
         payloads
+        // todo: it should join with " " as long as they are string types, otherwise newline and to IRenderable?
         |> List.map toMarkedUpString
         |> joinSeparatedBy " "
         |> Markup
