@@ -7,39 +7,39 @@ open SpectreCoff.Output
 
 let mutable bracesLook = 
     { Color = calmLook.Color
-      Decoration = [ Decoration.None ] }
+      Decorations = [ Decoration.None ] }
 
 let mutable bracketsLook = 
     { Color = calmLook.Color
-      Decoration = [ Decoration.None ] }
+      Decorations = [ Decoration.None ] }
 
 let mutable colonLook = 
     { Color = calmLook.Color
-      Decoration = [ Decoration.None ] }
+      Decorations = [ Decoration.None ] }
 
 let mutable commaLook = 
     { Color = calmLook.Color
-      Decoration = [ Decoration.None ] }
+      Decorations = [ Decoration.None ] }
 
 let mutable memberLook = 
     { Color = pumpedLook.Color
-      Decoration = [ Decoration.Italic ] }
+      Decorations = [ Decoration.Italic ] }
 
 let mutable stringLook = 
     { Color = edgyLook.Color
-      Decoration = [ Decoration.Bold ] }
+      Decorations = [ Decoration.Bold ] }
 
 let mutable numberLook = 
     { Color = edgyLook.Color
-      Decoration = [ Decoration.Bold ] }
+      Decorations = [ Decoration.Bold ] }
 
 let mutable booleanLook = 
     { Color = calmLook.Color
-      Decoration = [ Decoration.Bold ] }
+      Decorations = [ Decoration.Bold ] }
 
 let mutable nullLook = 
     { Color = calmLook.Color
-      Decoration = [ Decoration.Dim ] }
+      Decorations = [ Decoration.Dim ] }
 
 
 let private aggregate decorations =

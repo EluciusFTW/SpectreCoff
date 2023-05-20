@@ -8,18 +8,18 @@ open System
 // Styles
 let mutable calmLook: Look = 
     { Color = Color.SteelBlue
-      Decoration = [ Decoration.None ] }
+      Decorations = [ Decoration.None ] }
 let mutable pumpedLook: Look = 
     { Color = Color.DeepSkyBlue3_1
-      Decoration = [ Decoration.Italic ]}
+      Decorations = [ Decoration.Italic ]}
 
 let mutable edgyLook: Look = 
     { Color = Color.DarkTurquoise
-      Decoration = [ Decoration.Bold ] }
+      Decorations = [ Decoration.Bold ] }
 
 let mutable linkLook = 
     { Color = pumpedLook.Color
-      Decoration = [ Decoration.Underline; Decoration.Italic ] }
+      Decorations = [ Decoration.Underline; Decoration.Italic ] }
 
 let mutable bulletItemPrefix = " + "
 
@@ -34,29 +34,29 @@ let rec private joinSeparatedBy (separator: string) (strings: string list) =
     | [s] -> s
     | head::tail -> head + separator + joinSeparatedBy separator tail
 
-let private stringify (decorations: Decoration list) = 
-    decorations |> List.map (fun s -> s.ToString())
+let private stringifyDecorations (decorations: Decoration list) = 
+    decorations |> List.map (fun decoration -> decoration.ToString())
 
-let private css colorOption decorations = 
+let private stringify colorOption decorations = 
     let parts = 
         match colorOption with 
-        | Some color -> [color.ToString()]@(stringify decorations)
-        | None -> (stringify decorations)
+        | Some color -> [color.ToString()]@(stringifyDecorations decorations)
+        | None -> (stringifyDecorations decorations)
     parts |> joinSeparatedBy " "
 
  // Basic output
 let markupString (colorOption: Color option) (decorations: Decoration list) content =
-    $"[{css colorOption decorations}]{Markup.Escape content}[/]"
+    $"[{stringify colorOption decorations}]{Markup.Escape content}[/]"
 
 let markupLink link label =
-    let linkCss = css (Some linkLook.Color) linkLook.Decoration
+    let linkCss = stringify (Some linkLook.Color) linkLook.Decorations
     match label with
     | "" -> $"[{linkCss} link]{Markup.Escape link}[/]"
     | _ -> $"[{linkCss} link={link}]{Markup.Escape label}[/]"
 
-let pumped content = content |> markupString (Some pumpedLook.Color) (pumpedLook.Decoration)
-let edgy content = content |> markupString (Some edgyLook.Color) (edgyLook.Decoration)
-let calm content = content |> markupString (Some calmLook.Color)  (calmLook.Decoration)
+let pumped content = content |> markupString (Some pumpedLook.Color) (pumpedLook.Decorations)
+let edgy content = content |> markupString (Some edgyLook.Color) (edgyLook.Decorations)
+let calm content = content |> markupString (Some calmLook.Color)  (calmLook.Decorations)
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
 let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
@@ -69,9 +69,9 @@ let appendNewline content =
 
 type OutputPayload =
     | NewLine
-    | MarkupCS of Color * Decoration list * string
+    | MarkupCD of Color * Decoration list * string
     | MarkupC of Color * string
-    | MarkupS of Decoration list * string
+    | MarkupD of Decoration list * string
     | Link of string
     | LinkWithLabel of string*string
     | Emoji of string
@@ -85,9 +85,9 @@ type OutputPayload =
     | Renderable of Rendering.IRenderable
 
 // Short aliases
-let MCS = MarkupCS
+let MCD = MarkupCD
 let MC = MarkupC
-let MS = MarkupS
+let MD = MarkupD
 let C = Calm
 let P = Pumped
 let E = Edgy
@@ -107,9 +107,9 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Pumped content -> content |> pumped
     | Edgy content -> content |> edgy
     | Vanilla content -> content
-    | MarkupCS (color, decorations, content) -> content |> markupString (Some color) decorations
+    | MarkupCD (color, decorations, content) -> content |> markupString (Some color) decorations
     | MarkupC (color, content) -> content |> markupString (Some color) []
-    | MarkupS (decorations, content) -> content |> markupString None decorations
+    | MarkupD (decorations, content) -> content |> markupString None decorations
     | Link link -> link |> markupLink "" 
     | LinkWithLabel (label, link) -> label |> markupLink link //$"link={link}"
     | Emoji emoji -> emoji |> padEmoji

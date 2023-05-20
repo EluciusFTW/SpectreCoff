@@ -21,8 +21,8 @@ type OutputExample() =
 
         // There are several ways to print a single line.
         // The generic way
-        MCS (Color.Red, [ Decoration.Underline ], "This is underline red") |> toConsole
-        MS ([ Decoration.Underline; Decoration.Dim ], "This is underline.") |> toConsole
+        MCD (Color.Red, [ Decoration.Underline ], "This is underline red") |> toConsole
+        MD ([ Decoration.Underline; Decoration.Dim ], "This is underline.") |> toConsole
         MC (Color.Red, "This is red") |> toConsole
         NewLine |> toConsole
 

@@ -17,11 +17,11 @@ type Padding =
 
 open Spectre.Console
 type Look = 
-    { Decoration: Decoration list;
+    { Decorations: Decoration list;
       Color: Color }
 
 let private aggregate decorations =
     decorations |>  List.reduce (|||)
 
 let toStyle look = 
-    Style (look.Color, System.Nullable(), aggregate look.Decoration)
+    Style (look.Color, System.Nullable(), aggregate look.Decorations)
