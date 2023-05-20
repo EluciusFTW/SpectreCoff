@@ -38,8 +38,8 @@ type CalendarSettings =
 let defaultCalendarSettings =
     {  Culture =  None
        HideHeaders = false
-       HeaderLook = { calmLook with Decoration = [ Decoration.Bold ] }
-       HighlightLook = { pumpedLook with Decoration = [ Decoration.Invert ] } }
+       HeaderLook = { calmLook with Decorations = [ Decoration.Bold ] }
+       HighlightLook = { pumpedLook with Decorations = [ Decoration.Invert ] } }
 
 let addEvent event (calendar: Calendar) =
     event
