@@ -11,10 +11,12 @@ module Theme =
         
         pumpedLook <- 
             { Color = Color.Yellow
+              BackgroundColor = None
               Decorations = [ Decoration.Italic ] }
 
         edgyLook <- 
             { Color = Color.OrangeRed1
+              BackgroundColor = None
               Decorations = [ Decoration.Italic ] }
         
         ()
