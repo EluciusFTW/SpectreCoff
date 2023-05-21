@@ -137,11 +137,11 @@ let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list)
     table
 
 let withCaption caption (table: Table) =
-    table.Caption <- TableTitle (caption, toStyle { calmLook with Decorations = [] })
+    table.Caption <- TableTitle (caption, toSpectreStyle { calmLook with Decorations = [] })
     table
 
 let withTitle title (table: Table) =
-    table.Title <- TableTitle (title, toStyle { pumpedLook with Decorations = [] })
+    table.Title <- TableTitle (title, toSpectreStyle { pumpedLook with Decorations = [] })
     table
 
 let table =

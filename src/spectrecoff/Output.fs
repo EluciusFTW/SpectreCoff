@@ -8,17 +8,22 @@ open System
 // Styles
 let mutable calmLook: Look = 
     { Color = Color.SteelBlue
+      BackgroundColor = None
       Decorations = [ Decoration.None ] }
+
 let mutable pumpedLook: Look = 
     { Color = Color.DeepSkyBlue3_1
+      BackgroundColor = None
       Decorations = [ Decoration.Italic ]}
 
 let mutable edgyLook: Look = 
     { Color = Color.DarkTurquoise
+      BackgroundColor = None
       Decorations = [ Decoration.Bold ] }
 
 let mutable linkLook = 
     { Color = pumpedLook.Color
+      BackgroundColor = None
       Decorations = [ Decoration.Underline; Decoration.Italic ] }
 
 let mutable bulletItemPrefix = " + "
