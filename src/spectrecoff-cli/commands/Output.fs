@@ -13,9 +13,9 @@ type OutputExample() =
 
     override _.Execute(_context, _) =
 
-        pumpedLook <- { pumpedLook with Color = Color.Fuchsia }
-        edgyLook <- { edgyLook with Color = Color.BlueViolet }
-        calmLook <- { calmLook with Color = Color.Green }
+        pumpedLook <- { pumpedLook with Color = Some Color.Fuchsia }
+        edgyLook <- { edgyLook with Color = Some Color.BlueViolet }
+        calmLook <- { calmLook with Color = Some Color.Green }
 
         NewLine |> toConsole
 

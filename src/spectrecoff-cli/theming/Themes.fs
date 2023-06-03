@@ -10,13 +10,13 @@ module Theme =
         bulletItemPrefix <- "   >> "
         
         pumpedLook <- 
-            { Color = Color.Yellow
+            { Color = Some Color.Yellow
               BackgroundColor = None
               Decorations = [ Decoration.Italic ] }
 
         edgyLook <- 
-            { Color = Color.OrangeRed1
-              BackgroundColor = None
+            { Color = Some Color.DarkKhaki
+              BackgroundColor = Some Color.OrangeRed1
               Decorations = [ Decoration.Italic ] }
         
         ()
