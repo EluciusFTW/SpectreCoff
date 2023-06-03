@@ -7,17 +7,17 @@ open System
 
 // Styles
 let mutable calmLook: Look = 
-    { Color = Color.SteelBlue
+    { Color = Some Color.SteelBlue
       BackgroundColor = None
       Decorations = [ Decoration.None ] }
 
 let mutable pumpedLook: Look = 
-    { Color = Color.DeepSkyBlue3_1
+    { Color = Some Color.DeepSkyBlue3_1
       BackgroundColor = None
       Decorations = [ Decoration.Italic ]}
 
 let mutable edgyLook: Look = 
-    { Color = Color.DarkTurquoise
+    { Color = Some Color.DarkTurquoise
       BackgroundColor = None
       Decorations = [ Decoration.Bold ] }
 
@@ -42,26 +42,43 @@ let rec private joinSeparatedBy (separator: string) (strings: string list) =
 let private stringifyDecorations (decorations: Decoration list) = 
     decorations |> List.map (fun decoration -> decoration.ToString())
 
-let private stringify colorOption decorations = 
-    let parts = 
-        match colorOption with 
-        | Some color -> [color.ToString()]@(stringifyDecorations decorations)
-        | None -> (stringifyDecorations decorations)
-    parts |> joinSeparatedBy " "
+let private stringify foregroundColorOption backgroundColorOption decorations = 
+    let foregroundColorPart = 
+        match foregroundColorOption with 
+        | Some color -> [color.ToString()]
+        | None -> []
+
+    let backgroundColorPart = 
+        match backgroundColorOption with 
+        | Some color -> [$"on {color.ToString()}"]
+        | None -> []
+    
+    let decorationParts = stringifyDecorations decorations
+    
+    foregroundColorPart
+    @backgroundColorPart
+    @decorationParts 
+    |> joinSeparatedBy " "
+
+let private stringifyLook look = 
+    stringify look.Color look.BackgroundColor look.Decorations
 
  // Basic output
+let markup style content = 
+    $"[{style}]{Markup.Escape content}[/]"
+
 let markupString (colorOption: Color option) (decorations: Decoration list) content =
-    $"[{stringify colorOption decorations}]{Markup.Escape content}[/]"
+    markup $"{stringify colorOption None decorations}" content
 
 let markupLink link label =
-    let linkCss = stringify (Some linkLook.Color) linkLook.Decorations
+    let style = stringify (Some linkLook.Color) None linkLook.Decorations
     match label with
-    | "" -> $"[{linkCss} link]{Markup.Escape link}[/]"
-    | _ -> $"[{linkCss} link={link}]{Markup.Escape label}[/]"
+    | "" -> markup $"{style} link" link
+    | _ -> markup $"{style} link={link}" label
 
-let pumped content = content |> markupString (Some pumpedLook.Color) (pumpedLook.Decorations)
-let edgy content = content |> markupString (Some edgyLook.Color) (edgyLook.Decorations)
-let calm content = content |> markupString (Some calmLook.Color)  (calmLook.Decorations)
+let pumped content = content |> markup (stringifyLook pumpedLook)
+let edgy content = content |> markup (stringifyLook edgyLook)
+let calm content = content |> markup (stringifyLook calmLook)
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
 let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
@@ -74,6 +91,7 @@ let appendNewline content =
 
 type OutputPayload =
     | NewLine
+    | MarkupL of Look * string
     | MarkupCD of Color * Decoration list * string
     | MarkupC of Color * string
     | MarkupD of Decoration list * string
@@ -90,6 +108,7 @@ type OutputPayload =
     | Renderable of Rendering.IRenderable
 
 // Short aliases
+let ML = MarkupL
 let MCD = MarkupCD
 let MC = MarkupC
 let MD = MarkupD
@@ -112,6 +131,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Pumped content -> content |> pumped
     | Edgy content -> content |> edgy
     | Vanilla content -> content
+    | MarkupL (look, content) -> content |> markup (stringifyLook look)
     | MarkupCD (color, decorations, content) -> content |> markupString (Some color) decorations
     | MarkupC (color, content) -> content |> markupString (Some color) []
     | MarkupD (decorations, content) -> content |> markupString None decorations
