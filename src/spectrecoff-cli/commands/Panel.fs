@@ -34,7 +34,7 @@ type PanelExample() =
         |> toConsole    
 
         P "That surrounding border can be customized easily!"
-        |> customPanel { defaultPanelLayout with Sizing = Expand; BorderColor = Spectre.Console.Color.Yellow } " Customization " 
+        |> customPanel { defaultPanelLayout with Sizing = Expand; BorderColor = Some Spectre.Console.Color.Yellow } " Customization " 
         |> toConsole
         0
 

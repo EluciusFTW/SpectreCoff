@@ -29,10 +29,7 @@ type TreeExample() =
         |> toConsole
 
         customTree 
-            { defaultTreeLayout with 
-                ForeGroundColor = Some Color.Green 
-                BackGroundColor = Some Color.Grey
-                Decoration = Some Decoration.Bold } 
+            { defaultTreeLayout with Look = { Color = Some Color.Green; BackgroundColor = Some Color.Grey; Decorations = [Decoration.Bold] } }
             (P "Custom-Tree!") 
             [ for i in 1 .. 3 -> node (C $"Node {i}!") [] ] 
         |> toConsole
