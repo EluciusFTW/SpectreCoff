@@ -19,7 +19,7 @@ open Spectre.Console
 
 type Look = 
     { Decorations: Decoration list;
-      Color: Color;
+      Color: Color Option;
       BackgroundColor: Color Option }
 
 let private aggregate decorations =
@@ -30,5 +30,10 @@ let toSpectreStyle look =
         match look.BackgroundColor with
         | Some color -> System.Nullable<Color> color
         | None -> System.Nullable()
+    
+    let foregroundColor = 
+        match look.BackgroundColor with
+        | Some color -> System.Nullable<Color> color
+        | None -> System.Nullable()
 
-    Style (look.Color, backgroundColor, aggregate look.Decorations)
+    Style (foregroundColor, backgroundColor, aggregate look.Decorations)
