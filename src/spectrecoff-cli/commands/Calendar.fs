@@ -38,7 +38,7 @@ type CalendarExample() =
                   BackgroundColor = Some Color.Purple
                   Decorations = [ Decoration.Italic ] }
               HighlightLook = 
-                { Color = Color.Yellow
+                { Color = Some Color.Yellow
                   BackgroundColor = Some Color.Purple
                   Decorations = [ Decoration.Invert ] } }
 
