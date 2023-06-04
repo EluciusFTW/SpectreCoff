@@ -17,6 +17,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Layout.fs" />
+    <Compile Include="Theming.fs" />
     <Compile Include="Output.fs" />
     <Compile Include="Panel.fs" />
     <Compile Include="Prompt.fs" />
