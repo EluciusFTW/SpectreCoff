@@ -71,7 +71,7 @@ let markupString (colorOption: Color option) (decorations: Decoration list) cont
     markup $"{stringify colorOption None decorations}" content
 
 let markupLink link label =
-    let style = stringify (Some linkLook.Color) None linkLook.Decorations
+    let style = stringifyLook linkLook
     match label with
     | "" -> markup $"{style} link" link
     | _ -> markup $"{style} link={link}" label
