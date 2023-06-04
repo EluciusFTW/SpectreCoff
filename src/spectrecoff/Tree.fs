@@ -12,18 +12,14 @@ type GuideStyle =
     | BoldLine
 
 type TreeLayout =
-    {  Sizing: SizingBehaviour
-       Guides: GuideStyle
-       ForeGroundColor: Color Option
-       BackGroundColor: Color Option
-       Decoration: Decoration Option}
+    { Sizing: SizingBehaviour
+      Guides: GuideStyle
+      Look: Look }
 
 let defaultTreeLayout: TreeLayout =
-    {  Sizing = Collapse
-       Guides = SingleLine
-       ForeGroundColor = Some calmLook.Color
-       BackGroundColor = None
-       Decoration = None }
+    { Sizing = Collapse
+      Guides = SingleLine
+      Look = calmLook }
 
 let private toNullable option =
     match option with
@@ -41,8 +37,13 @@ let private applyLayout layout (root: Tree) =
     | DoubleLine -> root.Guide <- TreeGuide.DoubleLine
     | BoldLine -> root.Guide <- TreeGuide.BoldLine
 
-    root.Style <- Style (toNullable layout.ForeGroundColor, toNullable layout.BackGroundColor, toNullable layout.Decoration)
+    root.Style <- toSpectreStyle layout.Look
     root
+
+let private toRenderable tree = 
+    tree
+    :> Rendering.IRenderable
+    |> Renderable
 
 let attach (nodes: TreeNode list) (node: TreeNode) =
     nodes |> List.iter (fun n -> node.AddNode n |> ignore)
@@ -64,8 +65,7 @@ let customTree (layout: TreeLayout) (rootContent: OutputPayload ) (nodes: TreeNo
     |> Tree
     |> applyLayout layout
     |> attachToRoot nodes
-    :> Rendering.IRenderable
-    |> Renderable
+    |> toRenderable
 
 let tree =
     customTree defaultTreeLayout
