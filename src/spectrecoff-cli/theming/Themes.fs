@@ -6,6 +6,8 @@ open SpectreCoff.Theming
 module Theme = 
 
     let setDocumentationStyle = 
+        selectTheme Documentation
+        
         bulletItemPrefix <- "   >> "
         selectTheme Documentation
         ()

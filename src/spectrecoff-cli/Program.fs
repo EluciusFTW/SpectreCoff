@@ -171,6 +171,15 @@ let main argv =
                 .WithDescription("Shows the documentation for the canvas image module.")
                 |> ignore)
 
+        config.AddBranch("theme", fun(add: IConfigurator<ThemeSettings>) ->
+            add.AddCommand<ThemeExample>("example")
+                .WithDescription("Shows example output for the given theme")
+                |> ignore
+
+            add.AddCommand<ListThemes>("list")
+                .WithDescription("Shows a list of built-in themes")
+                |> ignore)
+
         config.AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
             |> ignore
