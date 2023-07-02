@@ -11,6 +11,7 @@ type theme =
 
 type SpectreCoffThemes = 
     | Iceberg
+    | Volcano
     | Documentation
 
 let iceBergTheme = 
@@ -25,8 +26,20 @@ let iceBergTheme =
       edgyLook = 
         { Color = Some Color.DarkTurquoise
           BackgroundColor = None
-          Decorations = [ Decoration.Bold ] }
-    }
+          Decorations = [ Decoration.Bold ] } }
+let volcanoTheme = 
+    { calmLook = 
+        { Color = Some Color.DarkRed_1
+          BackgroundColor = None
+          Decorations = [ Decoration.None ] }
+      pumpedLook = 
+        { Color = Some Color.Orange3
+          BackgroundColor = None
+          Decorations = [ Decoration.Italic ] }
+      edgyLook = 
+        { Color = Some Color.Yellow3_1
+          BackgroundColor = None
+          Decorations = [ Decoration.Italic; Decoration.Bold ] } }
 
 let documentationTheme = 
     { iceBergTheme with 
@@ -39,11 +52,6 @@ let documentationTheme =
               BackgroundColor = Some Color.OrangeRed1
               Decorations = [ Decoration.Italic ] }}
 
-let themes = [
-    iceBergTheme
-    documentationTheme
-]
-
 let applyTheme theme = 
     calmLook <- theme.calmLook 
     pumpedLook <- theme.pumpedLook 
@@ -53,4 +61,5 @@ let selectTheme spectreCoffTheme =
     match spectreCoffTheme with
     | Iceberg -> iceBergTheme
     | Documentation -> documentationTheme
+    | Volcano -> volcanoTheme
     |> applyTheme
