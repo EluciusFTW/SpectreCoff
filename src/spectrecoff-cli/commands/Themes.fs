@@ -18,7 +18,7 @@ type ListThemes() =
 
     override _.Execute(_context, _) =
         C "The following themes are currently available in SpectreCoff:" |> toConsole
-    
+
         FSharpType.GetUnionCases typeof<SpectreCoffThemes>
         |> Array.map (fun theme -> P theme.Name)
         |> Array.toList
@@ -26,7 +26,7 @@ type ListThemes() =
         |> toConsole
         0
 
-type ThemeExample() = 
+type ThemeExample() =
     inherit Command<ThemeSettings>()
 
     let printExample theme =
@@ -38,14 +38,14 @@ type ThemeExample() =
         ] |> toConsole
 
     interface ICommandLimiter<ThemeSettings>
-    
+
     override _.Execute(_context, settings) =
-        let matchingTheme = 
+        let matchingTheme =
             FSharpType.GetUnionCases typeof<SpectreCoffThemes>
             |> Array.tryFind (fun theme -> theme.Name = settings.themeName)
-            |> Option.map (fun case -> Reflection.FSharpValue.MakeUnion(case, [||] ) :?> SpectreCoffThemes)
+            |> Option.map (fun case -> FSharpValue.MakeUnion(case, [||] ) :?> SpectreCoffThemes)
 
-        match matchingTheme with 
+        match matchingTheme with
             | Some theme -> printExample theme
             | None -> (E $"The theme {settings.themeName} does not exist") |> toConsole
         0
