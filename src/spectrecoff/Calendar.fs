@@ -53,7 +53,7 @@ let applysettings (settings: CalendarSettings) (calendar: Calendar) =
 
     calendar.ShowHeader <- not settings.HideHeaders
     calendar.HeaderStyle <- toSpectreStyle settings.HeaderLook
-    calendar.HightlightStyle <- toSpectreStyle settings.HighlightLook
+    calendar.HighlightStyle <- toSpectreStyle settings.HighlightLook
     calendar
 
 let customCalendar settings year month =
