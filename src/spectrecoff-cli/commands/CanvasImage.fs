@@ -23,7 +23,7 @@ type CanvasImageExample() =
                 P "Print an image directly to the console!"
                 NL
                 image |> toOutputPayload
-                Many [P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"]
+                P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"; NL
                 P "For example, rotate the image by 45°:"
                 NL
                 rotatedImage.toOutputPayload
@@ -45,11 +45,9 @@ type CanvasImageDocumentation() =
         |> toConsole
 
         Many [
-            Many [
-                C "This submodule provides functionality from the canvas image widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/canvas-image"
-                C ")"
-            ]
+            C "This submodule provides functionality from the canvas image widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/canvas-image"
+            C ")"
             NL
             C "The canvas image can be used using the canvasImage function:"
             BI [

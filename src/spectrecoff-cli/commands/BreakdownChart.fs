@@ -45,11 +45,9 @@ type BreakdownChartDocumentation() =
         |> toConsole
 
         Many [
-            Many [
-                C "This submodule provides functionality from the BreakdownChart widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/breakdownchart"
-                C ")"
-            ]
+            C "This submodule provides functionality from the BreakdownChart widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/breakdownchart"
+            C ")"
             NL
             C "The breakdown chart can be used using the breakdownChart function:"
             BI [

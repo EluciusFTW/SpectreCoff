@@ -25,11 +25,12 @@ type OutputExample() =
         let rows = [ for i in 1 .. 5 -> Numbers [i; pown i 2; pown i 3] ]
 
         let exampleTable = table columns rows
-        Many [
-            P "This shows a table with a default and custom laid-out column."
-            exampleTable.toOutputPayload
-            NewLine
-        ] |> toConsole
+        // Many [
+        //     P "This shows a table with a default and custom laid-out column."
+        //     E "EDGY STUFF"
+        //     exampleTable.toOutputPayload
+        //     E "More edgy stuff"
+        // ] |> toConsole
 
         Many [C "This should"; C "Render in";P "One Line"; exampleTable.toOutputPayload] |> toConsole
         0

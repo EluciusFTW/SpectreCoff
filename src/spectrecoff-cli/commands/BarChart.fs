@@ -41,11 +41,9 @@ type BarChartDocumentation() =
         |> toConsole
 
         Many [
-            Many [
-                C "This submodule provides functionality from the BarChart widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/barchart"
-                C ")"
-            ]
+            C "This submodule provides functionality from the BarChart widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/barchart"
+            C ")"
             NL
             C "The bar chart can be used using the barChart function:"
             BI [

@@ -50,11 +50,9 @@ type GridDocumentation() =
         |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the grid widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/Grid"
-                C ")"
-            ]
+            C "This module provides functionality from the grid widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/Grid"
+            C ")"
             NL
             C "The grid can be used by the grid function:"
             BI [

@@ -126,15 +126,43 @@ let rec toMarkedUpString (payload: OutputPayload) =
         |> joinSeparatedBy " "
     | Renderable _ -> failwith "The payload type 'Renderable' is not stringifyable."
 
+let stringifyable payload =
+    match payload with
+    | Vanilla _
+    | Calm _
+    | Pumped _
+    | Edgy _
+    | Emoji _
+    | Link _
+    | LinkWithLabel _
+    | MarkupC _
+    | MarkupS _
+    | MarkupCS _ -> true
+    | _ -> false
+
+let combineStringifyables item1 item2 =
+    Vanilla (item1 + " " + item2)
+
+let rec reduceRenderables (items: OutputPayload list) =
+    match items with
+    | head :: tail ->
+        match tail with
+        | head2 :: tail2 ->
+            match (stringifyable head, stringifyable head2) with
+            | true, true -> reduceRenderables([combineStringifyables (toMarkedUpString head) (toMarkedUpString head2)]@tail2)
+            | false, true -> [head]@(reduceRenderables tail)
+            | _ -> [head; head2]@(reduceRenderables tail2)
+        | _ -> [head]
+    | _ -> []
+
 let rec payloadToRenderable (payload: OutputPayload) =
     match payload with
     | Renderable renderable -> renderable
     | Many payloads ->
         payloads
-        // todo: it should join with " " as long as they are string types, otherwise newline and to IRenderable?
-        |> List.map toMarkedUpString
-        |> joinSeparatedBy " "
-        |> Markup
+        |> reduceRenderables
+        |> List.map payloadToRenderable
+        |> Rows
         :> IRenderable
     | _ ->
         payload
