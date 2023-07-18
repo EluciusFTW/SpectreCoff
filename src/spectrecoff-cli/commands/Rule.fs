@@ -33,7 +33,7 @@ type RuleDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        NewLine |> toConsole
+        EmptyLine |> toConsole
         pumped "Rule module"
         |> alignedRule Left
         |> toConsole
@@ -44,20 +44,20 @@ type RuleDocumentation() =
                 Link "https://spectreconsole.net/widgets/rule"
                 C ")"
             ]
-            NewLine
+            EmptyLine
             C "The rule can be used by the rule function:"
             BI [
                 P "rule: string -> OutputPayload"
             ]
-            NL
+            EL
             Many [C "This rule will use the"; P "Rule.defaultAlignment,"; C "which is set to"; P "Center"; C "but can be modified."]
-            NL
+            EL
             C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [
                 P "alignedRule: Alignment -> string -> OutputPayload"
             ]
-            NL
+            EL
             Many [C "The rule can be printed to the console with the"; P "toConsole"; C "function."]
-            NL
+            EL
         ] |> toConsole
         0

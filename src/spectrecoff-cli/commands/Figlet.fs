@@ -28,7 +28,7 @@ type FigletDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        NewLine |> toConsole
+        EmptyLine |> toConsole
         pumped "Figlet module"
         |> alignedRule Left
         |> toConsole
@@ -39,24 +39,24 @@ type FigletDocumentation() =
                 Link "https://spectreconsole.net/widgets/figlet"
                 C ")"
             ]
-            NL
+            EL
             C "The figlet can be used by the figlet function:"
             BI [
                 P "figlet: string -> FigletText"
             ]
-            NL
+            EL
             C "This figlet will use the"
             BI [
                 Many [P "Figlet.defaultAlignment,"; C "initialized to"; P "Center,"; C "and"]
                 Many [P "Figlet.defaultColor,"; C "initialized to the pumped color"; P "Output.pumpedColor"; C ","]
             ]
             C "which both can be modified."
-            NL
+            EL
             C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [
                 P "customFiglet: Alignment -> Color -> string -> Renderable"
             ]
-            NL
+            EL
             Many [C "The figlet can be printed to the console with the"; P "toConsole"; C "function."]
         ] |> toConsole
         0

@@ -20,9 +20,9 @@ type PanelExample() =
                     C "Immutability over, well, mutability"
                     C "Declarative over imperative"
                 ]
-                rule " and somctimes "
+                rule " and sometimes "
                 figlet "Readability over performance"
-                P "... but not always, duh."
+                P "... but not always,"; E "duh."
             ]
 
         let header =
@@ -45,21 +45,19 @@ type PanelDocumentation() =
     override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
 
-        NewLine |> toConsole
+        EmptyLine |> toConsole
         pumped "Panel module"
         |> alignedRule Left
         |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the panel widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/panel"
-                C ")"
-            ]
+            C "This module provides functionality from the panel widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/panel"
+            C ")"
             NL
             C "The panel can be used by the panel function:"
             BI [P "panel: (header: string) -> (content: OutputPayload) -> OutputPayload"]
-            NL
+            EL
             Many [
                 C "While the content can be an arbitrary payload"
                 C "the header needs to be a string."
@@ -68,7 +66,7 @@ type PanelDocumentation() =
                 C "can be used here when mapped to string using the extension";
                 P "payload.toMarkedUpString."
             ]
-            NL
+            EL
             Many [
                 C "This panel will use the"
                 P "Panel.defaultPanelLayout,"
@@ -80,7 +78,7 @@ type PanelDocumentation() =
                 P "Sizing: Collapse"
                 P "Padding: AllEqual 2"
             ]
-            NL
+            EL
             C "In order to produce a panel with other layout, the default values can be modified. This changes the layout for all subsequent panels"
             C "If the alternative layout shall only be applied to an individual panel, it can be passed to this function:"
             BI [P "customPanel: PanelLayout -> string -> OutputPayload -> OutputPayload"]

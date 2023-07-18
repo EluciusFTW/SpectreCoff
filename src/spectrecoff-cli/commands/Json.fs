@@ -53,7 +53,7 @@ type JsonDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        NewLine |> toConsole
+        EmptyLine |> toConsole
         pumped "Json module"
         |> alignedRule Left
         |> toConsole
@@ -64,10 +64,10 @@ type JsonDocumentation() =
                 Link "https://spectreconsole.net/widgets/Json"
                 C ")"
             ]
-            NL
+            EL
             C "Json can be rendered using the the json function:"
             BI [P "json: (content: string) -> OutputPayload"]
-            NL
+            EL
             C "The output can be styled by mutation the value of the following variables (the default value is given in braces):"
             BI [
                 Many [ P "bracesColor"; C "(calmColor)" ]
@@ -89,6 +89,6 @@ type JsonDocumentation() =
                 Many [ P "nullColor"; C "(calmColor)" ]
                 Many [ P "nullDecorations"; C "([ Decoration.Dim; Decoration.Strikethrough ])" ]
             ]
-            NL
+            EL
         ] |> toConsole
         0

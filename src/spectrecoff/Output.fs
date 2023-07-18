@@ -67,7 +67,8 @@ let appendNewline content =
     content + Environment.NewLine
 
 type OutputPayload =
-    | NewLine
+    | NextLine
+    | EmptyLine
     | MarkupCS of Color * Layout.Style * string
     | MarkupC of Color * string
     | MarkupS of Layout.Style * string
@@ -91,7 +92,8 @@ let P = Pumped
 let E = Edgy
 let V = Vanilla
 let BI = BulletItems
-let NL = NewLine
+let NL = NextLine
+let EL = EmptyLine
 
 let toOutputPayload value =
     value
@@ -110,7 +112,8 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Link link -> link |> markupWithColorAndStyle linkColor "link"
     | LinkWithLabel (label, link) -> label |> markupWithColorAndStyle linkColor $"link={link}"
     | Emoji emoji -> emoji |> padEmoji
-    | NewLine -> Environment.NewLine
+    | NextLine -> ""
+    | EmptyLine -> " "
     | BulletItems items ->
         items
         |> List.map (fun item ->
