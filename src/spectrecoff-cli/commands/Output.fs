@@ -47,7 +47,7 @@ type OutputExample() =
         V $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
         V "to utilize the same styles as defined in the current theme." |> toConsole
         V $"""As you can see, {pumped "Vanilla"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
-        NewLine |> toConsole
+        NL |> toConsole
 
         // Multiple lines at once
         [
@@ -63,17 +63,17 @@ type OutputExample() =
 
         // Compose different kinds of payloads
         Many [
-            NewLine
+            NL
             C "You can print many marked up lines easily as well."
             P "That is the motivation for the short alias."
             E "It preserves indentation and let's you focus on the content."
-            NewLine
-            CO [
+            NL
+            Many [
                 C "The CO type can be used to print";
                 P "multiple marked up pieces";
                 E "in one line, too."
             ]
-            NewLine
+            NL
             C "Or, if you want to list a few items you can use BulletItems: "
             BulletItems [
                 C "listing"
@@ -81,21 +81,21 @@ type OutputExample() =
                 E "items"
             ]
             rule "Links and Emojis"
-            CO [
+            Many [
                 C "You can easily render clickable links:"
                 Link "https://www.spectreconsole.net/markup"
             ]
-            CO [
+            Many [
                 C "Even with a dedicated display test:"
                 LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
             ]
-            NewLine
-            CO [
+            NL
+            Many [
                 C "You can use emojis by their string literals"
                 Emoji "alien_monster"
             ]
             C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
-            NewLine
+            NL
         ] |> toConsole
 
         // Use extensions on the payload
@@ -103,7 +103,6 @@ type OutputExample() =
         payload.toConsole
 
         // or, if you need to map the payload to a marked up string or renderable
-        let asRenderable = payload.toRenderable
         let asMarkedUpString = payload.toMarkedUpString
 
         // Let's test the round-trip!
