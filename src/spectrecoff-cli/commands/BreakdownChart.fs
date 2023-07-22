@@ -39,7 +39,7 @@ type BreakdownChartDocumentation() =
 
     override _.Execute(_context, _settings) =
         Theme.setDocumentationStyle
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "BreakdownChart submodule"
         |> alignedRule Left
         |> toConsole

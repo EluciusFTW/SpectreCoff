@@ -33,18 +33,16 @@ type RuleDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Rule module"
         |> alignedRule Left
         |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the rule widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/rule"
-                C ")"
-            ]
-            EmptyLine
+            C "This module provides functionality from the rule widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/rule"
+            C ")"
+            EL
             C "The rule can be used by the rule function:"
             BI [
                 P "rule: string -> OutputPayload"

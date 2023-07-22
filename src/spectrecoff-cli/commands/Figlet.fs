@@ -28,7 +28,7 @@ type FigletDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Figlet module"
         |> alignedRule Left
         |> toConsole

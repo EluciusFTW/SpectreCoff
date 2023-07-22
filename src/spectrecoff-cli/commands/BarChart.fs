@@ -35,7 +35,7 @@ type BarChartDocumentation() =
 
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "BarChart submodule"
         |> alignedRule Left
         |> toConsole

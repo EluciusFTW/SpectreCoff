@@ -45,7 +45,7 @@ type PanelDocumentation() =
     override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Panel module"
         |> alignedRule Left
         |> toConsole

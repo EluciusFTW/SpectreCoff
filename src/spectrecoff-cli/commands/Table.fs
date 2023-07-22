@@ -24,14 +24,14 @@ type TableExample() =
         Many [
             P "This shows a table with a default and custom laid-out column."
             exampleTable.toOutputPayload
-            EmptyLine
+            EL
         ] |> toConsole
 
         [ for i in 6 .. 10 -> Numbers [i; pown i 2; pown i 3] ] |> List.iter exampleTable.addRow
         Many [
             P "Rows can be added to the same table later on."
             exampleTable.toOutputPayload
-            EmptyLine
+            EL
         ] |> toConsole
 
         // Now for a more complete example
@@ -61,29 +61,27 @@ type TableDocumentation() =
 
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Table module"
         |> alignedRule Left
         |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the table widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/table"
-                C ")"
-            ]
-            EmptyLine
+            C "This module provides functionality from the table widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/table"
+            C ")"
+            EL
             C "The table can be used by the two functions:"
             BI [
                 P "table: ColumnDefinition list -> Row list -> Table"
                 P "customTable: TableLayout -> ColumnDefinition list -> Row list -> Table"
             ]
             Many [C "where the table function uses a"; P"defaultTableLayout"; C"variable for the layout, which can be modified as well."]
-            EmptyLine
+            EL
             C "Observe, that the functions return 'Table', not 'OutputPayload', as you might expect. That is because tables are modifyable objects that are often buil up iteratively (e.g., rows of data are added after creation.), whereas 'OutputPayload' is an immutable payload that is to be sent to the console. There is a mapping function to turn it into an 'OutputPayload': "
             BI [ P "toOutputPayload: Table -> OutputPayload" ]
             C "This function is also available as an extension method on Table."
-            EmptyLine
+            EL
             C "The 'TableLayout' is a record with the following properties:"
             BI [
                 Many [P "Border"; C ": sets the style of the border (Spectre.TableBorder, default: ),"]
@@ -92,14 +90,14 @@ type TableDocumentation() =
                 Many [P "HideHeaders"; C ": determines whether headers are shown (boolean, default: false),"]
                 Many [P "HideFooters"; C ": determines whether footers are shown (boolean, default: false)."]
             ]
-            EmptyLine
+            EL
             C "In the table function, the columns are defined by passing in a list of 'ColumnDefinitions', which are records with these properties:"
             BI [
                 Many [P "Header"; C ": the content of the header (OutputPayload),"]
                 Many [P "Footer"; C ": the optional content of the footer (Option<OutputPayload>),"]
                 Many [P "Layout"; C ": the optional column layout instance (Option<ColumnLayout>)."]
             ]
-            EmptyLine
+            EL
             C "In order to specify a column, you can instanciate such a record manually, or use one of these functions:"
             BI [
                 P "column: OutputPayload -> ColumDefinition"
@@ -109,7 +107,7 @@ type TableDocumentation() =
                 P "withSameLayout: ColumnLayout -> ColumnDefinition list -> ColumnDefinition list"
             ]
             C "The column function constructs a column without footer and with the 'defaultColumnLayout'. The singular with* functions add a footer or layout, respectively, to a column. 'withSameLayout' adds the same layout to multiple columns at once, and withFooters zips footers to columns."
-            EmptyLine
+            EL
             C "As you can see above, the column layout can also be specified by an instance of the record 'ColumnLayout' with these properties:"
             BI [
                 Many [P "Alignment"; C": aligns the content of this column (Alignment, default: Center),"]
@@ -118,9 +116,9 @@ type TableDocumentation() =
                 Many [P "Wrap"; C "(boolean), determines whether column content wraps."]
             ]
             Many [C "The default values are part of the"; P "defaultColumnLayout"; C"instance, which, as usual, can be modified directly as well."]
-            EmptyLine
+            EL
             Many [C "The data of the table is provided by the Row type, which is the same type as the one used in the"; P "Grid"; C "module. Please see that documentation for more details."]
-            EmptyLine
+            EL
             C "A title and a caption can also be added to the table using:"
             BI [
                 P "withTitle: string -> Table -> Table"

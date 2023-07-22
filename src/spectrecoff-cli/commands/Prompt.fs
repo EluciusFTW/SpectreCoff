@@ -52,7 +52,7 @@ type PromptDocumentation() =
     override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Prompt module"
         |> alignedRule Left
         |> toConsole

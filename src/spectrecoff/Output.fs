@@ -156,7 +156,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
         |> joinSeparatedBy " "
     | Renderable _ -> failwith "The payload type 'Renderable' is not stringifyable."
 
-let stringifyable payload =
+let isStringifyable payload =
     match payload with
     | Vanilla _
     | Calm _
@@ -179,7 +179,7 @@ let rec reduceRenderables (items: OutputPayload list) =
     | head :: tail ->
         match tail with
         | head2 :: tail2 ->
-            match (stringifyable head, stringifyable head2) with
+            match (isStringifyable head, isStringifyable head2) with
             | true, true -> reduceRenderables([combineStringifyables (toMarkedUpString head) (toMarkedUpString head2)]@tail2)
             | false, true -> [head]@(reduceRenderables tail)
             | _ -> [head; head2]@(reduceRenderables tail2)

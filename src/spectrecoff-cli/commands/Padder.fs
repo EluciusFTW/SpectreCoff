@@ -39,7 +39,7 @@ type PadderDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Padder module"
         |> alignedRule Left
         |> toConsole

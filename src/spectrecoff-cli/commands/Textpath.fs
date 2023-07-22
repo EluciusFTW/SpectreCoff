@@ -38,17 +38,15 @@ type TextpathDocumentation() =
 
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Textpath module"
         |> alignedRule Left
         |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the text path widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/text-path"
-                C ")"
-            ]
+            C "This module provides functionality from the text path widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/text-path"
+            C ")"
             EL
             C "The text path can be used by the path function:"
             BI [P "path: (value: string) -> OutputPayload"]

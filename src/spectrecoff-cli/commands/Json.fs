@@ -53,7 +53,7 @@ type JsonDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        EmptyLine |> toConsole
+        EL |> toConsole
         pumped "Json module"
         |> alignedRule Left
         |> toConsole
