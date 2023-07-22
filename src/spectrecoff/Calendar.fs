@@ -32,18 +32,14 @@ module Event =
 type CalendarSettings =
     {  Culture: Culture Option;
        HideHeaders: bool;
-       HeaderColor: Color;
-       HeaderStyle: Decoration;
-       HighlightColor: Color Option
-       HighlightStyle: Decoration Option }
+       HeaderLook: Look;
+       HighlightLook: Look; }
 
 let defaultCalendarSettings =
     {  Culture =  None
        HideHeaders = false
-       HeaderColor = calmColor
-       HeaderStyle = Decoration.Bold
-       HighlightColor = Some pumpedColor
-       HighlightStyle = Some Decoration.Invert }
+       HeaderLook = { calmLook with Decorations = [ Decoration.Bold ] }
+       HighlightLook = { pumpedLook with Decorations = [ Decoration.Invert ] } }
 
 let addEvent event (calendar: Calendar) =
     event
@@ -56,14 +52,8 @@ let applysettings (settings: CalendarSettings) (calendar: Calendar) =
     | _ -> ()
 
     calendar.ShowHeader <- not settings.HideHeaders
-    calendar.HeaderStyle <- Style (settings.HeaderColor, System.Nullable(), settings.HeaderStyle)
-
-    match (settings.HighlightColor, settings.HighlightStyle) with
-    | Some color, Some style -> calendar.HightlightStyle <- Style (color, System.Nullable(), style)
-    | Some color, None -> calendar.HightlightStyle <- Style (color)
-    | None, Some style -> calendar.HightlightStyle <- Style (System.Nullable(), System.Nullable(), style)
-    | _ -> ()
-
+    calendar.HeaderStyle <- toSpectreStyle settings.HeaderLook
+    calendar.HighlightStyle <- toSpectreStyle settings.HighlightLook
     calendar
 
 let customCalendar settings year month =

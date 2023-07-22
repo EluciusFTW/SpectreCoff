@@ -22,7 +22,7 @@ type PanelExample() =
                 ]
                 rule " and sometimes "
                 figlet "Readability over performance"
-                P "... but not always,"; E "duh."
+                P "... but not always, duh."
             ]
 
         let header =
@@ -34,7 +34,7 @@ type PanelExample() =
         |> toConsole
 
         P "That surrounding border can be customized easily!"
-        |> customPanel { defaultPanelLayout with Sizing = Expand; BorderColor = Spectre.Console.Color.Yellow } " Customization "
+        |> customPanel { defaultPanelLayout with Sizing = Expand; BorderColor = Some Spectre.Console.Color.Yellow } " Customization "
         |> toConsole
         0
 

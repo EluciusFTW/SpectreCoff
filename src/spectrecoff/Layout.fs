@@ -15,25 +15,20 @@ type Padding =
     | HorizontalVertical of int*int
     | TopRightBottomLeft of int*int*int*int
 
-type Style = 
-    | Bold
-    | Dim
-    | Italic
-    | Underline
-    | Invert
-    | Conceal
-    | Slowblink
-    | Rapidblink
-    | StrikeThrough
+open Spectre.Console
 
-let stringifyStyle style = 
-    match style with
-    | Bold -> "bold"
-    | Dim -> "dim"
-    | Italic -> "italic"
-    | Underline -> "underline"
-    | Invert -> "invert"
-    | Conceal -> "conceal"
-    | Slowblink -> "slowblink"
-    | Rapidblink -> "rapidblink"
-    | StrikeThrough -> "strikethrough"
+type Look = 
+    { Decorations: Decoration list;
+      Color: Color Option;
+      BackgroundColor: Color Option }
+
+let private aggregate decorations =
+    decorations |>  List.reduce (|||)
+
+let private toNullable colorOption = 
+    match colorOption with 
+    | Some color -> System.Nullable<Color> color
+    | None -> System.Nullable()
+
+let toSpectreStyle look =
+    Style (toNullable look.Color, toNullable look.BackgroundColor, aggregate look.Decorations)

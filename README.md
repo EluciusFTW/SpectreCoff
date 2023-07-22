@@ -78,15 +78,15 @@ The following table lists all payloads currently available:
 
 | Type         | Alias | Description                                | Parameters                                    | Configurbility |
 | ------------ | ----- | ------------------------------------------ | --------------------------------------------- | -------------- |
-| MarkupS      | MS    | Content marked up with a style             | style: `SpectreCoff.Layout.Style`<br /> content: `string`                              | -              |
-| MarkupC      | MC    | Content marked up with a style             | color: `Spectre.Console.Color`<br /> content: `string`                             | -              |
-| MarkupCS     | MCS   | Content marked up with a color and a style | style: `SpectreCoff.Layout.Style`<br /> color: `Spectre.Console.Color`<br /> content: `string` | - |
-| Calm     | C     | Convenience style for calm output      | content: `string`                                      | color: `Output.calmColor` <br /> style: `Output.calmStyle` |
-| Pumped    | P     | Convenience style pumped output             | content: `string`                                | color: `Output.pumpedColor` <br /> style: `Output.pumpedStyle` |
-| Edgy         | E     | Convenience style for edgy output             | content: `string`                             | color: `Output.edgyingColor` <br /> style: `Output.edgyingStyle` |
+| MarkupD      | MD    | Content marked up with decorations             | decorations: `Spectre.Console.Decoration list`<br /> content: `string`                              | -              |
+| MarkupC      | MC    | Content marked up with a color             | color: `Spectre.Console.Color`<br /> content: `string`                             | -              |
+| MarkupCD     | MCD   | Content marked up with a color and decorations | decorations: `Spectre.Console.Decoration list`<br /> color: `Spectre.Console.Color`<br /> content: `string` | - |
+| Calm     | C     | Convenience style for calm output      | content: `string`                                      | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations` |
+| Pumped    | P     | Convenience style pumped output             | content: `string`                                | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` |
+| Edgy         | E     | Convenience style for edgy output             | content: `string`                             | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations` |
 | Vanilla       | V     | Raw type, no processing will be done       | content: `string`                             | - 
-| Link         | -     | Clickable link showing the URL             | content: `string`                             | - 
-| LinkWithLabel| -     | Clickable link showing a label             | label: `string` <br /> link: `string`         | - 
+| Link         | -     | Clickable link showing the URL             | content: `string`                             | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
+| LinkWithLabel| -     | Clickable link showing a label             | label: `string` <br /> link: `string`         | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
 | Collection   | CO    | Aggregate multiple payloads in one line    | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | - 
 | Emoji        | -     | An emoji, given by it's string literal | emoji: `string` | -
 | BulletItems  | BI    | Show list of items with bullet points      | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | bullet item prefix: `Output.bulletItemPrefix`
@@ -101,8 +101,7 @@ Pumped "Hello world" |> toConsole
 ```
 The convenience styles can be altered by mutating the corresponding variables, e.g.,
 ```Fs
-pumpedColor <- Color.Yellow
-pumpedStyle <- Style.Italic
+pumpedLook <- { Color = Color.Yellow; Decorations = [ Decoration.Italic ] }
 ```
 
 #### Composition of Payloads
