@@ -148,7 +148,7 @@ Since this package is a wrapper around _Spectre.Console_, we will synchronize ou
 ## SpectreCoff Cli
 You can see each module in action by using the cli included in this repository in `/src/spectrecoff-cli/`. 
 Simply run
-```PS
+```
 dotnet run <command> example | doc
 ```
 for any command with the subcommand `example` or `doc`, depending on if you want to see an example, or the documentation of the command.
