@@ -76,23 +76,22 @@ MarkupCS (Color.Red, Bold, "Hello [World]") |> toConsole
 #### Payloads
 The following table lists all payloads currently available:
 
-| Type         | Alias | Description                                | Parameters                                    | Configurbility |
-| ------------ | ----- | ------------------------------------------ | --------------------------------------------- | -------------- |
+| Type         | Alias | Description                                    | Parameters                                    | Configurbility |
+| ------------ | ----- |------------------------------------------------| --------------------------------------------- | -------------- |
 | MarkupD      | MD    | Content marked up with decorations             | decorations: `Spectre.Console.Decoration list`<br /> content: `string`                              | -              |
-| MarkupC      | MC    | Content marked up with a color             | color: `Spectre.Console.Color`<br /> content: `string`                             | -              |
+| MarkupC      | MC    | Content marked up with a color                 | color: `Spectre.Console.Color`<br /> content: `string`                             | -              |
 | MarkupCD     | MCD   | Content marked up with a color and decorations | decorations: `Spectre.Console.Decoration list`<br /> color: `Spectre.Console.Color`<br /> content: `string` | - |
-| Calm     | C     | Convenience style for calm output      | content: `string`                                      | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations` |
-| Pumped    | P     | Convenience style pumped output             | content: `string`                                | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` |
-| Edgy         | E     | Convenience style for edgy output             | content: `string`                             | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations` |
-| Vanilla       | V     | Raw type, no processing will be done       | content: `string`                             | - 
-| Link         | -     | Clickable link showing the URL             | content: `string`                             | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
-| LinkWithLabel| -     | Clickable link showing a label             | label: `string` <br /> link: `string`         | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
-| Collection   | CO    | Aggregate multiple payloads in one line    | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | - 
-| Emoji        | -     | An emoji, given by it's string literal | emoji: `string` | -
-| BulletItems  | BI    | Show list of items with bullet points      | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | bullet item prefix: `Output.bulletItemPrefix`
-| Newline      | NL    | An empty line                              | - | -
-| Many         | -     | Prints many payloads at once, each on own line | items: list of `OutputPayload` | -
-| Renderable   | -     | Wraps a Spectre.Rendering.IRenderable | content: `Spectre.Rendering.IRenderable` | -
+| Calm     | C     | Convenience style for calm output              | content: `string`                                      | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations` |
+| Pumped    | P     | Convenience style pumped output                | content: `string`                                | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` |
+| Edgy         | E     | Convenience style for edgy output              | content: `string`                             | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations` |
+| Vanilla       | V     | Raw type, no processing will be done           | content: `string`                             | - 
+| Link         | -     | Clickable link showing the URL                 | content: `string`                             | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
+| LinkWithLabel| -     | Clickable link showing a label                 | label: `string` <br /> link: `string`         | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
+| Emoji        | -     | An emoji, given by it's string literal         | emoji: `string` | -
+| BulletItems  | BI    | Show list of items with bullet points          | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | bullet item prefix: `Output.bulletItemPrefix`
+| Newline      | NL    | An empty line                                  | - | -
+| Many         | -     | Prints many payloads at once on the same line   | items: list of `OutputPayload` | -
+| Renderable   | -     | Wraps a Spectre.Rendering.IRenderable          | content: `Spectre.Rendering.IRenderable` | -
 
 #### Convenience Styles
 The table above lists three convenience styles: `Calm`, `Pumped` and `Edgy`. With these, we can easily provide a consistent, and semantically meaningful, styling across the modules:

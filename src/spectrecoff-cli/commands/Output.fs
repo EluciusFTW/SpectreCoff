@@ -64,17 +64,7 @@ type OutputExample() =
         // Compose different kinds of payloads
         Many [
             NL
-            C "You can print many marked up lines easily as well."
-            P "That is the motivation for the short alias."
-            E "It preserves indentation and let's you focus on the content."
-            NL
-            Many [
-                C "The CO type can be used to print";
-                P "multiple marked up pieces";
-                E "in one line, too."
-            ]
-            NL
-            C "Or, if you want to list a few items you can use BulletItems: "
+            C "If you want to list a few items you can use BulletItems: "
             BulletItems [
                 C "listing"
                 P "several"
