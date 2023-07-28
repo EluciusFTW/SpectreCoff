@@ -21,11 +21,11 @@ type CanvasImageExample() =
             let rotatedImage = (canvasImage (Bytes response)).Mutate(fun ctx -> ctx.Rotate(45f) |> ignore)
             Many [
                 P "Print an image directly to the console!"
-                NL
+                BL
                 image |> toOutputPayload
-                CO [P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"]
+                P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"; BL
                 P "For example, rotate the image by 45°:"
-                NL
+                BL
                 rotatedImage.toOutputPayload
             ] |> toConsole
         }
@@ -39,34 +39,32 @@ type CanvasImageDocumentation() =
 
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
-        NewLine |> toConsole
+        BL |> toConsole
         pumped "CanvasImage module"
         |> alignedRule Left
         |> toConsole
 
         Many [
-            CO [
-                C "This submodule provides functionality from the canvas image widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/canvas-image"
-                C ")"
-            ]
-            NL
+            C "This submodule provides functionality from the canvas image widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/canvas-image"
+            C ")"
+            BL
             C "The canvas image can be used using the canvasImage function:"
             BI [
                 P "canvasImage: ImageSource -> CanvasImage"
             ]
-            CO [C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."]
-            NL
-            CO [C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"]
+            Many [C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."]
+            BL
+            Many [C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"]
             BI [
-                CO [P "Bytes"; C "of"; P "Byte[]"]
-                CO [P "Stream"; C "of"; P "Stream"]
-                CO [P "Path"; C "of"; P "string"]
+                Many [P "Bytes"; C "of"; P "Byte[]"]
+                Many [P "Stream"; C "of"; P "Stream"]
+                Many [P "Path"; C "of"; P "string"]
             ]
-            NL
-            CO [C "The canvas image module exposes the mutable variable"; P "maxWidth."]
+            BL
+            Many [C "The canvas image module exposes the mutable variable"; P "maxWidth."]
             C "Unsurprisingly, it sets the max width of the created images."
-            NL
-            CO [C "Same as in spectre, the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); C "Api can be used to transform the created images."]
+            BL
+            Many [C "Same as in spectre, the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); C "Api can be used to transform the created images."]
         ] |> toConsole
         0

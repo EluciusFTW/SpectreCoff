@@ -37,7 +37,7 @@ type Progress() =
         alignment <- Left
 
         Many [
-            NewLine
+            BL
             items |> barChart "SpectreCoff Module Progress"
         ] |> toConsole
         0

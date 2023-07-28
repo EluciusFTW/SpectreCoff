@@ -44,36 +44,34 @@ type GridDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        NewLine |> toConsole
+        BL |> toConsole
         pumped "Grid module"
         |> alignedRule Left
         |> toConsole
 
         Many [
-            CO [
-                C "This module provides functionality from the grid widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/Grid"
-                C ")"
-            ]
-            NL
+            C "This module provides functionality from the grid widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/Grid"
+            C ")"
+            BL
             C "The grid can be used by the grid function:"
             BI [
                 P "grid: Row list -> Grid"
             ]
-            NL
+            BL
             C "Each row is a DU consisting in one of the following union types:"
             BI [
-                CO [P "Payloads"; C "of"; P "OutputPayload list"]
-                CO [P "Strings"; C "of"; P "string list"]
-                CO [P "Numbers"; C "of"; P "int list"]
+                Many [P "Payloads"; C "of"; P "OutputPayload list"]
+                Many [P "Strings"; C "of"; P "string list"]
+                Many [P "Numbers"; C "of"; P "int list"]
             ]
-            NL
-            CO [C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."]
+            BL
+            Many [C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."]
             C "Pipe it into toConsole to easily write the grid to the console:"
             BI [
                 P "grid.toOutputPayload |> toConsole"
             ]
-            NL
+            BL
             C "The number of columns is automatically set to the number of elements in the longest row."
             C "Rows can be added later to the created grid, but the number of their elements must not exceed the number of columns of the grid."
         ] |> toConsole
