@@ -217,6 +217,21 @@ let main argv =
             ) |> ignore
 
         config
+            .AddBranch("canvas", fun(branchConfig: IConfigurator<CanvasSettings>) ->
+                branchConfig
+                    .AddCommand<CanvasExample>("example")
+                    .WithAlias("e")
+                    .WithDescription("Shows examples of a drawn canvas.")
+                    |> ignore
+
+                branchConfig
+                    .AddCommand<CanvasDocumentation>("doc")
+                    .WithAlias("d")
+                    .WithDescription("Shows the documentation for the canvas module.")
+                    |> ignore
+            ) |> ignore
+
+        config
             .AddBranch("canvasimage", fun(branchConfig: IConfigurator<CanvasImageSettings>) ->
                 branchConfig
                     .AddCommand<CanvasImageExample>("example")

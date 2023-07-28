@@ -13,6 +13,7 @@
     <Compile Include="commands/Figlet.fs" />
     <Compile Include="commands/BarChart.fs" />
     <Compile Include="commands/CanvasImage.fs" />
+    <Compile Include="commands/Canvas.fs" />
     <Compile Include="commands/BreakdownChart.fs" />
     <Compile Include="commands/Table.fs" />
     <Compile Include="commands/Tree.fs" />
