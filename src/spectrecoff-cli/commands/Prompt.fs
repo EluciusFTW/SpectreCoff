@@ -52,7 +52,7 @@ type PromptDocumentation() =
     override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
 
-        EL |> toConsole
+        BL |> toConsole
         pumped "Prompt module"
         |> alignedRule Left
         |> toConsole
@@ -64,7 +64,7 @@ type PromptDocumentation() =
                 C ")"
             ]
             Many [C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"]
-            EL
+            BL
             emptyRule
             C "For prompting an answer from the user, the following functions can be used:"
             BI [
@@ -78,14 +78,14 @@ type PromptDocumentation() =
                Many [P "Secret"; C "describes whether the characters are shown (default: false)"]
                Many [P "Optional"; C "describes whether empty is a valid input (default: false)"]
             ]
-            EL
+            BL
             emptyRule
             C "If the set of choices is finite, one of the following can be used:"
             BI [
                 P "chooseFrom = (choices: string list) (question: string) -> string"
                 P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"
             ]
-            EL
+            BL
             emptyRule
             C "And finally, this function is suitable for a yes/no question:"
             BI [ P "confirm = (question: string) -> bool" ]

@@ -38,7 +38,7 @@ type TextpathDocumentation() =
 
         Cli.Theme.setDocumentationStyle
 
-        EL |> toConsole
+        BL |> toConsole
         pumped "Textpath module"
         |> alignedRule Left
         |> toConsole
@@ -47,16 +47,16 @@ type TextpathDocumentation() =
             C "This module provides functionality from the text path widget of Spectre.Console ("
             Link "https://spectreconsole.net/widgets/text-path"
             C ")"
-            EL
+            BL
             C "The text path can be used by the path function:"
             BI [P "path: (value: string) -> OutputPayload"]
-            EL
+            BL
             Many [C "This path will use the"; P "Textpath.defaultAlignment,"; C "which is set to"; P "Left"; C "but can be modified."]
             C "Other alignments can be used without changing the default by passing in the alignment as an argument to: "
             BI [
                 P "alignedPath: Alignment -> string -> OutputPayload"
             ]
-            EL
+            BL
             C "The path is rendered using four styles, which are mutable. The defaults are linked to the convenience style colors:"
             BI [
                 Many [P "rootColor"; C  "(default: calmColor)"]

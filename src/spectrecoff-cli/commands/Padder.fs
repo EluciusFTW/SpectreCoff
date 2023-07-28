@@ -39,7 +39,7 @@ type PadderDocumentation() =
     override _.Execute(_context, _settings) =
         Cli.Theme.setDocumentationStyle
 
-        EL |> toConsole
+        BL |> toConsole
         pumped "Padder module"
         |> alignedRule Left
         |> toConsole
@@ -50,7 +50,7 @@ type PadderDocumentation() =
                 Link "https://spectreconsole.net/widgets/padder"
                 C ")"
             ]
-            EL
+            BL
             Edgy "Sorry, this documentation is not available yet."
         ] |> toConsole
         0

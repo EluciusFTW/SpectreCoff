@@ -92,7 +92,7 @@ let appendNewline content =
 
 type OutputPayload =
     | NextLine
-    | EmptyLine
+    | BlankLine
     | MarkupL of Look * string
     | MarkupCD of Color * Decoration list * string
     | MarkupC of Color * string
@@ -119,7 +119,7 @@ let E = Edgy
 let V = Vanilla
 let BI = BulletItems
 let NL = NextLine
-let EL = EmptyLine
+let BL = BlankLine
 
 let toOutputPayload value =
     value
@@ -140,7 +140,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | LinkWithLabel (label, link) -> label |> markupLink link //$"link={link}"
     | Emoji emoji -> emoji |> padEmoji
     | NextLine -> ""
-    | EmptyLine -> " "
+    | BlankLine -> " "
     | BulletItems items ->
         items
         |> List.map (fun item ->
@@ -171,8 +171,8 @@ let isStringifyable payload =
     | MarkupCD _ -> true
     | _ -> false
 
-let combineStringifyables item1 item2 =
-    Vanilla (item1 + " " + item2)
+let combineStringifyables items =
+    Vanilla (items |> joinSeparatedBy " ")
 
 let rec reduceRenderables (items: OutputPayload list) =
     match items with
@@ -180,7 +180,7 @@ let rec reduceRenderables (items: OutputPayload list) =
         match tail with
         | head2 :: tail2 ->
             match (isStringifyable head, isStringifyable head2) with
-            | true, true -> reduceRenderables([combineStringifyables (toMarkedUpString head) (toMarkedUpString head2)]@tail2)
+            | true, true -> reduceRenderables([[head; head2] |> List.map toMarkedUpString |> combineStringifyables]@tail2)
             | false, true -> [head]@(reduceRenderables tail)
             | _ -> [head; head2]@(reduceRenderables tail2)
         | _ -> [head]

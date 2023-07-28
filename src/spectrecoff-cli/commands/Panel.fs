@@ -45,7 +45,7 @@ type PanelDocumentation() =
     override _.Execute(_context, _) =
         Cli.Theme.setDocumentationStyle
 
-        EL |> toConsole
+        BL |> toConsole
         pumped "Panel module"
         |> alignedRule Left
         |> toConsole
@@ -57,7 +57,7 @@ type PanelDocumentation() =
             NL
             C "The panel can be used by the panel function:"
             BI [P "panel: (header: string) -> (content: OutputPayload) -> OutputPayload"]
-            EL
+            BL
             Many [
                 C "While the content can be an arbitrary payload"
                 C "the header needs to be a string."
@@ -66,7 +66,7 @@ type PanelDocumentation() =
                 C "can be used here when mapped to string using the extension";
                 P "payload.toMarkedUpString."
             ]
-            EL
+            BL
             Many [
                 C "This panel will use the"
                 P "Panel.defaultPanelLayout,"
@@ -78,7 +78,7 @@ type PanelDocumentation() =
                 P "Sizing: Collapse"
                 P "Padding: AllEqual 2"
             ]
-            EL
+            BL
             C "In order to produce a panel with other layout, the default values can be modified. This changes the layout for all subsequent panels"
             C "If the alternative layout shall only be applied to an individual panel, it can be passed to this function:"
             BI [P "customPanel: PanelLayout -> string -> OutputPayload -> OutputPayload"]

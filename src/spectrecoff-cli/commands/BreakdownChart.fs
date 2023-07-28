@@ -26,9 +26,9 @@ type BreakdownChartExample() =
         ]
 
         Many [
-            EL
+            BL
             E "My life as a developer :("
-            EL
+            BL
             breakdownChart items
         ] |> toConsole
         0
@@ -39,7 +39,7 @@ type BreakdownChartDocumentation() =
 
     override _.Execute(_context, _settings) =
         Theme.setDocumentationStyle
-        EL |> toConsole
+        BL |> toConsole
         pumped "BreakdownChart submodule"
         |> alignedRule Left
         |> toConsole
@@ -48,21 +48,21 @@ type BreakdownChartDocumentation() =
             C "This submodule provides functionality from the BreakdownChart widget of Spectre.Console ("
             Link "https://spectreconsole.net/widgets/breakdownchart"
             C ")"
-            EL
+            BL
             C "The breakdown chart can be used using the breakdownChart function:"
             BI [
                 P "breakdownChart: ChartItem list -> OutputPayload"
             ]
-            EL
+            BL
             Many [C "The"; P "ChartItem"; C "union type consists of two options:"]
             BI [
                 Many [P "ChartItem:"; C "Consists of the label and a value for the item."]
                 Many [P "ChartItemWithColor:"; C "Additionally defines a color the item will be rendered in."]
             ]
-            EL
+            BL
             Many [C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."]
             C "This variable can be overwritten with a custom set if the default one is not to your taste."
-            EL
+            BL
             Many [C "Similarly, the:"; P "width"; C "variable which controls the width of the whole chart can be overwritten"]
         ] |> toConsole
         0
