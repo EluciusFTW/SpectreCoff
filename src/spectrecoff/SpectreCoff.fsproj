@@ -29,6 +29,7 @@
     <Compile Include="Padder.fs" />
     <Compile Include="Textpath.fs" />
     <Compile Include="CanvasImage.fs" />
+    <Compile Include="Canvas.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="Theming.fs" />
   </ItemGroup>
