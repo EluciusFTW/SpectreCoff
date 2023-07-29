@@ -36,4 +36,14 @@ type CanvasDocumentation() =
         pumped "Canvas module"
         |> alignedRule Left
         |> toConsole
+        
+        Many [
+            Many [
+                C "This module provides functionality from the canvas widget of Spectre.Console ("
+                Link "https://spectreconsole.net/widgets/canvas"
+                C ")"
+            ]
+            EL
+            Edgy "Sorry, this documentation is not available yet."
+        ] |> toConsole
         0
