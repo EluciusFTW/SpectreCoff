@@ -17,9 +17,9 @@ type CanvasExample() =
         |> withPixels (Rectangle (0,0,11,11)) Color.Yellow
         |> withPixels (Rectangle (2,2,4,3)) Color.Purple
         |> withPixels (Rectangle (7,2,9,3)) Color.Purple
-        |> withPixels (ColumnSegment (8,4,7)) Color.Blue
-        |> withPixels (RowSegment (9,3,8)) Color.Purple
-        |> withPixels (Canvas.Many [(3,10); (8,10)]) Color.Purple
+        |> withPixels (ColumnSegment (ColumnIndex 8, StartIndex 4, EndIndex 7)) Color.Blue
+        |> withPixels (RowSegment (RowIndex 9, StartIndex 3, EndIndex 8)) Color.Purple
+        |> withPixels (MultiplePixels [(3,10); (8,10)]) Color.Purple
         |> toOutputPayload 
         |> toConsole
 
