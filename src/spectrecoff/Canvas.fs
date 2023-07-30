@@ -17,9 +17,7 @@ type ColumnIndex = ColumnIndex of int
 type RowIndex = RowIndex of int
 type StartIndex = StartIndex of int
 type EndIndex = EndIndex of int
-
 type PixelPosition = int*int
-type Pixel = PixelPosition*Color
 type Pixels = 
     | SinglePixel of PixelPosition
     | MultiplePixels of PixelPosition list
@@ -29,14 +27,10 @@ type Pixels =
     | ColumnSegment of ColumnIndex*StartIndex*EndIndex
     | Rectangle of int*int*int*int
 
-let canvas width height =
-    Canvas (Width.unwrap width, Height.unwrap height) 
-    
-let private setPixel (canvas: Canvas) (pixel: Pixel) = 
-    canvas.SetPixel(fst (fst pixel), snd (fst pixel), snd pixel) |> ignore
-    ()
+let private setPixel (canvas: Canvas) color pixel = 
+    canvas.SetPixel(fst pixel, snd pixel, color) |> ignore
 
-let rec getPixelPositions (canvas: Canvas) pixels = 
+let rec private getPixelPositions (canvas: Canvas) pixels = 
     match pixels with
     | SinglePixel p -> [p]
     | MultiplePixels ps -> ps
@@ -47,13 +41,16 @@ let rec getPixelPositions (canvas: Canvas) pixels =
     | Rectangle (x1,y1,x2,y2) -> 
         [ for col in x1 .. x2 -> ColumnSegment(ColumnIndex col, StartIndex y1, EndIndex y2) ] 
         |> List.map (getPixelPositions canvas)
-        |> List.collect (fun positions -> positions)
+        |> List.collect id
 
 let withPixels pixels color (canvas: Canvas) = 
     pixels
     |> getPixelPositions canvas
-    |> List.iter (fun position -> setPixel canvas (position, color))
+    |> List.iter (setPixel canvas color)
     canvas
+
+let canvas width height =
+    Canvas (Width.unwrap width, Height.unwrap height) 
 
 type Canvas with
     member self.toOutputPayload = toOutputPayload self
