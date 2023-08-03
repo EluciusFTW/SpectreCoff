@@ -84,6 +84,7 @@ type PromptDocumentation() =
             BI [
                 P "chooseFrom = (choices: string list) (question: string) -> string"
                 P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"
+                P "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"
             ]
             BL
             emptyRule

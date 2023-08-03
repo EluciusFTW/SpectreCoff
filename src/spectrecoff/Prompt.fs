@@ -5,9 +5,14 @@ open Spectre.Console
 
 type PromptOptions = 
     { Secret: bool
-      Optional: bool }
+      Optional: bool
+    }
 
-let defaultOptions = { Secret = false; Optional = false}
+type MultiSelectionPromptOptions = 
+    { PageSize: int }
+
+let defaultOptions = { Secret = false; Optional = false; }
+let defaultMultiSelectionOptions = { PageSize = 10; }
 
 [<RequireQualifiedAccess>]
 module private Prompts = 
@@ -17,10 +22,11 @@ module private Prompts =
         prompt.Title <- question
         prompt
 
-    let multiSelectionPrompt question choices = 
+    let multiSelectionPrompt question choices (options: MultiSelectionPromptOptions) = 
         let prompt = MultiSelectionPrompt()
         prompt.AddChoices (choices |> Seq.toArray) |> ignore
         prompt.Title <- question
+        prompt.PageSize <- options.PageSize
         prompt
 
     let textPrompt<'T> question (options: PromptOptions) = 
@@ -40,7 +46,10 @@ let chooseFrom choices question =
     prompt (Prompts.selectionPrompt question choices)
 
 let chooseMultipleFrom choices question = 
-    prompt (Prompts.multiSelectionPrompt question choices)
+    prompt (Prompts.multiSelectionPrompt question choices defaultMultiSelectionOptions)
+
+let chooseMultipleFromWith (options: MultiSelectionPromptOptions) choices question = 
+    prompt (Prompts.multiSelectionPrompt question choices options)
 
 let ask<'T> question = 
     prompt (Prompts.textPrompt<'T> question defaultOptions)
