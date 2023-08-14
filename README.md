@@ -22,7 +22,7 @@ Before we get into the details, we'd like to outline our goals and our guiding p
 
     We expose separate functionality in different modules, as functions, with typed arguments instead of generics resp. object-typing. Since many of Spectre's functions can handle multiple different kinds of content that often means wrapping your content in discriminated union type. We believe that the expression of intent as well as the resulting robustness and clarity far outweigh the 'overhead' of wrapping. 
 
-1. **Provide a very simple and consistent api surface.** 
+1. **Provide a simple and consistent api surface.** 
 
     In SpectreCoff, we follow the structure Spectre.Console provides very closely. 
     - Features of Spectre are translated into modules of the same name. 
@@ -76,22 +76,23 @@ MarkupCS (Color.Red, Bold, "Hello [World]") |> toConsole
 #### Payloads
 The following table lists all payloads currently available:
 
-| Type         | Alias | Description                                    | Parameters                                    | Configurbility |
-| ------------ | ----- |------------------------------------------------| --------------------------------------------- | -------------- |
-| MarkupD      | MD    | Content marked up with decorations             | decorations: `Spectre.Console.Decoration list`<br /> content: `string`                              | -              |
-| MarkupC      | MC    | Content marked up with a color                 | color: `Spectre.Console.Color`<br /> content: `string`                             | -              |
-| MarkupCD     | MCD   | Content marked up with a color and decorations | decorations: `Spectre.Console.Decoration list`<br /> color: `Spectre.Console.Color`<br /> content: `string` | - |
-| Calm     | C     | Convenience style for calm output              | content: `string`                                      | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations` |
-| Pumped    | P     | Convenience style pumped output                | content: `string`                                | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` |
-| Edgy         | E     | Convenience style for edgy output              | content: `string`                             | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations` |
-| Vanilla       | V     | Raw type, no processing will be done           | content: `string`                             | - 
-| Link         | -     | Clickable link showing the URL                 | content: `string`                             | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
-| LinkWithLabel| -     | Clickable link showing a label                 | label: `string` <br /> link: `string`         | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
-| Emoji        | -     | An emoji, given by it's string literal         | emoji: `string` | -
-| BulletItems  | BI    | Show list of items with bullet points          | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | bullet item prefix: `Output.bulletItemPrefix`
-| Newline      | NL    | An empty line                                  | - | -
-| Many         | -     | Prints many payloads at once on the same line   | items: list of `OutputPayload` | -
-| Renderable   | -     | Wraps a Spectre.Rendering.IRenderable          | content: `Spectre.Rendering.IRenderable` | -
+| Type           | Alias | Description                                    | Parameters                                    | Configurbility |
+| -------------- | ----- |------------------------------------------------| --------------------------------------------- | -------------- |
+| `MarkupD`      | `MD`  | Content marked up with decorations             | decorations: `Spectre.Console.Decoration list`<br /> content: `string` | - 
+| `MarkupC`      | `MC`  | Content marked up with a color                 | color: `Spectre.Console.Color`<br /> content: `string`                 | - 
+| `MarkupCD`     | `MCD` | Content marked up with a color and decorations | decorations: `Spectre.Console.Decoration list`<br /> color: `Spectre.Console.Color`<br /> content: `string` | - 
+| `Calm`         | `C`   | Convenience style for calm output              | content: `string`                             | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations` 
+| `Pumped`       | `P`   | Convenience style pumped output                | content: `string`                             | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` 
+| `Edgy`         | `E`   | Convenience style for edgy output              | content: `string`                             | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations` 
+| `Vanilla`      | `V`   | Raw type, no processing will be done           | content: `string`                             | - 
+| `NextLine`     | `NL`  | Ends the current line                          | - | -
+| `BlankLine`    | `BL`  | Ends the current line and adds an empty line   | - | -
+| `Link`         | -     | Clickable link showing the URL                 | content: `string`                             | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
+| `LinkWithLabel`| -     | Clickable link showing a label                 | label: `string` <br /> link: `string`         | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
+| `Emoji`        | -     | An emoji, given by it's string literal         | emoji: `string` | -
+| `BulletItems`  | `BI`  | Show list of items with bullet points          | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | bullet item prefix: `Output.bulletItemPrefix`
+| `Many`         | -     | Prints many payloads at once on the same line  | items: list of `OutputPayload` | -
+| `Renderable`   | -     | Wraps a Spectre.Rendering.IRenderable          | content: `Spectre.Rendering.IRenderable` | -
 
 #### Convenience Styles
 The table above lists three convenience styles: `Calm`, `Pumped` and `Edgy`. With these, we can easily provide a consistent, and semantically meaningful, styling across the modules:
@@ -107,18 +108,18 @@ pumpedLook <- { Color = Color.Yellow; Decorations = [ Decoration.Italic ] }
 Some of the payloads listed above in turn accept payloads as arguments. Composing them in this way allows printing more complex content, as well as aggregating all output in one go before printing it. This can be seen in this example,
 ```Fs
 Many [
-    MarkupC (Color.Green, "Hello friends,")
-    Newline    
-    Pumped "Welcome to my party tomorrow night!"
-    NL                                                // short for Newline
+    MarkupC (Color.Green, "Hello friends,")           // Use any available color
+    BlankLine    
+    Pumped "Welcome to my party tomorrow night!"      // Use the Pumped convenience style
+    BL                                                // short for BlankLine
     C "Please bring ... "                             // short for Calm
     BI [                                              // short for BulletItems
         C "some snacks,"        
         P "some games,"                               // short for Pumped
         E "and some creepy stories!"                  // short for Edgy
     ]
-    NL
-    CO [C "See you "; P "later ... "]                 // short for Collection
+    C "See you "; P "later ... "; NL
+    Emoji "alien_monster"
 ] |> toConsole
 ``` 
 In fact, _any other payload_ can be composed using `Many` (including others of type `Many`, they will be flattened) and will be printed once `toConsole` is called.
@@ -131,7 +132,7 @@ This bar chart (created by SpectreCoff, of course - you can generate it with the
 Much is already usable, but there is still a way to go. 
 
 <div align="center">
-    <img  alt="progress" src="assets/progress.png"  width="70%"/>
+    <img  alt="progress" src="assets/progress.png"  width="50%"/>
 </div>
 
 ### Deviations from Spectre
@@ -153,24 +154,24 @@ dotnet run <command> example | doc
 for any command with the subcommand `example` or `doc`, depending on if you want to see an example, or the documentation of the command.
 The currently supported commands are:
 
-| command     | example | doc | 
-|-------------|---------|-----|
-| output      | ✅       | ❌   |
-| rule        | ✅       | ✅   |
-| figlet      | ✅       | ✅   |
-| panel       | ✅       | ✅   |
-| prompt      | ✅       | ✅   |
-| bar         | ✅       | ✅   |
-| breakdown   | ✅       | ✅   |
-| table       | ✅       | ✅   |
-| tree        | ✅       | ❌   |
-| calendar    | ✅       | ❌   |
-| padder      | ✅       | ❌   |
-| grid        | ✅       | ✅   |
-| textpath    | ✅       | ✅   |
-| json        | ✅       | ✅   |
-| canvasimage | ✅       | ✅   |
-| canvas      | ✅       | ❌   |
+| command     | example  | doc | 
+|-------------|----------|-----|
+| output      | ✅       | ❌ |
+| rule        | ✅       | ✅ |
+| figlet      | ✅       | ✅ |
+| panel       | ✅       | ✅ |
+| prompt      | ✅       | ✅ |
+| bar         | ✅       | ✅ |
+| breakdown   | ✅       | ✅ |
+| table       | ✅       | ✅ |
+| tree        | ✅       | ❌ |
+| calendar    | ✅       | ❌ |
+| padder      | ✅       | ❌ |
+| grid        | ✅       | ✅ |
+| textpath    | ✅       | ✅ |
+| json        | ✅       | ✅ |
+| canvasimage | ✅       | ✅ |
+| canvas      | ✅       | ❌ |
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):
