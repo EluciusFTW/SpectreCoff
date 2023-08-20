@@ -2,7 +2,7 @@
 module SpectreCoff.Tree
 
 open Spectre.Console
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open SpectreCoff.Output
 
 type GuideStyle =

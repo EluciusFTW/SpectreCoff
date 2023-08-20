@@ -5,7 +5,7 @@ open Spectre.Console
 open SpectreCoff.Cli
 open SpectreCoff.Output
 open SpectreCoff.Rule
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open SpectreCoff.Chart
 
 type BreakdownChartSettings() =

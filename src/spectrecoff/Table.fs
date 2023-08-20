@@ -2,7 +2,7 @@
 module SpectreCoff.Table
 
 open Spectre.Console
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open SpectreCoff.Output
 
 [<AutoOpen>]
