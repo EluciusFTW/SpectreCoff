@@ -82,9 +82,9 @@ type PromptDocumentation() =
             emptyRule
             C "If the set of choices is finite, one of the following can be used:"
             BI [
-                P "chooseFrom = (choices: string list) (question: string) -> string"
-                P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"
-                P "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"
+                Many [P "chooseFrom = (choices: string list) (question: string) -> string"; C "a simple single selection prompt"]
+                Many [P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"; C "select multiple values from a list of choices"]
+                Many [P "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"; C " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"]
             ]
             BL
             emptyRule
