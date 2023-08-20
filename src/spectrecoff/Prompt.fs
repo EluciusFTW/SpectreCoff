@@ -42,13 +42,13 @@ module private Prompts =
 let private prompt prompter =
     AnsiConsole.Prompt prompter;
 
-let chooseFrom choices question = 
+let chooseFrom (choices: string list) question = 
     prompt (Prompts.selectionPrompt question choices)
 
-let chooseMultipleFromWith options choices question = 
+let chooseMultipleFromWith options (choices: string list) question = 
     prompt (Prompts.multiSelectionPrompt question choices options)
 
-let chooseMultipleFrom choices question = 
+let chooseMultipleFrom = 
     chooseMultipleFromWith defaultMultiSelectionOptions
 
 let ask<'T> question = 
