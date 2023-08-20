@@ -45,11 +45,11 @@ let private prompt prompter =
 let chooseFrom choices question = 
     prompt (Prompts.selectionPrompt question choices)
 
-let chooseMultipleFrom choices question = 
-    prompt (Prompts.multiSelectionPrompt question choices defaultMultiSelectionOptions)
-
-let chooseMultipleFromWith (options: MultiSelectionPromptOptions) choices question = 
+let chooseMultipleFromWith options choices question = 
     prompt (Prompts.multiSelectionPrompt question choices options)
+
+let chooseMultipleFrom choices question = 
+    chooseMultipleFromWith defaultMultiSelectionOptions
 
 let ask<'T> question = 
     prompt (Prompts.textPrompt<'T> question defaultOptions)
