@@ -1,6 +1,6 @@
 ﻿[<AutoOpen>]
 module SpectreCoff.Rule
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open SpectreCoff.Output
 
 open Spectre.Console

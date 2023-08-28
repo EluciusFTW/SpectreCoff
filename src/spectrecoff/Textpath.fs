@@ -2,7 +2,7 @@
 module SpectreCoff.Textpath
 
 open Spectre.Console
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open SpectreCoff.Output
 
 let mutable stemLook = calmLook

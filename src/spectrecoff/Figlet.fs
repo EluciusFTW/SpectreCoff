@@ -2,7 +2,7 @@
 module SpectreCoff.Figlet
 
 open Spectre.Console 
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open SpectreCoff.Output
 
 let mutable defaultAlignment = Center

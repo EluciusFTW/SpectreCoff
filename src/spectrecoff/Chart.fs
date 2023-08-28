@@ -1,7 +1,7 @@
 ﻿[<AutoOpen>]
 module SpectreCoff.Chart
 open Spectre.Console
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open SpectreCoff.Output
 
 let mutable colors = [

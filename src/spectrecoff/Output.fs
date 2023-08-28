@@ -2,7 +2,7 @@
 module SpectreCoff.Output
 
 open Spectre.Console.Rendering
-open SpectreCoff.Layout
+open SpectreCoff.Styling
 open Spectre.Console
 open System
 

@@ -23,6 +23,7 @@
     <Compile Include="commands/Grid.fs" />
     <Compile Include="commands/Textpath.fs" />
     <Compile Include="commands/Json.fs" />
+    <Compile Include="commands/Layout.fs" />
     <Compile Include="commands/Themes.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
