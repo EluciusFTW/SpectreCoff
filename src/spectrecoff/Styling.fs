@@ -23,7 +23,10 @@ type Look =
       BackgroundColor: Color Option }
 
 let private aggregate decorations =
-    decorations |>  List.reduce (|||)
+    match decorations with
+    | [] -> Decoration.None
+    | [d] -> d
+    | _ -> decorations |>  List.reduce (|||)
 
 let private toNullable colorOption = 
     match colorOption with 
