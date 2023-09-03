@@ -166,7 +166,7 @@ The currently supported commands are:
 | table       | ✅       | ✅   |
 | tree        | ✅       | ❌   |
 | calendar    | ✅       | ❌   |
-| padder      | ✅       | ❌   |
+| padder      | ✅       | ✅   |
 | grid        | ✅       | ✅   |
 | textpath    | ✅       | ✅   |
 | json        | ✅       | ✅   |
