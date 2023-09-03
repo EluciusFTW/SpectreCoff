@@ -50,8 +50,11 @@ type PadderDocumentation() =
             C ")"
             BL
             C "Using functions from this module, any OutputPayload can be padded. The main function works similar to the one of CSS, namely it takes four padding arguments of type int as well as the element."
+            BL
             BI [P "pad: top right bottom left (element: OutputPayload) -> OutputPayload"]
+            BL
             C "If one does not want to set all four values differently, there are a few helpful functions that are easier to use:"
+            BL
             BI [
                 P "padTop: (top: int) (element: OutputPayload) -> OutputPayload"
                 P "padRight: (top: int) (element: OutputPayload) -> OutputPayload"
@@ -62,7 +65,9 @@ type PadderDocumentation() =
                 P "padSymmetric: (leftRight: int) (topBottom: int) (element: OutputPayload) -> OutputPayload"
                 P "padAll: (amount: int) (element: OutputPayload) -> OutputPayload"
             ]
+            BL
             C "Note that all padding functions return the element and can hence be piped. So the following produce the same result:"
+            BL
             BI [ 
                 Many [ P "element |> padHorizontal 2"; C " ~ "; P "element |> padRight 2 |> padLeft 2"]  
             ]
