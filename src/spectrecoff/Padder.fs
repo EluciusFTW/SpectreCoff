@@ -12,16 +12,16 @@ let pad top right bottom left element =
     :> Rendering.IRenderable
     |> Renderable
 
-let padtop top = 
+let padTop top = 
     pad top 0 0 0 
 
-let padbottom bottom =
+let padBottom bottom =
     pad 0 0 bottom 0 
 
-let padright right =
+let padRight right =
     pad 0 right 0 0 
 
-let padleft left =
+let padLeft left =
     pad 0 0 0 left
 
 let padHorizontal amount =

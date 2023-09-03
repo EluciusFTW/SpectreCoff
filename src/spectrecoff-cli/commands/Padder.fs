@@ -22,13 +22,13 @@ type PadderExample() =
         // even multiple times
         "Invasion!"
         |> customFiglet Left Color.Purple
-        |> padleft 2
-        |> padtop 5
+        |> padLeft 2
+        |> padTop 5
         |> toConsole
 
         // These padded elements can be composed
         Many [
-            for i in 1 .. 5 -> alienInaAbox |> padleft (5*i)
+            for i in 1 .. 5 -> alienInaAbox |> padLeft (5*i)
         ] |> toConsole
         0
 
@@ -45,12 +45,27 @@ type PadderDocumentation() =
         |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the padder widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/padder"
-                C ")"
-            ]
+            C "This module provides functionality from the padder widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/padder"
+            C ")"
             BL
-            Edgy "Sorry, this documentation is not available yet."
+            C "Using functions from this module, any OutputPayload can be padded. The main function works similar to the one of CSS, namely it takes four padding arguments of type int as well as the element."
+            BI [P "pad: top right bottom left (element: OutputPayload) -> OutputPayload"]
+            C "If one does not want to set all four values differently, there are a few helpful functions that are easier to use:"
+            BI [
+                P "padTop: (top: int) (element: OutputPayload) -> OutputPayload"
+                P "padRight: (top: int) (element: OutputPayload) -> OutputPayload"
+                P "padBottom: (top: int) (element: OutputPayload) -> OutputPayload"
+                P "padLeft: (top: int) (element: OutputPayload) -> OutputPayload"
+                P "padHorizontal: (leftRight: int) (element: OutputPayload) -> OutputPayload"
+                P "padVertical: (topBottom: int) (element: OutputPayload) -> OutputPayload"
+                P "padSymmetric: (leftRight: int) (topBottom: int) (element: OutputPayload) -> OutputPayload"
+                P "padAll: (amount: int) (element: OutputPayload) -> OutputPayload"
+            ]
+            C "Note that all padding functions return the element and can hence be piped. So the following produce the same result:"
+            BI [ 
+                Many [ P "element |> padHorizontal 2"; C " ~ "; P "element |> padRight 2 |> padLeft 2"]  
+            ]
+            
         ] |> toConsole
         0
