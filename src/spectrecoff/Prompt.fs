@@ -5,16 +5,20 @@ open Spectre.Console
 
 type PromptOptions = 
     { Secret: bool
-      Optional: bool }
+      Optional: bool
+    }
 
 type MultiSelectionPromptOptions = 
     { PageSize: int }
 
-let mutable defaultOptions = 
-    { Secret = false
-      Optional = false }
-let mutable defaultMultiSelectionOptions = 
-    { PageSize = 10 }
+type Choice<'T> =
+    {
+        Label: string
+        Value: 'T
+    }
+
+let defaultOptions = { Secret = false; Optional = false; }
+let defaultMultiSelectionOptions = { PageSize = 10; }
 
 [<RequireQualifiedAccess>]
 module private Prompts = 
@@ -24,11 +28,13 @@ module private Prompts =
         prompt.Title <- question
         prompt
 
-    let selectionPromptT<'T> converter question choices = 
+    let selectionPromptT<'T> question (choices: Choice<'T> list) = 
+        let choiceValues = List.map (fun c -> c.Value) choices
+        let choiceToTextConverter = fun (v: 'T) -> c.Label
         let prompt = SelectionPrompt<'T>()
-        prompt.AddChoices (choices |> Seq.toArray) |> ignore
+        prompt.AddChoices (choiceValues |>  Seq.toArray) |> ignore
         prompt.Title <- question
-        prompt.Converter <- converter
+        prompt.Converter <- choiceToTextConverter
         prompt
 
     let multiSelectionPrompt question choices (options: MultiSelectionPromptOptions) = 
@@ -54,8 +60,18 @@ let private prompt prompter =
 let chooseFrom (choices: string list) question = 
     prompt (Prompts.selectionPrompt question choices)
 
-let chooseFromT<'T> (converter : 'T -> string) (choices: 'T list) question =
-    prompt (Prompts.selectionPromptT converter question choices)
+
+/// <summary>Choose from typed values</summary>
+/// <param name="converter">function to convert each value to a string that gets displayed in the prompt</param>
+/// <param name="values">typed values to choose from</param>
+/// <param name="question">question prompt</param>
+/// <typeparam name="'T">Type of values</typeparam>
+/// <returns>the chosen value of type 'T</returns>
+let chooseFromValues<'T> (converter : 'T -> string) (values: 'T list) question =
+    prompt (Prompts.selectionPromptT converter question values)
+
+let chooseFromValues2<'T> (choices: Choice<'T> list) (question: string): Choice<'T> =
+    prompt (Prompts.selectionPromptT converter question values)
 
 let chooseMultipleFromWith options (choices: string list) question = 
     prompt (Prompts.multiSelectionPrompt question choices options)
