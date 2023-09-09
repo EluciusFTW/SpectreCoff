@@ -57,9 +57,9 @@ type PadderDocumentation() =
             BL
             BI [
                 P "padTop: (top: int) (element: OutputPayload) -> OutputPayload"
-                P "padRight: (top: int) (element: OutputPayload) -> OutputPayload"
-                P "padBottom: (top: int) (element: OutputPayload) -> OutputPayload"
-                P "padLeft: (top: int) (element: OutputPayload) -> OutputPayload"
+                P "padRight: (right: int) (element: OutputPayload) -> OutputPayload"
+                P "padBottom: (bottom: int) (element: OutputPayload) -> OutputPayload"
+                P "padLeft: (left: int) (element: OutputPayload) -> OutputPayload"
                 P "padHorizontal: (leftRight: int) (element: OutputPayload) -> OutputPayload"
                 P "padVertical: (topBottom: int) (element: OutputPayload) -> OutputPayload"
                 P "padSymmetric: (leftRight: int) (topBottom: int) (element: OutputPayload) -> OutputPayload"
