@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net7.0;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>SpectreCoff</RootNamespace>
     <LangVersion>latest</LangVersion>
 		<Authors>Guy Buss, Daniel Muckelbauer</Authors>
@@ -42,5 +42,6 @@
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
     <PackageReference Include="Spectre.Console.ImageSharp" Version="0.47.0" />
     <PackageReference Include="Spectre.Console.Json" Version="0.47.0" />
+    <PackageReference Update="FSharp.Core" Version="6.0.0" />
   </ItemGroup>
 </Project>
