@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;netstandard2.0</TargetFrameworks>
     <RootNamespace>SpectreCoff</RootNamespace>
     <LangVersion>latest</LangVersion>
-		<Authors>Guy Buss, Daniel Muckelbauer</Authors>
+    <Authors>Guy Buss, Daniel Muckelbauer</Authors>
     <Copyright>Guy Buss, Daniel Muckelbauer</Copyright>
-		<Title>SpectreCoff - Spectre.Console for FSharp</Title>
-		<Description>A thin, opinionated wrapper around Spectre.Console in FSharp.</Description>
-		<PackageTags>cli commandline console-application spectre spectre.console wrapper wrapper-api FSharp F#</PackageTags>
-		<PackageReleaseNotes> Added theming </PackageReleaseNotes>
-		<PackageId>EluciusFTW.SpectreCoff</PackageId>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/EluciusFTW/SpectreCoff</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/EluciusFTW/SpectreCoff</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
+    <Title>SpectreCoff - Spectre.Console for FSharp</Title>
+    <Description>A thin, opinionated wrapper around Spectre.Console in FSharp.</Description>
+    <PackageTags>cli commandline console-application spectre spectre.console wrapper wrapper-api FSharp F#</PackageTags>
+    <PackageReleaseNotes> Added theming </PackageReleaseNotes>
+    <PackageId>EluciusFTW.SpectreCoff</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/EluciusFTW/SpectreCoff</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/EluciusFTW/SpectreCoff</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Styling.fs" />
