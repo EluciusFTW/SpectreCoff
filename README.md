@@ -73,6 +73,7 @@ However, we recommend using the dedicated `OutputPayload` type, together with th
 ```Fs
 MarkupCS (Color.Red, Bold, "Hello [World]") |> toConsole
 ```
+
 #### Payloads
 The following table lists all payloads currently available:
 
@@ -126,6 +127,8 @@ In fact, _any other payload_ can be composed using `Many` (including others of t
 
 These composites are also the motivation for the short aliases of payloads, as these make it possible to focuis on the content and not be distracted too much by the types.
 For more examples, please see the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
+
+**Note**: Several features of Spectre.Console depend on UTF8 Encoding. If you experience unexpected output when handling UTF8 characters check the Spectre.Console [best practices](https://spectreconsole.net/best-practices).
 
 ### Modules
 This bar chart (created by SpectreCoff, of course - you can generate it with the command `progress`) breaks down our progress porting the Spectre.Console modules.
