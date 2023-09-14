@@ -6,6 +6,11 @@ open SpectreCoff
 type PromptSettings()  =
     inherit CommandSettings()
 
+type Value = {
+            num: int
+            description: string
+        }
+
 type PromptExample() =
     inherit Command<PromptSettings>()
     interface ICommandLimiter<PromptSettings>
@@ -43,6 +48,18 @@ type PromptExample() =
         | true -> Pumped "Bon apetit!"
         | false -> Edgy "Ok, maybe later :/"
         |> toConsole
+
+        // example for chooseFromValues
+        let getDescription (value: Value): string =
+            value.description
+        let values = [
+            {num = 42; description = "the answer" }
+            {num = 13; description = "some say it's unlucky" }
+            ]
+        let chosenValue = chooseFromValues getDescription values "Which number do you like best from its description?"
+        sprintf "I like %i, too" chosenValue.num
+        |> printMarkedUp 
+
         0
 
 type PromptDocumentation() =
@@ -83,7 +100,7 @@ type PromptDocumentation() =
             C "If the set of choices is finite, one of the following can be used:"
             BI [
                 Many [P "chooseFrom = (choices: string list) (question: string) -> string"; C "a simple single selection prompt"]
-                Many [P "chooseFromT = (converter : 'T -> string) (choices: 'T list) (question: string) -> string"; C "a single selection prompt that gives a typed response and needs a converter to get a displayable string from each value"]
+                Many [P "chooseFromValues<'T> (converter : 'T -> string) (values: 'T list) (question: string) -> string"; C "a single selection prompt that gives a typed response and needs a converter to get a displayable string from each value"]
                 Many [P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"; C "select multiple values from a list of choices"]
                 Many [P "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"; C " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"]
             ]
