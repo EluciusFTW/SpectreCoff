@@ -13,8 +13,12 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/EluciusFTW/SpectreCoff</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EluciusFTW/SpectreCoff</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Styling.fs" />
     <Compile Include="Output.fs" />
