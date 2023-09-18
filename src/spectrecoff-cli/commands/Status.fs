@@ -13,16 +13,27 @@ type StatusExample() =
     interface ICommandLimiter<StatusSettings>
 
     override _.Execute(_context, _settings) =
+        let normalThinkingSpinner: CustomSpinner =
+           { Message = "Thinking"
+             Spinner = Some Spinner.Known.Pong
+             Look = Some { calmLook with Color = Some Color.Green } }
+
         let thinkingProcess (context: StatusContext) =
             task {
-                do! Task.Delay(5000)
-                context.Status <- "More thinking"
-                context.SpinnerStyle <- { calmLook with Color = Some Color.Green } |> toSpectreStyle
-                context.Spinner <- Spinner.Known.Balloon2
-                do! Task.Delay(5000)
+                do! Task.Delay(3000)
+                let harderThinkingSpinner =
+                    { normalThinkingSpinner with Message = "Thinking harder..."; Look = Some { calmLook with Color = Some Color.DarkOrange } }
+                updateWithCustomSpinner harderThinkingSpinner context |> ignore
+
+                do! Task.Delay(3000)
+                let maximumThinkingSpinner =
+                    { normalThinkingSpinner with Message = "Maximum thinking!!!"; Look = Some { calmLook with Color = Some Color.Red }; Spinner = Some Spinner.Known.Balloon2 }
+                updateWithCustomSpinner maximumThinkingSpinner context |> ignore
+
+                do! Task.Delay(3000)
             }
 
-        (startWithCustomSpinner "Thinking" Spinner.Known.Pong { calmLook with Color = Some Color.DarkOrange } thinkingProcess).Wait()
+        (startWithCustomSpinner normalThinkingSpinner thinkingProcess).Wait()
         P "No result" |> toConsole
         0
 
