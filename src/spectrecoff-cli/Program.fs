@@ -262,6 +262,21 @@ let main argv =
             ) |> ignore
 
         config
+            .AddBranch("status", fun(branchConfig: IConfigurator<StatusSettings>) ->
+                branchConfig
+                    .AddCommand<StatusExample>("example")
+                    .WithAlias("e")
+                    .WithDescription("Shows examples of the status module.")
+                    |> ignore
+
+                branchConfig
+                    .AddCommand<StatusDocumentation>("doc")
+                    .WithAlias("d")
+                    .WithDescription("Shows the documentation for the status module.")
+                    |> ignore
+            ) |> ignore
+
+        config
             .AddCommand<Progress>("progress")
             .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
             |> ignore
