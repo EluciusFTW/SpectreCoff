@@ -5,12 +5,12 @@ open System.Threading.Tasks
 open Spectre.Console
 
 type Configuration =
-    { AutoClear: bool Option
+    { AutoClear: bool
       Overflow: VerticalOverflow Option
       Cropping: VerticalOverflowCropping Option }
 
 let defaultConfiguration =
-    { AutoClear = Some true
+    { AutoClear = true
       Overflow = None
       Cropping = None }
 
@@ -20,10 +20,7 @@ let start renderable (operation: LiveDisplayContext -> Task<unit>) =
 let startWithCustomConfig config renderable (operation: LiveDisplayContext -> Task<unit>) =
     task {
         let live = AnsiConsole.Live(renderable)
-        live.AutoClear <-
-            match config.AutoClear with
-            | Some autoClear -> autoClear
-            | None -> live.AutoClear
+        live.AutoClear <- config.AutoClear
         live.Overflow <-
             match config.Overflow with
             | Some overflow -> overflow

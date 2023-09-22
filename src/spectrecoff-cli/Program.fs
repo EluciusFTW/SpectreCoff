@@ -260,13 +260,13 @@ let main argv =
                     .WithDescription("Shows the documentation for the layout module.")
                     |> ignore
             ) |> ignore
-        
+
         config
             .AddBranch("live-display", fun(branchConfig: IConfigurator<LiveDisplaySettings>) ->
                 branchConfig
                     .AddCommand<LiveDisplayExample>("example")
                     .WithAlias("e")
-                    .WithDescription("Shows examples of live display module.")
+                    .WithDescription("Shows examples of the live display module.")
                     |> ignore
 
                 branchConfig
