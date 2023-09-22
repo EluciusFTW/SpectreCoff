@@ -19,12 +19,12 @@ let startWithCustomSpinner spinner (operation: StatusContext -> Task<unit>) =
         status.Spinner <-
             match spinner.Spinner with
             | Some spinner -> spinner
-            | None _ -> status.Spinner
+            | None -> status.Spinner
 
         status.SpinnerStyle <-
             match spinner.Look with
             | Some look -> look |> toSpectreStyle
-            | None _ -> status.SpinnerStyle
+            | None -> status.SpinnerStyle
 
         return! status.StartAsync(spinner.Message, operation)
     }
@@ -39,11 +39,11 @@ let updateWithCustomSpinner spinner (context: StatusContext) =
     context.Spinner <-
         match spinner.Spinner with
         | Some spinner -> spinner
-        | None _ -> context.Spinner
+        | None -> context.Spinner
 
     context.SpinnerStyle <-
         match spinner.Look with
         | Some look -> look |> toSpectreStyle
-        | None _ -> context.SpinnerStyle
+        | None -> context.SpinnerStyle
 
     context

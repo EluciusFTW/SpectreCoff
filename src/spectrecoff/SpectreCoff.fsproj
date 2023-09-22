@@ -36,6 +36,7 @@
     <Compile Include="Canvas.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="Status.fs" />
+    <Compile Include="LiveDisplay.fs" />
     <Compile Include="Layout.fs" />
     <Compile Include="Theming.fs" />
   </ItemGroup>

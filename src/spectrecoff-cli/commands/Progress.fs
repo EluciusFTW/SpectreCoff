@@ -28,10 +28,10 @@ type Progress() =
             ChartItem ("Chart", 8)
             ChartItem ("Layout", 8)
             ChartItem ("Status", 8)
+            ChartItem ("Live Display", 8)
             ChartItem ("Calendar", 6)
             ChartItem ("Tree", 6)
             ChartItemWithColor ("Columns", 0, Color.Red)
-            ChartItemWithColor ("Live Display", 0, Color.Red)
             ChartItemWithColor ("Progress", 0, Color.Red)
         ]
         alignment <- Left
