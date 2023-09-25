@@ -131,12 +131,8 @@ For more examples, please see the [sample command](https://github.com/EluciusFTW
 **Note**: Several features of Spectre.Console depend on UTF8 Encoding. If you experience unexpected output when handling UTF8 characters check the Spectre.Console [best practices](https://spectreconsole.net/best-practices).
 
 ### Modules
-This bar chart (created by SpectreCoff, of course - you can generate it with the command `progress`) breaks down our progress porting the Spectre.Console modules.
-Much is already usable, but there is still a way to go. 
-
-<div align="center">
-    <img  alt="progress" src="assets/progress.png"  width="50%"/>
-</div>
+You can generate a bar chart breaking down our progress porting the Spectre.Console modules with the command `progress`. 
+The majority is already usable, but mostly some documentation is still missing.    
 
 ### Deviations from Spectre
 The Spectre widget _Rows_ does not have it's own module as the `Many` case of `OutputPayload` covers the same functionality. 

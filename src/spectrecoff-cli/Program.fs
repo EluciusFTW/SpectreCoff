@@ -262,6 +262,21 @@ let main argv =
             ) |> ignore
 
         config
+            .AddBranch("live-display", fun(branchConfig: IConfigurator<LiveDisplaySettings>) ->
+                branchConfig
+                    .AddCommand<LiveDisplayExample>("example")
+                    .WithAlias("e")
+                    .WithDescription("Shows examples of the live display module.")
+                    |> ignore
+
+                branchConfig
+                    .AddCommand<LiveDisplayDocumentation>("doc")
+                    .WithAlias("d")
+                    .WithDescription("Shows the documentation for the live display module.")
+                    |> ignore
+            ) |> ignore
+
+        config
             .AddBranch("status", fun(branchConfig: IConfigurator<StatusSettings>) ->
                 branchConfig
                     .AddCommand<StatusExample>("example")
