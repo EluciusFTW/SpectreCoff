@@ -137,7 +137,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | MarkupC (color, content) -> content |> markupString (Some color) []
     | MarkupD (decorations, content) -> content |> markupString None decorations
     | Link link -> link |> markupLink ""
-    | LinkWithLabel (label, link) -> label |> markupLink link //$"link={link}"
+    | LinkWithLabel (label, link) -> link |> markupLink label
     | Emoji emoji -> emoji |> padEmoji
     | NextLine -> ""
     | BlankLine -> " "
