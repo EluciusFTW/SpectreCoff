@@ -130,10 +130,6 @@ For more examples, please see the [sample command](https://github.com/EluciusFTW
 
 **Note**: Several features of Spectre.Console depend on UTF8 Encoding. If you experience unexpected output when handling UTF8 characters check the Spectre.Console [best practices](https://spectreconsole.net/best-practices).
 
-### Modules
-You can generate a bar chart breaking down our progress porting the Spectre.Console modules with the command `progress`. 
-The majority is already usable, but mostly some documentation is still missing.    
-
 ### Deviations from Spectre
 The Spectre widget _Rows_ does not have it's own module as the `Many` case of `OutputPayload` covers the same functionality. 
 
@@ -172,6 +168,7 @@ The currently supported commands are:
 | canvasimage | ✅       | ✅   |
 | canvas      | ✅       | ❌   |
 | layout      | ✅       | ❌   |
+| progress    | ✅       | ❌   |
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):

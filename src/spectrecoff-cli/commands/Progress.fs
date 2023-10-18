@@ -5,7 +5,7 @@ open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
-type ProgressSettings()  =
+type ProgressSettings() =
     inherit CommandSettings()
 
 type ProgressExample() =
