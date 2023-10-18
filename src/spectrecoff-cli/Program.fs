@@ -275,6 +275,20 @@ let main argv =
                     .WithDescription("Shows the documentation for the live display module.")
                     |> ignore
             ) |> ignore
+        config
+            .AddBranch("progress", fun(branchConfig: IConfigurator<ProgressSettings>) ->
+                branchConfig
+                    .AddCommand<ProgressExample>("example")
+                    .WithAlias("e")
+                    .WithDescription("Shows examples of the progress module.")
+                    |> ignore
+
+                branchConfig
+                    .AddCommand<ProgressDocumentation>("doc")
+                    .WithAlias("d")
+                    .WithDescription("Shows the documentation for the progress module.")
+                    |> ignore
+            ) |> ignore
 
         config
             .AddBranch("status", fun(branchConfig: IConfigurator<StatusSettings>) ->
@@ -290,11 +304,6 @@ let main argv =
                     .WithDescription("Shows the documentation for the status module.")
                     |> ignore
             ) |> ignore
-
-        config
-            .AddCommand<Progress>("progress")
-            .WithDescription("Shows which modules from Spectre.Console have been ported to SpectreCoff.")
-            |> ignore
 
         config.AddBranch("theme", fun(add: IConfigurator<ThemeSettings>) ->
             add.AddCommand<ThemeExample>("example")

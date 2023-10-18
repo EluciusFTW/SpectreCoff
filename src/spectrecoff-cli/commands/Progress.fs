@@ -1,5 +1,6 @@
-﻿namespace SpectreCoff.Cli.Commands
+namespace SpectreCoff.Cli.Commands
 
+open System.Threading.Tasks
 open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
@@ -7,37 +8,53 @@ open SpectreCoff
 type ProgressSettings() =
     inherit CommandSettings()
 
-type Progress() =
+type ProgressExample() =
     inherit Command<ProgressSettings>()
     interface ICommandLimiter<ProgressSettings>
 
     override _.Execute(_context, _settings) =
-        let items = [
-            ChartItem ("Rule", 10)
-            ChartItem ("Figlet", 10)
-            ChartItem ("Panel", 10)
-            ChartItem ("Table", 10)
-            ChartItem ("TextPath", 10)
-            ChartItem ("Grid", 10)
-            ChartItem ("CanvasImage", 10)
-            ChartItem ("Padder", 10)
-            ChartItem ("Json", 9)
-            ChartItem ("Output", 9)
-            ChartItem ("Canvas", 8)
-            ChartItem ("Prompt", 8)
-            ChartItem ("Chart", 8)
-            ChartItem ("Layout", 8)
-            ChartItem ("Status", 8)
-            ChartItem ("Live Display", 8)
-            ChartItem ("Calendar", 6)
-            ChartItem ("Tree", 6)
-            ChartItemWithColor ("Columns", 0, Color.Red)
-            ChartItemWithColor ("Progress", 0, Color.Red)
-        ]
-        alignment <- Left
+        let rec operation (context: ProgressContext) =
+            task {
+                let task1 =
+                    "Turtle"
+                    |> HotPercentageTask
+                    |> realizeIn context
+                let task2 =
+                    (60.0, "Rabbit")
+                    |> ColdCustomTask
+                    |> realizeIn context
+                while not context.IsFinished do
+                    task1 |> incrementBy 5 |> ignore
+                    if task1.Value > 50 then
+                        task2.StartTask()
+                    if task2.IsStarted then
+                        task2 |> incrementBy 7 |> ignore
+                    do! Task.Delay(300)
+            }
+        let template =
+            emptyTemplate
+            |> withDescriptionColumn
+            |> withSpinnerColumn
+            |> withRemainingTimeColumn
+            |> withProgressBarColumn
+        (operation |> Progress.startCustom template).Wait()
+        0
+
+type ProgressDocumentation() =
+    inherit Command<ProgressSettings>()
+    interface ICommandLimiter<ProgressSettings>
+
+    override _.Execute(_context, _settings) =
+        Cli.Theme.setDocumentationStyle
+
+        BL |> toConsole
+        pumped "Progress module"
+        |> alignedRule Left
+        |> toConsole
 
         Many [
-            BL
-            items |> barChart "SpectreCoff Module Progress"
+            C "This module provides functionality from the progress widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/progress"
+            C ")"
         ] |> toConsole
         0
