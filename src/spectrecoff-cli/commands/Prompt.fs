@@ -65,16 +65,16 @@ type PromptDocumentation() =
             ]
             C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"
             BI [
-               DI "Secret" "describes whether the characters are shown (default: false)"
-               DI "Optional" "describes whether empty is a valid input (default: false)"
+               define "Secret" "describes whether the characters are shown (default: false)"
+               define "Optional" "describes whether empty is a valid input (default: false)"
             ]
             BL
             emptyRule
             C "If the set of choices is finite, one of the following can be used:"
             BI [
-                DI "chooseFrom = (choices: string list) (question: string) -> string" "a simple single selection prompt"
-                DI "chooseMultipleFrom = (choices: string list) (question: string) -> string list" "select multiple values from a list of choices"
-                DI "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list" " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"
+                define "chooseFrom = (choices: string list) (question: string) -> string" "a simple single selection prompt"
+                define "chooseMultipleFrom = (choices: string list) (question: string) -> string list" "a multi selection prompt"
+                define "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list" "a multi selection prompt with  configurable number of visible entries per page (default: 10)"
             ]
             BL
             emptyRule

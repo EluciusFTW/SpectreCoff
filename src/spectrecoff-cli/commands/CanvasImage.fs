@@ -41,8 +41,6 @@ type CanvasImageDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        docHeader "CanvasImage module" |> toConsole
-
         Many [
             docSynopsis "CanvasImage module" "This submodule provides functionality from the canvas image widget of Spectre.Console" "widgets/canvas-image"
             BL
@@ -50,7 +48,9 @@ type CanvasImageDocumentation() =
             BI [
                 P "canvasImage: ImageSource -> CanvasImage"
             ]
-            C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."
+            BL
+            C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; 
+            C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."
             BL
             C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"
             BI [

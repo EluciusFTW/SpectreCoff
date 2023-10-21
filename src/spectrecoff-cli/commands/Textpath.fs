@@ -51,10 +51,10 @@ type TextpathDocumentation() =
             BL
             C "The path is rendered using four styles, which are mutable. The defaults are linked to the convenience style colors:"
             BI [
-                DI "rootColor" "(default: calmColor)"
-                DI "stemColor" "(default: calmColor)"
-                DI "separatorColor" "(default: pumperColor)"
-                DI "leafColor" "(default: edgyColor)"
+                define "rootColor" "(default: calmColor)"
+                define "stemColor" "(default: calmColor)"
+                define "separatorColor" "(default: pumperColor)"
+                define "leafColor" "(default: edgyColor)"
             ]
         ] |> toConsole
         0

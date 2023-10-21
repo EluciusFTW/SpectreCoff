@@ -48,9 +48,8 @@ type BreakdownChartDocumentation() =
             BL
             C "The"; P "ChartItem"; C "union type consists of two options:"
             BI [
-                DI "ChartItem" "Consists of the label and a value for the item."
-                Many [P "ChartItem:"; C "Consists of the label and a value for the item."]
-                Many [P "ChartItemWithColor:"; C "Additionally defines a color the item will be rendered in."]
+                define "ChartItem" "Consists of the label and a value for the item."
+                define "ChartItemWithColor" "Additionally defines a color the item will be rendered in."
             ]
             BL
             C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."

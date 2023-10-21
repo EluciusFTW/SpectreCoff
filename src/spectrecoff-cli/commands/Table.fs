@@ -77,18 +77,18 @@ type TableDocumentation() =
             BL
             C "The 'TableLayout' is a record with the following properties:"
             BI [
-                DI "Border" ": sets the style of the border (Spectre.TableBorder, default: ),"
-                DI "Sizing" ": determines whether the table is expanded or collapsed. (SizingBehaviour, default: ),"
-                DI "Alignment" ": aligns the content of all the columns. (Alignment, default: ),"
-                DI "HideHeaders" ": determines whether headers are shown (boolean, default: false),"
-                DI "HideFooters" ": determines whether footers are shown (boolean, default: false)."
+                define "Border" "sets the style of the border (Spectre.TableBorder, default: ),"
+                define "Sizing" "determines whether the table is expanded or collapsed. (SizingBehaviour, default: ),"
+                define "Alignment" "aligns the content of all the columns. (Alignment, default: ),"
+                define "HideHeaders" "determines whether headers are shown (boolean, default: false),"
+                define "HideFooters" "determines whether footers are shown (boolean, default: false)."
             ]
             BL
             C "In the table function, the columns are defined by passing in a list of 'ColumnDefinitions', which are records with these properties:"
             BI [
-                DI "Header" ": the content of the header (OutputPayload),"
-                DI "Footer" ": the optional content of the footer (Option<OutputPayload>),"
-                DI "Layout" ": the optional column layout instance (Option<ColumnLayout>)."
+                define "Header" "the content of the header (OutputPayload),"
+                define "Footer" "the optional content of the footer (Option<OutputPayload>),"
+                define "Layout" "the optional column layout instance (Option<ColumnLayout>)."
             ]
             BL
             C "In order to specify a column, you can instanciate such a record manually, or use one of these functions:"
@@ -103,10 +103,10 @@ type TableDocumentation() =
             BL
             C "As you can see above, the column layout can also be specified by an instance of the record 'ColumnLayout' with these properties:"
             BI [
-                DI "Alignment" ": aligns the content of this column (Alignment, default: Center),"
-                DI "LeftPadding" ": determines the left padding of the column content (int, default: 2),"
-                DI "RightPadding" ": determines the right padding of the column content (int, default: 2),"
-                DI "Wrap" "(boolean), determines whether column content wraps."
+                define "Alignment" "aligns the content of this column (Alignment, default: Center),"
+                define "LeftPadding" "determines the left padding of the column content (int, default: 2),"
+                define "RightPadding" "determines the right padding of the column content (int, default: 2),"
+                define "Wrap" "(boolean), determines whether column content wraps."
             ]
             C "The default values are part of the"; P "defaultColumnLayout"; C"instance, which, as usual, can be modified directly as well."
             BL
