@@ -10,9 +10,8 @@ module Documentation =
         bulletItemPrefix <- "   >> "
         ()
 
-    let DI term explanation =
-        Many [ P term; C explanation]
-
+    let define term explanation =
+        Many [ P $"{term}:"; C explanation]
 
     let docHeader title = 
         Many[ BL; alignedRule Left (pumped title)]
