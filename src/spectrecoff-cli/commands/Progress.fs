@@ -40,17 +40,15 @@ type ProgressExample() =
         (operation |> Progress.startCustom template).Wait()
         0
 
+open SpectreCoff.Cli.Documentation
+
 type ProgressDocumentation() =
     inherit Command<ProgressSettings>()
     interface ICommandLimiter<ProgressSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Progress module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Progress module" |> toConsole
 
         Many [
             C "This module provides functionality from the progress widget of Spectre.Console ("

@@ -29,17 +29,16 @@ type BarChartExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type BarChartDocumentation() =
     inherit Command<BarChartSettings>()
     interface ICommandLimiter<BarChartSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-        BL |> toConsole
-        pumped "BarChart submodule"
-        |> alignedRule Left
-        |> toConsole
-
+        setDocumentationStyle
+        documentationHeader "BarChart submodule" |> toConsole
+       
         Many [
             C "This submodule provides functionality from the BarChart widget of Spectre.Console ("
             Link "https://spectreconsole.net/widgets/barchart"
@@ -50,13 +49,13 @@ type BarChartDocumentation() =
                 P "barChart: string -> ChartItem list -> OutputPayload"
             ]
             BL
-            Many [C "The"; P "ChartItem"; C "union type consists of two options:"]
+            C "The"; P "ChartItem"; C "union type consists of two options:"
             BI [
                 Many [P "ChartItem:"; C "Consists of the label and a value for the item."]
                 Many [P "ChartItemWithColor:"; C "Additionally defines a color the item will be rendered in."]
             ]
             BL
-            Many [C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."]
+            C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."
             C "This variable can be overwritten with a custom set if the default one is not to your taste."
             BL
             C "Similarly, two other variables can be overwritten:"

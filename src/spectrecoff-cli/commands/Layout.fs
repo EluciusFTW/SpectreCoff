@@ -46,15 +46,15 @@ type LayoutExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type LayoutDocumentation() =
     inherit Command<LayoutSettings>()
     interface ICommandLimiter<LayoutSettings>
 
     override _.Execute(_context, _) =
-        Cli.Theme.setDocumentationStyle
+        setDocumentationStyle
+        documentationHeader "Layout module" |> toConsole
 
-        BL |> toConsole
-        pumped "Layout module"
-        |> alignedRule Left
-        |> toConsole
+        Edgy "Sorry, this documentation is not available yet." |> toConsole
         0

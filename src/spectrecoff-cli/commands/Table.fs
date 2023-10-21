@@ -53,18 +53,15 @@ type TableExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type TableDocumentation() =
     inherit Command<TableSettings>()
     interface ICommandLimiter<TableSettings>
 
     override _.Execute(_context, _) =
-
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Table module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Table module" |> toConsole
 
         Many [
             C "This module provides functionality from the table widget of Spectre.Console ("
@@ -84,18 +81,18 @@ type TableDocumentation() =
             BL
             C "The 'TableLayout' is a record with the following properties:"
             BI [
-                Many [P "Border"; C ": sets the style of the border (Spectre.TableBorder, default: ),"]
-                Many [P "Sizing"; C ": determines whether the table is expanded or collapsed. (SizingBehaviour, default: ),"]
-                Many [P "Alignment"; C ": aligns the content of all the columns. (Alignment, default: ),"]
-                Many [P "HideHeaders"; C ": determines whether headers are shown (boolean, default: false),"]
-                Many [P "HideFooters"; C ": determines whether footers are shown (boolean, default: false)."]
+                DI "Border" ": sets the style of the border (Spectre.TableBorder, default: ),"
+                DI "Sizing" ": determines whether the table is expanded or collapsed. (SizingBehaviour, default: ),"
+                DI "Alignment" ": aligns the content of all the columns. (Alignment, default: ),"
+                DI "HideHeaders" ": determines whether headers are shown (boolean, default: false),"
+                DI "HideFooters" ": determines whether footers are shown (boolean, default: false)."
             ]
             BL
             C "In the table function, the columns are defined by passing in a list of 'ColumnDefinitions', which are records with these properties:"
             BI [
-                Many [P "Header"; C ": the content of the header (OutputPayload),"]
-                Many [P "Footer"; C ": the optional content of the footer (Option<OutputPayload>),"]
-                Many [P "Layout"; C ": the optional column layout instance (Option<ColumnLayout>)."]
+                DI "Header" ": the content of the header (OutputPayload),"
+                DI "Footer" ": the optional content of the footer (Option<OutputPayload>),"
+                DI "Layout" ": the optional column layout instance (Option<ColumnLayout>)."
             ]
             BL
             C "In order to specify a column, you can instanciate such a record manually, or use one of these functions:"
@@ -110,14 +107,14 @@ type TableDocumentation() =
             BL
             C "As you can see above, the column layout can also be specified by an instance of the record 'ColumnLayout' with these properties:"
             BI [
-                Many [P "Alignment"; C": aligns the content of this column (Alignment, default: Center),"]
-                Many [P "LeftPadding"; C ": determines the left padding of the column content (int, default: 2),"]
-                Many [P "RightPadding"; C ": determines the right padding of the column content (int, default: 2),"]
-                Many [P "Wrap"; C "(boolean), determines whether column content wraps."]
+                DI "Alignment" ": aligns the content of this column (Alignment, default: Center),"
+                DI "LeftPadding" ": determines the left padding of the column content (int, default: 2),"
+                DI "RightPadding" ": determines the right padding of the column content (int, default: 2),"
+                DI "Wrap" "(boolean), determines whether column content wraps."
             ]
-            Many [C "The default values are part of the"; P "defaultColumnLayout"; C"instance, which, as usual, can be modified directly as well."]
+            C "The default values are part of the"; P "defaultColumnLayout"; C"instance, which, as usual, can be modified directly as well."
             BL
-            Many [C "The data of the table is provided by the Row type, which is the same type as the one used in the"; P "Grid"; C "module. Please see that documentation for more details."]
+            C "The data of the table is provided by the Row type, which is the same type as the one used in the"; P "Grid"; C "module. Please see that documentation for more details."
             BL
             C "A title and a caption can also be added to the table using:"
             BI [

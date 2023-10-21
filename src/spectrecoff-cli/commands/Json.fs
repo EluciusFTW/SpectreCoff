@@ -1,6 +1,5 @@
 namespace SpectreCoff.Cli.Commands
 
-open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
@@ -46,17 +45,15 @@ type JsonExample() =
 
         0
 
+open SpectreCoff.Cli.Documentation
+
 type JsonDocumentation() =
     inherit Command<JsonSettings>()
     interface ICommandLimiter<JsonSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Json module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Json module" |> toConsole
 
         Many [
             Many [

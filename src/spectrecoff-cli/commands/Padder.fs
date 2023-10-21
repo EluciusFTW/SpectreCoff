@@ -32,17 +32,15 @@ type PadderExample() =
         ] |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type PadderDocumentation() =
     inherit Command<PadderSettings>()
     interface ICommandLimiter<PadderSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Padder module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Padder module" |> toConsole
 
         Many [
             C "This module provides functionality from the padder widget of Spectre.Console ("

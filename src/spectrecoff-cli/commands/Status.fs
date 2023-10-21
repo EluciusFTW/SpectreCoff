@@ -37,17 +37,15 @@ type StatusExample() =
         P "No result" |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type StatusDocumentation() =
     inherit Command<StatusSettings>()
     interface ICommandLimiter<StatusSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Status module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Status module" |> toConsole
 
         Many [
             C "This module provides functionality from the status widget of Spectre.Console ("

@@ -99,12 +99,15 @@ type OutputExample() =
         V asMarkedUpString |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
 
 type OutputDocumentation() =
     inherit Command<OutputSettings>()
     interface ICommandLimiter<OutputSettings>
 
     override _.Execute(_context, _) =
-        Cli.Theme.setDocumentationStyle
+        setDocumentationStyle
+        documentationHeader "General Output" |> toConsole
+        
         Edgy "Sorry, this documentation is not available yet." |> toConsole
         0
