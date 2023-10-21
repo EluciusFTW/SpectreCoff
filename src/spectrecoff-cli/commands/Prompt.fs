@@ -53,15 +53,9 @@ type PromptDocumentation() =
 
     override _.Execute(_context, _) =
         setDocumentationStyle
-        documentationHeader "Prompt module" |> toConsole
-
         Many [
-            C "This module provides functionality from the prompts of Spectre.Console ("
-            Link "https://spectreconsole.net/prompts"
-            C ")"
-            C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"
+            docSynopsis "Prompt module" "This module provides functionality from the prompts of Spectre.Console" "prompts"
             BL
-            emptyRule
             C "For prompting an answer from the user, the following functions can be used:"
             BI [
                 P "ask<'T> = (question: string) -> 'T"

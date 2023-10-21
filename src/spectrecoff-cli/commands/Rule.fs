@@ -34,12 +34,8 @@ type RuleDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        documentationHeader "Rule module" |> toConsole
-
         Many [
-            C "This module provides functionality from the rule widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/rule"
-            C ")"
+            docSynopsis "Rule module" "This module provides functionality from the rule widget of Spectre.Console" "widgets/rule"
             BL
             C "The rule can be used by the rule function:"
             BI [

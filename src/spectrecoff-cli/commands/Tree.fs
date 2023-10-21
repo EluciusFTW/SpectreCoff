@@ -43,7 +43,8 @@ type TreeDocumentation() =
 
     override _.Execute(_context, _) =
         setDocumentationStyle
-        documentationHeader "Tree module" |> toConsole
-        
-        Edgy "Sorry, this documentation is not available yet." |> toConsole    
+        Many[
+            docSynopsis "Tree module" "This module provides functionality from the tree widget of Spectre.Console" "widgets/tree"
+            docMissing
+        ] |> toConsole
         0

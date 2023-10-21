@@ -56,7 +56,8 @@ type CalendarDocumentation() =
 
     override _.Execute(_context, _) =
         setDocumentationStyle
-        documentationHeader "Calendar module" |> toConsole
-
-        Edgy "Sorry, this documentation is not available yet." |> toConsole
+        Many [
+          docSynopsis "Calendar module" "This module provides functionality from the calendar widget of Spectre.Console" "widgets/calendar"
+          docMissing
+        ] |> toConsole
         0

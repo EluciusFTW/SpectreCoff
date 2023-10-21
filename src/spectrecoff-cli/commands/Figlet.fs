@@ -29,12 +29,8 @@ type FigletDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        documentationHeader "Figlet module" |> toConsole
-
         Many [
-            C "This module provides functionality from the figlet widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/figlet"
-            C ")"
+            docSynopsis "Figlet module" "This module provides functionality from the figlet widget of Spectre.Console" "widgets/figlet"
             BL
             C "The figlet can be used by the figlet function:"
             BI [

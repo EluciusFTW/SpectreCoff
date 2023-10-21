@@ -54,7 +54,8 @@ type LayoutDocumentation() =
 
     override _.Execute(_context, _) =
         setDocumentationStyle
-        documentationHeader "Layout module" |> toConsole
-
-        Edgy "Sorry, this documentation is not available yet." |> toConsole
+        Many [
+            docSynopsis "Layout module" "This module provides functionality from the layout widget of Spectre.Console" "widgets/layout"
+            docMissing
+        ] |> toConsole
         0

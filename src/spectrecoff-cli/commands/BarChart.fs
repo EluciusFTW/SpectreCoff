@@ -37,12 +37,8 @@ type BarChartDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        documentationHeader "BarChart submodule" |> toConsole
-       
         Many [
-            C "This submodule provides functionality from the BarChart widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/barchart"
-            C ")"
+            docSynopsis "BarChart submodule" "This module provides functionality from the bar chart widget of Spectre.Console" "widgets/barchart"
             BL
             C "The bar chart can be used using the barChart function:"
             BI [

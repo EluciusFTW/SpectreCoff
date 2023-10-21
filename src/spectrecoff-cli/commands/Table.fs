@@ -61,12 +61,8 @@ type TableDocumentation() =
 
     override _.Execute(_context, _) =
         setDocumentationStyle
-        documentationHeader "Table module" |> toConsole
-
         Many [
-            C "This module provides functionality from the table widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/table"
-            C ")"
+            docSynopsis "Table module" "This module provides functionality from the table widget of Spectre.Console" "widgets/table"
             BL
             C "The table can be used by the two functions:"
             BI [
