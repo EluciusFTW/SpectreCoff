@@ -38,17 +38,15 @@ type PanelExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type PanelDocumentation() =
     inherit Command<PanelSettings>()
     interface ICommandLimiter<PanelSettings>
 
     override _.Execute(_context, _) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Panel module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Panel module" |> toConsole
 
         Many [
             C "This module provides functionality from the panel widget of Spectre.Console ("
@@ -58,14 +56,12 @@ type PanelDocumentation() =
             C "The panel can be used by the panel function:"
             BI [P "panel: (header: string) -> (content: OutputPayload) -> OutputPayload"]
             BL
-            Many [
-                C "While the content can be an arbitrary payload"
-                C "the header needs to be a string."
-                C "Spectre still will render markup here, though, so all";
-                P "stringifyable payloads";
-                C "can be used here when mapped to string using the extension";
-                P "payload.toMarkedUpString."
-            ]
+            C "While the content can be an arbitrary payload"
+            C "the header needs to be a string."
+            C "Spectre still will render markup here, though, so all"
+            P "stringifyable payloads"
+            C "can be used here when mapped to string using the extension"
+            P "payload.toMarkedUpString."
             BL
             Many [
                 C "This panel will use the"

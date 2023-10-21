@@ -32,20 +32,18 @@ type LiveDisplayExample() =
             }
 
         let config = { defaultConfiguration with Overflow = Some VerticalOverflow.Ellipsis }
-        (LiveDisplay.startWithCustomConfig config exampleTable operation).Wait()
+        (startWithCustomConfig config exampleTable operation).Wait()
         0
+
+open SpectreCoff.Cli.Documentation
 
 type LiveDisplayDocumentation() =
     inherit Command<LiveDisplaySettings>()
     interface ICommandLimiter<LiveDisplaySettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Live Display module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Live Display module" |> toConsole
 
         Many [
             C "This module provides functionality from the live display widget of Spectre.Console ("

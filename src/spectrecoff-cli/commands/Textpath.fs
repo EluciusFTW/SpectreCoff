@@ -1,6 +1,5 @@
 namespace SpectreCoff.Cli.Commands
 
-open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
@@ -30,18 +29,15 @@ type TextpathExample() =
         |> List.iter toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type TextpathDocumentation() =
     inherit Command<TextpathSettings>()
     interface ICommandLimiter<TextpathSettings>
 
     override _.Execute(_context, _) =
-
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Textpath module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Textpath module" |> toConsole
 
         Many [
             C "This module provides functionality from the text path widget of Spectre.Console ("
@@ -51,7 +47,7 @@ type TextpathDocumentation() =
             C "The text path can be used by the path function:"
             BI [P "path: (value: string) -> OutputPayload"]
             BL
-            Many [C "This path will use the"; P "Textpath.defaultAlignment,"; C "which is set to"; P "Left"; C "but can be modified."]
+            C "This path will use the"; P "Textpath.defaultAlignment,"; C "which is set to"; P "Left"; C "but can be modified."
             C "Other alignments can be used without changing the default by passing in the alignment as an argument to: "
             BI [
                 P "alignedPath: Alignment -> string -> OutputPayload"
@@ -59,10 +55,10 @@ type TextpathDocumentation() =
             BL
             C "The path is rendered using four styles, which are mutable. The defaults are linked to the convenience style colors:"
             BI [
-                Many [P "rootColor"; C  "(default: calmColor)"]
-                Many [P "stemColor"; C  "(default: calmColor)"]
-                Many [P "separatorColor"; C  "(default: pumperColor)"]
-                Many [P "leafColor"; C  "(default: edgyColor)"]
+                DI "rootColor" "(default: calmColor)"
+                DI "stemColor" "(default: calmColor)"
+                DI "separatorColor" "(default: pumperColor)"
+                DI "leafColor" "(default: edgyColor)"
             ]
         ] |> toConsole
         0

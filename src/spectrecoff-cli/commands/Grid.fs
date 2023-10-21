@@ -37,17 +37,15 @@ type GridExample() =
         ] |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type GridDocumentation() =
     inherit Command<GridSettings>()
     interface ICommandLimiter<GridSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Grid module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Grid module" |> toConsole
 
         Many [
             C "This module provides functionality from the grid widget of Spectre.Console ("
@@ -66,7 +64,7 @@ type GridDocumentation() =
                 Many [P "Numbers"; C "of"; P "int list"]
             ]
             BL
-            Many [C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."]
+            C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."
             C "Pipe it into toConsole to easily write the grid to the console:"
             BI [
                 P "grid.toOutputPayload |> toConsole"

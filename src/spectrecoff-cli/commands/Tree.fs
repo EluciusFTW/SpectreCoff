@@ -35,11 +35,15 @@ type TreeExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type TreeDocumentation() =
     inherit Command<TreeSettings>()
     interface ICommandLimiter<TreeSettings>
 
     override _.Execute(_context, _) =
-        Cli.Theme.setDocumentationStyle
+        setDocumentationStyle
+        documentationHeader "Tree module" |> toConsole
+        
         Edgy "Sorry, this documentation is not available yet." |> toConsole    
         0

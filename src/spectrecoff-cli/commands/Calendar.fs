@@ -48,11 +48,15 @@ type CalendarExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type CalendarDocumentation() =
     inherit Command<CalendarSettings>()
     interface ICommandLimiter<CalendarSettings>
 
     override _.Execute(_context, _) =
-        Cli.Theme.setDocumentationStyle
+        setDocumentationStyle
+        documentationHeader "Calendar module" |> toConsole
+
         Edgy "Sorry, this documentation is not available yet." |> toConsole
         0

@@ -45,25 +45,21 @@ type PromptExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type PromptDocumentation() =
     inherit Command<PromptSettings>()
     interface ICommandLimiter<PromptSettings>
 
     override _.Execute(_context, _) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Prompt module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Prompt module" |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the prompts of Spectre.Console ("
-                Link "https://spectreconsole.net/prompts"
-                C ")"
-            ]
-            Many [C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"]
+            C "This module provides functionality from the prompts of Spectre.Console ("
+            Link "https://spectreconsole.net/prompts"
+            C ")"
+            C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"
             BL
             emptyRule
             C "For prompting an answer from the user, the following functions can be used:"
@@ -73,18 +69,18 @@ type PromptDocumentation() =
                 P "askSuggesting<'T> = (answer: 'T) (question: string) -> 'T"
                 P "askWithSuggesting<'T> = (options: PromptOptions) (answer: 'T) (question: string) -> 'T"
             ]
-            Many [C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"]
+            C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"
             BI [
-               Many [P "Secret"; C "describes whether the characters are shown (default: false)"]
-               Many [P "Optional"; C "describes whether empty is a valid input (default: false)"]
+               DI "Secret" "describes whether the characters are shown (default: false)"
+               DI "Optional" "describes whether empty is a valid input (default: false)"
             ]
             BL
             emptyRule
             C "If the set of choices is finite, one of the following can be used:"
             BI [
-                Many [P "chooseFrom = (choices: string list) (question: string) -> string"; C "a simple single selection prompt"]
-                Many [P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"; C "select multiple values from a list of choices"]
-                Many [P "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"; C " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"]
+                DI "chooseFrom = (choices: string list) (question: string) -> string" "a simple single selection prompt"
+                DI "chooseMultipleFrom = (choices: string list) (question: string) -> string list" "select multiple values from a list of choices"
+                DI "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list" " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"
             ]
             BL
             emptyRule

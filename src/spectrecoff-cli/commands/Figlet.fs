@@ -21,24 +21,20 @@ type FigletExample() =
         |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type FigletDocumentation() =
     inherit Command<FigletSettings>()
     interface ICommandLimiter<FigletSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Figlet module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Figlet module" |> toConsole
 
         Many [
-            Many [
-                C "This module provides functionality from the figlet widget of Spectre.Console ("
-                Link "https://spectreconsole.net/widgets/figlet"
-                C ")"
-            ]
+            C "This module provides functionality from the figlet widget of Spectre.Console ("
+            Link "https://spectreconsole.net/widgets/figlet"
+            C ")"
             BL
             C "The figlet can be used by the figlet function:"
             BI [
@@ -57,6 +53,6 @@ type FigletDocumentation() =
                 P "customFiglet: Alignment -> Color -> string -> Renderable"
             ]
             BL
-            Many [C "The figlet can be printed to the console with the"; P "toConsole"; C "function."]
+            C "The figlet can be printed to the console with the"; P "toConsole"; C "function."
         ] |> toConsole
         0

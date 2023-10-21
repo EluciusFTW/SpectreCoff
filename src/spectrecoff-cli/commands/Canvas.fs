@@ -12,7 +12,6 @@ type CanvasExample() =
     interface ICommandLimiter<CanvasSettings>
 
     override _.Execute(_context, _settings) =
-
         canvas (Width 12) (Height 12)
         |> withPixels (Rectangle (0,0,11,11)) Color.Yellow
         |> withPixels (Rectangle (2,2,4,3)) Color.Purple
@@ -22,20 +21,17 @@ type CanvasExample() =
         |> withPixels (MultiplePixels [(3,10); (8,10)]) Color.Purple
         |> toOutputPayload
         |> toConsole
-
         0
+
+open SpectreCoff.Cli.Documentation
 
 type CanvasDocumentation() =
     inherit Command<CanvasSettings>()
     interface ICommandLimiter<CanvasSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-        BL |> toConsole
-
-        pumped "Canvas module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Canvas module" |> toConsole
 
         Many [
             Many [

@@ -33,16 +33,15 @@ type CanvasImageExample() =
         |> Async.RunSynchronously
         0
 
+open SpectreCoff.Cli.Documentation
+
 type CanvasImageDocumentation() =
     inherit Command<CanvasImageSettings>()
     interface ICommandLimiter<CanvasImageSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-        BL |> toConsole
-        pumped "CanvasImage module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "CanvasImage module" |> toConsole
 
         Many [
             C "This submodule provides functionality from the canvas image widget of Spectre.Console ("
@@ -53,18 +52,18 @@ type CanvasImageDocumentation() =
             BI [
                 P "canvasImage: ImageSource -> CanvasImage"
             ]
-            Many [C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."]
+            C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."
             BL
-            Many [C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"]
+            C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"
             BI [
                 Many [P "Bytes"; C "of"; P "Byte[]"]
                 Many [P "Stream"; C "of"; P "Stream"]
                 Many [P "Path"; C "of"; P "string"]
             ]
             BL
-            Many [C "The canvas image module exposes the mutable variable"; P "maxWidth."]
+            C "The canvas image module exposes the mutable variable"; P "maxWidth."
             C "Unsurprisingly, it sets the max width of the created images."
             BL
-            Many [C "Same as in spectre, the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); C "Api can be used to transform the created images."]
+            C "Same as in spectre, the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); C "Api can be used to transform the created images."
         ] |> toConsole
         0

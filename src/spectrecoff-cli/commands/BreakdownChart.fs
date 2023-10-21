@@ -2,10 +2,7 @@
 
 open Spectre.Console.Cli
 open Spectre.Console
-open SpectreCoff.Cli
 open SpectreCoff.Output
-open SpectreCoff.Rule
-open SpectreCoff.Styling
 open SpectreCoff.Chart
 
 type BreakdownChartSettings() =
@@ -33,36 +30,34 @@ type BreakdownChartExample() =
         ] |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type BreakdownChartDocumentation() =
     inherit Command<BreakdownChartSettings>()
     interface ICommandLimiter<BreakdownChartSettings>
 
     override _.Execute(_context, _settings) =
-        Theme.setDocumentationStyle
-        BL |> toConsole
-        pumped "BreakdownChart submodule"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "BreakdownChart submodule" |> toConsole
 
         Many [
-            C "This submodule provides functionality from the BreakdownChart widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/breakdownchart"
-            C ")"
+            C "This submodule provides functionality from the BreakdownChart widget of Spectre.Console ("; Link "https://spectreconsole.net/widgets/breakdownchart"; C ")."
             BL
             C "The breakdown chart can be used using the breakdownChart function:"
             BI [
                 P "breakdownChart: ChartItem list -> OutputPayload"
             ]
             BL
-            Many [C "The"; P "ChartItem"; C "union type consists of two options:"]
+            C "The"; P "ChartItem"; C "union type consists of two options:"
             BI [
+                DI "ChartItem" "Consists of the label and a value for the item."
                 Many [P "ChartItem:"; C "Consists of the label and a value for the item."]
                 Many [P "ChartItemWithColor:"; C "Additionally defines a color the item will be rendered in."]
             ]
             BL
-            Many [C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."]
+            C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."
             C "This variable can be overwritten with a custom set if the default one is not to your taste."
             BL
-            Many [C "Similarly, the:"; P "width"; C "variable which controls the width of the whole chart can be overwritten"]
+            C "Similarly, the:"; P "width"; C "variable which controls the width of the whole chart can be overwritten"
         ] |> toConsole
         0

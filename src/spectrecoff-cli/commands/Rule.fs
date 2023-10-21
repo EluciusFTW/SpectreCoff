@@ -26,17 +26,15 @@ type RuleExample() =
         emptyRule |> toConsole
         0
 
+open SpectreCoff.Cli.Documentation
+
 type RuleDocumentation() =
     inherit Command<RuleSettings>()
     interface ICommandLimiter<RuleSettings>
 
     override _.Execute(_context, _settings) =
-        Cli.Theme.setDocumentationStyle
-
-        BL |> toConsole
-        pumped "Rule module"
-        |> alignedRule Left
-        |> toConsole
+        setDocumentationStyle
+        documentationHeader "Rule module" |> toConsole
 
         Many [
             C "This module provides functionality from the rule widget of Spectre.Console ("
@@ -48,14 +46,14 @@ type RuleDocumentation() =
                 P "rule: string -> OutputPayload"
             ]
             BL
-            Many [C "This rule will use the"; P "Rule.defaultAlignment,"; C "which is set to"; P "Center"; C "but can be modified."]
+            C "This rule will use the"; P "Rule.defaultAlignment,"; C "which is set to"; P "Center"; C "but can be modified."
             BL
             C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
             BI [
                 P "alignedRule: Alignment -> string -> OutputPayload"
             ]
             BL
-            Many [C "The rule can be printed to the console with the"; P "toConsole"; C "function."]
+            C "The rule can be printed to the console with the"; P "toConsole"; C "function."
             BL
         ] |> toConsole
         0
