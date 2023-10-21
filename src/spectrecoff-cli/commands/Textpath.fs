@@ -37,12 +37,8 @@ type TextpathDocumentation() =
 
     override _.Execute(_context, _) =
         setDocumentationStyle
-        documentationHeader "Textpath module" |> toConsole
-
         Many [
-            C "This module provides functionality from the text path widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/text-path"
-            C ")"
+            docSynopsis "Textpath module" "This module provides functionality from the text path widget of Spectre.Console" "widgets/text-path"
             BL
             C "The text path can be used by the path function:"
             BI [P "path: (value: string) -> OutputPayload"]

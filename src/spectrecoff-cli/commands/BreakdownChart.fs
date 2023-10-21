@@ -38,10 +38,8 @@ type BreakdownChartDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        documentationHeader "BreakdownChart submodule" |> toConsole
-
         Many [
-            C "This submodule provides functionality from the BreakdownChart widget of Spectre.Console ("; Link "https://spectreconsole.net/widgets/breakdownchart"; C ")."
+            docSynopsis "BreakdownChart submodule" "This submodule provides functionality from the BreakdownChart widget of Spectre.Console" "widgets/breakdownchart"
             BL
             C "The breakdown chart can be used using the breakdownChart function:"
             BI [

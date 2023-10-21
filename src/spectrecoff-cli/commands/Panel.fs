@@ -46,13 +46,9 @@ type PanelDocumentation() =
 
     override _.Execute(_context, _) =
         setDocumentationStyle
-        documentationHeader "Panel module" |> toConsole
-
         Many [
-            C "This module provides functionality from the panel widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/panel"
-            C ")"
-            NL
+            docSynopsis "Panel module" "This module provides functionality from the panel widget of Spectre.Console" "widgets/panel"
+            BL
             C "The panel can be used by the panel function:"
             BI [P "panel: (header: string) -> (content: OutputPayload) -> OutputPayload"]
             BL

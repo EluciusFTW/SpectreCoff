@@ -45,11 +45,8 @@ type StatusDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        documentationHeader "Status module" |> toConsole
-
         Many [
-            C "This module provides functionality from the status widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/status"
-            C ")"
+            docSynopsis "Status module" "This module provides functionality from the status widget of Spectre.Console" "widgets/status"
+            docMissing
         ] |> toConsole
         0

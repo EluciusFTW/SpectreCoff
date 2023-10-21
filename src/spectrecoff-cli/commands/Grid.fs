@@ -45,12 +45,8 @@ type GridDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        documentationHeader "Grid module" |> toConsole
-
         Many [
-            C "This module provides functionality from the grid widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/Grid"
-            C ")"
+            docSynopsis "Grid module" "This module provides functionality from the grid widget of Spectre.Console" "widgets/grid"
             BL
             C "The grid can be used by the grid function:"
             BI [

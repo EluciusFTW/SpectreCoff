@@ -40,12 +40,8 @@ type PadderDocumentation() =
 
     override _.Execute(_context, _settings) =
         setDocumentationStyle
-        documentationHeader "Padder module" |> toConsole
-
         Many [
-            C "This module provides functionality from the padder widget of Spectre.Console ("
-            Link "https://spectreconsole.net/widgets/padder"
-            C ")"
+            docSynopsis "Padder module" "This module provides functionality from the padder widget of Spectre.Console" "widgets/padder"
             BL
             C "Using functions from this module, any OutputPayload can be padded. The main function works similar to the one of CSS, namely it takes four padding arguments of type int as well as the element."
             BL
@@ -69,6 +65,5 @@ type PadderDocumentation() =
             BI [ 
                 Many [ P "element |> padHorizontal 2"; C " ~ "; P "element |> padRight 2 |> padLeft 2"]  
             ]
-            
         ] |> toConsole
         0
