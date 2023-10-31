@@ -46,12 +46,12 @@ let private stringifyDecorations (decorations: Decoration list) =
 let private stringify (foregroundColorOption: Color option) (backgroundColorOption: Color option) decorations =
     let foregroundColorPart =
         match foregroundColorOption with
-        | Some color -> [$"rgb({color.R},{color.G},{color.B})"] //[color.ToString()]
+        | Some color -> [$"rgb({color.R},{color.G},{color.B})"]
         | None -> []
 
     let backgroundColorPart =
         match backgroundColorOption with
-        | Some color -> [$"on rgb({color.R},{color.G},{color.B})"] //[$"on {color.ToString()}"]
+        | Some color -> [$"on rgb({color.R},{color.G},{color.B})"]
         | None -> []
 
     let decorationParts = stringifyDecorations decorations
