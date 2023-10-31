@@ -43,15 +43,15 @@ let rec private joinSeparatedBy (separator: string) (strings: string list) =
 let private stringifyDecorations (decorations: Decoration list) =
     decorations |> List.map (fun decoration -> decoration.ToString())
 
-let private stringify foregroundColorOption backgroundColorOption decorations =
+let private stringify (foregroundColorOption: Color option) (backgroundColorOption: Color option) decorations =
     let foregroundColorPart =
         match foregroundColorOption with
-        | Some color -> [color.ToString()]
+        | Some color -> [$"rgb({color.R},{color.G},{color.B})"] //[color.ToString()]
         | None -> []
 
     let backgroundColorPart =
         match backgroundColorOption with
-        | Some color -> [$"on {color.ToString()}"]
+        | Some color -> [$"on rgb({color.R},{color.G},{color.B})"] //[$"on {color.ToString()}"]
         | None -> []
 
     let decorationParts = stringifyDecorations decorations
