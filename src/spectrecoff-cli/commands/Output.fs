@@ -76,7 +76,7 @@ type OutputExample() =
                 Link "https://www.spectreconsole.net/markup"
             ]
             Many [
-                C "Even with a dedicated display test:"
+                C "Even with a dedicated display text:"
                 LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
             ]
             NL
