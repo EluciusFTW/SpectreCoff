@@ -71,7 +71,7 @@ let markup style content =
 let markupString (colorOption: Color option) (decorations: Decoration list) content =
     markup $"{stringify colorOption None decorations}" content
 
-let markupLink link label =
+let markupLink label link =
     let style = stringifyLook linkLook
     match label with
     | "" -> markup $"{style} link" link
@@ -137,7 +137,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | MarkupC (color, content) -> content |> markupString (Some color) []
     | MarkupD (decorations, content) -> content |> markupString None decorations
     | Link link -> link |> markupLink ""
-    | LinkWithLabel (label, link) -> label |> markupLink link
+    | LinkWithLabel (label, link) -> link |> markupLink label
     | Emoji emoji -> emoji |> padEmoji
     | NextLine -> ""
     | BlankLine -> " "
