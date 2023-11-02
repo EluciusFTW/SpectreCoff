@@ -23,7 +23,7 @@ type CanvasImageExample() =
                 P "Print an image directly to the console!"
                 BL
                 image |> toOutputPayload
-                P "Take full advantage of the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"; BL
+                P "Take full advantage of "; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"; BL
                 P "For example, rotate the image by 45°:"
                 BL
                 rotatedImage.toOutputPayload
@@ -49,7 +49,7 @@ type CanvasImageDocumentation() =
                 P "canvasImage: ImageSource -> CanvasImage"
             ]
             BL
-            C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload"; 
+            C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload";
             C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."
             BL
             C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"
