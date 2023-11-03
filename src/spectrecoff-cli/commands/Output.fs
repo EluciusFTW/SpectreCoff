@@ -24,6 +24,7 @@ type OutputExample() =
         MCD (Color.Red, [ Decoration.Underline ], "This is underline red") |> toConsole
         MD ([ Decoration.Underline; Decoration.Dim ], "This is underline.") |> toConsole
         MC (Color.Red, "This is red") |> toConsole
+        MC (Color(100uy, 200uy, 233uy), "This is RGB color") |> toConsole
         NL |> toConsole
 
         // The convenience way
