@@ -25,9 +25,7 @@ module Day =
 type Event = Event of Year * Month * Day
 [<RequireQualifiedAccess>]
 module Event =
-    let toTuple event =
-        match event with
-        | Event (y,m,d) -> (Year.unwrap y, Month.unwrap m, Day.unwrap d)
+    let unwrap (Event (Year y, Month m, Day d)) = (y, m, d)
 
 type CalendarSettings =
     {  Culture: Culture Option;
@@ -41,12 +39,8 @@ let defaultCalendarSettings =
        HeaderLook = { calmLook with Decorations = [ Decoration.Bold ] }
        HighlightLook = { pumpedLook with Decorations = [ Decoration.Invert ] } }
 
-let addEvent event (calendar: Calendar) =
-    event
-    |> Event.toTuple
-    |> calendar.AddCalendarEvent
 
-let applysettings (settings: CalendarSettings) (calendar: Calendar) =
+let private applysettings (settings: CalendarSettings) (calendar: Calendar) =
     match settings.Culture with
     | Some culture -> calendar.Culture <- unwrapCulture culture |> System.Globalization.CultureInfo
     | _ -> ()
@@ -55,6 +49,11 @@ let applysettings (settings: CalendarSettings) (calendar: Calendar) =
     calendar.HeaderStyle <- toSpectreStyle settings.HeaderLook
     calendar.HighlightStyle <- toSpectreStyle settings.HighlightLook
     calendar
+
+let addEvent event (calendar: Calendar) =
+    event
+    |> Event.unwrap
+    |> calendar.AddCalendarEvent
 
 let customCalendar settings year month =
     Calendar (Year.unwrap year, Month.unwrap month)

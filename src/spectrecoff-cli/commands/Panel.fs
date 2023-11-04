@@ -59,11 +59,7 @@ type PanelDocumentation() =
             C "can be used here when mapped to string using the extension"
             P "payload.toMarkedUpString."
             BL
-            Many [
-                C "This panel will use the"
-                P "Panel.defaultPanelLayout,"
-                C "which has the values"
-            ]
+            C "This panel will use the"; P "Panel.defaultPanelLayout,"; C "which has the values:"
             BI [
                 P "Border: BorderBox.Rounded"
                 P "BorderColor: edgyColor"
