@@ -160,7 +160,7 @@ The currently supported commands are:
 | breakdown   | ✅       | ✅   |
 | table       | ✅       | ✅   |
 | tree        | ✅       | ❌   |
-| calendar    | ✅       | ❌   |
+| calendar    | ✅       | ✅   |
 | padder      | ✅       | ✅   |
 | grid        | ✅       | ✅   |
 | textpath    | ✅       | ✅   |
