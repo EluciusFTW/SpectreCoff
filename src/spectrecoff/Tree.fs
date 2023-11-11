@@ -35,11 +35,6 @@ let private applyLayout layout (root: Tree) =
     root.Style <- toSpectreStyle layout.Look
     root
 
-let private toRenderable tree = 
-    tree
-    :> Rendering.IRenderable
-    |> Renderable
-
 let attach (nodes: TreeNode list) (node: TreeNode) =
     nodes |> List.iter (fun n -> node.AddNode n |> ignore)
     node
@@ -60,7 +55,9 @@ let customTree (layout: TreeLayout) (rootContent: OutputPayload ) (nodes: TreeNo
     |> Tree
     |> applyLayout layout
     |> attachToRoot nodes
-    |> toRenderable
 
 let tree =
     customTree defaultTreeLayout
+
+type Tree with
+    member self.toOutputPayload = toOutputPayload self

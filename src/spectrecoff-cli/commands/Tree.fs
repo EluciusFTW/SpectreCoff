@@ -26,12 +26,14 @@ type TreeExample() =
                 | _ -> node)
         
         tree (P "FizzBuzz-Tree!") nodes 
+        |> toOutputPayload 
         |> toConsole
 
         customTree 
             { defaultTreeLayout with Look = { Color = Some Color.Green; BackgroundColor = Some Color.Grey; Decorations = [Decoration.Bold] } }
             (P "Custom-Tree!") 
             [ for i in 1 .. 3 -> node (C $"Node {i}!") [] ] 
+        |> toOutputPayload
         |> toConsole
         0
 
@@ -43,8 +45,8 @@ type TreeDocumentation() =
 
     override _.Execute(_context, _) =
 
-        let treeFn = FunctionDefinition (Name "tree", FunctionSignature "OutputPayload -> TreeNode list -> OutputPayload")
-        let customTreeFn = FunctionDefinition (Name "customTree", FunctionSignature "TreeLayout -> OutputPayload -> TreeNode list -> OutputPayload")
+        let treeFn = FunctionDefinition (Name "tree", FunctionSignature "OutputPayload -> TreeNode list -> Tree")
+        let customTreeFn = FunctionDefinition (Name "customTree", FunctionSignature "TreeLayout -> OutputPayload -> TreeNode list -> Tree")
         let nodeFn = FunctionDefinition (Name "node", FunctionSignature "OutputPayload -> TreeNode list -> TreeNode")
         let attachFn = FunctionDefinition (Name "attach", FunctionSignature "TreeNode list -> TreeNode -> TreeNode")
         let attachToRootFn = FunctionDefinition (Name "attachToRoot", FunctionSignature "TreeNode list -> Tree -> Tree")
