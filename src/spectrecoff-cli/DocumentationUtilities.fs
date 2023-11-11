@@ -5,10 +5,29 @@ open SpectreCoff.Theming
 
 module Documentation =
     open SpectreCoff
+
+    type Name = Name of string
+    type FunctionSignature = FunctionSignature of string
+
+    type PropertyType = PropertyType of string
+    type DefaultValue = DefaultValue of string
+    type Explanation = Explanation of string
+
+    type DocumentationArtifact = 
+        | FunctionDefinition of Name * FunctionSignature
+        | PropertyDefinition of Name * PropertyType * DefaultValue * Explanation
+
     let setDocumentationStyle =
         selectTheme Documentation
         bulletItemPrefix <- "   >> "
         ()
+
+    let toOutput artifact = 
+        match artifact with
+        | FunctionDefinition (Name n, FunctionSignature s) 
+            -> P $"{n}: {s}"
+        | PropertyDefinition (Name n, PropertyType t, DefaultValue d, Explanation e) 
+            -> Many [ P $"{n}: {t}"; C $"{e} ("; P $"{d}"; C")"]
 
     let define term explanation =
         Many [ P $"{term}:"; C explanation]
