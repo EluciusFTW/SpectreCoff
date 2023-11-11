@@ -21,11 +21,6 @@ let defaultTreeLayout: TreeLayout =
       Guides = SingleLine
       Look = calmLook }
 
-let private toNullable option =
-    match option with
-    | None -> System.Nullable<_> ()
-    | Some a -> System.Nullable<_> a
-
 let private applyLayout layout (root: Tree) =
     match layout.Sizing with
     | Expand -> root.Expanded <- true

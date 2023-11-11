@@ -42,9 +42,43 @@ type TreeDocumentation() =
     interface ICommandLimiter<TreeSettings>
 
     override _.Execute(_context, _) =
+
+        let treeFn = FunctionDefinition (Name "tree", FunctionSignature "OutputPayload -> TreeNode list -> OutputPayload")
+        let customTreeFn = FunctionDefinition (Name "customTree", FunctionSignature "TreeLayout -> OutputPayload -> TreeNode list -> OutputPayload")
+        let nodeFn = FunctionDefinition (Name "node", FunctionSignature "OutputPayload -> TreeNode list -> TreeNode")
+        let attachFn = FunctionDefinition (Name "attach", FunctionSignature "TreeNode list -> TreeNode -> TreeNode")
+        let attachToRootFn = FunctionDefinition (Name "attachToRoot", FunctionSignature "TreeNode list -> Tree -> Tree")
+
+        let sizingProp = PropertyDefinition (Name "Sizing", PropertyType "SizingBehaviour", DefaultValue "Collapse", Explanation "The sizing of the tree nodes")
+        let guidesProp = PropertyDefinition (Name "Guides", PropertyType "GuideStyle", DefaultValue "SingleLine", Explanation "The style of the lines")
+        let lookProp = PropertyDefinition (Name "Look", PropertyType "Look", DefaultValue "calmLook", Explanation "The look of the nodes")
+
         setDocumentationStyle
         Many[
             docSynopsis "Tree module" "This module provides functionality from the tree widget of Spectre.Console" "widgets/tree"
-            docMissing
+            C "A tree can be created by:"
+            BI [
+                toOutput treeFn
+                toOutput customTreeFn
+            ]
+            C "The first argument of type 'OutputPayload' is the content of the root node, and the 'TreeNode list' are the first level branches."
+            BL 
+            C "The 'TreeLayout' that can be provided consists of:"
+            BI [
+                toOutput sizingProp
+                toOutput guidesProp 
+                toOutput lookProp 
+            ]
+            BL
+            C "The 'TreeNode' instances are created similarily, using"
+            BI [
+                toOutput nodeFn
+            ]
+            BL
+            C "If you want to attach more nodes to the root or anotehr node later on, you can use one of these functions:"
+            BI [
+                toOutput attachFn
+                toOutput attachToRootFn
+            ]
         ] |> toConsole
         0
