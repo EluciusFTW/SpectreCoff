@@ -22,12 +22,15 @@ module Documentation =
         bulletItemPrefix <- "   >> "
         ()
 
-    let toOutput artifact = 
+    let private toOutputPayload artifact = 
         match artifact with
         | FunctionDefinition (Name n, FunctionSignature s) 
             -> P $"{n}: {s}"
         | PropertyDefinition (Name n, PropertyType t, DefaultValue d, Explanation e) 
             -> Many [ P $"{n}: {t}"; C $"{e} ("; P $"{d}"; C")"]
+
+    let print artifacts = 
+        artifacts |> List.map toOutputPayload |> BI
 
     let define term explanation =
         Many [ P $"{term}:"; C explanation]
