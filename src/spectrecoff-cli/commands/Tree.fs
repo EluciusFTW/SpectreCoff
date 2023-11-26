@@ -51,9 +51,9 @@ type TreeDocumentation() =
         let attachFn = FunctionDefinition (Name "attach", FunctionSignature "TreeNode list -> TreeNode -> TreeNode")
         let attachToRootFn = FunctionDefinition (Name "attachToRoot", FunctionSignature "TreeNode list -> Tree -> Tree")
 
-        let sizingProp = PropertyDefinition (Name "Sizing", PropertyType "SizingBehaviour", DefaultValue "Collapse", Explanation "The sizing of the tree nodes")
-        let guidesProp = PropertyDefinition (Name "Guides", PropertyType "GuideStyle", DefaultValue "SingleLine", Explanation "The style of the lines")
-        let lookProp = PropertyDefinition (Name "Look", PropertyType "Look", DefaultValue "calmLook", Explanation "The look of the nodes")
+        let sizingProp = ValueDefinition (Name "Sizing", PropertyType "SizingBehaviour", DefaultValue "Collapse", Explanation "The sizing of the tree nodes")
+        let guidesProp = ValueDefinition (Name "Guides", PropertyType "GuideStyle", DefaultValue "SingleLine", Explanation "The style of the lines")
+        let lookProp = ValueDefinition (Name "Look", PropertyType "Look", DefaultValue "calmLook", Explanation "The look of the nodes")
 
         setDocumentationStyle
         Many[

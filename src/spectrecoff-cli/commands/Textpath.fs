@@ -48,10 +48,10 @@ type TextpathDocumentation() =
             BL
             C "The path is rendered using four styles, which are mutable. The defaults are linked to the convenience style colors."
             artifactBullets [
-                PropertyDefinition (Name "rootLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the root of the path")
-                PropertyDefinition (Name "stemLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the stem of the path")
-                PropertyDefinition (Name "separatorLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the separator of the path")
-                PropertyDefinition (Name "leafLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the leaf of the path")
+                ValueDefinition (Name "rootLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the root of the path")
+                ValueDefinition (Name "stemLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the stem of the path")
+                ValueDefinition (Name "separatorLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the separator of the path")
+                ValueDefinition (Name "leafLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the leaf of the path")
             ]
         ] |> toConsole
         0
