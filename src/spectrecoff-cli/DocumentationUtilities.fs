@@ -22,15 +22,43 @@ module Documentation =
         bulletItemPrefix <- "   >> "
         ()
 
-    let private toOutputPayload artifact = 
+    let private toPayload artifact = 
         match artifact with
         | FunctionDefinition (Name n, FunctionSignature s) 
             -> P $"{n}: {s}"
         | PropertyDefinition (Name n, PropertyType t, DefaultValue d, Explanation e) 
-            -> Many [ P $"{n}: {t}"; C $"{e} ("; P $"{d}"; C")"]
+            -> 
+            match e.Length with
+            | 0 -> Many [ P $"{n}: {t}"; C $"(default:"; P $"{d}"; C")"]
+            | _ -> Many [ P $"{n}: {t}"; C $" - {e} (default:"; P $"{d}"; C")"]
 
-    let print artifacts = 
-        artifacts |> List.map toOutputPayload |> BI
+    let artifactBullets artifacts = 
+        artifacts |> List.map toPayload |> BI
+
+    let private leftAlignedColumn header = 
+        column (C header) |> withLayout { defaultColumnLayout with Alignment = Left }
+
+    let artifactTable (artifacts: DocumentationArtifact list) = 
+        let columns = 
+            match artifacts[0] with
+            | FunctionDefinition _ -> 
+                [ leftAlignedColumn "Name"
+                  leftAlignedColumn "Signature" ]
+            | PropertyDefinition _ -> 
+                [ leftAlignedColumn "Name"
+                  leftAlignedColumn "Type"
+                  leftAlignedColumn "Default Value"
+                  leftAlignedColumn "Explanation" ]
+
+        artifacts 
+        |> List.map (fun articaft -> 
+            match articaft with
+            | FunctionDefinition (Name n, FunctionSignature s) 
+                -> Payloads [P n; P s]
+            | PropertyDefinition (Name n, PropertyType t, DefaultValue d, Explanation e) 
+                -> Payloads [P n; P t; C d; C e])
+        |> customTable { defaultTableLayout with Sizing = Collapse } columns 
+        |> toOutputPayload
 
     let define term explanation =
         Many [ P $"{term}:"; C explanation]
@@ -47,6 +75,7 @@ module Documentation =
             C"   => "; Link $"https://spectreconsole.net/{relativeLink}" 
             BL
             emptyRule
+            BL
         ]
 
     let docMissing = 
