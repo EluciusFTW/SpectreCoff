@@ -39,22 +39,19 @@ type TextpathDocumentation() =
         setDocumentationStyle
         Many [
             docSynopsis "Textpath module" "This module provides functionality from the text path widget of Spectre.Console" "widgets/text-path"
-            BL
             C "The text path can be used by the path function:"
-            BI [P "path: (value: string) -> OutputPayload"]
+            artifactBullets [ FunctionDefinition (Name "path", FunctionSignature "string -> OutputPayload") ]
             BL
             C "This path will use the"; P "Textpath.defaultAlignment,"; C "which is set to"; P "Left"; C "but can be modified."
             C "Other alignments can be used without changing the default by passing in the alignment as an argument to: "
-            BI [
-                P "alignedPath: Alignment -> string -> OutputPayload"
-            ]
+            artifactBullets [ FunctionDefinition (Name "alignedPath", FunctionSignature "Alignment -> string -> OutputPayload") ]
             BL
-            C "The path is rendered using four styles, which are mutable. The defaults are linked to the convenience style colors:"
-            BI [
-                define "rootColor" "(default: calmColor)"
-                define "stemColor" "(default: calmColor)"
-                define "separatorColor" "(default: pumperColor)"
-                define "leafColor" "(default: edgyColor)"
+            C "The path is rendered using four styles, which are mutable. The defaults are linked to the convenience style colors."
+            artifactBullets [
+                PropertyDefinition (Name "rootLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the root of the path")
+                PropertyDefinition (Name "stemLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the stem of the path")
+                PropertyDefinition (Name "separatorLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the separator of the path")
+                PropertyDefinition (Name "leafLook", PropertyType "Look", DefaultValue "calmColor", Explanation "The style of the leaf of the path")
             ]
         ] |> toConsole
         0
