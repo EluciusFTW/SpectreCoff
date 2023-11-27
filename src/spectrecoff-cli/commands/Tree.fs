@@ -44,31 +44,58 @@ type TreeDocumentation() =
     interface ICommandLimiter<TreeSettings>
 
     override _.Execute(_context, _) =
+        let treeFn = 
+            { Name = "tree"
+              Signature = "OutputPayload -> TreeNode list -> Tree" }
 
-        let treeFn = FunctionDefinition (Name "tree", FunctionSignature "OutputPayload -> TreeNode list -> Tree")
-        let customTreeFn = FunctionDefinition (Name "customTree", FunctionSignature "TreeLayout -> OutputPayload -> TreeNode list -> Tree")
-        let nodeFn = FunctionDefinition (Name "node", FunctionSignature "OutputPayload -> TreeNode list -> TreeNode")
-        let attachFn = FunctionDefinition (Name "attach", FunctionSignature "TreeNode list -> TreeNode -> TreeNode")
-        let attachToRootFn = FunctionDefinition (Name "attachToRoot", FunctionSignature "TreeNode list -> Tree -> Tree")
+        let customTreeFn = 
+            { Name = "customTree"
+              Signature = "TreeLayout -> OutputPayload -> TreeNode list -> Tree" }
 
-        let sizingProp = ValueDefinition (Name "Sizing", PropertyType "SizingBehaviour", DefaultValue "Collapse", Explanation "The sizing of the tree nodes")
-        let guidesProp = ValueDefinition (Name "Guides", PropertyType "GuideStyle", DefaultValue "SingleLine", Explanation "The style of the lines")
-        let lookProp = ValueDefinition (Name "Look", PropertyType "Look", DefaultValue "calmLook", Explanation "The look of the nodes")
+        let nodeFn = 
+            { Name = "node"
+              Signature = "OutputPayload -> TreeNode list -> TreeNode" }
+
+        let attachFn = 
+            { Name = "attach" 
+              Signature = "TreeNode list -> TreeNode -> TreeNode" }
+
+        let attachToRootFn = 
+            { Name = "attachToRoot"
+              Signature = "TreeNode list -> Tree -> Tree" }
+
+        let sizingProp: ValueDef = 
+            { Name = "Sizing"
+              Type = "SizingBehaviour"
+              DefaultValue = "Collapse"
+              Explanation = "The sizing of the tree nodes" }
+
+        let guidesProp = 
+            { Name = "Guides"
+              Type = "GuideStyle"
+              DefaultValue = "SingleLine"
+              Explanation = "The style of the lines" }
+
+        let lookProp = 
+            { Name = "Look"
+              Type = "Look"
+              DefaultValue = "calmLook"
+              Explanation = "The look of the nodes" }
 
         setDocumentationStyle
         Many[
             docSynopsis "Tree module" "This module provides functionality from the tree widget of Spectre.Console" "widgets/tree"
             C "A tree can be created by:"
-            artifactBullets [treeFn; customTreeFn]
+            funcsOutput [treeFn; customTreeFn]
             C "The first argument of type 'OutputPayload' is the content of the root node, and the 'TreeNode list' are the first level branches."
             BL 
             C "The 'TreeLayout' that can be provided consists of:"
-            artifactTable [sizingProp; guidesProp; lookProp]
+            valuesOutput [sizingProp; guidesProp; lookProp]
             BL
             C "The 'TreeNode' instances are created similarily, using"
-            artifactBullets [nodeFn]
+            funcsOutput [nodeFn]
             BL
             C "If you want to attach more nodes to the root or anotehr node later on, you can use one of these functions:"
-            artifactBullets [attachFn; attachToRootFn]
+            funcsOutput [attachFn; attachToRootFn]
         ] |> toConsole
         0
