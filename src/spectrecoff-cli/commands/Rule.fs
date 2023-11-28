@@ -36,7 +36,6 @@ type RuleDocumentation() =
         setDocumentationStyle
         Many [
             docSynopsis "Rule module" "This module provides functionality from the rule widget of Spectre.Console" "widgets/rule"
-            BL
             C "Rules can be created using one of these functions:"
             funcsOutput [
                 { Name = "rule"; Signature = "string -> OutputPayload" }
