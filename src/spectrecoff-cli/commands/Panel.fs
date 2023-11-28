@@ -48,27 +48,27 @@ type PanelDocumentation() =
         setDocumentationStyle
         Many [
             docSynopsis "Panel module" "This module provides functionality from the panel widget of Spectre.Console" "widgets/panel"
+            C "Panels can be created using one of these functions:"
+            funcsOutput [
+                { Name = "panel"; Signature = "(header: string) -> (content: OutputPayload) -> OutputPayload" }
+                { Name = "customPanel"; Signature = "PanelLayout -> string -> OutputPayload -> OutputPayload" }
+            ]
             BL
-            C "The panel can be used by the panel function:"
-            BI [P "panel: (header: string) -> (content: OutputPayload) -> OutputPayload"]
-            BL
-            C "While the content can be an arbitrary payload"
-            C "the header needs to be a string."
+            C "While the content can be an arbitrary payload the header needs to be a string."
             C "Spectre still will render markup here, though, so all"
             P "stringifyable payloads"
             C "can be used here when mapped to string using the extension"
             P "payload.toMarkedUpString."
             BL
-            C "This panel will use the"; P "Panel.defaultPanelLayout,"; C "which has the values:"
-            BI [
-                P "Border: BorderBox.Rounded"
-                P "BorderColor: edgyColor"
-                P "Sizing: Collapse"
-                P "Padding: AllEqual 2"
+            C "This panel will use the"; P "Panel.defaultPanelLayout,"; C "which has the properties:"
+            valuesOutput [
+                { Name = "Border"; Type = "BoxBorder"; DefaultValue = "BorderBox.Rounded"; Explanation = "The style of the border" }
+                { Name = "BorderColor"; Type = "Color Option"; DefaultValue = "edgyColor"; Explanation = "The (optional) color of the border" }
+                { Name = "Sizing"; Type = "SizingBehaviour"; DefaultValue = "Collapse"; Explanation = "Determines the space the panel takes up" }
+                { Name = "Padding"; Type = "Padding"; DefaultValue = "AllEqual 2"; Explanation = "The padding around the content of the panel" }
             ]
             BL
-            C "In order to produce a panel with other layout, the default values can be modified. This changes the layout for all subsequent panels"
-            C "If the alternative layout shall only be applied to an individual panel, it can be passed to this function:"
-            BI [P "customPanel: PanelLayout -> string -> OutputPayload -> OutputPayload"]
+            C "As always, the defaults can be modified, and this changes the layout for all subsequent panels." 
+            C "For a one-off change, an instance of PanelLayout can be passed to the customPanle function as well."
         ] |> toConsole
         0

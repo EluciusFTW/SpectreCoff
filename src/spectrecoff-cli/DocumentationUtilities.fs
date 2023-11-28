@@ -29,36 +29,36 @@ module Documentation =
     let private leftAlignedColumn header = 
         column (C header) |> withLayout { defaultColumnLayout with Alignment = Left }
 
-    let propsOutput (ps: PropDef list) =
+    let propsOutput (definitions: PropDef list) =
         let columns = 
             [ leftAlignedColumn "Name"
               leftAlignedColumn "Type"
               leftAlignedColumn "Explanation" ]
 
-        ps
-        |> List.map (fun d ->  Payloads [P d.Name; C d.Type; C d.Explanation])
+        definitions
+        |> List.map (fun definition ->  Payloads [P definition.Name; C definition.Type; C definition.Explanation])
         |> customTable { defaultTableLayout with Sizing = Collapse } columns
         |> toOutputPayload
     
-    let funcsOutput (fs: FuncDef list) =
+    let funcsOutput (definitions: FuncDef list) =
         let columns = 
             [ leftAlignedColumn "Name"
               leftAlignedColumn "Signature" ]
               
-        fs
-        |> List.map (fun f ->  Payloads [P f.Name; C f.Signature])
+        definitions
+        |> List.map (fun definition ->  Payloads [P definition.Name; C definition.Signature])
         |> customTable { defaultTableLayout with Sizing = Collapse } columns
         |> toOutputPayload
 
-    let valuesOutput (vs: ValueDef list) =
+    let valuesOutput (definitions: ValueDef list) =
         let columns = 
             [ leftAlignedColumn "Name"
               leftAlignedColumn "Type"
               leftAlignedColumn "Default Value"
               leftAlignedColumn "Explanation" ]
               
-        vs
-        |> List.map (fun v ->  Payloads [P v.Name; C v.Type; C v.DefaultValue; C v.Explanation])
+        definitions
+        |> List.map (fun definition ->  Payloads [P definition.Name; C definition.Type; C definition.DefaultValue; C definition.Explanation])
         |> customTable { defaultTableLayout with Sizing = Collapse } columns
         |> toOutputPayload
     
