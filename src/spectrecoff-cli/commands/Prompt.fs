@@ -57,28 +57,27 @@ type PromptDocumentation() =
             spectreDocSynopsis "Prompt module" "This module provides functionality from the prompts of Spectre.Console" "prompts"
             BL
             C "For prompting an answer from the user, the following functions can be used:"
-            BI [
-                P "ask<'T> = (question: string) -> 'T"
-                P "askWith<'T> = (options: PromptOptions) (question: string) -> 'T"
-                P "askSuggesting<'T> = (answer: 'T) (question: string) -> 'T"
-                P "askWithSuggesting<'T> = (options: PromptOptions) (answer: 'T) (question: string) -> 'T"
-            ]
-            C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"
-            BI [
-               define "Secret" "describes whether the characters are shown (default: false)"
-               define "Optional" "describes whether empty is a valid input (default: false)"
+            funcsOutput [
+                { Name = "ask<'T>"; Signature = "(question: string) -> 'T" }
+                { Name = "askWith<'T>"; Signature = "(options: PromptOptions) -> (question: string) -> 'T" }
+                { Name = "askSuggesting<'T>"; Signature = "(answer: 'T) -> (question: string) -> 'T" }
+                { Name = "askWithSuggesting<'T>"; Signature = "(options: PromptOptions) -> (answer: 'T) -> (question: string) -> 'T" }
             ]
             BL
-            emptyRule
+            C "Here,"; P "PromptOptions"; C "is a record with two properties:"
+            valuesOutput [
+                { Name = "Secret"; Type = "Boolean"; DefaultValue = "false"; Explanation = "determines whether the characters are shown"}
+                { Name = "Optional"; Type = "Boolean"; DefaultValue = "false"; Explanation = "determines whether empty is a valid input"}
+            ]
+            BL
             C "If the set of choices is finite, one of the following can be used:"
-            BI [
-                define "chooseFrom = (choices: string list) (question: string) -> string" "a simple single selection prompt"
-                define "chooseMultipleFrom = (choices: string list) (question: string) -> string list" "a multi selection prompt"
-                define "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list" "a multi selection prompt with  configurable number of visible entries per page (default: 10)"
+            funcsOutput [
+                { Name = "chooseFrom"; Signature = "(choices: string list) -> (question: string) -> string" }
+                { Name = "chooseMultipleFrom"; Signature = "(choices: string list) -> (question: string) -> string list" }
+                { Name = "chooseMultipleFromWith"; Signature = "(options: MultiSelectionPromptOptions) -> (choices: string list) -> (question: string) -> string list" }
             ]
             BL
-            emptyRule
             C "And finally, this function is suitable for a yes/no question:"
-            BI [ P "confirm = (question: string) -> bool" ]
+            funcsOutput [{ Name = "confirm"; Signature = "(question: string) -> bool" }]
         ] |> toConsole
         0
