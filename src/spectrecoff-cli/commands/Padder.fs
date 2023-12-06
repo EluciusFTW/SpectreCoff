@@ -43,21 +43,18 @@ type PadderDocumentation() =
         Many [
             spectreDocSynopsis "Padder module" "This module provides functionality from the padder widget of Spectre.Console" "widgets/padder"
             BL
-            C "Using functions from this module, any OutputPayload can be padded. The main function works similar to the one of CSS, namely it takes four padding arguments of type int as well as the element."
+            C "Using functions from this module, any OutputPayload can be padded"
             BL
-            BI [P "pad: top right bottom left (element: OutputPayload) -> OutputPayload"]
-            BL
-            C "If one does not want to set all four values differently, there are a few helpful functions that are easier to use:"
-            BL
-            BI [
-                P "padTop: (top: int) (element: OutputPayload) -> OutputPayload"
-                P "padRight: (right: int) (element: OutputPayload) -> OutputPayload"
-                P "padBottom: (bottom: int) (element: OutputPayload) -> OutputPayload"
-                P "padLeft: (left: int) (element: OutputPayload) -> OutputPayload"
-                P "padHorizontal: (leftRight: int) (element: OutputPayload) -> OutputPayload"
-                P "padVertical: (topBottom: int) (element: OutputPayload) -> OutputPayload"
-                P "padSymmetric: (leftRight: int) (topBottom: int) (element: OutputPayload) -> OutputPayload"
-                P "padAll: (amount: int) (element: OutputPayload) -> OutputPayload"
+            funcsOutput [
+                { Name = "pad"; Signature = "(top: int) -> (right: int) -> (bottom: int) -> (left: int) -> OutputPayload -> OutputPayload" }
+                { Name = "padTop"; Signature = "int -> OutputPayload -> OutputPayload" }
+                { Name = "padRight"; Signature = "int -> OutputPayload -> OutputPayload" }
+                { Name = "padBottom"; Signature = "int -> OutputPayload -> OutputPayload" }
+                { Name = "padLeft"; Signature = "int -> OutputPayload -> OutputPayload" }
+                { Name = "padHorizontal"; Signature = "int -> OutputPayload -> OutputPayload" }
+                { Name = "padVertical"; Signature = "int -> OutputPayload -> OutputPayload" }
+                { Name = "padSymmetric"; Signature = "(leftRight: int) -> (topBottom: int) -> OutputPayload -> OutputPayload" }
+                { Name = "padAll"; Signature = "int -> OutputPayload -> OutputPayload" }
             ]
             BL
             C "Note that all padding functions return the element and can hence be piped. So the following produce the same result:"
