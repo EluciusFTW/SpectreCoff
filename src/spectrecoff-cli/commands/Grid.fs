@@ -49,18 +49,18 @@ type GridDocumentation() =
             spectreDocSynopsis "Grid module" "This module provides functionality from the grid widget of Spectre.Console" "widgets/grid"
             BL
             C "The grid can be used by the grid function:"
-            BI [
-                P "grid: Row list -> Grid"
+            funcsOutput [
+                { Name = "grid"; Signature = "Row list -> Grid" }
             ]
             BL
             C "Each row is a DU consisting in one of the following union types:"
-            BI [
-                Many [P "Payloads"; C "of"; P "OutputPayload list"]
-                Many [P "Strings"; C "of"; P "string list"]
-                Many [P "Numbers"; C "of"; P "int list"]
+            propsOutput [
+                { Name = "Payloads"; Type = "OutputPayload list"; Explanation = "For arbitrary output payloads" }
+                { Name = "Strings"; Type = "string list"; Explanation = "Convenience method for when all cell values are strings" }
+                { Name = "Numbers"; Type = "int list"; Explanation = "Convenience method for when all cell values are integers" }
             ]
             BL
-            C "The toOutputPayload() extension method on the"; P "Grid"; C "can be used to create a corresponding OutputPayload."
+            C "The"; P "toOutputPayload()"; C "extension method on the grid can be used to create a corresponding OutputPayload."
             C "Pipe it into toConsole to easily write the grid to the console:"
             BI [
                 P "grid.toOutputPayload |> toConsole"
