@@ -14,7 +14,7 @@ type JsonExample() =
 
         Many [
             Many [
-                Emoji ":backhand_index_pointing_right:"
+                Emoji "backhand_index_pointing_right"
                 P "This example is taken directly from Spectre.Console"
                 Emoji "astonished_face"
             ]
@@ -57,29 +57,21 @@ type JsonDocumentation() =
             spectreDocSynopsis "Json module" "This module provides functionality from the json widget of Spectre.Console" "widgets/Json"
             BL
             C "Json can be rendered using the the json function:"
-            BI [P "json: (content: string) -> OutputPayload"]
-            BL
-            C "The output can be styled by mutation the value of the following variables (the default value is given in braces):"
-            BI [
-                Many [ P "bracesColor"; C "(calmColor)" ]
-                Many [ P "bracesDecorations"; C "([ Decoration.None ])" ]
-                Many [ P "bracketsColor"; C "(calmColor)" ]
-                Many [ P "bracketsDecorations"; C "([ Decoration.None ])" ]
-                Many [ P "colonColor"; C "(calmColor)" ]
-                Many [ P "colonDecorations"; C "([ Decoration.None ])" ]
-                Many [ P "commaColor"; C "(calmColor)" ]
-                Many [ P "commaDecorations"; C "([ Decoration.None ])" ]
-                Many [ P "memberColor"; C "(pumpedColor)" ]
-                Many [ P "memberDecorations"; C "([ Decoration.Italic ])" ]
-                Many [ P "stringColor"; C "(edgyColor)" ]
-                Many [ P "stringDecorations"; C "([ Decoration.Bold ])" ]
-                Many [ P "numberColor"; C "(edgyColor)" ]
-                Many [ P "numberDecorations"; C "([ Decoration.Bold ])" ]
-                Many [ P "booleanColor"; C "(calmColor)" ]
-                Many [ P "booleanDecorations"; C "([ Decoration.Bold ])" ]
-                Many [ P "nullColor"; C "(calmColor)" ]
-                Many [ P "nullDecorations"; C "([ Decoration.Dim; Decoration.Strikethrough ])" ]
+            funcsOutput [
+                { Name = "json"; Signature = "(content: string) -> OutputPayload" }
             ]
             BL
+            C "The output can be styled by mutation the value of the following variables:"
+            valuesOutput [
+                { Name = "bracesLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
+                { Name = "bracketsLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
+                { Name = "colonLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
+                { Name = "commaLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
+                { Name = "memberLook"; Type = "Look"; DefaultValue = "Color: pumpedColor, Decorations: Italic"; Explanation = "" }
+                { Name = "stringLook"; Type = "Look"; DefaultValue = "Color: edgyColor, Decorations: Bold"; Explanation = "" }
+                { Name = "numberLook"; Type = "Look"; DefaultValue = "Color: edgyColor, Decorations: Bold"; Explanation = "" }
+                { Name = "booleanLook"; Type = "Look"; DefaultValue = "Color: calmColor, Decorations: Bold"; Explanation = "" }
+                { Name = "nullLook"; Type = "Look"; DefaultValue = "Color: calmColor, Decorations: Dim"; Explanation = "" }
+            ]
         ] |> toConsole
         0
