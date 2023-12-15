@@ -1,5 +1,5 @@
 # SpectreCoff
-_Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console).
+_Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console) and [Dumpify](https://github.com/MoaidHathot/Dumpify) to make F# development for the console more productive.
 
 Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/EluciusFTW.SpectreCoff/).
 
@@ -7,7 +7,7 @@ Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/Eluc
 - [Goals and Philosophy](#goals-and-philosophy)
 - [SpectreCoff Package](#spectrecoff-package)
   * [Output and Markup](#output-and-markup)
-  * [Modules](#modules)
+  * [Payloads](#Payloads)
   * [Deviations from Spectre.Console](#deviations-from-spectre)
   * [Versioning](#versioning)
 - [SpectreCoff Cli](#spectrecoff-cli)
@@ -55,6 +55,10 @@ Before we get into the details, we'd like to outline our goals and our guiding p
     dotnet run figlet doc            // prints the documentation of the figlet module
     dotnet run figlet example        // shows examples of the module in action
     ```
+   
+1. **Bonus: Do the same for Dumpify**
+
+   Along the way we also added a separate module wrapping the functionality of Dumpify following the same principles. While the main focus remains with Spectre.Console (hence the name of the package), we do think Dumpify's capabilities are useful and related enough to just slap it on top of our package.
 
 ## SpectreCoff Package
 SpectreCoff is organized in modules which mirror the features of Spectre.Console. 
@@ -77,23 +81,23 @@ MarkupCS (Color.Red, Bold, "Hello [World]") |> toConsole
 #### Payloads
 The following table lists all payloads currently available:
 
-| Type           | Alias | Description                                    | Parameters                                    | Configurbility |
-| -------------- | ----- |------------------------------------------------| --------------------------------------------- | -------------- |
-| `MarkupD`      | `MD`  | Content marked up with decorations             | decorations: `Spectre.Console.Decoration list`<br /> content: `string` | - 
-| `MarkupC`      | `MC`  | Content marked up with a color                 | color: `Spectre.Console.Color`<br /> content: `string`                 | - 
-| `MarkupCD`     | `MCD` | Content marked up with a color and decorations | decorations: `Spectre.Console.Decoration list`<br /> color: `Spectre.Console.Color`<br /> content: `string` | - 
-| `Calm`         | `C`   | Convenience style for calm output              | content: `string`                             | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations` 
-| `Pumped`       | `P`   | Convenience style pumped output                | content: `string`                             | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` 
-| `Edgy`         | `E`   | Convenience style for edgy output              | content: `string`                             | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations` 
-| `Vanilla`      | `V`   | Raw type, no processing will be done           | content: `string`                             | - 
-| `NextLine`     | `NL`  | Ends the current line                          | - | -
-| `BlankLine`    | `BL`  | Ends the current line and adds an empty line   | - | -
-| `Link`         | -     | Clickable link showing the URL                 | content: `string`                             | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
-| `LinkWithLabel`| -     | Clickable link showing a label                 | label: `string` <br /> link: `string`         | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations` 
-| `Emoji`        | -     | An emoji, given by it's string literal         | emoji: `string` | -
-| `BulletItems`  | `BI`  | Show list of items with bullet points          | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems` | bullet item prefix: `Output.bulletItemPrefix`
-| `Many`         | -     | Prints many payloads at once on the same line  | items: list of `OutputPayload` | -
-| `Renderable`   | -     | Wraps a Spectre.Rendering.IRenderable          | content: `Spectre.Rendering.IRenderable` | -
+| Type            | Alias | Description                                    | Parameters                                                                                                  | Configurbility                                                                       |
+|-----------------|-------|------------------------------------------------|-------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| `MarkupD`       | `MD`  | Content marked up with decorations             | decorations: `Spectre.Console.Decoration list`<br /> content: `string`                                      | -                                                                                    |
+| `MarkupC`       | `MC`  | Content marked up with a color                 | color: `Spectre.Console.Color`<br /> content: `string`                                                      | -                                                                                    |
+| `MarkupCD`      | `MCD` | Content marked up with a color and decorations | decorations: `Spectre.Console.Decoration list`<br /> color: `Spectre.Console.Color`<br /> content: `string` | -                                                                                    |
+| `Calm`          | `C`   | Convenience style for calm output              | content: `string`                                                                                           | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations`     |
+| `Pumped`        | `P`   | Convenience style pumped output                | content: `string`                                                                                           | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` |
+| `Edgy`          | `E`   | Convenience style for edgy output              | content: `string`                                                                                           | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations`     |
+| `Vanilla`       | `V`   | Raw type, no processing will be done           | content: `string`                                                                                           | -                                                                                    |
+| `NextLine`      | `NL`  | Ends the current line                          | -                                                                                                           | -                                                                                    |
+| `BlankLine`     | `BL`  | Ends the current line and adds an empty line   | -                                                                                                           | -                                                                                    |
+| `Link`          | -     | Clickable link showing the URL                 | content: `string`                                                                                           | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations`     |
+| `LinkWithLabel` | -     | Clickable link showing a label                 | label: `string` <br /> link: `string`                                                                       | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations`     |
+| `Emoji`         | -     | An emoji, given by it's string literal         | emoji: `string`                                                                                             | -                                                                                    |
+| `BulletItems`   | `BI`  | Show list of items with bullet points          | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems`                             | bullet item prefix: `Output.bulletItemPrefix`                                        |
+| `Many`          | -     | Prints many payloads at once on the same line  | items: list of `OutputPayload`                                                                              | -                                                                                    |
+| `Renderable`    | -     | Wraps a Spectre.Rendering.IRenderable          | content: `Spectre.Rendering.IRenderable`                                                                    | -                                                                                    |
 
 #### Convenience Styles
 The table above lists three convenience styles: `Calm`, `Pumped` and `Edgy`. With these, we can easily provide a consistent, and semantically meaningful, styling across the modules:
@@ -169,6 +173,7 @@ The currently supported commands are:
 | canvas      | ✅       | ❌   |
 | layout      | ✅       | ❌   |
 | progress    | ✅       | ❌   |
+| dumpify     | ✅       | ✅   |
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):

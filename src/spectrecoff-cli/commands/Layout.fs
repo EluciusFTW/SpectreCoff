@@ -55,7 +55,7 @@ type LayoutDocumentation() =
     override _.Execute(_context, _) =
         setDocumentationStyle
         Many [
-            docSynopsis "Layout module" "This module provides functionality from the layout widget of Spectre.Console" "widgets/layout"
+            spectreDocSynopsis "Layout module" "This module provides functionality from the layout widget of Spectre.Console" "widgets/layout"
             docMissing
         ] |> toConsole
         0

@@ -38,7 +38,7 @@ type TextpathDocumentation() =
     override _.Execute(_context, _) =
         setDocumentationStyle
         Many [
-            docSynopsis "Textpath module" "This module provides functionality from the text path widget of Spectre.Console" "widgets/text-path"
+            spectreDocSynopsis "Textpath module" "This module provides functionality from the text path widget of Spectre.Console" "widgets/text-path"
             C "The text path can be used by the path function:"
             funcsOutput [{ Name = "path"; Signature = "string -> OutputPayload" }]
             BL

@@ -30,6 +30,7 @@ let iceBergTheme =
         { Color = Some Color.DarkTurquoise
           BackgroundColor = None
           Decorations = [ Decoration.Bold ] } }
+
 let volcanoTheme =
     { calmLook =
         { Color = Some Color.DarkRed_1

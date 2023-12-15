@@ -33,11 +33,11 @@ type CalendarExample() =
         let settings =
           { defaultCalendarSettings with
               Culture = Some (Culture "de-DE")
-              HeaderLook = 
+              HeaderLook =
                 { Color = edgyLook.Color
                   BackgroundColor = Some Color.Purple
                   Decorations = [ Decoration.Italic ] }
-              HighlightLook = 
+              HighlightLook =
                 { Color = Some Color.Yellow
                   BackgroundColor = Some Color.Purple
                   Decorations = [ Decoration.Invert ] } }
@@ -57,7 +57,7 @@ type CalendarDocumentation() =
     override _.Execute(_context, _) =
         setDocumentationStyle
         Many [
-          docSynopsis "Calendar module" "This module provides functionality from the calendar widget of Spectre.Console" "widgets/calendar"
+          spectreDocSynopsis "Calendar module" "This module provides functionality from the calendar widget of Spectre.Console" "widgets/calendar"
           BL
           C "The calendar can be created by providing the year and month to display:"
           BI [
@@ -76,10 +76,10 @@ type CalendarDocumentation() =
           C "Observe, that the functions return 'Calendar', not 'OutputPayload'."
           C "To print the calendar at a given time, one can map it to an 'OutputPayload' using the following function"
           C "(also available as an extension method on 'Calendar'):"
-          BI [ 
-            P "toOutputPayload: Table -> OutputPayload" 
+          BI [
+            P "toOutputPayload: Table -> OutputPayload"
           ]
-          
+
           BL
           C "An"; P "Event"; C "(a single-case DU taking a Year, Month and Day) can be added to the calendar using"
           BI [

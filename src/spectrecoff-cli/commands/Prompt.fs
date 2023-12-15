@@ -54,7 +54,7 @@ type PromptDocumentation() =
     override _.Execute(_context, _) =
         setDocumentationStyle
         Many [
-            docSynopsis "Prompt module" "This module provides functionality from the prompts of Spectre.Console" "prompts"
+            spectreDocSynopsis "Prompt module" "This module provides functionality from the prompts of Spectre.Console" "prompts"
             BL
             C "For prompting an answer from the user, the following functions can be used:"
             BI [

@@ -46,7 +46,7 @@ type StatusDocumentation() =
     override _.Execute(_context, _settings) =
         setDocumentationStyle
         Many [
-            docSynopsis "Status module" "This module provides functionality from the status widget of Spectre.Console" "widgets/status"
+            spectreDocSynopsis "Status module" "This module provides functionality from the status widget of Spectre.Console" "widgets/status"
             docMissing
         ] |> toConsole
         0

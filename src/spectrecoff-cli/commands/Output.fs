@@ -109,7 +109,7 @@ type OutputDocumentation() =
     override _.Execute(_context, _) =
         setDocumentationStyle
         Many [
-            docSynopsis "General Output" "This module contains all functions needed for output, including marking up and structuring text." "markup"
+            spectreDocSynopsis "General Output" "This module contains all functions needed for output, including marking up and structuring text." "markup"
             docMissing
         ] |> toConsole
         0
