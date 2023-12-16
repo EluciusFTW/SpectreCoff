@@ -7,7 +7,7 @@ Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/Eluc
 - [Goals and Philosophy](#goals-and-philosophy)
 - [SpectreCoff Package](#spectrecoff-package)
   * [Output and Markup](#output-and-markup)
-  * [Payloads](#Payloads)
+  * [Payloads](#payloads)
   * [Deviations from Spectre.Console](#deviations-from-spectre)
   * [Versioning](#versioning)
 - [SpectreCoff Cli](#spectrecoff-cli)
@@ -58,7 +58,7 @@ Before we get into the details, we'd like to outline our goals and our guiding p
    
 1. **Bonus: Do the same for Dumpify**
 
-   Along the way we also added a separate module wrapping the functionality of Dumpify following the same principles. While the main focus remains with Spectre.Console (hence the name of the package), we do think Dumpify's capabilities are useful and related enough to just slap it on top of our package.
+   Along the way we also added a separate module wrapping the functionality of Dumpify following the same principles. While the main focus remains with Spectre.Console (hence the name of the package), we do think Dumpify's capabilities are useful and related (it uses Spectre.Console internally, after all) enough to just slap it on top of our package.
 
 ## SpectreCoff Package
 SpectreCoff is organized in modules which mirror the features of Spectre.Console. 

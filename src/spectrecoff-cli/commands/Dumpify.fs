@@ -14,8 +14,7 @@ type DumpifyExample() =
 
     override _.Execute(_context, _settings) =
         // use the dump function to print all kinds of objects
-        let list = [|1;2;3|]
-        dump list |> ignore
+        [|1;2;3|] |> dump |> ignore
         {| Diameter = 5.5; Area = 3.3; Circumference = 2.2 |} |> dump |> ignore
 
         // use the customDump function to fine-tune the parameters for your dumping
