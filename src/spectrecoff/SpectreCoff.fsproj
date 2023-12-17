@@ -17,31 +17,30 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="../../README.md" Pack="true" PackagePath="" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Dumpify\Dumpify.fs" />
     <Compile Include="Styling.fs" />
     <Compile Include="Output.fs" />
-    <Compile Include="Panel.fs" />
-    <Compile Include="Prompt.fs" />
-    <Compile Include="Table.fs" />
-    <Compile Include="Rule.fs" />
-    <Compile Include="Chart.fs" />
-    <Compile Include="Figlet.fs" />
-    <Compile Include="Tree.fs" />
-    <Compile Include="Calendar.fs" />
-    <Compile Include="Padder.fs" />
-    <Compile Include="Textpath.fs" />
-    <Compile Include="CanvasImage.fs" />
-    <Compile Include="Canvas.fs" />
-    <Compile Include="Json.fs" />
-    <Compile Include="Status.fs" />
-    <Compile Include="Progress.fs" />
-    <Compile Include="LiveDisplay.fs" />
-    <Compile Include="Layout.fs" />
     <Compile Include="Theming.fs" />
+    <Compile Include="Spectre\Calendar.fs" />
+    <Compile Include="Spectre\Canvas.fs" />
+    <Compile Include="Spectre\CanvasImage.fs" />
+    <Compile Include="Spectre\Chart.fs" />
+    <Compile Include="Spectre\Figlet.fs" />
+    <Compile Include="Spectre\Json.fs" />
+    <Compile Include="Spectre\Layout.fs" />
+    <Compile Include="Spectre\LiveDisplay.fs" />
+    <Compile Include="Spectre\Padder.fs" />
+    <Compile Include="Spectre\Panel.fs" />
+    <Compile Include="Spectre\Progress.fs" />
+    <Compile Include="Spectre\Prompt.fs" />
+    <Compile Include="Spectre\Rule.fs" />
+    <Compile Include="Spectre\Status.fs" />
+    <Compile Include="Spectre\Table.fs" />
+    <Compile Include="Spectre\Textpath.fs" />
+    <Compile Include="Spectre\Tree.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dumpify" Version="0.6.0" />
     <PackageReference Include="Nerdbank.Gitversioning" Version="3.5.119">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -50,5 +49,12 @@
     <PackageReference Include="Spectre.Console.ImageSharp" Version="0.48.0" />
     <PackageReference Include="Spectre.Console.Json" Version="0.48.0" />
     <PackageReference Update="FSharp.Core" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>true</Pack>
+      <PackagePath></PackagePath>
+      <Link>README.md</Link>
+    </None>
   </ItemGroup>
 </Project>

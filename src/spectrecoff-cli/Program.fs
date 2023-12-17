@@ -305,6 +305,21 @@ let main argv =
                     |> ignore
             ) |> ignore
 
+        config
+            .AddBranch("dumpify", fun(branchConfig: IConfigurator<DumpifySettings>) ->
+                branchConfig
+                    .AddCommand<DumpifyExample>("example")
+                    .WithAlias("e")
+                    .WithDescription("Shows examples of the dumpify module.")
+                    |> ignore
+
+                branchConfig
+                    .AddCommand<DumpifyDocumentation>("doc")
+                    .WithAlias("d")
+                    .WithDescription("Shows the documentation for the dumpify module.")
+                    |> ignore
+            ) |> ignore
+
         config.AddBranch("theme", fun(add: IConfigurator<ThemeSettings>) ->
             add.AddCommand<ThemeExample>("example")
                 .WithDescription("Shows example output for the given theme")

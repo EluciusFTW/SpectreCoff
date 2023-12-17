@@ -54,7 +54,7 @@ type JsonDocumentation() =
     override _.Execute(_context, _settings) =
         setDocumentationStyle
         Many [
-            docSynopsis "Json module" "This module provides functionality from the json widget of Spectre.Console" "widgets/Json"
+            spectreDocSynopsis "Json module" "This module provides functionality from the json widget of Spectre.Console" "widgets/Json"
             BL
             C "Json can be rendered using the the json function:"
             BI [P "json: (content: string) -> OutputPayload"]

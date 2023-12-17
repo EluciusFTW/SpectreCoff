@@ -47,7 +47,7 @@ type PanelDocumentation() =
     override _.Execute(_context, _) =
         setDocumentationStyle
         Many [
-            docSynopsis "Panel module" "This module provides functionality from the panel widget of Spectre.Console" "widgets/panel"
+            spectreDocSynopsis "Panel module" "This module provides functionality from the panel widget of Spectre.Console" "widgets/panel"
             C "Panels can be created using one of these functions:"
             funcsOutput [
                 { Name = "panel"; Signature = "(header: string) -> (content: OutputPayload) -> OutputPayload" }
@@ -68,7 +68,7 @@ type PanelDocumentation() =
                 { Name = "Padding"; Type = "Padding"; DefaultValue = "AllEqual 2"; Explanation = "The padding around the content of the panel" }
             ]
             BL
-            C "As always, the defaults can be modified, and this changes the layout for all subsequent panels." 
+            C "As always, the defaults can be modified, and this changes the layout for all subsequent panels."
             C "For a one-off change, an instance of PanelLayout can be passed to the customPanle function as well."
         ] |> toConsole
         0

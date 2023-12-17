@@ -32,7 +32,7 @@ type CanvasDocumentation() =
     override _.Execute(_context, _settings) =
         setDocumentationStyle
         Many [
-            docSynopsis "Canvas module" "This module provides functionality from the canvas widget of Spectre.Console" "widgets/canvas"
+            spectreDocSynopsis "Canvas module" "This module provides functionality from the canvas widget of Spectre.Console" "widgets/canvas"
             docMissing
         ] |> toConsole
         0

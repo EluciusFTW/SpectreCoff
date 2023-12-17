@@ -62,7 +62,7 @@ type TableDocumentation() =
     override _.Execute(_context, _) =
         setDocumentationStyle
         Many [
-            docSynopsis "Table module" "This module provides functionality from the table widget of Spectre.Console" "widgets/table"
+            spectreDocSynopsis "Table module" "This module provides functionality from the table widget of Spectre.Console" "widgets/table"
             C "The table can be used by the two functions:"
             funcsOutput [
                 { Name = "table"; Signature = "ColumnDefinition list -> Row list -> Table" }

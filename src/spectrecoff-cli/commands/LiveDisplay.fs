@@ -44,7 +44,7 @@ type LiveDisplayDocumentation() =
     override _.Execute(_context, _settings) =
         setDocumentationStyle
         Many [
-            docSynopsis "Live Display module" "This module provides functionality from the live display widget of Spectre.Console" "widgets/live-display"
+            spectreDocSynopsis "Live Display module" "This module provides functionality from the live display widget of Spectre.Console" "widgets/live-display"
             docMissing
         ] |> toConsole
         0

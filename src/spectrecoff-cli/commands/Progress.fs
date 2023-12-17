@@ -49,7 +49,7 @@ type ProgressDocumentation() =
     override _.Execute(_context, _settings) =
         setDocumentationStyle
         Many [
-            docSynopsis "Progress module" "This module provides functionality from the progress widget of Spectre.Console" "widgets/progress"
+            spectreDocSynopsis "Progress module" "This module provides functionality from the progress widget of Spectre.Console" "widgets/progress"
             docMissing
         ] |> toConsole
         0

@@ -42,7 +42,7 @@ type CanvasImageDocumentation() =
     override _.Execute(_context, _settings) =
         setDocumentationStyle
         Many [
-            docSynopsis "CanvasImage module" "This submodule provides functionality from the canvas image widget of Spectre.Console" "widgets/canvas-image"
+            spectreDocSynopsis "CanvasImage module" "This submodule provides functionality from the canvas image widget of Spectre.Console" "widgets/canvas-image"
             BL
             C "The canvas image can be used using the canvasImage function:"
             BI [

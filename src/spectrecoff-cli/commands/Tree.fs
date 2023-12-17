@@ -13,26 +13,26 @@ type TreeExample() =
 
     override _.Execute(_context, _) =
 
-        let subNode value = 
+        let subNode value =
             node (panel "" (P value)) []
 
-        let nodes = 
-            [ for i in 1 .. 16 -> (i, node (C $"{i}") []) ] 
-            |> List.map (fun (index, node) -> 
+        let nodes =
+            [ for i in 1 .. 16 -> (i, node (C $"{i}") []) ]
+            |> List.map (fun (index, node) ->
                 match index with
                 | i when i % 15 = 0 -> attach [subNode "FizzBuzz"] node
                 | i when i % 5 = 0 -> attach [subNode "Buzz"] node
                 | i when i % 3 = 0 -> attach [subNode "Fizz"] node
                 | _ -> node)
-        
-        tree (P "FizzBuzz-Tree!") nodes 
-        |> toOutputPayload 
+
+        tree (P "FizzBuzz-Tree!") nodes
+        |> toOutputPayload
         |> toConsole
 
-        customTree 
+        customTree
             { defaultTreeLayout with Look = { Color = Some Color.Green; BackgroundColor = Some Color.Grey; Decorations = [Decoration.Bold] } }
-            (P "Custom-Tree!") 
-            [ for i in 1 .. 3 -> node (C $"Node {i}!") [] ] 
+            (P "Custom-Tree!")
+            [ for i in 1 .. 3 -> node (C $"Node {i}!") [] ]
         |> toOutputPayload
         |> toConsole
         0
@@ -44,39 +44,39 @@ type TreeDocumentation() =
     interface ICommandLimiter<TreeSettings>
 
     override _.Execute(_context, _) =
-        let treeFn = 
+        let treeFn =
             { Name = "tree"
               Signature = "OutputPayload -> TreeNode list -> Tree" }
 
-        let customTreeFn = 
+        let customTreeFn =
             { Name = "customTree"
               Signature = "TreeLayout -> OutputPayload -> TreeNode list -> Tree" }
 
-        let nodeFn = 
+        let nodeFn =
             { Name = "node"
               Signature = "OutputPayload -> TreeNode list -> TreeNode" }
 
-        let attachFn = 
-            { Name = "attach" 
+        let attachFn =
+            { Name = "attach"
               Signature = "TreeNode list -> TreeNode -> TreeNode" }
 
-        let attachToRootFn = 
+        let attachToRootFn =
             { Name = "attachToRoot"
               Signature = "TreeNode list -> Tree -> Tree" }
 
-        let sizingProp: ValueDef = 
+        let sizingProp: ValueDef =
             { Name = "Sizing"
               Type = "SizingBehaviour"
               DefaultValue = "Collapse"
               Explanation = "The sizing of the tree nodes" }
 
-        let guidesProp = 
+        let guidesProp =
             { Name = "Guides"
               Type = "GuideStyle"
               DefaultValue = "SingleLine"
               Explanation = "The style of the lines" }
 
-        let lookProp = 
+        let lookProp =
             { Name = "Look"
               Type = "Look"
               DefaultValue = "calmLook"
@@ -84,11 +84,11 @@ type TreeDocumentation() =
 
         setDocumentationStyle
         Many[
-            docSynopsis "Tree module" "This module provides functionality from the tree widget of Spectre.Console" "widgets/tree"
+            spectreDocSynopsis "Tree module" "This module provides functionality from the tree widget of Spectre.Console" "widgets/tree"
             C "A tree can be created by:"
             funcsOutput [treeFn; customTreeFn]
             C "The first argument of type 'OutputPayload' is the content of the root node, and the 'TreeNode list' are the first level branches."
-            BL 
+            BL
             C "The 'TreeLayout' that can be provided consists of:"
             valuesOutput [sizingProp; guidesProp; lookProp]
             BL
