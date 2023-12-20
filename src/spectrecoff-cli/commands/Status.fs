@@ -22,12 +22,17 @@ type StatusExample() =
             task {
                 do! Task.Delay(3000)
                 let harderThinkingSpinner =
-                    { normalThinkingSpinner with Message = "Thinking harder..."; Look = Some { calmLook with Color = Some Color.DarkOrange } }
+                    { normalThinkingSpinner with 
+                        Message = "Thinking harder..."; 
+                        Look = Some { calmLook with Color = Some Color.DarkOrange } }
                 updateWithCustomSpinner harderThinkingSpinner context |> ignore
 
                 do! Task.Delay(3000)
                 let maximumThinkingSpinner =
-                    { normalThinkingSpinner with Message = "Maximum thinking!!!"; Look = Some { calmLook with Color = Some Color.Red }; Spinner = Some Spinner.Known.Balloon2 }
+                    { normalThinkingSpinner with 
+                        Message = "Maximum thinking!!!"; 
+                        Look = Some { calmLook with Color = Some Color.Red }; 
+                        Spinner = Some Spinner.Known.Balloon2 }
                 updateWithCustomSpinner maximumThinkingSpinner context |> ignore
 
                 do! Task.Delay(3000)
