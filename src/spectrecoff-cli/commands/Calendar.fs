@@ -58,7 +58,6 @@ type CalendarDocumentation() =
         setDocumentationStyle
         Many [
           spectreDocSynopsis "Calendar module" "This module provides functionality from the calendar widget of Spectre.Console" "widgets/calendar"
-          BL
           C "The calendar can be created by providing the year and month to display:"
           funcsOutput [
             { Name = "calendar"; Signature = "Year -> Month -> Calendar" }

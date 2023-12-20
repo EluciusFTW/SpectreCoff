@@ -40,16 +40,15 @@ type BreakdownChartDocumentation() =
         setDocumentationStyle
         Many [
             spectreDocSynopsis "BreakdownChart submodule" "This submodule provides functionality from the BreakdownChart widget of Spectre.Console" "widgets/breakdownchart"
-            BL
             C "The breakdown chart can be used using the breakdownChart function:"
-            BI [
-                P "breakdownChart: ChartItem list -> OutputPayload"
+            funcsOutput [
+                { Name = "breakdownChart"; Signature = "ChartItem list -> OutputPayload" }
             ]
             BL
             C "The"; P "ChartItem"; C "union type consists of two options:"
-            BI [
-                define "ChartItem" "Consists of the label and a value for the item."
-                define "ChartItemWithColor" "Additionally defines a color the item will be rendered in."
+            discriminatedUnionOutput [
+                { Label = "ChartItem"; Args = ["string"; "float"]; Explanation = "Consists of the label and a value for the item" }
+                { Label = "ChartItemWithColor"; Args = ["string"; "float"; "Color"]; Explanation = "Consists of the label and a value for the item, as well as the color." }
             ]
             BL
             C "If no color is explicitly defined, the colors will cycle through a set of colors defined in the"; P "Colors"; C "variable."

@@ -21,6 +21,11 @@ module Documentation =
           DefaultValue: string
           Explanation: string }
 
+    type CaseDef = 
+        { Label: string
+          Args: string list
+          Explanation: string }
+
     let setDocumentationStyle =
         selectTheme Documentation
         bulletItemPrefix <- "   >> "
@@ -59,6 +64,22 @@ module Documentation =
 
         definitions
         |> List.map (fun definition ->  Payloads [P definition.Name; C definition.Type; C definition.DefaultValue; C definition.Explanation])
+        |> customTable { defaultTableLayout with Sizing = Collapse } columns
+        |> toOutputPayload
+    
+    let discriminatedUnionOutput (definitions: CaseDef list) =
+        let columns = 
+            [ leftAlignedColumn "Label"
+              leftAlignedColumn "Arguments"
+              leftAlignedColumn "Explanation" ]
+        
+        definitions
+        |> List.map (fun definition -> 
+            Payloads [
+                P definition.Label
+                definition.Args |> List.map (fun argument -> P argument) |> Many
+                C definition.Explanation
+            ])
         |> customTable { defaultTableLayout with Sizing = Collapse } columns
         |> toOutputPayload
 
