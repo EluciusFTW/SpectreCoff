@@ -43,25 +43,24 @@ type CanvasImageDocumentation() =
         setDocumentationStyle
         Many [
             spectreDocSynopsis "CanvasImage module" "This submodule provides functionality from the canvas image widget of Spectre.Console" "widgets/canvas-image"
-            BL
             C "The canvas image can be used using the canvasImage function:"
-            BI [
-                P "canvasImage: ImageSource -> CanvasImage"
+            funcsOutput [
+                { Name = "canvasImage"; Signature = "ImageSource -> CanvasImage" }
             ]
             BL
             C "CanvasImage is an";P "IRenderable"; C "which can be converted into an"; P "OutputPayload";
             C "using the"; P "toOutputPayload"; C "function from the output module. The same is also available as an extension method."
             BL
             C "The"; P "ImageSource"; C "union type enables the use of different sources for the image:"
-            BI [
-                Many [P "Bytes"; C "of"; P "Byte[]"]
-                Many [P "Stream"; C "of"; P "Stream"]
-                Many [P "Path"; C "of"; P "string"]
+            discriminatedUnionOutput [
+                { Label = "Bytes"; Args = ["Byte[]"]; Explanation = "The image given in Byte format"}
+                { Label = "Stream"; Args = ["Stream"]; Explanation = "The image given as a stream" }
+                { Label = "Path"; Args = ["string"]; Explanation = "The image given by absolute path" }
             ]
             BL
             C "The canvas image module exposes the mutable variable"; P "maxWidth."
             C "Unsurprisingly, it sets the max width of the created images."
             BL
-            C "Same as in spectre, the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); C "Api can be used to transform the created images."
+            C "Same as in Spectre, the"; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); C "Api can be used to transform the created images."
         ] |> toConsole
         0
