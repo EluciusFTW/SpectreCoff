@@ -60,30 +60,30 @@ type CalendarDocumentation() =
           spectreDocSynopsis "Calendar module" "This module provides functionality from the calendar widget of Spectre.Console" "widgets/calendar"
           BL
           C "The calendar can be created by providing the year and month to display:"
-          BI [
-            Many [P "calendar: Year -> Month -> Calendar"; C "(here 'Year' and 'Month' are single-case DUs wrapping an integer)"]
-            P "customCalendar: CalendarSettings -> Year -> Month -> Calendar"
+          funcsOutput [
+            { Name = "calendar"; Signature = "Year -> Month -> Calendar" }
+            { Name = "customCalendar"; Signature = "CalendarSettings -> Year -> Month -> Calendar" }
           ]
+          C "where 'Year' and 'Month' are single-case DUs wrapping an integer."
           BL
           C "The calendar function above uses the"; P "(defaultCalendarSettings: CalendarSettings),"; C "which has the values:"
-          BI [
-              define "Culture" "the Culture used for displaying the dates (Culture Option, default: none)"
-              define "HideHeaders" "determines whether headers are shown (bool, default: false)"
-              define "HeaderLook" "defines the styling of the headers (Look)"
-              define "HighlightLook" "defines the styling of the highlighted dates (Look)"
+          valuesOutput [
+            { Name = "Culture"; Type = "Culture Option"; DefaultValue = "None"; Explanation = "the Culture used for displaying the dates" }
+            { Name = "HideHeaders"; Type = "Boolean"; DefaultValue = "false"; Explanation = "determines whether headers are shown" }
+            { Name = "HeaderLook"; Type = "Look"; DefaultValue = "bolded calmLook"; Explanation = "defines the styling of the headers" }
+            { Name = "HighlightLook"; Type = "Look"; DefaultValue = "inverted pumpedLook"; Explanation = "defines the styling of the highlighted dates" }
           ]
           BL
           C "Observe, that the functions return 'Calendar', not 'OutputPayload'."
           C "To print the calendar at a given time, one can map it to an 'OutputPayload' using the following function"
           C "(also available as an extension method on 'Calendar'):"
-          BI [
-            P "toOutputPayload: Table -> OutputPayload"
+          funcsOutput [
+            { Name = "toOutputPayload"; Signature = "Table -> OutputPayload" }
           ]
-
           BL
           C "An"; P "Event"; C "(a single-case DU taking a Year, Month and Day) can be added to the calendar using"
-          BI [
-            P "addEvent: Event -> Calendar -> Calendar"
+          funcsOutput [
+            { Name = "addEvent"; Signature = "Event -> Calendar -> Calendar" }
           ]
           BL
           C "The calendar can be printed to the console with the"; P "toConsole"; C "function, after it is mapped to an 'OutputPayload'."
