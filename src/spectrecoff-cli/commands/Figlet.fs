@@ -31,22 +31,16 @@ type FigletDocumentation() =
         setDocumentationStyle
         Many [
             spectreDocSynopsis "Figlet module" "This module provides functionality from the figlet widget of Spectre.Console" "widgets/figlet"
-            BL
-            C "The figlet can be used by the figlet function:"
-            BI [
-                P "figlet: string -> FigletText"
+            C "The figlet can be created with one of the following functions:"
+            funcsOutput [
+                { Name = "figlet"; Signature = "string -> OutputPayload" }
+                { Name = "customFiglet"; Signature = "Alignment -> Color -> string -> OutputPayload" }
             ]
             BL
-            C "This figlet will use the"
-            BI [
-                Many [P "Figlet.defaultAlignment,"; C "initialized to"; P "Center,"; C "and"]
-                Many [P "Figlet.defaultColor,"; C "initialized to the pumped color"; P "Output.pumpedColor"; C ","]
-            ]
-            C "which both can be modified."
-            BL
-            C "Other rules can be used without changing the default by passing in the alignment as an argument to: "
-            BI [
-                P "customFiglet: Alignment -> Color -> string -> Renderable"
+            C "While the custom figlet accepts color and alignement as inputs, the default figlet will use these modifiable variables instead:"
+            valuesOutput [
+                { Name = "defaultAlignment"; Type ="Alignment"; DefaultValue = "Center"; Explanation = "The alignment of the figlet text" }
+                { Name = "defaultColor"; Type ="Color Option"; DefaultValue = "pumpedColor"; Explanation = "The color of the figlet" }
             ]
             BL
             C "The figlet can be printed to the console with the"; P "toConsole"; C "function."

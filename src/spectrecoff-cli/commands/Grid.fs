@@ -54,10 +54,10 @@ type GridDocumentation() =
             ]
             BL
             C "Each row is a DU consisting in one of the following union types:"
-            propsOutput [
-                { Name = "Payloads"; Type = "OutputPayload list"; Explanation = "For arbitrary output payloads" }
-                { Name = "Strings"; Type = "string list"; Explanation = "Convenience method for when all cell values are strings" }
-                { Name = "Numbers"; Type = "int list"; Explanation = "Convenience method for when all cell values are integers" }
+            discriminatedUnionOutput [
+                { Label = "Payloads"; Args = ["OutputPayload list"]; Explanation = "For arbitrary output payloads" }
+                { Label = "Strings"; Args = ["string list"]; Explanation = "Convenience method for when all cell values are strings" }
+                { Label = "Numbers"; Args = ["int list"]; Explanation = "Convenience method for when all cell values are integers" }
             ]
             BL
             C "The"; P "toOutputPayload()"; C "extension method on the grid can be used to create a corresponding OutputPayload."
