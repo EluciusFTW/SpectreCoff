@@ -34,5 +34,6 @@ let customFiglet (alignment: Alignment) (color: Color) content =
 
 let figlet content = 
     FigletText content
+    |> applyColor defaultColor
     |> applyAlignment defaultAlignment
     |> toRenderable 
