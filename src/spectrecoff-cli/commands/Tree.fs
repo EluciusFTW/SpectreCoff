@@ -87,15 +87,15 @@ type TreeDocumentation() =
             spectreDocSynopsis "Tree module" "This module provides functionality from the tree widget of Spectre.Console" "widgets/tree"
             C "A tree can be created by:"
             funcsOutput [treeFn; customTreeFn]
-            C "The first argument of type 'OutputPayload' is the content of the root node, and the 'TreeNode list' are the first level branches."
+            C "The first argument of type"; P"OutputPayload"; C "is the content of the root node, and the"; P "TreeNode list"; C "are the first level branches."
             BL
-            C "The 'TreeLayout' that can be provided consists of:"
+            C "The"; P "TreeLayout"; C "that can be provided consists of:"
             valuesOutput [sizingProp; guidesProp; lookProp]
             BL
-            C "The 'TreeNode' instances are created similarily, using"
+            C "The"; P "TreeNode"; C "instances are created similarily, using"
             funcsOutput [nodeFn]
             BL
-            C "If you want to attach more nodes to the root or anotehr node later on, you can use one of these functions:"
+            C "If you want to attach more nodes to the root or another node later on, you can use one of these functions:"
             funcsOutput [attachFn; attachToRootFn]
         ] |> toConsole
         0

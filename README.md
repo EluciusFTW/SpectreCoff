@@ -163,7 +163,7 @@ The currently supported commands are:
 | bar         | ✅       | ✅   |
 | breakdown   | ✅       | ✅   |
 | table       | ✅       | ✅   |
-| tree        | ✅       | ❌   |
+| tree        | ✅       | ✅   |
 | calendar    | ✅       | ✅   |
 | padder      | ✅       | ✅   |
 | grid        | ✅       | ✅   |
