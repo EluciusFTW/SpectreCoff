@@ -20,12 +20,12 @@ type LayoutExample() =
 
         let canvasContent =
             canvas (Width 12) (Height 12)
-            |> withPixels (Rectangle (0,0,11,11)) Color.Yellow
-            |> withPixels (Rectangle (2,2,4,3)) Color.Purple
-            |> withPixels (Rectangle (7,2,9,3)) Color.Purple
+            |> withPixels (Rectangle (Point(0,0), Point(11,11))) Color.Yellow
+            |> withPixels (Rectangle (Point(2,2), Point(4,3))) Color.Purple
+            |> withPixels (Rectangle (Point(7,2), Point(9,3))) Color.Purple
             |> withPixels (ColumnSegment (ColumnIndex 8, StartIndex 4, EndIndex 7)) Color.Blue
             |> withPixels (RowSegment (RowIndex 9, StartIndex 3, EndIndex 8)) Color.Purple
-            |> withPixels (MultiplePixels [(3,10); (8,10)]) Color.Purple
+            |> withPixels (Pixels [(3,10); (8,10)]) Color.Purple
 
         let panelContent =
             E "I am the upper panel"

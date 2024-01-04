@@ -170,7 +170,7 @@ The currently supported commands are:
 | textpath    | ✅       | ✅   |
 | json        | ✅       | ✅   |
 | canvasimage | ✅       | ✅   |
-| canvas      | ✅       | ❌   |
+| canvas      | ✅       | ✅   |
 | layout      | ✅       | ❌   |
 | progress    | ✅       | ❌   |
 | dumpify     | ✅       | ✅   |
@@ -181,7 +181,6 @@ In _SpectreCoff_ we take the approach of providing types and functions wrapping 
 
 Also, if you want to create a cli using `Spectre.Console.Cli` (recently the cli part was extracted into a separate package), you can use my starter template:
 - [fsharp-spectre-console-template](https://github.com/EluciusFTW/fsharp-spectre-console-template) - A minimal starter template for using Spectre.Console.Cli in fsharp
-
 
 ## License
 Copyright © Guy Buss, Daniel Muckelbauer
