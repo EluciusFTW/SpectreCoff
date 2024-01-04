@@ -45,7 +45,7 @@ type CanvasDocumentation() =
                 { Label = "Pixel"; Args = ["Point"]; Explanation = "Sets a single pixel at the given position (Point is a DU taking two integers)" } 
                 { Label = "Pixels"; Args = ["Point list"]; Explanation = "Sets all pixels provided in the list" } 
                 { Label = "Row"; Args = ["RowIndex"]; Explanation = "Draws a row across the whole canvas (RowIndex wraps an integer)" } 
-                { Label = "RowSegment"; Args = ["RowIndex"; "StartIndex"; "EndIndex"]; Explanation = "Draws a segment of a row (Start- and EmdIndex wrap an integer as well)" }
+                { Label = "RowSegment"; Args = ["RowIndex"; "StartIndex"; "EndIndex"]; Explanation = "Draws a segment of a row (Start- and EndIndex wrap an integer as well)" }
                 { Label = "Column"; Args = ["ColumnIndex"]; Explanation = "Draws a column across the whole canvas (ColumnIndex wraps an integer)" }
                 { Label = "ColumnSegment"; Args = ["ColumnIndex"; "StartIndex"; "EndIndex"]; Explanation = "Draws a segment of a column" }
                 { Label = "Rectangle"; Args = ["Pixelposition"; "Pixelposition"]; Explanation = "Draws a rectangle spanned by the two points" }
