@@ -45,6 +45,17 @@ type LiveDisplayDocumentation() =
         setDocumentationStyle
         Many [
             spectreDocSynopsis "Live Display module" "This module provides functionality from the live display widget of Spectre.Console" "widgets/live-display"
-            docMissing
+
+            C "Live display can be started by passing an"; P "IRenderable"; C "to the"; P "start";C "or the"; P "startWithCustomWidget"; C "functions:"
+            funcsOutput [{ Name = "start"; Signature = "IRenderable -> (LiveDisplayContext -> Task<unit>) -> Task<unit>" }]
+
+            C "Any changes to the IRenderable will be reflected in real time"
+            BL
+            C "When using the"; P "startWithCustomWidget"; C "function, the"; P "Configuration"; C "type can be used to further customize the live display:"
+            propsOutput [
+                { Name = "AutoClear"; Type = (nameof string); Explanation = "defines if the console should be cleared before starting" }
+                { Name = "Overflow"; Type = (nameof Spinner); Explanation = "the overflow behavior" }
+                { Name = "Cropping"; Type = (nameof Look); Explanation = "the cropping behavior" }
+            ]
         ] |> toConsole
         0

@@ -22,16 +22,16 @@ type StatusExample() =
             task {
                 do! Task.Delay(3000)
                 let harderThinkingSpinner =
-                    { normalThinkingSpinner with 
-                        Message = "Thinking harder..."; 
+                    { normalThinkingSpinner with
+                        Message = "Thinking harder...";
                         Look = Some { calmLook with Color = Some Color.DarkOrange } }
                 updateWithCustomSpinner harderThinkingSpinner context |> ignore
 
                 do! Task.Delay(3000)
                 let maximumThinkingSpinner =
-                    { normalThinkingSpinner with 
-                        Message = "Maximum thinking!!!"; 
-                        Look = Some { calmLook with Color = Some Color.Red }; 
+                    {
+                        Message = "Maximum thinking!!!";
+                        Look = Some { calmLook with Color = Some Color.Red };
                         Spinner = Some Spinner.Known.Balloon2 }
                 updateWithCustomSpinner maximumThinkingSpinner context |> ignore
 
@@ -52,6 +52,18 @@ type StatusDocumentation() =
         setDocumentationStyle
         Many [
             spectreDocSynopsis "Status module" "This module provides functionality from the status widget of Spectre.Console" "widgets/status"
-            docMissing
+
+            C "A (long running) operation can be started with the status widget using the"; P "start"; C"or"; P"startWithCustomSpinner"; C"functions:"
+            funcsOutput [{ Name = "start"; Signature = "string ->(StatusContext -> Task<unit>) -> Task<unit>" }; { Name = "startCustom"; Signature = "CustomSpinner -> (StatusContext -> Task<unit>) -> Task<unit>" }]
+
+            C "The"; P "CustomSpinner"; C "type can be used to further customize the status widget:"
+            propsOutput [
+                { Name = "Message"; Type = (nameof string); Explanation = "the message displayed by the status" }
+                { Name = "Spinner"; Type = (nameof Spinner); Explanation = "the Spectre spinner that should be used" }
+                { Name = "Look"; Type = (nameof Look); Explanation = "the look that should be applied to the widget" }
+            ]
+
+            C "Inside the passed operation, the spinner can be updated using the"; P "update"; C"or"; P"updateWithCustomSpinner"; C"functions:"
+            funcsOutput [{ Name = "update"; Signature = "string -> StatusContext -> StatusContext" }; { Name = "updateCustom"; Signature = "CustomSpinner -> StatusContext -> StatusContext" }]
         ] |> toConsole
         0
