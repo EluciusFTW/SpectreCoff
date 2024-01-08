@@ -51,7 +51,7 @@ type ProgressDocumentation() =
         Many [
             spectreDocSynopsis "Progress module" "This module provides functionality from the progress widget of Spectre.Console" "widgets/progress"
             C "A progress can be started by calling the"; P "start"; C"or"; P "startCustom"; C "functions:"
-            funcsOutput [{ Name = "start"; Signature = "(ProgressContext -> Task<unit>) -> Task<unit>" }; { Name = "startCustom"; Signature = "ProgressTemplate -> (ProgressContext -> Task<unit>) -> Task<unit>" }]
+            funcsOutput [{ Name = "start"; Signature = "ProgressOperation -> Task<unit>" }; { Name = "startCustom"; Signature = "ProgressTemplate -> ProgressOperation -> Task<unit>" }]
 
             C "The"; P "ProgressTemplate"; C "record can be used to further define the behavior of the progress widget:"
             propsOutput [
@@ -69,7 +69,7 @@ type ProgressDocumentation() =
                 { Name = "withPercentageColumn"; Signature = "ProgressTemplate -> ProgressTemplate" };
                 { Name = "withRemainingTimeColumn"; Signature = "ProgressTemplate -> ProgressTemplate";  }]
 
-            C "Inside the passed operation, tasks can be added to the"; P "ProgressContext"; C "using the"; P "realizeIn"; C "function:"
+            C "Inside the passed ProgressOperation, tasks can be added to the"; P "ProgressContext"; C "using the"; P "realizeIn"; C "function:"
             funcsOutput [{ Name = "realizeIn"; Signature = "ProgressContext -> TaskTemplate -> ProgressTask" }]
 
             C "The"; P "TaskTemplate"; C "type is a DU with several cases that represent different kind of tasks:"

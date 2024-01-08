@@ -53,8 +53,8 @@ type StatusDocumentation() =
         Many [
             spectreDocSynopsis "Status module" "This module provides functionality from the status widget of Spectre.Console" "widgets/status"
 
-            C "A (long running) operation can be started with the status widget using the"; P "start"; C"or"; P"startWithCustomSpinner"; C"functions:"
-            funcsOutput [{ Name = "start"; Signature = "string ->(StatusContext -> Task<unit>) -> Task<unit>" }; { Name = "startCustom"; Signature = "CustomSpinner -> (StatusContext -> Task<unit>) -> Task<unit>" }]
+            C "A (long running) StatusOperation can be started using the"; P "start"; C"or"; P"startWithCustomSpinner"; C"functions:"
+            funcsOutput [{ Name = "start"; Signature = "string -> StatusOperation -> Task<unit>" }; { Name = "startCustom"; Signature = "CustomSpinner -> StatusOperation -> Task<unit>" }]
 
             C "The"; P "CustomSpinner"; C "type can be used to further customize the status widget:"
             propsOutput [
