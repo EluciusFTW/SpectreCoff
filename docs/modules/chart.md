@@ -8,8 +8,8 @@ type ChartItem =
     | ChartItemWithColor of string * float * Color  // Label, Quantity, Color
 ```
 
-If no color is explicitly defined, the colors will cycle through a set of colors defined in the `Colors` variable of the module.
-This variable can be overwritten with a custom set if the default one is not to your taste.
+If no color is explicitly defined, the colors will cycle through a set of colors defined in the `Colors` variable of the module. 
+This variable can be overwritten with a custom set if the default one is not to your taste. Note that changes will apply to both types of charts.
 
 ## BarChart Module
 This module provides functionality from the [bar chart widget](https://spectreconsole.net/widgets/barchart) of Spectre.Console.
