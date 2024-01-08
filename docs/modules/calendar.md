@@ -1,7 +1,6 @@
 # Calendar Module
 This module provides functionality from the [calendar widget](https://spectreconsole.net/widgets/calendar) of _Spectre.Console_.
 
-
 The calendar can be created by providing the year and month to display:
 ```fs
 calendar: Year -> Month -> Calendar
