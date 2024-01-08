@@ -171,8 +171,10 @@ The currently supported commands are:
 | json        | ✅       | ✅   |
 | canvasimage | ✅       | ✅   |
 | canvas      | ✅       | ✅   |
-| layout      | ✅       | ❌   |
-| progress    | ✅       | ❌   |
+| layout      | ✅       | ✅   |
+| progress    | ✅       | ✅   |
+| livedisplay | ✅       | ✅   |
+| status      | ✅       | ✅   |
 | dumpify     | ✅       | ✅   |
 
 ## Related Work

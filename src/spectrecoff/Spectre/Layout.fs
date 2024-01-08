@@ -50,7 +50,7 @@ let show (layout: Layout) =
 let hideChild identifier (layout: Layout) =
     layout[identifier].Invisible()
 
-let hide layout =
+let hide (layout: Layout) =
     layout.Invisible()
 
 let layout (identifier: string) =

@@ -9,10 +9,16 @@ type CustomSpinner =
       Spinner: Spinner Option
       Look: Look Option }
 
-let start statusText (operation: StatusContext -> Task<unit>) =
-    task { return! AnsiConsole.Status().StartAsync(statusText, operation) }
+type StatusOperation = StatusContext -> Task<unit>
 
-let startWithCustomSpinner spinner (operation: StatusContext -> Task<unit>) =
+let start statusText (operation: StatusOperation) =
+    task {
+        return! AnsiConsole
+            .Status()
+            .StartAsync(statusText, operation)
+    }
+
+let startWithCustomSpinner spinner (operation: StatusOperation) =
     task {
         let status = AnsiConsole.Status()
 
