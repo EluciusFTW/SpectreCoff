@@ -6,9 +6,9 @@ Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/Eluc
 ## Table of Contents
 - [Goals and Philosophy](#goals-and-philosophy)
 - [SpectreCoff Package](#spectrecoff-package)
-  * [Output and Markup](#output-and-markup)
-  * [Payloads](#payloads)
-  * [Deviations from Spectre.Console](#deviations-from-spectre)
+  * [Output Payloads](#output-payloads)
+  * [Markup](#markup)
+  * [Convenience Styles](#convenience-styles)
   * [Versioning](#versioning)
 - [SpectreCoff Cli](#spectrecoff-cli)
 - [Related Work](#related-work)
@@ -32,7 +32,7 @@ Before we get into the details, we'd like to outline our goals and our guiding p
     In the example of the figlet widget of Spectre, which translates into the figlet module, it looks like this:
     ```fs
     "Hello World"    // figlet content
-    |> figlet        // main function of the module producing the figlet instance as a Renderable case of OutputPayload 
+    |> figlet        // main function of the module producing the figlet as an OutputPayload 
     |> toConsole     // toConsole function of the figlet module
     ```
     Of course, for more complex objects, there will be more parameters needed. To achieve this simplicity, the main function uses some defaults (in this example the alignment of the figlet). These defaults can be overwritten 'globally' (as they are just static variables in the module), or passed to other functions taking in more arguments, e.g.,
@@ -61,81 +61,95 @@ Before we get into the details, we'd like to outline our goals and our guiding p
    Along the way we also added a separate module wrapping the functionality of Dumpify following the same principles. While the main focus remains with Spectre.Console (hence the name of the package), we do think Dumpify's capabilities are useful and related (it uses Spectre.Console internally, after all) enough to just slap it on top of our package.
 
 ## SpectreCoff Package
-SpectreCoff is organized in modules which mirror the features of Spectre.Console. 
+SpectreCoff is organized in modules which mirror the features of _Spectre.Console_. It also contains an additional module exposing the capabilities of _Dumpify_.
 The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
 
-### Output and Markup
-Spectre offers very flexible markup by using variations of this command ([see here](https://spectreconsole.net/markup)):
-```Cs
-AnsiConsole.Markup("[red bold]{0}[/]", Markup.Escape("Hello [World]"));
-```
-There are several ways to achieve the same in SpectreCoff. The most direct translation looks like this:
-```Fs
-markup (Some Color.Red) (Some Bold) "Hello [World]" |> printMarkedUpInline    
-```
-However, we recommend using the dedicated `OutputPayload` type, together with the `toConsole` function, which will yield a consistent approach across all kinds of payloads. Using the suitable payload, the example above would look as follows,
-```Fs
-MarkupCS (Color.Red, Bold, "Hello [World]") |> toConsole
+For a list of all modules available, [see here](docs/modules.md). But before checking them out, we advise to read the remainder of this section.
+
+### Output Payloads
+An important abstraction is the `OutputPayload` type, which is a discriminated union type of all the things that can be sent to the console. As a consequence, any act of producing output in _SpectreCoff_ looks like this:
+```fs
+payload |> toConsole
 ```
 
-#### Payloads
-The following table lists all payloads currently available:
+All modules have functions (often of the same name as the module) to create the respective `OutputPayload`, like in the example from the introduction above:
+```fs
+"Hello World"    // figlet content
+|> figlet        // the function of same name as the module, which creates the OutputPayload 
+|> toConsole     // this sends the payload to the console
+```
 
-| Type            | Alias | Description                                    | Parameters                                                                                                  | Configurbility                                                                       |
-|-----------------|-------|------------------------------------------------|-------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| `MarkupD`       | `MD`  | Content marked up with decorations             | decorations: `Spectre.Console.Decoration list`<br /> content: `string`                                      | -                                                                                    |
-| `MarkupC`       | `MC`  | Content marked up with a color                 | color: `Spectre.Console.Color`<br /> content: `string`                                                      | -                                                                                    |
-| `MarkupCD`      | `MCD` | Content marked up with a color and decorations | decorations: `Spectre.Console.Decoration list`<br /> color: `Spectre.Console.Color`<br /> content: `string` | -                                                                                    |
-| `Calm`          | `C`   | Convenience style for calm output              | content: `string`                                                                                           | color: `Output.calmLook.Color` <br /> decorations: `Output.calmLook.Decorations`     |
-| `Pumped`        | `P`   | Convenience style pumped output                | content: `string`                                                                                           | color: `Output.pumpedLook.Color` <br /> decorations: `Output.pumpedLook.Decorations` |
-| `Edgy`          | `E`   | Convenience style for edgy output              | content: `string`                                                                                           | color: `Output.edgyLook.Color` <br /> decorations: `Output.edgyLook.Decorations`     |
-| `Vanilla`       | `V`   | Raw type, no processing will be done           | content: `string`                                                                                           | -                                                                                    |
-| `NextLine`      | `NL`  | Ends the current line                          | -                                                                                                           | -                                                                                    |
-| `BlankLine`     | `BL`  | Ends the current line and adds an empty line   | -                                                                                                           | -                                                                                    |
-| `Link`          | -     | Clickable link showing the URL                 | content: `string`                                                                                           | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations`     |
-| `LinkWithLabel` | -     | Clickable link showing a label                 | label: `string` <br /> link: `string`                                                                       | color: `Output.linkLook.Color` <br /> decorations: `Output.linkLook.Decorations`     |
-| `Emoji`         | -     | An emoji, given by it's string literal         | emoji: `string`                                                                                             | -                                                                                    |
-| `BulletItems`   | `BI`  | Show list of items with bullet points          | items: list of `OutputPayload`. <br /> Not allowed: `Renderable`, `BulletItems`                             | bullet item prefix: `Output.bulletItemPrefix`                                        |
-| `Many`          | -     | Prints many payloads at once on the same line  | items: list of `OutputPayload`                                                                              | -                                                                                    |
-| `Renderable`    | -     | Wraps a Spectre.Rendering.IRenderable          | content: `Spectre.Rendering.IRenderable`                                                                    | -                                                                                    |
+This function uses some reasonable defaults for layout and styling. These are stored in mutable variables in the module and can be globally adjusted by changing their values. For one-time changes, most modules have another create function - prefixed with *custom* - which takes in more parameters adjusting the options, layout and styling of the output.
 
-#### Convenience Styles
-The table above lists three convenience styles: `Calm`, `Pumped` and `Edgy`. With these, we can easily provide a consistent, and semantically meaningful, styling across the modules:
+Some of the more complex _Spectre.Console_ objects are inherently mutable, e.g., a table, where rows might be added or removed after creation. In those cases, the main function returns the _Spectre.Console_ type instead, and provides a `toOutputPayload` function which can be used to map them to a payload just before sending them to the console:
+
+```fs
+// This creates a Spectre.Console Table
+let exampleTable = table columns rows
+
+// This maps and prints the initial table
+exampleTable
+|> toOutputPayload
+|> toConsole
+
+// This adds another row to the table
+addRowToTable exampleTable row
+
+// This prints the table again, including the new row
+exampleTable
+|> toOutputPayload
+|> toConsole
+```
+
+Payloads can easily be composed using the `Many` payload and then printed all at once:
+```fs
+Many [
+    rule "Hello ..."        // Rule payload
+    BlankLine               // Payload representing a blank line
+    rule "... World"        // Another rule
+] |> toConsole
+```
+
+[Here](docs/output.md) you can find a full overview of all output payload types.
+
+### Markup
+_Spectre.Console_ provides many possibilities to mark up text, which technically are not grouped into features resp. modules. All of these are also encoded in cases of the `OutputPayload` type, with lot's of helper functions. [See here](output.md) for all details on formatting and styling text output.
+
+### Convenience Styles
+Additionally, this package introduces three named _convenience styles_, with which we can easily provide a consistent and semantically meaningful styling across the modules:
+`Calm`, `Pumped` and `Edgy`.
 ```Fs
+// Says hello world, emphatically
 Pumped "Hello world" |> toConsole
 ```
-The convenience styles can be altered by mutating the corresponding variables, e.g.,
+
+The convenience styles can globally be altered by mutating the corresponding variables, e.g.,
 ```Fs
 pumpedLook <- { Color = Color.Yellow; Decorations = [ Decoration.Italic ] }
 ```
 
-#### Composition of Payloads
-Some of the payloads listed above in turn accept payloads as arguments. Composing them in this way allows printing more complex content, as well as aggregating all output in one go before printing it. This can be seen in this example,
-```Fs
-Many [
-    MarkupC (Color.Green, "Hello friends,")           // Use any available color
-    BlankLine    
-    Pumped "Welcome to my party tomorrow night!"      // Use the Pumped convenience style
-    BL                                                // short for BlankLine
-    C "Please bring ... "                             // short for Calm
-    BI [                                              // short for BulletItems
-        C "some snacks,"        
-        P "some games,"                               // short for Pumped
-        E "and some creepy stories!"                  // short for Edgy
+In fact, the package also provides several _themes_ out of the box, which can be selected using the `selectTheme` function and provide a theme from the `SpectreCoffThemes` discriminated union type:
+```fs
+// A composite payload of all convenience styles
+let sample = 
+    Many [                          
+        Calm "The calm fox"
+        Pumped "jumps pumped"
+        Edgy "over the edgy fence"
     ]
-    C "See you "; P "later ... "; NL
-    Emoji "alien_monster"
-] |> toConsole
-``` 
-In fact, _any other payload_ can be composed using `Many` (including others of type `Many`, they will be flattened) and will be printed once `toConsole` is called.
+// sets the theme and prints the sample
+let printExampleUsing theme = 
+    selectTheme theme               
+    sample |> toConsole
 
-These composites are also the motivation for the short aliases of payloads, as these make it possible to focuis on the content and not be distracted too much by the types.
-For more examples, please see the [sample command](https://github.com/EluciusFTW/SpectreCoff/blob/main/src/spectrecoff-cli/commands/Output.fs).
+printExampleUsing Volcano
+printExampleUsing NeonLights
+```
 
+You can also build your own custom theme and use it with the `applyTheme` function.
+
+### Encoding issues
 **Note**: Several features of Spectre.Console depend on UTF8 Encoding. If you experience unexpected output when handling UTF8 characters check the Spectre.Console [best practices](https://spectreconsole.net/best-practices).
-
-### Deviations from Spectre
-The Spectre widget _Rows_ does not have it's own module as the `Many` case of `OutputPayload` covers the same functionality. 
 
 ### Versioning
 We are using [NerdBank.GitVersioning](https://github.com/dotnet/Nerdbank.GitVersioning) and follow the version scheme: `<major>.<minor>.<git-depth>` for out releases. 
