@@ -1,5 +1,5 @@
 # Chart Modules
-_SpectreCoff_ supports both the bar chart widget and the breakdown chart widget of Spectre.Console.
+_SpectreCoff_ supports both the bar chart widget and the breakdown chart widget of _Spectre.Console_.
 
 Both charts share the same `ChartItem` union type consisting of two options:
 ```fs
