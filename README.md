@@ -101,16 +101,25 @@ exampleTable
 |> toConsole
 ```
 
-Payloads can easily be composed using the `Many` payload and then printed all at once:
+Payloads can easily be composed using the `Many` payload and then printed all at once. 
+Here is a more comprehensive example (without going into details what each payload means at this point):
 ```fs
 Many [
-    rule "Hello ..."        // Rule payload
-    BlankLine               // Payload representing a blank line
-    rule "... World"        // Another rule
+    MarkupC (Color.Green, "Hello friends,")           // Use any available color
+    BlankLine    
+    Pumped "Welcome to my party tomorrow night!"      // Use the Pumped convenience style
+    BL                                                // short for BlankLine
+    C "Please bring ... "                             // short for Calm
+    BI [                                              // short for BulletItems
+        C "some snacks,"        
+        P "some games,"                               // short for Pumped
+        E "and some creepy stories!"                  // short for Edgy
+    ]
+    C "See you "; P "later ... "; NL                  // Mixing list separators to indicate the line is also possible
+    Emoji "alien_monster"
 ] |> toConsole
 ```
-
-[Here](docs/output.md) you can find a full overview of all output payload types.
+You can find a complete list of all payload types [here](docs/output.md).
 
 ### Markup
 _Spectre.Console_ provides many possibilities to mark up text, which technically are not grouped into features resp. modules. All of these are also encoded in cases of the `OutputPayload` type, with lot's of helper functions. [See here](output.md) for all details on formatting and styling text output.
