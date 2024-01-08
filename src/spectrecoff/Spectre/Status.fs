@@ -11,7 +11,7 @@ type CustomSpinner =
 
 type StatusOperation = StatusContext -> Task<unit>
 
-let start statusText (operation: StatusContext -> Task<unit>) =
+let start statusText (operation: StatusOperation) =
     task {
         return! AnsiConsole
             .Status()

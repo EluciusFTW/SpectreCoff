@@ -45,8 +45,6 @@ let defaultTemplate =
     |> withProgressBarColumn
     |> withPercentageColumn
 
-
-
 let startCustom template (operation: ProgressOperation) =
     task {
     return! AnsiConsole

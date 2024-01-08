@@ -50,7 +50,7 @@ type ProgressDocumentation() =
         setDocumentationStyle
         Many [
             spectreDocSynopsis "Progress module" "This module provides functionality from the progress widget of Spectre.Console" "widgets/progress"
-            C "A progress can be started by calling the"; P "start"; C"or"; P"startCustom"; C"functions:"
+            C "A progress can be started by calling the"; P "start"; C"or"; P "startCustom"; C "functions:"
             funcsOutput [{ Name = "start"; Signature = "(ProgressContext -> Task<unit>) -> Task<unit>" }; { Name = "startCustom"; Signature = "ProgressTemplate -> (ProgressContext -> Task<unit>) -> Task<unit>" }]
 
             C "The"; P "ProgressTemplate"; C "record can be used to further define the behavior of the progress widget:"
