@@ -14,16 +14,17 @@ type CanvasImageExample() =
     interface ICommandLimiter<CanvasImageSettings>
 
     override _.Execute(_context, _settings) =
+        maxWidth <- 50
         task {
             use client = new HttpClient()
-            let! response = client.GetByteArrayAsync("https://sample-videos.com/img/Sample-png-image-500kb.png")
+            let! response = client.GetByteArrayAsync("https://upload.wikimedia.org/wikipedia/commons/5/57/Fsharp_logo.png")
             let image = canvasImage (Bytes response)
             let rotatedImage = (canvasImage (Bytes response)).Mutate(fun ctx -> ctx.Rotate(45f) |> ignore)
             Many [
                 P "Print an image directly to the console!"
                 BL
                 image |> toOutputPayload
-                P "Take full advantage of "; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"; BL
+                P "Take full advantage of "; LinkWithLabel ("ImageSharp", "https://github.com/SixLabors/ImageSharp"); P "to manipulate your images!"
                 P "For example, rotate the image by 45°:"
                 BL
                 rotatedImage.toOutputPayload
@@ -43,7 +44,7 @@ type CanvasImageDocumentation() =
         setDocumentationStyle
         Many [
             spectreDocSynopsis "CanvasImage module" "This submodule provides functionality from the canvas image widget of Spectre.Console" "widgets/canvas-image"
-            C "The canvas image can be used using the canvasImage function:"
+            C "The canvas image can be created using the canvasImage function:"
             funcsOutput [
                 { Name = "canvasImage"; Signature = "ImageSource -> CanvasImage" }
             ]
