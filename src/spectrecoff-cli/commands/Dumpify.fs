@@ -42,7 +42,7 @@ type DumpifyDocumentation() =
             BL
             C "Just like the wrapped package, the function will print the payload's properties to the console."
             BL
-            C "dump will use the"; P "Dumpify.defaultOptions,"; C "which will set all properties to"; P "None,"; C "resulting in the same behavior as the wrapped package."
+            C "Dump will use the"; P "Dumpify.defaultOptions,"; C "which will set all properties to"; P "None,"; C "resulting in the same behavior as the wrapped package."
             BL
             C "As always, the defaults can be modified and passed to the"; P "customDump"; C "function."
             C "Each member of the"; P "DumpifyOptions"; C "type mirrors the respective parameter from the wrapped package, resulting in the same behavior when changed."
