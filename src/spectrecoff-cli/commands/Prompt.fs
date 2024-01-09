@@ -35,10 +35,10 @@ type PromptExample() =
 
         if (amount = amountAgain)
             then "You didn't flinch, huh?"
-            else $"I see you changed your mind ..."
+            else "I see you changed your mind ..."
         |> printMarkedUp
 
-        let answer = confirm $"Do you want to eat them right away?"
+        let answer = confirm "Do you want to eat them right away?"
         match answer with
         | true -> Pumped "Bon apetit!"
         | false -> Edgy "Ok, maybe later :/"
