@@ -42,3 +42,10 @@ In the previous paragraph we saw how to think in terms of payloads. The followin
 
 ## Convenience Styles
 Recall from [this section of the readme](../README.md#convenience-styles) that _SpectreCoff_ also provides convenience styles, i.e., three named styles that are used in the various modules by default, which can also be customized. Using these consistently reduces the need for a lot of custom markup!
+
+There are places where the api does not accept an `OutputPayload` but only a _marked up string_ (e.g., the text in a _rule_). While in those cases, e.g., `Pumped "My title"` won't work, you can still use the convenience styles consistently with the following functions that produce the string marked up in the corresponding style:
+```fs
+calm: string -> string
+pumped: string -> string
+edgy: string -> string
+```
