@@ -13,26 +13,16 @@ type TreeExample() =
 
     override _.Execute(_context, _) =
 
-        let subNode value =
-            node (panel "" (P value)) []
-
         let nodes =
-            [ for i in 1 .. 16 -> (i, node (C $"{i}") []) ]
-            |> List.map (fun (index, node) ->
+            [ for i in 1 .. 16 -> (i, node (Calm $"{i}") []) ]
+            |> List.map (fun (index, currentNode) ->
                 match index with
-                | i when i % 15 = 0 -> attach [subNode "FizzBuzz"] node
-                | i when i % 5 = 0 -> attach [subNode "Buzz"] node
-                | i when i % 3 = 0 -> attach [subNode "Fizz"] node
-                | _ -> node)
+                | i when i % 15 = 0 -> attach [node (Edgy "FizzBuzz") []] currentNode
+                | i when i % 5 = 0 -> attach [node (Pumped "Buzz") []] currentNode
+                | i when i % 3 = 0 -> attach [node (Calm "Fizz") []] currentNode
+                | _ -> currentNode)
 
-        tree (P "FizzBuzz-Tree!") nodes
-        |> toOutputPayload
-        |> toConsole
-
-        customTree
-            { defaultTreeLayout with Look = { Color = Some Color.Green; BackgroundColor = Some Color.Grey; Decorations = [Decoration.Bold] } }
-            (P "Custom-Tree!")
-            [ for i in 1 .. 3 -> node (C $"Node {i}!") [] ]
+        tree (Pumped "Fizz-Buzz Tree") nodes
         |> toOutputPayload
         |> toConsole
         0
