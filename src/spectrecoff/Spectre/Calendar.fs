@@ -28,16 +28,16 @@ module Event =
     let unwrap (Event (Year y, Month m, Day d)) = (y, m, d)
 
 type CalendarSettings =
-    {  Culture: Culture Option;
-       HideHeaders: bool;
-       HeaderLook: Look;
-       HighlightLook: Look; }
+    { Culture: Culture Option;
+      HideHeaders: bool;
+      HeaderLook: Look;
+      HighlightLook: Look; }
 
-let defaultCalendarSettings =
-    {  Culture =  None
-       HideHeaders = false
-       HeaderLook = { calmLook with Decorations = [ Decoration.Bold ] }
-       HighlightLook = { pumpedLook with Decorations = [ Decoration.Invert ] } }
+let mutable defaultCalendarSettings =
+    { Culture =  None
+      HideHeaders = false
+      HeaderLook = { calmLook with Decorations = [ Decoration.Bold ] }
+      HighlightLook = { pumpedLook with Decorations = [ Decoration.Invert ] } }
 
 
 let private applysettings (settings: CalendarSettings) (calendar: Calendar) =

@@ -9,7 +9,7 @@ type LiveDisplayConfiguration =
       Overflow: VerticalOverflow Option
       Cropping: VerticalOverflowCropping Option }
 
-let defaultConfiguration =
+let mutable defaultConfiguration =
     { AutoClear = false
       Overflow = None
       Cropping = None }
