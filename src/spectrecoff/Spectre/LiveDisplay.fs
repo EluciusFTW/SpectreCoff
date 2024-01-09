@@ -4,20 +4,22 @@ module SpectreCoff.LiveDisplay
 open System.Threading.Tasks
 open Spectre.Console
 
-type Configuration =
+type LiveDisplayConfiguration =
     { AutoClear: bool
       Overflow: VerticalOverflow Option
       Cropping: VerticalOverflowCropping Option }
 
 let defaultConfiguration =
-    { AutoClear = true
+    { AutoClear = false
       Overflow = None
       Cropping = None }
 
-let start renderable (operation: LiveDisplayContext -> Task<unit>) =
+type LiveDisplayOperation = LiveDisplayContext -> Task<unit>
+
+let start renderable (operation: LiveDisplayOperation) =
     task { return! AnsiConsole.Live(renderable).StartAsync(operation) }
 
-let startWithCustomConfig config renderable (operation: LiveDisplayContext -> Task<unit>) =
+let startWithCustomConfig config renderable (operation: LiveDisplayOperation) =
     task {
         let live = AnsiConsole.Live(renderable)
         live.AutoClear <- config.AutoClear
