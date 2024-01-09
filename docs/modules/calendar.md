@@ -23,7 +23,7 @@ An `Event` (a single-case discriminated union taking a `Year`, `Month` and `Day`
 addEvent: Event -> Calendar -> Calendar
 ```
 
-Finally, the calendar can be mapped to an `OutputPayload` using `toOutputPaylod` and be sent to the console via the `toConsole` function.
+Finally, the calendar can be mapped to an `OutputPayload` using `toOutputPayload` and be sent to the console via the `toConsole` function.
 
 ### Example
 ```fs
