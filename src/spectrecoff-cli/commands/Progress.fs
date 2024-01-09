@@ -26,7 +26,7 @@ type ProgressExample() =
                 while not context.IsFinished do
                     task1 |> incrementBy 5 |> ignore
                     if task1.Value > 50 then
-                        task2.StartTask()
+                        startTask task2
                     if task2.IsStarted then
                         task2 |> incrementBy 7 |> ignore
                     do! Task.Delay(300)
@@ -37,7 +37,7 @@ type ProgressExample() =
             |> withSpinnerColumn
             |> withRemainingTimeColumn
             |> withProgressBarColumn
-        (operation |> Progress.startCustom template).Wait()
+        (operation |> startCustom template).Wait()
         0
 
 open SpectreCoff.Cli.Documentation

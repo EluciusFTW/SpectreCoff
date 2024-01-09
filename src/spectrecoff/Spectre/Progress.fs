@@ -63,6 +63,9 @@ let realizeIn (context: ProgressContext) task =
     | HotCustomTask (maxValue, description) -> context.AddTask(description, true, maxValue)
     | ColdCustomTask (maxValue, description) -> context.AddTask(description, false, maxValue)
 
+let startTask (task: ProgressTask) = 
+    task.StartTask()
+
 let incrementBy value (task: ProgressTask) =
     task.Increment(value)
     task
