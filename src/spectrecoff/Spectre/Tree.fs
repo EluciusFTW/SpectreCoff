@@ -16,7 +16,7 @@ type TreeLayout =
       Guides: GuideStyle
       Look: Look }
 
-let defaultTreeLayout: TreeLayout =
+let mutable defaultTreeLayout: TreeLayout =
     { Sizing = Collapse
       Guides = SingleLine
       Look = calmLook }
