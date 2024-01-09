@@ -5,14 +5,16 @@ open Spectre.Console
 
 type PromptOptions = 
     { Secret: bool
-      Optional: bool
-    }
+      Optional: bool }
 
 type MultiSelectionPromptOptions = 
     { PageSize: int }
 
-let defaultOptions = { Secret = false; Optional = false; }
-let defaultMultiSelectionOptions = { PageSize = 10; }
+let mutable defaultOptions = 
+    { Secret = false
+      Optional = false }
+let mutable defaultMultiSelectionOptions = 
+    { PageSize = 10 }
 
 [<RequireQualifiedAccess>]
 module private Prompts = 
