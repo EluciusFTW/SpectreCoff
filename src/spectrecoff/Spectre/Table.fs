@@ -13,7 +13,7 @@ module Column =
           RightPadding: int
           Wrap: bool }
 
-    let defaultColumnLayout: ColumnLayout =
+    let mutable defaultColumnLayout: ColumnLayout =
         { Alignment = Center
           LeftPadding = 2
           RightPadding = 2
@@ -106,7 +106,7 @@ type TableLayout =
        HideFooters: bool;
        Alignment: Alignment }
 
-let defaultTableLayout: TableLayout =
+let mutable defaultTableLayout: TableLayout =
     {  Border = TableBorder.Rounded
        Sizing = Expand
        Alignment = Left
