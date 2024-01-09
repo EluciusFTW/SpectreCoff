@@ -26,7 +26,7 @@ module BarChart =
     let mutable alignment = Center      // Determines the alignment of the chart's label
 ```
 
-Finally, the chart is sent to the console ia the `toConsole` function.
+Finally, the chart is sent to the consolevia the `toConsole` function.
 
 ### Example
 ```fs
@@ -62,7 +62,7 @@ module BreakdownChart =
     let mutable width = 60
 ```
 
-Finally, the chart is sent to the console ia the `toConsole` function.
+Finally, the chart is sent to the consolevia the `toConsole` function.
 
 ### Example
 ```fs
