@@ -10,7 +10,7 @@ type DumpifyOptions =
       TypeNames: TypeNamingConfig Option
       UseDescriptors: bool }
 
-let defaultOptions =
+let mutable defaultOptions =
     { Members = None
       Color = None
       Output = None

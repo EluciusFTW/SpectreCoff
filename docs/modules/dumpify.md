@@ -8,7 +8,7 @@ customDump: DumpifyOptions -> 'a -> 'a
 ```
 `dump` will use the `Dumpify.defaultOptions` variable,
 ```fs
-let defaultOption: DumpifyOptions =
+let mutable defaultOption: DumpifyOptions =
     { Members = None
       Color = None
       Output = None

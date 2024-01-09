@@ -10,13 +10,13 @@ where `Year` and `Month` are single-case DUs wrapping an integer.
 
 The calendar function above uses the `defaultCalendarSettings` instance:
 ```fs
-let defaultCalendarSettings: CalendarSettings =
+let mutable defaultCalendarSettings: CalendarSettings =
     {  Culture =  None
        HideHeaders = false
        HeaderLook = { calmLook with Decorations = [ Decoration.Bold ] }
        HighlightLook = { pumpedLook with Decorations = [ Decoration.Invert ] } }
 ```
-which can be used as a starting point for custom settings.
+which can be modified, or used as a starting point for custom settings.
 
 An `Event` (a single-case discriminated union taking a `Year`, `Month` and `Day`) can be added to the calendar using
 ```fs

@@ -14,7 +14,7 @@ type LiveDisplayOperation = LiveDisplayContext -> Task<unit>
 
 The `start` function uses the default configuration:
 ```fs
-let defaultConfiguration: LiveDisplayConfiguration =
+let mutable defaultConfiguration: LiveDisplayConfiguration =
     { AutoClear = false
       Overflow = None
       Cropping = None }
