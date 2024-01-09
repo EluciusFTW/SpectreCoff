@@ -15,7 +15,7 @@ module SpectreCoff.Figlet
 ```
 while the `customFiglet` function accepts corresponding values and does not use the defaults.
 
-Finally, the figlet is sent to the console ia the `toConsole` function.
+Finally, the figlet is sent to the consolevia the `toConsole` function.
 
 ### Example
 ```fs

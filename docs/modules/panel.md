@@ -18,7 +18,7 @@ let mutable defaultPanelLayout: PanelLayout =
 ```
 while any other instance of that type can be passed in the `customPanel` function.
 
-Finally, the panel is sent to the console ia the `toConsole` function.
+Finally, the panel is sent to the consolevia the `toConsole` function.
 
 ### Example
 ```fs
