@@ -1,5 +1,5 @@
 # SpectreCoff
-_Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console) and [Dumpify](https://github.com/MoaidHathot/Dumpify) to make F# development for the console more productive.
+_Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](https://github.com/spectreconsole/spectre.console) featuring [Dumpify](https://github.com/MoaidHathot/Dumpify).
 
 Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/EluciusFTW.SpectreCoff/).
 
@@ -64,10 +64,12 @@ Before we get into the details, we'd like to outline our goals and our guiding p
 SpectreCoff is organized in modules which mirror the features of _Spectre.Console_. It also contains an additional module exposing the capabilities of _Dumpify_.
 The source code for the nuget package can be found in the subfolder `/src/spectrecoff/`.
 
-For a list of all modules available, [see here](docs/modules.md). But before checking them out, we advise to read the remainder of this section.
+### Modules
+For a list of all modules available, [see here](docs/modules.md). 
+But before checking them out, we advise to read the remainder of this section.
 
 ### Output Payloads
-An important abstraction is the `OutputPayload` type, which is a discriminated union type of all the things that can be sent to the console. As a consequence, any act of producing output in _SpectreCoff_ looks like this:
+An important abstraction in _SpectreCoff_ is the `OutputPayload` type, which is a discriminated union type of all the things that can be sent to the console. As a consequence, any act of producing output in _SpectreCoff_ looks like this:
 ```fs
 payload |> toConsole
 ```
