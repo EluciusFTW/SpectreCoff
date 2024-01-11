@@ -2,6 +2,18 @@
 
 ### Example
 ```fs
+let process (context: StatusContext) =
+    task {
+        do! Task.Delay(3000)
+        update "Halfway there ..." context |> ignore
+
+        do! Task.Delay(3000)
+        update "Any Moment now ..." context |> ignore
+
+        do! Task.Delay(3000)
+    }
+
+(start "Starting up ..." process).Wait()
 ```
 
 ### Cli Example

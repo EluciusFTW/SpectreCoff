@@ -1,7 +1,7 @@
 # Json Module
 This module provides functionality from the [json widget](https://spectreconsole.net/widgets/json) of _Spectre.Console_.
 
-Json can be printed in the console using the the json function:"
+Json output can be generated using:
 ```fs
 json: string -> OutputPayload
 ```

@@ -1,7 +1,7 @@
 # Output and Markup 
 In this document we go into detail of how to customize string output (markup) as a special case of _any output_ (payloads).
 
-## Translating Spectre.Console markup to SpectreCoff
+## Translating Spectre.Console Markup to SpectreCoff
 _Spectre.Console_ offers very flexible markup by using variations of this command ([see here](https://spectreconsole.net/markup)):
 ```Cs
 AnsiConsole.Markup("[red bold]{0}[/]", Markup.Escape("Hello [World]"));
