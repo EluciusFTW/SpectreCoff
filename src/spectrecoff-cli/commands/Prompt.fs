@@ -6,10 +6,9 @@ open SpectreCoff
 type PromptSettings()  =
     inherit CommandSettings()
 
-type Value = {
-            num: int
-            description: string
-        }
+type Value = 
+    { num: int
+      description: string }
 
 type PromptExample() =
     inherit Command<PromptSettings>()
@@ -50,16 +49,17 @@ type PromptExample() =
         |> toConsole
 
         // example for chooseFromValues
-        let getDescription (value: Value): string =
+        let getDescription (value: Value) =
             value.description
+        
         let values = [
-            {num = 42; description = "the answer" }
-            {num = 13; description = "some say it's unlucky" }
-            ]
-        let chosenValue = chooseFromValues getDescription values "Which number do you like best from its description?"
-        sprintf "I like %i, too" chosenValue.num
-        |> printMarkedUp 
+            { num = 42; description = "the answer" }
+            { num = 13; description = "some say it's unlucky" }
+        ]
 
+        let chosenValue = chooseFromValues getDescription values "Which number do you like best from its description?"
+        $"I like {chosenValue.num}, too"
+        |> printMarkedUp 
         0
 
 type PromptDocumentation() =

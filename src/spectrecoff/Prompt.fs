@@ -5,8 +5,7 @@ open Spectre.Console
 
 type PromptOptions = 
     { Secret: bool
-      Optional: bool
-    }
+      Optional: bool }
 
 type MultiSelectionPromptOptions = 
     { PageSize: int }
@@ -60,13 +59,6 @@ let private prompt prompter =
 let chooseFrom (choices: string list) question = 
     prompt (Prompts.selectionPrompt question choices)
 
-
-/// <summary>Choose from typed values</summary>
-/// <param name="converter">function to convert each value to a string that gets displayed in the prompt</param>
-/// <param name="values">typed values to choose from</param>
-/// <param name="question">question prompt</param>
-/// <typeparam name="'T">Type of values</typeparam>
-/// <returns>the chosen value of type 'T</returns>
 let chooseFromValues<'T> (converter : 'T -> string) (values: 'T list) question =
     prompt (Prompts.selectionPromptT converter question values)
 
