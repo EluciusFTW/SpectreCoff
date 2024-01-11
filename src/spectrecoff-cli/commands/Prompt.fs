@@ -6,10 +6,6 @@ open SpectreCoff
 type PromptSettings()  =
     inherit CommandSettings()
 
-type Value = 
-    { num: int
-      description: string }
-
 type PromptExample() =
     inherit Command<PromptSettings>()
     interface ICommandLimiter<PromptSettings>
@@ -17,8 +13,8 @@ type PromptExample() =
     override _.Execute(_context, _) =
 
         let fruits = ["Kiwi"; "Pear"; "Grape"; "Plum"; "Banana" ; "Orange"; "Durian"]
-        let chosenFruit = "If you had to pick one, which would it be?" |> chooseFrom fruits
-        let chosenFruits = "Which all do you actually like?" |> chooseMultipleFrom fruits
+        let chosenFruit = "If you had to pick one, which would it be?" |> choose fruits
+        let chosenFruits = "Which all do you actually like?" |> chooseMultiple fruits
 
         match chosenFruits.Count with
         | 0 -> "You don't like any fruit??"
@@ -49,16 +45,13 @@ type PromptExample() =
         |> toConsole
 
         // example for chooseFromValues
-        let getDescription (value: Value) =
-            value.description
-        
-        let values = [
-            { num = 42; description = "the answer" }
-            { num = 13; description = "some say it's unlucky" }
+        let choices = [
+            { Value = 42; Label = "the answer" }
+            { Value = 13; Label = "some say it's unlucky" }
         ]
 
-        let chosenValue = chooseFromValues getDescription values "Which number do you like best from its description?"
-        $"I like {chosenValue.num}, too"
+        let chosenValue = chooseWithLabel choices "Which number do you like best from its description?"
+        $"I like {chosenValue}, too"
         |> printMarkedUp 
         0
 
@@ -99,10 +92,10 @@ type PromptDocumentation() =
             emptyRule
             C "If the set of choices is finite, one of the following can be used:"
             BI [
-                Many [P "chooseFrom = (choices: string list) (question: string) -> string"; C "a simple single selection prompt"]
-                Many [P "chooseFromValues<'T> (converter : 'T -> string) (values: 'T list) (question: string) -> string"; C "a single selection prompt that gives a typed response and needs a converter to get a displayable string from each value"]
-                Many [P "chooseMultipleFrom = (choices: string list) (question: string) -> string list"; C "select multiple values from a list of choices"]
-                Many [P "chooseMultipleFromWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"; C " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"]
+                Many [P "choose = (choices: string list) (question: string) -> string"; C "a simple single selection prompt"]
+                Many [P "chooseWithLabel<'T> (choices: ChoiceWithLabel<'T> list) (question: string) -> string"; C "a single selection prompt that gives a typed response"]
+                Many [P "chooseMultiple = (choices: string list) (question: string) -> string list"; C "select multiple values from a list of choices"]
+                Many [P "chooseMultipleWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"; C " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"]
             ]
             BL
             emptyRule

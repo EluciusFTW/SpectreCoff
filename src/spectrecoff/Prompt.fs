@@ -56,11 +56,19 @@ module private Prompts =
 let private prompt prompter =
     AnsiConsole.Prompt prompter;
 
-let chooseFrom (choices: string list) question = 
+let choose (choices: string list) question = 
     prompt (Prompts.selectionPrompt question choices)
 
-let chooseFromValues<'T> (converter : 'T -> string) (values: 'T list) question =
-    prompt (Prompts.selectionPromptT converter question values)
+let chooseWithLabel<'T when 'T: equality> (choices: ChoiceWithLabel<'T> list ) question =
+    let choiceLabelMap = 
+        choices 
+        |> Seq.map (fun choice -> choice.Value, choice.Label)
+        |> dict
+    let converter = (fun choice -> choiceLabelMap[choice])
+    
+    choiceLabelMap.Keys 
+    |> Prompts.selectionPromptT converter question 
+    |> prompt
 
 let chooseFromValues2<'T> (choices: Choice<'T> list) (question: string): Choice<'T> =
     prompt (Prompts.selectionPromptT converter question values)
@@ -68,8 +76,8 @@ let chooseFromValues2<'T> (choices: Choice<'T> list) (question: string): Choice<
 let chooseMultipleFromWith options (choices: string list) question = 
     prompt (Prompts.multiSelectionPrompt question choices options)
 
-let chooseMultipleFrom = 
-    chooseMultipleFromWith defaultMultiSelectionOptions
+let chooseMultiple = 
+    chooseMultipleWith defaultMultiSelectionOptions
 
 let ask<'T> question = 
     prompt (Prompts.textPrompt<'T> question defaultOptions)
