@@ -11,6 +11,8 @@ Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/Eluc
   * [Convenience Styles](#convenience-styles)
   * [Versioning](#versioning)
 - [SpectreCoff Cli](#spectrecoff-cli)
+  * [Run Examples](#run-examples)
+  * [Discover Themes](#discover-themes)
 - [Related Work](#related-work)
 - [License](#license)
 - [Feedback and Contributing](#feedback-and-contributing)
@@ -170,14 +172,23 @@ Since this package is a wrapper around _Spectre.Console_, we will synchronize ou
 > <b>Note</b>: In particular, the _third number_ in the version does not have the same meaning as the patches in SemVer. Increments in that number may contain breaking changes, in contrast to patch versions in SemVer.
 
 ## SpectreCoff Cli
+This repository also contains a CLI in the folder in `/src/spectrecoff-cli/`, with examples of each module, as well as some utilities.
+
+### Run Examples
 You can see each module in action by using the cli included in this repository in `/src/spectrecoff-cli/`. 
 Simply run
 ```
 dotnet run <module-name> example
 ```
 in the cli subfolder and substitute the module name by and spectrecoff module you can find in the [module list](docs/modules.md). 
-
 The source files of these commands are also good sources for more examples on how to use the module.
+
+### Discover Themes
+As mentioned [above](#convenience-styles), _SpectreCoff_ has some built in themes that can be used. The CLI supports discovery of the themes:
+```ps
+dotnet run theme list                              // lists all available themes
+dotnet run theme example --theme <themeName>       // shows a sample of the convenience styles of that theme
+```
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):
