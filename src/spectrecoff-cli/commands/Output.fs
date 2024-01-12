@@ -99,17 +99,3 @@ type OutputExample() =
         // Let's test the round-trip!
         V asMarkedUpString |> toConsole
         0
-
-open SpectreCoff.Cli.Documentation
-
-type OutputDocumentation() =
-    inherit Command<OutputSettings>()
-    interface ICommandLimiter<OutputSettings>
-
-    override _.Execute(_context, _) =
-        setDocumentationStyle
-        Many [
-            spectreDocSynopsis "General Output" "This module contains all functions needed for output, including marking up and structuring text." "markup"
-            docMissing
-        ] |> toConsole
-        0

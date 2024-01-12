@@ -25,27 +25,3 @@ type RuleExample() =
 
         emptyRule |> toConsole
         0
-
-open SpectreCoff.Cli.Documentation
-
-type RuleDocumentation() =
-    inherit Command<RuleSettings>()
-    interface ICommandLimiter<RuleSettings>
-
-    override _.Execute(_context, _settings) =
-        setDocumentationStyle
-        Many [
-            spectreDocSynopsis "Rule module" "This module provides functionality from the rule widget of Spectre.Console" "widgets/rule"
-            C "Rules can be created using one of these functions:"
-            funcsOutput [
-                { Name = "rule"; Signature = "string -> OutputPayload" }
-                { Name = "alignedRule"; Signature = "Alignment -> string -> OutputPayload" }
-            ]
-            BL
-            C "The former will use the"; P "Rule.defaultAlignment,"; C "which is set to"; P "Center"; C "but can be modified."
-            C "Without changing the default, the latter function also accepts an alignment as an argument."
-            BL
-            C "The rule can be printed to the console with the"; P "toConsole"; C "function."
-            BL
-        ] |> toConsole
-        0

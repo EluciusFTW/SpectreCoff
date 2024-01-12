@@ -44,34 +44,3 @@ type JsonExample() =
         |> toConsole
 
         0
-
-open SpectreCoff.Cli.Documentation
-
-type JsonDocumentation() =
-    inherit Command<JsonSettings>()
-    interface ICommandLimiter<JsonSettings>
-
-    override _.Execute(_context, _settings) =
-        setDocumentationStyle
-        Many [
-            spectreDocSynopsis "Json module" "This module provides functionality from the json widget of Spectre.Console" "widgets/Json"
-            BL
-            C "Json can be rendered using the the json function:"
-            funcsOutput [
-                { Name = "json"; Signature = "(content: string) -> OutputPayload" }
-            ]
-            BL
-            C "The output can be styled by mutation the value of the following variables:"
-            valuesOutput [
-                { Name = "bracesLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
-                { Name = "bracketsLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
-                { Name = "colonLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
-                { Name = "commaLook"; Type = "Look"; DefaultValue = "Color: calmColor"; Explanation = "" }
-                { Name = "memberLook"; Type = "Look"; DefaultValue = "Color: pumpedColor, Decorations: Italic"; Explanation = "" }
-                { Name = "stringLook"; Type = "Look"; DefaultValue = "Color: edgyColor, Decorations: Bold"; Explanation = "" }
-                { Name = "numberLook"; Type = "Look"; DefaultValue = "Color: edgyColor, Decorations: Bold"; Explanation = "" }
-                { Name = "booleanLook"; Type = "Look"; DefaultValue = "Color: calmColor, Decorations: Bold"; Explanation = "" }
-                { Name = "nullLook"; Type = "Look"; DefaultValue = "Color: calmColor, Decorations: Dim"; Explanation = "" }
-            ]
-        ] |> toConsole
-        0

@@ -5,7 +5,6 @@
     <RootNamespace>SpectreCoff.Cli</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DocumentationUtilities.fs" />
     <Compile Include="commands/Output.fs" />
     <Compile Include="commands/Panel.fs" />
     <Compile Include="commands/Prompt.fs" />
