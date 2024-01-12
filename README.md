@@ -173,34 +173,11 @@ Since this package is a wrapper around _Spectre.Console_, we will synchronize ou
 You can see each module in action by using the cli included in this repository in `/src/spectrecoff-cli/`. 
 Simply run
 ```
-dotnet run <command> example | doc
+dotnet run <module-name> example
 ```
-for any command with the subcommand `example` or `doc`, depending on if you want to see an example, or the documentation of the command.
-The currently supported commands are:
+in the cli subfolder and substitute the module name by and spectrecoff module you can find in the [module list](docs/modules.md). 
 
-| command     | example | doc | 
-|-------------|---------|-----|
-| output      | ✅       | ❌   |
-| rule        | ✅       | ✅   |
-| figlet      | ✅       | ✅   |
-| panel       | ✅       | ✅   |
-| prompt      | ✅       | ✅   |
-| bar         | ✅       | ✅   |
-| breakdown   | ✅       | ✅   |
-| table       | ✅       | ✅   |
-| tree        | ✅       | ✅   |
-| calendar    | ✅       | ✅   |
-| padder      | ✅       | ✅   |
-| grid        | ✅       | ✅   |
-| textpath    | ✅       | ✅   |
-| json        | ✅       | ✅   |
-| canvasimage | ✅       | ✅   |
-| canvas      | ✅       | ✅   |
-| layout      | ✅       | ✅   |
-| progress    | ✅       | ✅   |
-| livedisplay | ✅       | ✅   |
-| status      | ✅       | ✅   |
-| dumpify     | ✅       | ✅   |
+The source files of these commands are also good sources for more examples on how to use the module.
 
 ## Related Work
 In _SpectreCoff_ we take the approach of providing types and functions wrapping the Spectre.Console api. If you prefer dsls via computation expressions, check out this awesome project (hey, even if you don't, check it out anyway!):
