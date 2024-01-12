@@ -31,36 +31,3 @@ type PadderExample() =
             for i in 1 .. 5 -> alienInaAbox |> padLeft (5*i)
         ] |> toConsole
         0
-
-open SpectreCoff.Cli.Documentation
-
-type PadderDocumentation() =
-    inherit Command<PadderSettings>()
-    interface ICommandLimiter<PadderSettings>
-
-    override _.Execute(_context, _settings) =
-        setDocumentationStyle
-        Many [
-            spectreDocSynopsis "Padder module" "This module provides functionality from the padder widget of Spectre.Console" "widgets/padder"
-            BL
-            C "Using functions from this module, any OutputPayload can be padded"
-            BL
-            funcsOutput [
-                { Name = "pad"; Signature = "(top: int) -> (right: int) -> (bottom: int) -> (left: int) -> OutputPayload -> OutputPayload" }
-                { Name = "padTop"; Signature = "int -> OutputPayload -> OutputPayload" }
-                { Name = "padRight"; Signature = "int -> OutputPayload -> OutputPayload" }
-                { Name = "padBottom"; Signature = "int -> OutputPayload -> OutputPayload" }
-                { Name = "padLeft"; Signature = "int -> OutputPayload -> OutputPayload" }
-                { Name = "padHorizontal"; Signature = "int -> OutputPayload -> OutputPayload" }
-                { Name = "padVertical"; Signature = "int -> OutputPayload -> OutputPayload" }
-                { Name = "padSymmetric"; Signature = "(leftRight: int) -> (topBottom: int) -> OutputPayload -> OutputPayload" }
-                { Name = "padAll"; Signature = "int -> OutputPayload -> OutputPayload" }
-            ]
-            BL
-            C "Note that all padding functions return the element and can hence be piped. So the following produce the same result:"
-            BL
-            BI [
-                Many [ P "element |> padHorizontal 2"; C " ~ "; P "element |> padRight 2 |> padLeft 2"]
-            ]
-        ] |> toConsole
-        0

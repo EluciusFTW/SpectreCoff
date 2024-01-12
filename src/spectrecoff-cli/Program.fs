@@ -13,12 +13,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of printing things to the console.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<OutputDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation of the output module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -27,12 +21,6 @@ let main argv =
                     .AddCommand<TableExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of tables.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<TableDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation of the table module.")
                     |> ignore
             ) |> ignore
 
@@ -43,12 +31,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples for rendering rules.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<RuleDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the rule module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -57,12 +39,6 @@ let main argv =
                     .AddCommand<FigletExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples for rendering figlets.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<FigletDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the figlet module.")
                     |> ignore
             ) |> ignore
 
@@ -73,12 +49,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of prompts.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<PromptDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the prompt module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -87,12 +57,6 @@ let main argv =
                     .AddCommand<PanelExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of panels.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<PanelDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the panel module.")
                     |> ignore
             ) |> ignore
 
@@ -103,12 +67,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of bar charts.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<BarChartDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the bar charts module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -117,12 +75,6 @@ let main argv =
                     .AddCommand<BreakdownChartExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of breakdown charts.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<BreakdownChartDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the breakdown chart module.")
                     |> ignore
             ) |> ignore
 
@@ -133,12 +85,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of trees.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<TreeDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the tree module.")
-                    |> ignore
             )|> ignore
 
         config
@@ -147,12 +93,6 @@ let main argv =
                     .AddCommand<CalendarExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of calendars.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<CalendarDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the calendar module.")
                     |> ignore
             ) |> ignore
 
@@ -163,12 +103,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of padders.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<PadderDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the padder module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -177,12 +111,6 @@ let main argv =
                     .AddCommand<GridExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of grids.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<GridDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the grid module.")
                     |> ignore
             ) |> ignore
 
@@ -193,12 +121,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of text paths.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<TextpathDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the text path module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -207,12 +129,6 @@ let main argv =
                     .AddCommand<JsonExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of json output.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<JsonDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the json module.")
                     |> ignore
             ) |> ignore
 
@@ -223,12 +139,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of a drawn canvas.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<CanvasDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the canvas module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -237,12 +147,6 @@ let main argv =
                     .AddCommand<CanvasImageExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of canvas image output.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<CanvasImageDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the canvas image module.")
                     |> ignore
             ) |> ignore
 
@@ -253,12 +157,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of layout module.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<LayoutDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the layout module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -268,12 +166,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of the live display module.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<LiveDisplayDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the live display module.")
-                    |> ignore
             ) |> ignore
         config
             .AddBranch("progress", fun(branchConfig: IConfigurator<ProgressSettings>) ->
@@ -281,12 +173,6 @@ let main argv =
                     .AddCommand<ProgressExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of the progress module.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<ProgressDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the progress module.")
                     |> ignore
             ) |> ignore
 
@@ -297,12 +183,6 @@ let main argv =
                     .WithAlias("e")
                     .WithDescription("Shows examples of the status module.")
                     |> ignore
-
-                branchConfig
-                    .AddCommand<StatusDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the status module.")
-                    |> ignore
             ) |> ignore
 
         config
@@ -311,12 +191,6 @@ let main argv =
                     .AddCommand<DumpifyExample>("example")
                     .WithAlias("e")
                     .WithDescription("Shows examples of the dumpify module.")
-                    |> ignore
-
-                branchConfig
-                    .AddCommand<DumpifyDocumentation>("doc")
-                    .WithAlias("d")
-                    .WithDescription("Shows the documentation for the dumpify module.")
                     |> ignore
             ) |> ignore
 

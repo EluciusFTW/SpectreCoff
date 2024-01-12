@@ -45,33 +45,3 @@ type LayoutExample() =
         |> toOutputPayload
         |> toConsole
         0
-
-open SpectreCoff.Cli.Documentation
-
-type LayoutDocumentation() =
-    inherit Command<LayoutSettings>()
-    interface ICommandLimiter<LayoutSettings>
-
-    override _.Execute(_context, _) =
-        setDocumentationStyle
-        Many [
-            spectreDocSynopsis "Layout module" "This module provides functionality from the layout widget of Spectre.Console" "widgets/layout"
-            C "A layout can be created by passing an identifier to the"; P "layout"; C"function:"
-            funcsOutput [{ Name = "layout"; Signature = "string -> Layout" }]
-
-            C "Layouts can be composed using the"; P "splitHorizontally"; C"and"; P "splitVertically"; C"functions:"
-            funcsOutput [{ Name = "splitHorizontally"; Signature = "Layout array -> Layout -> Layout" }; { Name = "splitVertically"; Signature = "Layout array -> Layout -> Layout" }]
-            C "Composed layouts can be further fine-tuned using several functions:"
-            funcsOutput [{ Name = "withMinimumWidth"; Signature = "int -> Layout -> Layout" }; { Name = "withExplicitWidth"; Signature = "Nullable<int> -> Layout -> Layout"}; { Name = "withRatio"; Signature = "int -> Layout -> Layout" }]
-            C "Corresponding functions are available to manipulate child layouts through their parents using their identifier:"
-            funcsOutput [{ Name = "withChildMinimumWidth"; Signature = "string -> int -> Layout -> Layout" }; { Name = "withChildExplicitWidth"; Signature = "string -> Nullable<int> -> Layout -> Layout"}; { Name = "withChildRatio"; Signature = "string -> int -> Layout -> Layout" }]
-
-            C "Layouts can be shown and hidden using the"; P "show"; C"and"; P "hide"; C"functions:"
-            funcsOutput [{ Name = "show"; Signature = "Layout -> Layout" }; { Name = "hide"; Signature = "Layout -> Layout" }]
-            C "Again, corresponding methods to target child layouts are available:"
-            funcsOutput [{ Name = "showChild"; Signature = "string -> Layout -> Layout" }; { Name = "hideChild"; Signature = "string -> Layout -> Layout" }]
-
-            C "A layout's content can be changed using the"; P "setContent"; C"and"; P "setChildContent"; C"functions:"
-            funcsOutput [{ Name = "setContent"; Signature = "IRenderable -> Layout -> Layout" }; { Name = "setChildContent"; Signature = "string -> IRenderable -> Layout -> Layout" }]
-        ] |> toConsole
-        0
