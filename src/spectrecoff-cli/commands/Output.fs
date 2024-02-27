@@ -27,6 +27,11 @@ type OutputExample() =
         MC (Color(100uy, 200uy, 233uy), "This is RGB color") |> toConsole
         NL |> toConsole
 
+        [V; C; E; P] 
+        |> List.map (fun payload -> payload "Let's test text with illegal c[h]aractes as [well].") 
+        |> Many 
+        |> toConsole
+
         // The convenience way
         Calm "This utilizes the calm style. " |> toConsole
         C "C is a short for Calm." |> toConsole
@@ -40,14 +45,17 @@ type OutputExample() =
         E "E is a short for Edgy." |> toConsole
         NL |> toConsole
 
-        // Using vanilla and composite styles
-        Vanilla "This let's you pass in a style as defined by Spectre." |> toConsole
+        // Using Vanila, Identity and composite styles
+        Vanilla "This let's you pass through without providing any styling." |> toConsole
         V "V is a short for Vanilla." |> toConsole
-        V "In order to be able to write the styles easily, there are some functions:" |> toConsole
-        V $"""You can use {markupString (Some Color.Purple) [ Decoration.Bold ] "the markup"} function,""" |> toConsole
-        V $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
-        V "to utilize the same styles as defined in the current theme." |> toConsole
-        V $"""As you can see, {pumped "Vanilla"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
+        V "Vanilla will ignore any markup in the string - it is escaped." |> toConsole
+        V "If you want to provide a marked up a string, you have to use Identity (or short, I)." |> toConsole
+        NL |> toConsole
+        Identity $"""You can use {markupString (Some Color.Purple) [ Decoration.Bold ] "the markup"} function,""" |> toConsole
+        I $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
+        I "to utilize the same styles as defined in the current theme." |> toConsole
+        I $"""As you can see, {pumped "Identity"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
+        I $"""Beware however, that using the Identity payload you must [[escape illegal characters]] yourself.""" |> toConsole
         NL |> toConsole
 
         // Multiple lines at once
@@ -96,6 +104,6 @@ type OutputExample() =
         // or, if you need to map the payload to a marked up string or renderable
         let asMarkedUpString = payload.toMarkedUpString
 
-        // Let's test the round-trip!
-        V asMarkedUpString |> toConsole
+        // Let's test the round-trip. You can use Identity to wrap it in an Outputpayload.
+        Identity asMarkedUpString |> toConsole
         0
