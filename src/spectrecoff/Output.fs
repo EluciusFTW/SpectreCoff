@@ -65,8 +65,10 @@ let private stringifyLook look =
     stringify look.Color look.BackgroundColor look.Decorations
 
  // Basic output
-let markup style content =
-    $"[{style}]{Markup.Escape content}[/]"
+let markup (style: string) content =
+    match style with
+    | "" -> Markup.Escape content
+    | _ -> $"[{style}]{Markup.Escape content}[/]"
 
 let markupString (colorOption: Color option) (decorations: Decoration list) content =
     markup $"{stringify colorOption None decorations}" content
@@ -80,6 +82,7 @@ let markupLink label link =
 let pumped content = content |> markup (stringifyLook pumpedLook)
 let edgy content = content |> markup (stringifyLook edgyLook)
 let calm content = content |> markup (stringifyLook calmLook)
+let vanilla content = content |> markup ""
 
 let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
 let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
@@ -107,6 +110,7 @@ type OutputPayload =
     | BulletItems of OutputPayload list
     | Many of OutputPayload list
     | Renderable of IRenderable
+    | Identity of string
 
 // Short aliases
 let ML = MarkupL
@@ -117,6 +121,7 @@ let C = Calm
 let P = Pumped
 let E = Edgy
 let V = Vanilla
+let I = Identity
 let BI = BulletItems
 let NL = NextLine
 let BL = BlankLine
@@ -131,7 +136,8 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Calm content -> content |> calm
     | Pumped content -> content |> pumped
     | Edgy content -> content |> edgy
-    | Vanilla content -> content
+    | Vanilla content -> content |> vanilla
+    | Identity content -> content
     | MarkupL (look, content) -> content |> markup (stringifyLook look)
     | MarkupCD (color, decorations, content) -> content |> markupString (Some color) decorations
     | MarkupC (color, content) -> content |> markupString (Some color) []
@@ -172,7 +178,7 @@ let isStringifyable payload =
     | _ -> false
 
 let combineStringifyables items =
-    Vanilla (items |> joinSeparatedBy " ")
+    Identity (items |> joinSeparatedBy " ")
 
 let rec reduceRenderables (items: OutputPayload list) =
     match items with
