@@ -64,7 +64,6 @@ let private stringify (foregroundColorOption: Color option) (backgroundColorOpti
 let private stringifyLook look =
     stringify look.Color look.BackgroundColor look.Decorations
 
- // Basic output
 let markup style content =
     match style with
     | "" -> Markup.Escape content
@@ -165,6 +164,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
 let isStringifyable payload =
     match payload with
     | Vanilla _
+    | Identity _
     | Calm _
     | Pumped _
     | Edgy _
@@ -207,13 +207,17 @@ let rec payloadToRenderable (payload: OutputPayload) =
         |> Markup
         :> IRenderable
 
-let toConsole (payload: OutputPayload) =
+let toConsoleInline payload =
     payload
     |> payloadToRenderable
     |> AnsiConsole.Write
+
+let toConsole payload =
+    payload |> toConsoleInline
     AnsiConsole.WriteLine ""
 
 type OutputPayload with
     member self.toMarkedUpString = toMarkedUpString self
     member self.toRenderable = payloadToRenderable self
     member self.toConsole = toConsole self
+    member self.toInlineConsole = toConsoleInline self
