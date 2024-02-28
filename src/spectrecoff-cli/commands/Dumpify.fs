@@ -2,7 +2,6 @@ namespace SpectreCoff.Cli.Commands
 
 open Dumpify
 open Spectre.Console.Cli
-open SpectreCoff
 open SpectreCoff.Dumpify
 
 type DumpifySettings() =

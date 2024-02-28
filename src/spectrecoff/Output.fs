@@ -164,7 +164,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
 let isStringifyable payload =
     match payload with
     | Vanilla _
-    | Identity _
+    | Raw _
     | Calm _
     | Pumped _
     | Edgy _
