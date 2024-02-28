@@ -50,3 +50,37 @@ calm: string -> string
 pumped: string -> string
 edgy: string -> string
 ```
+
+## Line breaks / New lines / Blanks
+Since some `OutputPayloads` always take up the full width of the terminal (e.g., a `rule`), but others don't (e.g., `E "Hello"`) this lead us into making some opinionated choices for rendering the output. We want it to work as expected and with the least amount of manual _thinking about line breaks_ as possible.
+
+We define the default behaviour in _SpectreCoff_, using `toConsole`, is writing a whole line. For widgets that take up a whole line naturally, by default, will be followed by a blank line. This means, e.g., that
+```Fs 
+P "Hello" |> toConsole
+E "World" |> toConsole
+```
+will render each word on a single line. To render them on the same line, you can use one of either:
+```Fs 
+P "Hello" |> toConsoleInline
+C "World" |> toConsole 
+
+// or 
+Many [P "Hello"; E "World"] |> toConsole
+```
+Note the usage of `Many` here - if the payloads both are _inlineable_, they will be rendered on a same line, automatically separated by a _space_.
+Also, in the latter case using `Many`, `toConsole` will produce a blank line following the output (as `Many` can be used with any output type, hence is assumed to be of full width type). 
+
+For all output types, you can use `toConsoleInline` to suppress the blank line afterwards, i.e., this will produce three rules without any space inbetween:
+```Fs
+rule "Hello" |> toConsoleInline
+rule "Fellow" |> toConsoleInline
+rule "Developer" |> toConsole
+```
+Or, you can wrap them in a `Many` as seen above with the strings. Rendering `Many` will not add blank lines between the payloads:
+```Fs
+Many [
+  rule "Hello" 
+  rule "Fellow" 
+  rule "Developer" 
+] |> toConsole
+``` 
