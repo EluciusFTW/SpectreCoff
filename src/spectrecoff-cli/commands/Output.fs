@@ -58,6 +58,14 @@ type OutputExample() =
         R $"""Beware however, that using the Raw payload you must [[escape illegal characters]] yourself.""" |> toConsole
         NL |> toConsole
 
+        C "As hinted above, " |> toConsoleInline
+        P "there is also " |> toConsoleInline
+        E "another way " |> toConsoleInline
+        C "to change styles on the same line!" |> toConsole
+        NL |> toConsole
+
+        Many [ C "And ..."; P "yet"; E "another!"; C "(more on"; P "Many"; C "below)"] |> toConsole
+
         // Multiple lines at once
         [
             "Sometimes you"

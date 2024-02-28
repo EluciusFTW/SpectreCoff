@@ -13,15 +13,15 @@ type RuleExample() =
     override _.Execute(_context, _settings) =
         pumped "Hello"
         |> alignedRule Left
-        |> toConsole
+        |> toConsoleInline
 
         "Fellow"
         |> rule
-        |> toConsole
+        |> toConsoleInline
 
         edgy "Developer"
         |> alignedRule Right
-        |> toConsole
+        |> toConsoleInline
 
         emptyRule |> toConsole
         0
