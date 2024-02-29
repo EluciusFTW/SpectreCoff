@@ -65,7 +65,7 @@ let private stringifyLook look =
     stringify look.Color look.BackgroundColor look.Decorations
 
  // Basic output
-let markup (style: string) content =
+let markup style content =
     match style with
     | "" -> Markup.Escape content
     | _ -> $"[{style}]{Markup.Escape content}[/]"
@@ -107,10 +107,10 @@ type OutputPayload =
     | Pumped of string
     | Edgy of string
     | Vanilla of string
+    | Raw of string
     | BulletItems of OutputPayload list
     | Many of OutputPayload list
     | Renderable of IRenderable
-    | Identity of string
 
 // Short aliases
 let ML = MarkupL
@@ -121,7 +121,7 @@ let C = Calm
 let P = Pumped
 let E = Edgy
 let V = Vanilla
-let I = Identity
+let R = Raw
 let BI = BulletItems
 let NL = NextLine
 let BL = BlankLine
@@ -137,7 +137,7 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Pumped content -> content |> pumped
     | Edgy content -> content |> edgy
     | Vanilla content -> content |> vanilla
-    | Identity content -> content
+    | Raw content -> content
     | MarkupL (look, content) -> content |> markup (stringifyLook look)
     | MarkupCD (color, decorations, content) -> content |> markupString (Some color) decorations
     | MarkupC (color, content) -> content |> markupString (Some color) []
@@ -178,7 +178,7 @@ let isStringifyable payload =
     | _ -> false
 
 let combineStringifyables items =
-    Identity (items |> joinSeparatedBy " ")
+    Raw (items |> joinSeparatedBy " ")
 
 let rec reduceRenderables (items: OutputPayload list) =
     match items with

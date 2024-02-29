@@ -45,17 +45,17 @@ type OutputExample() =
         E "E is a short for Edgy." |> toConsole
         NL |> toConsole
 
-        // Using Vanila, Identity and composite styles
+        // Using Vanilla, Raw and composite styles
         Vanilla "This let's you pass through without providing any styling." |> toConsole
         V "V is a short for Vanilla." |> toConsole
         V "Vanilla will ignore any markup in the string - it is escaped." |> toConsole
-        V "If you want to provide a marked up a string, you have to use Identity (or short, I)." |> toConsole
+        V "If you want to provide a marked up a string, you have to use Raw (or short, R)." |> toConsole
         NL |> toConsole
-        Identity $"""You can use {markupString (Some Color.Purple) [ Decoration.Bold ] "the markup"} function,""" |> toConsole
-        I $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
-        I "to utilize the same styles as defined in the current theme." |> toConsole
-        I $"""As you can see, {pumped "Identity"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
-        I $"""Beware however, that using the Identity payload you must [[escape illegal characters]] yourself.""" |> toConsole
+        Raw $"""You can use {markupString (Some Color.Purple) [ Decoration.Bold ] "the markup"} function,""" |> toConsole
+        R $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
+        R "to utilize the same styles as defined in the current theme." |> toConsole
+        R $"""As you can see, {pumped "Raw"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
+        R $"""Beware however, that using the Raw payload you must [[escape illegal characters]] yourself.""" |> toConsole
         NL |> toConsole
 
         // Multiple lines at once
@@ -104,6 +104,6 @@ type OutputExample() =
         // or, if you need to map the payload to a marked up string or renderable
         let asMarkedUpString = payload.toMarkedUpString
 
-        // Let's test the round-trip. You can use Identity to wrap it in an Outputpayload.
-        Identity asMarkedUpString |> toConsole
+        // Let's test the round-trip. You can use Raw to wrap it in an Outputpayload.
+        Raw asMarkedUpString |> toConsole
         0
