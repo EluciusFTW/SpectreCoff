@@ -60,8 +60,8 @@ type PromptDocumentation() =
     interface ICommandLimiter<PromptSettings>
 
     override _.Execute(_context, _) =
-        Cli.Theme.setDocumentationStyle
-
+        applyTheme documentationTheme
+       
         BL |> toConsole
         pumped "Prompt module"
         |> alignedRule Left

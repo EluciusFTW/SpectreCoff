@@ -10,11 +10,14 @@ type PromptOptions =
 type MultiSelectionPromptOptions = 
     { PageSize: int }
 
-let mutable defaultOptions = 
-    { Secret = false
-      Optional = false }
-let mutable defaultMultiSelectionOptions = 
-    { PageSize = 10 }
+type ChoiceWithLabel<'T> =
+    {
+        Label: string
+        Value: 'T
+    }
+
+let defaultOptions = { Secret = false; Optional = false; }
+let defaultMultiSelectionOptions = { PageSize = 10; }
 
 [<RequireQualifiedAccess>]
 module private Prompts = 
@@ -24,9 +27,9 @@ module private Prompts =
         prompt.Title <- question
         prompt
 
-    let selectionPromptT<'T> converter question choices = 
+    let selectionPromptT<'T> converter question values = 
         let prompt = SelectionPrompt<'T>()
-        prompt.AddChoices (choices |> Seq.toArray) |> ignore
+        prompt.AddChoices (values |> Seq.toArray) |> ignore
         prompt.Title <- question
         prompt.Converter <- converter
         prompt
@@ -51,17 +54,25 @@ module private Prompts =
 let private prompt prompter =
     AnsiConsole.Prompt prompter;
 
-let chooseFrom (choices: string list) question = 
+let choose (choices: string list) question = 
     prompt (Prompts.selectionPrompt question choices)
 
-let chooseFromT<'T> (converter : 'T -> string) (choices: 'T list) question =
-    prompt (Prompts.selectionPromptT converter question choices)
+let chooseWithLabel<'T when 'T: equality> (choices: ChoiceWithLabel<'T> list ) question =
+    let choiceLabelMap = 
+        choices 
+        |> Seq.map (fun choice -> choice.Value, choice.Label)
+        |> dict
+    let converter = (fun choice -> choiceLabelMap[choice])
+    
+    choiceLabelMap.Keys 
+    |> Prompts.selectionPromptT converter question 
+    |> prompt
 
-let chooseMultipleFromWith options (choices: string list) question = 
+let chooseMultipleWith options (choices: string list) question = 
     prompt (Prompts.multiSelectionPrompt question choices options)
 
-let chooseMultipleFrom = 
-    chooseMultipleFromWith defaultMultiSelectionOptions
+let chooseMultiple = 
+    chooseMultipleWith defaultMultiSelectionOptions
 
 let ask<'T> question = 
     prompt (Prompts.textPrompt<'T> question defaultOptions)
