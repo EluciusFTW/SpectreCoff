@@ -13,8 +13,8 @@ type PromptExample() =
     override _.Execute(_context, _) =
 
         let fruits = ["Kiwi"; "Pear"; "Grape"; "Plum"; "Banana" ; "Orange"; "Durian"]
-        let chosenFruit = "If you had to pick one, which would it be?" |> chooseFrom fruits
-        let chosenFruits = "Which all do you actually like?" |> chooseMultipleFrom fruits
+        let chosenFruit = "If you had to pick one, which would it be?" |> choose fruits
+        let chosenFruits = "Which all do you actually like?" |> chooseMultiple fruits
 
         match chosenFruits.Count with
         | 0 -> "You don't like any fruit??"
@@ -43,4 +43,63 @@ type PromptExample() =
         | true -> Pumped "Bon apetit!"
         | false -> Edgy "Ok, maybe later :/"
         |> toConsole
+
+        // example for chooseFromValues
+        let choices = [
+            { Value = 42; Label = "the answer" }
+            { Value = 13; Label = "some say it's unlucky" }
+        ]
+
+        let chosenValue = chooseWithLabel choices "Which number do you like best from its description?"
+        $"I like {chosenValue}, too"
+        |> printMarkedUp 
+        0
+
+type PromptDocumentation() =
+    inherit Command<PromptSettings>()
+    interface ICommandLimiter<PromptSettings>
+
+    override _.Execute(_context, _) =
+        applyTheme documentationTheme
+       
+        BL |> toConsole
+        pumped "Prompt module"
+        |> alignedRule Left
+        |> toConsole
+
+        Many [
+            Many [
+                C "This module provides functionality from the prompts of Spectre.Console ("
+                Link "https://spectreconsole.net/prompts"
+                C ")"
+            ]
+            Many [C "This module provides functionality from the"; E "prompt"; C "of Spectre.Console"]
+            BL
+            emptyRule
+            C "For prompting an answer from the user, the following functions can be used:"
+            BI [
+                P "ask<'T> = (question: string) -> 'T"
+                P "askWith<'T> = (options: PromptOptions) (question: string) -> 'T"
+                P "askSuggesting<'T> = (answer: 'T) (question: string) -> 'T"
+                P "askWithSuggesting<'T> = (options: PromptOptions) (answer: 'T) (question: string) -> 'T"
+            ]
+            Many [C "Here,"; P "PromptOptions"; C "is a record with two boolean properties:"]
+            BI [
+               Many [P "Secret"; C "describes whether the characters are shown (default: false)"]
+               Many [P "Optional"; C "describes whether empty is a valid input (default: false)"]
+            ]
+            BL
+            emptyRule
+            C "If the set of choices is finite, one of the following can be used:"
+            BI [
+                Many [P "choose = (choices: string list) (question: string) -> string"; C "a simple single selection prompt"]
+                Many [P "chooseWithLabel<'T> (choices: ChoiceWithLabel<'T> list) (question: string) -> string"; C "a single selection prompt that gives a typed response"]
+                Many [P "chooseMultiple = (choices: string list) (question: string) -> string list"; C "select multiple values from a list of choices"]
+                Many [P "chooseMultipleWith = (options: MultiSelectionPromptOptions) (choices: string list) (question: string) -> string list"; C " selecting multiple entries with configuration of the number of visible entries per page (default: 10)"]
+            ]
+            BL
+            emptyRule
+            C "And finally, this function is suitable for a yes/no question:"
+            BI [ P "confirm = (question: string) -> bool" ]
+        ] |> toConsole
         0
