@@ -10,7 +10,7 @@ type PromptOptions =
 type MultiSelectionPromptOptions = 
     { PageSize: int }
 
-type ChoiceWithLabel<'T> =
+type Choice<'T> =
     {
         Label: string
         Value: 'T
@@ -27,11 +27,13 @@ module private Prompts =
         prompt.Title <- question
         prompt
 
-    let selectionPromptT<'T> converter question values = 
+    let selectionPromptT<'T> question (choices: Choice<'T> list) = 
+        let choiceValues = List.map (fun c -> c.Value) choices
+        let choiceToTextConverter = fun (v: 'T) -> c.Label
         let prompt = SelectionPrompt<'T>()
-        prompt.AddChoices (values |> Seq.toArray) |> ignore
+        prompt.AddChoices (choiceValues |>  Seq.toArray) |> ignore
         prompt.Title <- question
-        prompt.Converter <- converter
+        prompt.Converter <- choiceToTextConverter
         prompt
 
     let multiSelectionPrompt question choices (options: MultiSelectionPromptOptions) = 
@@ -68,7 +70,10 @@ let chooseWithLabel<'T when 'T: equality> (choices: ChoiceWithLabel<'T> list ) q
     |> Prompts.selectionPromptT converter question 
     |> prompt
 
-let chooseMultipleWith options (choices: string list) question = 
+let chooseFromValues2<'T> (choices: Choice<'T> list) (question: string): Choice<'T> =
+    prompt (Prompts.selectionPromptT converter question values)
+
+let chooseMultipleFromWith options (choices: string list) question = 
     prompt (Prompts.multiSelectionPrompt question choices options)
 
 let chooseMultiple = 
