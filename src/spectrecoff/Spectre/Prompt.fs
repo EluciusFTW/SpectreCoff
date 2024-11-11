@@ -1,37 +1,59 @@
 [<AutoOpen>]
 module SpectreCoff.Prompt
 
-open Spectre.Console 
+open Spectre.Console
 
-type PromptOptions = 
+type PromptOptions =
     { Secret: bool
       Optional: bool }
 
-type MultiSelectionPromptOptions = 
+type MultiSelectionPromptOptions =
     { PageSize: int }
 
-let mutable defaultOptions = 
+type ChoiceGroup<'T> =
+    { Group: 'T
+      Choices: 'T array }
+
+type ChoiceGroups<'T> =
+    { Groups: ChoiceGroup<'T> list
+      DisplayFunction: 'T -> string }
+
+let mutable defaultChoiceGroups =
+    { Groups = []
+      DisplayFunction = id }
+
+let mutable defaultOptions =
     { Secret = false
       Optional = false }
-let mutable defaultMultiSelectionOptions = 
+
+let mutable defaultMultiSelectionOptions =
     { PageSize = 10 }
 
 [<RequireQualifiedAccess>]
-module private Prompts = 
-    let selectionPrompt question choices = 
+module private Prompts =
+    let selectionPrompt question choices =
         let prompt = SelectionPrompt()
         prompt.AddChoices (choices |> Seq.toArray) |> ignore
         prompt.Title <- question
         prompt
 
-    let multiSelectionPrompt question choices (options: MultiSelectionPromptOptions) = 
+    let multiSelectionPrompt question choices (options: MultiSelectionPromptOptions) =
         let prompt = MultiSelectionPrompt()
         prompt.AddChoices (choices |> Seq.toArray) |> ignore
         prompt.Title <- question
         prompt.PageSize <- options.PageSize
         prompt
 
-    let textPrompt<'T> question (options: PromptOptions) = 
+    let groupedMultiSelectionPrompt<'T> options question (choiceGroups: ChoiceGroups<'T>) =
+        choiceGroups.Groups
+        |> Seq.fold (fun (prompt: MultiSelectionPrompt<'T>) group -> prompt.AddChoiceGroup<'T>(group.Group, group.Choices)) (MultiSelectionPrompt())
+        |> fun prompt ->
+            prompt.Title <- question
+            prompt.PageSize <- options.PageSize
+            prompt.Converter <- choiceGroups.DisplayFunction
+            prompt
+
+    let textPrompt<'T> question (options: PromptOptions) =
         let prompt = TextPrompt<'T> question
         prompt.IsSecret <- options.Secret
         prompt.AllowEmpty <- options.Optional
@@ -44,26 +66,32 @@ module private Prompts =
 let private prompt prompter =
     AnsiConsole.Prompt prompter;
 
-let chooseFrom (choices: string list) question = 
+let chooseFrom (choices: string list) question =
     prompt (Prompts.selectionPrompt question choices)
 
-let chooseMultipleFromWith options (choices: string list) question = 
+let chooseMultipleFromWith options (choices: string list) question =
     prompt (Prompts.multiSelectionPrompt question choices options)
 
-let chooseMultipleFrom = 
+let chooseMultipleFrom =
     chooseMultipleFromWith defaultMultiSelectionOptions
 
-let ask<'T> question = 
+let chooseGroupedFromWith<'T> options (groupedChoices: ChoiceGroups<'T>) question =
+    prompt (Prompts.groupedMultiSelectionPrompt options question groupedChoices) |> List.ofSeq
+
+let chooseGroupedFrom<'T> =
+    chooseGroupedFromWith<'T> defaultMultiSelectionOptions
+
+let ask<'T> question =
     prompt (Prompts.textPrompt<'T> question defaultOptions)
 
-let askWith<'T> options question = 
+let askWith<'T> options question =
     prompt (Prompts.textPrompt<'T> question options)
 
-let askSuggesting<'T> answer question = 
+let askSuggesting<'T> answer question =
     prompt (Prompts.textPromptWithDefault<'T> question answer defaultOptions)
 
-let askWithSuggesting<'T> options answer question = 
+let askWithSuggesting<'T> options answer question =
     prompt (Prompts.textPromptWithDefault<'T> question answer options)
 
-let confirm question = 
+let confirm question =
     AnsiConsole.Confirm question

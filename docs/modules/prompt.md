@@ -30,6 +30,29 @@ let mutable defaultMultiSelectionOptions: MultiSelectionPromptOptions =
     { PageSize = 10 }
 ```
 
+You can also group your choices, allowing you to select a whole group by choosing the parent. This is done by using one of the following functions:
+
+```fs
+chooseMultipleGroupedFromWith: MultiSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list
+chooseMultipleGroupedFrom: ChoiceGroups<'T> -> string -> 'T list
+```
+
+To define the groups, these types are used:
+
+```fs
+type ChoiceGroup<'T> =
+    { Group: 'T
+      Choices: 'T array }
+
+type ChoiceGroups<'T> =
+    { Groups: ChoiceGroup<'T> list
+      DisplayFunction: 'T -> string }
+```
+
+The `DisplayFunction` defines how to extract the name that should be used in the prompt from `'T`.
+Not that `Group` is not of type `string` as you might expect. This mirrors Spectre.Console's and can lead to some awkward group definitions as shown in the examples below.
+When using `string` as the generic type, it is recommended you use the `defaultChoiceGroups`, which uses the identity function to extract the prompt name (again, see example below).
+
 ### Example
 Some random prompts you might throw at your users.
 ```fs
@@ -40,7 +63,7 @@ let chosenFruit =
     "If you had to pick one, which would it be?" 
     |> chooseFrom fruits
 
-// Selct multiple fruits
+// Select multiple fruits
 let chosenFruits = 
     "Which all do you actually like?" 
     |> chooseMultipleFrom fruits
@@ -52,6 +75,20 @@ let amount =
 
 // Prompt for a boolean
 let answer = confirm "Are you sure?"
+
+// Select multiple fruits defined as strings
+let stringlyTypedFoods = { defaultChoiceGroups with Groups = [ { Group = "Fuits"; Choices = [| "Apple"; "Banana"; "Orange" |] }; { Group = "Berries"; Choices = [| "Blueberry"; "Strawberry" |] } ] }
+let stringlyTypedResult = chooseMultipleGroupedFrom stringlyTypedFoods "Choose a combination of fruits and berries"
+
+// Select multiple strongly typed fruits
+let stronglyTypedFoods =
+    { DisplayFunction = (fun food -> food.Name)
+      Groups =
+        [ { Group = { Name = "Fruits"; Healthiness = None; Tastiness = None }; Choices = [| { Name = "Apple"; Healthiness = Some 4; Tastiness = Some 5 } |] }
+          { Group = { Name = "Berries"; Healthiness = None; Tastiness = None }; Choices = [| { Name = "Blueberry"; Healthiness = Some 4; Tastiness = Some 5 }; { Name = "Strawberry"; Healthiness = Some 8; Tastiness = Some 2 } |] } ]}
+
+let stronglyTypedResult =
+    chooseMultipleGroupedFromWith defaultMultiSelectionOptions stronglyTypedFoods "Choose to measure the tastiness and healthiness of your foods"
 ```
 
 ### Cli Example
