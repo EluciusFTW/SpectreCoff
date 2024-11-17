@@ -40,8 +40,8 @@
     <Compile Include="Spectre\Tree.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Dumpify" Version="0.6.5" />
-    <PackageReference Include="Nerdbank.Gitversioning" Version="3.6.133">
+    <PackageReference Include="Dumpify" Version="0.6.6" />
+    <PackageReference Include="Nerdbank.Gitversioning" Version="3.6.146">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
