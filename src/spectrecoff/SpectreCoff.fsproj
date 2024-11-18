@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <RootNamespace>SpectreCoff</RootNamespace>
     <LangVersion>latest</LangVersion>
     <Authors>Guy Buss, Daniel Muckelbauer</Authors>
@@ -40,15 +40,15 @@
     <Compile Include="Spectre\Tree.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Dumpify" Version="0.6.5" />
-    <PackageReference Include="Nerdbank.Gitversioning" Version="3.6.133">
+    <PackageReference Include="Dumpify" Version="0.6.6" />
+    <PackageReference Include="Nerdbank.Gitversioning" Version="3.6.146">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Spectre.Console" Version="0.49.1" />
     <PackageReference Include="Spectre.Console.ImageSharp" Version="0.49.1" />
     <PackageReference Include="Spectre.Console.Json" Version="0.49.1" />
-    <PackageReference Update="FSharp.Core" Version="6.0.0" />
+    <PackageReference Update="FSharp.Core" Version="8.0.403" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md">
