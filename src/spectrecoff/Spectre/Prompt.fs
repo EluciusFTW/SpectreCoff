@@ -10,6 +10,11 @@ type PromptOptions =
 type MultiSelectionPromptOptions =
     { PageSize: int }
 
+type GroupedSelectionPromptOptions =
+    { PageSize: int
+      Optional: bool
+      SelectionMode: SelectionMode }
+
 type ChoiceGroup<'T> =
     { Group: 'T
       Choices: 'T array }
@@ -28,6 +33,11 @@ let mutable defaultOptions =
 
 let mutable defaultMultiSelectionOptions =
     { PageSize = 10 }
+
+let mutable defaultGroupedSelectionOptions =
+    { PageSize = 10
+      Optional = false
+      SelectionMode = SelectionMode.Leaf }
 
 [<RequireQualifiedAccess>]
 module private Prompts =
@@ -51,6 +61,8 @@ module private Prompts =
             prompt.Title <- question
             prompt.PageSize <- options.PageSize
             prompt.Converter <- choiceGroups.DisplayFunction
+            prompt.Required <- not options.Optional
+            prompt.Mode <- options.SelectionMode
             prompt
 
     let textPrompt<'T> question (options: PromptOptions) =
@@ -79,7 +91,7 @@ let chooseGroupedFromWith<'T> options (groupedChoices: ChoiceGroups<'T>) questio
     prompt (Prompts.groupedMultiSelectionPrompt options question groupedChoices) |> List.ofSeq
 
 let chooseGroupedFrom<'T> =
-    chooseGroupedFromWith<'T> defaultMultiSelectionOptions
+    chooseGroupedFromWith<'T> defaultGroupedSelectionOptions
 
 let ask<'T> question =
     prompt (Prompts.textPrompt<'T> question defaultOptions)

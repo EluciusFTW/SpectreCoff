@@ -9,7 +9,7 @@ askSuggesting<'T>: (answer: 'T) -> string) -> 'T
 askWithSuggesting<'T>: options -> 'T -> string -> 'T
 confirm: string -> bool
 ```
-where `confirm` is just the boolean special case of ask. The functions not acception `options` use the 
+where `confirm` is just the boolean special case of ask. The functions not accepting `options` use the 
 ```fs
 let mutable defaultOptions: PromptOptions = 
     { Secret = false
@@ -35,6 +35,14 @@ You can also group your choices, allowing you to select a whole group by choosin
 ```fs
 chooseMultipleGroupedFromWith: MultiSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list
 chooseMultipleGroupedFrom: ChoiceGroups<'T> -> string -> 'T list
+```
+
+Following the now known pattern, the corresponding default options are:
+```fs
+let mutable defaultGroupedSelectionOptions: GroupedSelectionPromptOptions =
+    { PageSize = 10
+      Optional = false
+      SelectionMode = SelectionMode.Leaf }
 ```
 
 To define the groups, these types are used:

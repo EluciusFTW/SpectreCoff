@@ -54,12 +54,15 @@ type PromptExample() =
                 [ { Group = { Name = "Fruits"; Healthiness = None; Tastiness = None }; Choices = [| { Name = "Apple"; Healthiness = Some 4; Tastiness = Some 5 } |] }
                   { Group = { Name = "Berries"; Healthiness = None; Tastiness = None }; Choices = [| { Name = "Blueberry"; Healthiness = Some 4; Tastiness = Some 5 }; { Name = "Strawberry"; Healthiness = Some 8; Tastiness = Some 2 } |] } ]}
 
+        let allowNoChoiceOptions = { defaultGroupedSelectionOptions with Optional = true }
         let stronglyTypedResult =
-            chooseGroupedFromWith defaultMultiSelectionOptions stronglyTypedFoods "Choose to measure the tastiness and healthiness of your foods"
-        let healthiness = stronglyTypedResult |> List.fold (fun acc food -> acc + food.Healthiness.Value) 0
-        let tastiness = stronglyTypedResult |> List.fold (fun acc food -> acc + food.Tastiness.Value) 0
-
-        P $"The combined healthiness of your foods is {healthiness} and the combined tastiness is {tastiness}" |> toConsole
+            chooseGroupedFromWith allowNoChoiceOptions stronglyTypedFoods "Choose to measure the tastiness and healthiness of your foods"
+        match stronglyTypedResult with
+        | [] -> P "Not eating at all is neither tasty nor healthy" |> toConsole
+        | _ ->
+            let healthiness = stronglyTypedResult |> List.fold (fun acc food -> acc + food.Healthiness.Value) 0
+            let tastiness = stronglyTypedResult |> List.fold (fun acc food -> acc + food.Tastiness.Value) 0
+            P $"The combined healthiness of your foods is {healthiness} and the combined tastiness is {tastiness}" |> toConsole
 
         let stringlyTypedFoods = { defaultChoiceGroups with Groups = [ { Group = "Fuits"; Choices = [| "Apple"; "Banana"; "Orange" |] }; { Group = "Berries"; Choices = [| "Blueberry"; "Strawberry" |] } ] }
 
