@@ -30,6 +30,7 @@ type ProgressExample() =
                     if task2.IsStarted then
                         task2 |> incrementBy 7 |> ignore
                     do! Task.Delay(300)
+                return "The race is over!"
             }
         let template =
             emptyTemplate
@@ -37,5 +38,5 @@ type ProgressExample() =
             |> withSpinnerColumn
             |> withRemainingTimeColumn
             |> withProgressBarColumn
-        (operation |> startCustom template).Wait()
+        (operation |> startCustom template).Result |> P |> toConsole
         0

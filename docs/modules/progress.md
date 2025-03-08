@@ -9,7 +9,7 @@ startCustom: ProgressTemplate -> ProgressOperation -> Task<unit>
 
 where the `ProgressOperation` is a type alias:
 ```fs
-type ProgressOperation = ProgressContext -> Task<unit>
+type ProgressOperation = ProgressContext -> Task<'T>
 ```
 
 The default process template is used by the `start` function, while a custom template instance can be passed to the `startCustom` function. Since _Spectre.Console_ provides some standardized _columns_ in the templates, the package includes an `emptyTemplate` as well, and some builder functions to add the existing columns:
