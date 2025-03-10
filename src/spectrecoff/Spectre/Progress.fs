@@ -16,7 +16,7 @@ type ProgressTemplate =
       HideCompleted: bool
       Columns: ProgressColumn list }
 
-type ProgressOperation = ProgressContext -> Task<unit>
+type ProgressOperation<'T> = ProgressContext -> Task<'T>
 
 let withDescriptionColumn template =
     { template with Columns = template.Columns@[TaskDescriptionColumn()]  }
@@ -45,15 +45,15 @@ let defaultTemplate =
     |> withProgressBarColumn
     |> withPercentageColumn
 
-let startCustom template (operation: ProgressOperation) =
+let startCustom template (operation: ProgressOperation<'T>) =
     task {
-    return! AnsiConsole
-        .Progress()
-        .Columns(template.Columns |> List.toArray)
-        .StartAsync(operation)
-}
+        return! AnsiConsole
+            .Progress()
+            .Columns(template.Columns |> List.toArray)
+            .StartAsync(operation)
+    }
 
-let start =
+let start<'a>: ProgressOperation<'a> -> Task<'a> =
     startCustom defaultTemplate
 
 let realizeIn (context: ProgressContext) task =
@@ -63,7 +63,7 @@ let realizeIn (context: ProgressContext) task =
     | HotCustomTask (maxValue, description) -> context.AddTask(description, true, maxValue)
     | ColdCustomTask (maxValue, description) -> context.AddTask(description, false, maxValue)
 
-let startTask (task: ProgressTask) = 
+let startTask (task: ProgressTask) =
     task.StartTask()
 
 let incrementBy value (task: ProgressTask) =
