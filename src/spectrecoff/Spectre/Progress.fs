@@ -53,7 +53,7 @@ let startCustom template (operation: ProgressOperation<'T>) =
             .StartAsync(operation)
     }
 
-let start () =
+let start<'a>: ProgressOperation<'a> -> Task<'a> =
     startCustom defaultTemplate
 
 let realizeIn (context: ProgressContext) task =
