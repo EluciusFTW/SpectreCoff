@@ -8,7 +8,7 @@
     <Title>SpectreCoff - Spectre.Console for FSharp</Title>
     <Description>A thin, opinionated wrapper around Spectre.Console in FSharp.</Description>
     <PackageTags>cli commandline console-application spectre spectre.console wrapper wrapper-api FSharp F#</PackageTags>
-    <PackageReleaseNotes>Update to Spectre.Console 0.49.1</PackageReleaseNotes>
+    <PackageReleaseNotes>Update to Spectre.Console 0.50.0</PackageReleaseNotes>
     <PackageId>EluciusFTW.SpectreCoff</PackageId>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/EluciusFTW/SpectreCoff</PackageProjectUrl>
@@ -45,9 +45,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Spectre.Console" Version="0.49.1" />
-    <PackageReference Include="Spectre.Console.ImageSharp" Version="0.49.1" />
-    <PackageReference Include="Spectre.Console.Json" Version="0.49.1" />
+    <PackageReference Include="Spectre.Console" Version="0.50.0" />
+    <PackageReference Include="Spectre.Console.ImageSharp" Version="0.50.0" />
+    <PackageReference Include="Spectre.Console.Json" Version="0.50.0" />
     <PackageReference Update="FSharp.Core" Version="8.0.403" />
   </ItemGroup>
   <ItemGroup>
