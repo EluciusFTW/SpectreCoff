@@ -19,9 +19,9 @@ type StatusExample() =
               Look = Some { calmLook with Color = Some Color.Green } }
 
         let harderThinkingSpinner =
-                   { normalThinkingSpinner with
-                       Message = "Thinking harder..."
-                       Look = Some { calmLook with Color = Some Color.DarkOrange } }
+           { normalThinkingSpinner with
+               Message = "Thinking harder..."
+               Look = Some { calmLook with Color = Some Color.DarkOrange } }
 
         let maximumThinkingSpinner =
             {
