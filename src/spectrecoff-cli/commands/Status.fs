@@ -1,6 +1,6 @@
 namespace SpectreCoff.Cli.Commands
 
-open System.Threading.Tasks
+open System
 open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
@@ -14,30 +14,38 @@ type StatusExample() =
 
     override _.Execute(_context, _settings) =
         let normalThinkingSpinner: CustomSpinner =
-           { Message = "Thinking"
-             Spinner = Some Spinner.Known.Pong
-             Look = Some { calmLook with Color = Some Color.Green } }
+            { Message = "Thinking"
+              Spinner = Some Spinner.Known.Pong
+              Look = Some { calmLook with Color = Some Color.Green } }
 
-        let thinkingProcess (context: StatusContext) =
-            task {
-                do! Task.Delay(3000)
-                let harderThinkingSpinner =
-                    { normalThinkingSpinner with
-                        Message = "Thinking harder..."
-                        Look = Some { calmLook with Color = Some Color.DarkOrange } }
+        let harderThinkingSpinner =
+           { normalThinkingSpinner with
+               Message = "Thinking harder..."
+               Look = Some { calmLook with Color = Some Color.DarkOrange } }
+
+        let maximumThinkingSpinner =
+            {
+                Message = "Maximum thinking!!!"
+                Look = Some { calmLook with Color = Some Color.Red }
+                Spinner = Some Spinner.Known.Balloon2 }
+
+        let asyncProcess (context: StatusContext) =
+            async {
+                do! Async.Sleep 500
+
                 updateWithCustomSpinner harderThinkingSpinner context |> ignore
 
-                do! Task.Delay(3000)
-                let maximumThinkingSpinner =
-                    {
-                        Message = "Maximum thinking!!!"
-                        Look = Some { calmLook with Color = Some Color.Red }
-                        Spinner = Some Spinner.Known.Balloon2 }
+                do! Async.Sleep 500
                 updateWithCustomSpinner maximumThinkingSpinner context |> ignore
 
-                do! Task.Delay(3000)
+                do! Async.Sleep 200
+                return "42"
             }
-
-        (startWithCustomSpinner normalThinkingSpinner thinkingProcess).Wait()
-        P "No result" |> toConsole
+        let f = (Status.start "Meaning of Life" asyncProcess)
+        "Operation ready, press any key to start" |> C |> toConsole
+        Console.ReadLine () |> ignore
+        f
+        |> Async.RunSynchronously
+        |> P
+        |> toConsole
         0
