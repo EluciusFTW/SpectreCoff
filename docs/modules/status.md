@@ -2,18 +2,21 @@
 
 ### Example
 ```fs
-let process (context: StatusContext) =
-    task {
-        do! Task.Delay(3000)
+let operation (context: StatusContext) =
+    async {
+        do! Async.Sleep 500
         update "Halfway there ..." context |> ignore
 
-        do! Task.Delay(3000)
+        do! Async.Sleep 500
         update "Any Moment now ..." context |> ignore
 
-        do! Task.Delay(3000)
+        do! Async.Sleep 500
+        return "Done!"
     }
 
-(start "Starting up ..." process).Wait()
+(Status.start "Starting up ..." operation) 
+|> Async.RunSynchronously
+|> P |> toConsole
 ```
 
 ### Cli Example
