@@ -1,7 +1,7 @@
 # SpectreCoff modules
 
 ## Modules from Spectre.Console
-_SpectreCoff_ is in feature-parity with _Spectre.Console_ nad also includes functionality of Dumpify. In the following table you can see the module mapping, as well as links to the corresponding documentation.
+_SpectreCoff_ is in feature-parity with _Spectre.Console_ and also includes functionality of Dumpify. In the following table you can see the module mapping, as well as links to the corresponding documentation.
 
 | SpectreCoff module                                      | Spectre.Console feature                                                       | 
 |---------------------------------------------------------|-------------------------------------------------------------------------------|

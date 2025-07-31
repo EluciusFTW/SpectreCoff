@@ -21,7 +21,7 @@ let mutable defaultConfiguration: LiveDisplayConfiguration =
 ```
 
 ### Example
-This example simulates computing squares and cuebs of numbers on a really (!) slow computer:
+This example simulates computing squares and cubes of numbers on a really (!) slow computer:
 ```fs
 // Define some columns for the table
 let columns = [

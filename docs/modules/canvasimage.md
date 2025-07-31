@@ -1,7 +1,7 @@
 # CanvasImage Module
 This module provides functionality from the [canvas image widget](https://spectreconsole.net/widgets/canvas-image) of _Spectre.Console_.
 
-The canvas image can be created using the canvasImage function,"
+The canvas image can be created using the `canvasImage` function,
 ```fs
 canvasImage: ImageSource -> CanvasImage
 ```
@@ -17,7 +17,7 @@ The canvas image module exposes the mutable variable `maxWidth` (with a default 
 
 Same as in _Spectre.Console_, the [ImageSharp](https://github.com/SixLabors/ImageSharp) api can be used to transform the created images.
 
-Finally, the canvasImage can be mapped to an `OutputPayload` using `toOutputPayload` and be sent to the console via the `toConsole` function.
+Finally, the `CanvasImage` can be mapped to an `OutputPayload` using `toOutputPayload` and be sent to the console via the `toConsole` function.
 
 ### Example
 ```fs

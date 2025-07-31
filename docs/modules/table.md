@@ -35,7 +35,7 @@ let mutable defaultColumnLayout: ColumnLayout =
       Wrap = true }
 ```
 
-The colum definition can be creted manually, or with these pipable builder functions:
+The column definition can be created manually, or with these pipeable builder functions:
 ```fs
 column: OutputPayload -> ColumDefinition
 withFooter: OutputPayload -> ColumnDefinition -> ColumnDefinition
@@ -44,7 +44,7 @@ withFooters: OutputPayload list -> ColumnDefinition list -> ColumnDefinition lis
 withSameLayout: ColumnLayout -> ColumnDefinition list -> ColumnDefinition list
 ```
 
-The data of the table is provided by instances of the `Row` type, which is the same type as the one used in the [Grid module](Grid.md). Rows can also be added after creation, using:
+The data of the table is provided by instances of the `Row` type, which is the same type as the one used in the [Grid module](grid.md). Rows can also be added after creation, using:
 ```fs
 addRowToTable: table -> row -> unit
 ```
