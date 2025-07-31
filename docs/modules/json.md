@@ -56,7 +56,7 @@ module SpectreCoff.Json
           Decorations = [ Decoration.Dim ] }
 ```
 
-Finally, the figlet is sent to the consolevia the `toConsole` function.
+Finally, the figlet is sent to the console via the `toConsole` function.
 
 ### Example
 ```fs

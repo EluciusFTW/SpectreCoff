@@ -26,7 +26,7 @@ let mutable defaultTemplate =
     |> withProgressBarColumn
     |> withPercentageColumn
 ```
-All builder funtions have the signature `ProcessTemplate -> ProcessTemplate`. There are two more ones besides teh ones used in the default template: `withRemainingTimeColumn`, `withSpinnerColumn`.
+All builder functions have the signature `ProcessTemplate -> ProcessTemplate`. There are two more ones besides the ones used in the default template: `withRemainingTimeColumn`, `withSpinnerColumn`.
 
 Inside the passed ProgressOperation, _tasks_ can be added to the `ProgressContext` using the `realizeIn` function:
 ```fs

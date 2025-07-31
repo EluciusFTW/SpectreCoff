@@ -14,7 +14,7 @@ This variable can be overwritten with a custom set if the default one is not to 
 ## BarChart Module
 This module provides functionality from the [bar chart widget](https://spectreconsole.net/widgets/barchart) of Spectre.Console.
 
-The bar chart can be used using the barChart function:
+The bar chart can be used using the `barChart` function:
 ```fs
 barChart: string -> ChartItem list -> OutputPayload
 ```
@@ -26,7 +26,7 @@ module BarChart =
     let mutable alignment = Center      // Determines the alignment of the chart's label
 ```
 
-Finally, the chart is sent to the consolevia the `toConsole` function.
+Finally, the chart is sent to the console via the `toConsole` function.
 
 ### Example
 ```fs
@@ -51,7 +51,7 @@ dotnet run barchart example
 ## BreakdownChart Module
 This module provides functionality from the [breakdown chart widget](https://spectreconsole.net/widgets/breakdownchart) of Spectre.Console.
 
-The breakdown chart can be used using the breakdownChart function:
+The breakdown chart can be used using the `breakdownChart` function:
 ```fs
 breakdownChart: string -> ChartItem list -> OutputPayload
 ```
@@ -62,7 +62,7 @@ module BreakdownChart =
     let mutable width = 60
 ```
 
-Finally, the chart is sent to the consolevia the `toConsole` function.
+Finally, the chart is sent to the console via the `toConsole` function.
 
 ### Example
 ```fs

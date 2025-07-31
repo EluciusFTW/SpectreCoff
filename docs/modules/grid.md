@@ -1,7 +1,7 @@
 # Grid Module
 This module provides functionality from the [grid widget](https://spectreconsole.net/widgets/grid) of _Spectre.Console_.
 
-The grid can be created using:,
+The grid can be created using:
 ```fs
 grid: Row list -> Grid
 ```
