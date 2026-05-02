@@ -39,18 +39,18 @@ Tests live in `src/spectrecoff-tests/` and use [Expecto](https://github.com/haf/
   ```
 - No placeholder strings like `"x"` — use fruits, funny words, or other varied values.
 - No extra spaces for vertical alignment — only structurally required whitespace.
+- Use `should haveSubstring "..."` for string containment — `should contain` iterates chars.
+- Use `should haveLength 0` for empty collection checks — `should equal []` fails on unresolved empty lists.
 
 ### Covered so far
 
 | Module | Functions tested |
 |--------|-----------------|
-| `Output` | `markup`, `toMarkedUpString`, `isStringifyable` |
+| `Styling` | `toSpectreStyle` |
+| `Output` | `markup`, `markupString`, `markupLink`, `toMarkedUpString`, `isStringifyable`, `reduceRenderables` |
 
 ### Planned next
 
-- `Styling.toSpectreStyle` — verify `Look` → `Style` mapping (color, background, decorations)
-- `Output.reduceRenderables` — verify adjacent stringifyable payloads are merged
-- `Output.markupString` / `markupLink` — spot-check markup generation
 - Per-module tests for pure builder functions (e.g. `Rule`, `Panel`, `Table`) once those are identified
 
 ## Branching conventions
