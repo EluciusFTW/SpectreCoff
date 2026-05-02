@@ -3,6 +3,8 @@ _Spectre Console for F#_ - A thin, opinionated wrapper around [Spectre.Console](
 
 Available at [Nuget: EluciusFTW.SpectreCoff](https://www.nuget.org/packages/EluciusFTW.SpectreCoff/).
 
+See the [Changelog](CHANGELOG.md) for recent (breaking) changes.
+
 ## Table of Contents
 - [Goals and Philosophy](#goals-and-philosophy)
 - [SpectreCoff Package](#spectrecoff-package)
