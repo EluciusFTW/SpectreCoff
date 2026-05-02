@@ -10,3 +10,6 @@ Changelog entries are grouped by `major.minor`. If you are on a specific `0.x.y`
 
 #### `Table`: `withLayouts` and `withFooters` parameter types corrected
 The inferred types of the parameters were swapped due to incorrect tuple destructuring. Any call site that relied on the (broken) swapped types will need to be updated to pass `layouts: ColumnLayout list` and `columns: ColumnDefinition list` in the correct order.
+
+#### `Status`: `StatusOperation` changed from `Async`-based to `Task`-based
+`StatusOperation<'Result>` is now `StatusContext -> Task<'Result>` (was `StatusContext -> Async<'Result>`). `start` and `startWithCustomSpinner` now return `Task<'Result>`. Update operation lambdas from `async { }` to `task { }` and `Async.Sleep` to `Task.Delay`.

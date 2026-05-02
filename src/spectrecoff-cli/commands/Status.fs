@@ -1,6 +1,7 @@
 namespace SpectreCoff.Cli.Commands
 
 open System
+open System.Threading.Tasks
 open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
@@ -30,21 +31,21 @@ type StatusExample() =
                 Spinner = Some Spinner.Known.Balloon2 }
 
         let asyncProcess (context: StatusContext) =
-            async {
-                do! Async.Sleep 500
+            task {
+                do! Task.Delay 500
 
                 updateWithCustomSpinner harderThinkingSpinner context |> ignore
 
-                do! Async.Sleep 500
+                do! Task.Delay 500
                 updateWithCustomSpinner maximumThinkingSpinner context |> ignore
 
-                do! Async.Sleep 200
+                do! Task.Delay 200
                 return "42"
             }
-        let f = (Status.start "Meaning of Life" asyncProcess)
-        "Operation ready, press any key to start" |> C |> toConsole
+        "Press any key to start" |> C |> toConsole
         Console.ReadLine () |> ignore
-        f
+        Status.start "Meaning of Life" asyncProcess
+        |> Async.AwaitTask
         |> Async.RunSynchronously
         |> P
         |> toConsole
