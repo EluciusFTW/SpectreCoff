@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Include="StylingTests.fs" />
     <Compile Include="OutputTests.fs" />
+    <Compile Include="TableTests.fs" />
+    <Compile Include="ThemingTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

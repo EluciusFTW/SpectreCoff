@@ -64,7 +64,7 @@ module Column =
     let withLayouts layouts columns =
         columns
         |> List.zip layouts
-        |> List.map (fun (column, layout) -> { column with Layout = Some layout })
+        |> List.map (fun (layout, column) -> { column with Layout = Some layout })
 
     let withSameLayout layout columns =
         columns |> List.map (fun column -> { column with Layout = Some layout })
@@ -75,7 +75,7 @@ module Column =
     let withFooters footers columns =
         columns
         |> List.zip footers
-        |> List.map (fun (column, footer) -> { column with Footer = Some footer })
+        |> List.map (fun (footer, column) -> { column with Footer = Some footer })
 
 [<AutoOpen>]
 module Row =
