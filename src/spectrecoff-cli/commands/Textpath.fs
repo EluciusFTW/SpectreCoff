@@ -10,7 +10,7 @@ type TextpathExample() =
     inherit Command<TextpathSettings>()
     interface ICommandLimiter<TextpathSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
 
         let examples = [
             "C:\\Temp\\local\\data.json"

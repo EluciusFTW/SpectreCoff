@@ -12,7 +12,7 @@ type LiveDisplayExample() =
     inherit Command<LiveDisplaySettings>()
     interface ICommandLimiter<LiveDisplaySettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         let columns = [
             column (Calm "Number")
             column (Calm "Square")

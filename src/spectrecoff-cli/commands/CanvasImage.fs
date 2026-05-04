@@ -13,7 +13,7 @@ type CanvasImageExample() =
     inherit Command<CanvasImageSettings>()
     interface ICommandLimiter<CanvasImageSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         maxWidth <- 50
         task {
             use client = new HttpClient()

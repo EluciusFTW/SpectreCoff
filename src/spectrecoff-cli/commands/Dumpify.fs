@@ -11,7 +11,7 @@ type DumpifyExample() =
     inherit Command<DumpifySettings>()
     interface ICommandLimiter<DumpifySettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         // use the dump function to print all kinds of objects
         [|1;2;3|] |> dump |> ignore
         {| Diameter = 5.5; Area = 3.3; Circumference = 2.2 |} |> dump |> ignore

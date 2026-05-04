@@ -11,7 +11,7 @@ type BarChartExample() =
     inherit Command<BarChartSettings>()
     interface ICommandLimiter<BarChartSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         let items = [
             ChartItem ("Apple", 12)
             ChartItem ("Orange", 3)

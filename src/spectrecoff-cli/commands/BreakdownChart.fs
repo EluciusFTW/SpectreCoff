@@ -12,7 +12,7 @@ type BreakdownChartExample() =
     inherit Command<BreakdownChartSettings>()
     interface ICommandLimiter<BreakdownChartSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         let items = [
             ChartItem ("Refinements", 2)
             ChartItem ("Dailies", 2)

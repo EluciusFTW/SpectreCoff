@@ -11,7 +11,7 @@ type CanvasExample() =
     inherit Command<CanvasSettings>()
     interface ICommandLimiter<CanvasSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         canvas (Width 12) (Height 12)
         |> withPixels (Rectangle (Point(0,0), Point(11,11))) Color.Yellow
         |> withPixels (Rectangle (Point(2,2), Point(4,3))) Color.Purple

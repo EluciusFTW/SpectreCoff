@@ -18,7 +18,7 @@ let private configureStatus spinner (status: Status) =
 
     status.SpinnerStyle <-
         match spinner.Look with
-        | Some look -> look |> toSpectreStyle
+        | Some look -> System.Nullable(look |> toSpectreStyle)
         | None -> status.SpinnerStyle
 
     status
@@ -33,7 +33,7 @@ let updateWithCustomSpinner spinner (context: StatusContext) =
 
     context.SpinnerStyle <-
         match spinner.Look with
-        | Some look -> look |> toSpectreStyle
+        | Some look -> System.Nullable(look |> toSpectreStyle)
         | None -> context.SpinnerStyle
 
     context
