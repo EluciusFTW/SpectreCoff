@@ -11,7 +11,7 @@ type PadderExample() =
     inherit Command<PadderSettings>()
     interface ICommandLimiter<PadderSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
 
         // Let's build some boxes first
         let alienInaAbox =

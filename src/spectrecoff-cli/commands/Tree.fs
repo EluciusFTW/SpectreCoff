@@ -11,7 +11,7 @@ type TreeExample() =
     inherit Command<TreeSettings>()
     interface ICommandLimiter<TreeSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
 
         let nodes =
             [ for i in 1 .. 16 -> (i, node (Calm $"{i}") []) ]

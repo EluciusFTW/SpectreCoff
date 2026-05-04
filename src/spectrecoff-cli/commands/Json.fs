@@ -10,7 +10,7 @@ type JsonExample() =
     inherit Command<JsonSettings>()
     interface ICommandLimiter<JsonSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
 
         Many [
             Many [

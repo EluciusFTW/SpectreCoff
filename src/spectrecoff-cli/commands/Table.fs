@@ -11,7 +11,7 @@ type TableExample() =
     inherit Command<TableSettings>()
     interface ICommandLimiter<TableSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
 
         let columns = [
             column (Calm "Number")

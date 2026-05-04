@@ -15,7 +15,7 @@ type PromptExample() =
     inherit Command<PromptSettings>()
     interface ICommandLimiter<PromptSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
         let fruits = ["Kiwi"; "Pear"; "Grape"; "Plum"; "Banana" ; "Orange"; "Durian"]
         let chosenFruit = "If you had to pick one, which would it be?" |> chooseFrom fruits
         let chosenFruits = "Which all do you actually like?" |> chooseMultipleFrom fruits

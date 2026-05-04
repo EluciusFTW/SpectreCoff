@@ -12,7 +12,7 @@ type ProgressExample() =
     inherit Command<ProgressSettings>()
     interface ICommandLimiter<ProgressSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         let operation (context: ProgressContext) =
             task {
                 let task1 =

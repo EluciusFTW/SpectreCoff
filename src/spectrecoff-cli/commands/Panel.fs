@@ -10,7 +10,7 @@ type PanelExample() =
     inherit Command<PanelSettings>()
     interface ICommandLimiter<PanelSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
         let principles =
             Many [
                 BI [

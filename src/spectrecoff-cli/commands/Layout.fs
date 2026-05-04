@@ -11,7 +11,7 @@ type LayoutExample() =
     inherit Command<LayoutSettings>()
     interface ICommandLimiter<LayoutSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
         Many [
             C "Layouts can be nested and contain any kind of (or no) content. Here a little demonstration using canvas and panel:"
             BL

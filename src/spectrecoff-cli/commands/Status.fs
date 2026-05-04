@@ -12,7 +12,7 @@ type StatusExample() =
     inherit Command<StatusSettings>()
     interface ICommandLimiter<StatusSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         let normalThinkingSpinner: CustomSpinner =
             { Message = "Thinking"
               Spinner = Some Spinner.Known.Pong

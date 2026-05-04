@@ -11,7 +11,7 @@ type CalendarExample() =
     inherit Command<CalendarSettings>()
     interface ICommandLimiter<CalendarSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
 
         // Create a calendar by providing a month and year
         let calendar = calendar (Year 2021) (Month 11)

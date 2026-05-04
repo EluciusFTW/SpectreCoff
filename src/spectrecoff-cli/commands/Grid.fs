@@ -11,7 +11,7 @@ type GridExample() =
     inherit Command<GridSettings>()
     interface ICommandLimiter<GridSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         let numbersGrid = grid [
             Numbers [1; 2]
             Strings ["One"; "Two"; "Three"]

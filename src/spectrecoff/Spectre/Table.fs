@@ -116,11 +116,6 @@ let mutable defaultTableLayout: TableLayout =
 let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list) (rows: Row list) =
     let table = Table()
 
-    match layout.Alignment with
-    | Left -> table.LeftAligned() |> ignore
-    | Right -> table.RightAligned() |> ignore
-    | Center -> table.Centered() |> ignore
-
     match layout.Sizing with
     | Expand -> table.Expand <- true
     | Collapse -> table.Collapse() |> ignore

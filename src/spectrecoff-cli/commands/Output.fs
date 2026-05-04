@@ -11,7 +11,7 @@ type OutputExample() =
     inherit Command<OutputSettings>()
     interface ICommandLimiter<OutputSettings>
 
-    override _.Execute(_context, _) =
+    override _.Execute(_context, _, _) =
 
         pumpedLook <- { pumpedLook with Color = Some Color.Fuchsia }
         edgyLook <- { edgyLook with Color = Some Color.BlueViolet }

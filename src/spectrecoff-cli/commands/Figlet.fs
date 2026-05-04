@@ -11,7 +11,7 @@ type FigletExample() =
     inherit Command<FigletSettings>()
     interface ICommandLimiter<FigletSettings>
 
-    override _.Execute(_context, _settings) =
+    override _.Execute(_context, _settings, _) =
         "Star ..."
         |> customFiglet Left Color.SeaGreen1
         |> toConsole
