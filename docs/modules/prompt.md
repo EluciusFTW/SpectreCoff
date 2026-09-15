@@ -28,6 +28,14 @@ chooseMultipleFrom: (choices: string list) -> string -> string list
 chooseMultipleFromWith: (options: MultiSelectionPromptOptions) -> string list -> string -> string list
 ```          
 
+Just as `askSuggesting` seeds a text prompt, these seed a selection with a choice that starts out highlighted:
+```fs
+chooseFromSuggesting: (suggestion: string) -> (choices: string list) -> (question: string) -> string
+chooseMultipleFromSuggesting: (suggestion: string) -> string list -> string -> string list
+chooseMultipleFromSuggestingWith: MultiSelectionPromptOptions -> string -> string list -> string -> string list
+```
+A suggestion that is not among the choices is ignored, leaving the first choice highlighted.
+
 Each of these has a cancellable counterpart, which lets the user back out with `Escape` and returns an option instead:
 ```fs
 chooseFromOrCancel: (choices: string list) -> (question: string) -> string option
