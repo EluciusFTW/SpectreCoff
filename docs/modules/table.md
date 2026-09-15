@@ -19,6 +19,26 @@ while the `customTable` function accepts the layout as a further argument.
 
 > Note: there is no table-level alignment — _Spectre.Console_ removed it in `0.55`. Align table content per column via `ColumnLayout.Alignment` instead.
 
+Rows come in a few shapes:
+```fs
+type Cell =
+    | Cell of OutputPayload
+    | SpanningCell of int * OutputPayload
+
+type Row =
+    | Payloads of OutputPayload list
+    | Strings of string list
+    | Numbers of int list
+    | Cells of Cell list
+```
+The `Cells` case lets a single cell stretch across several columns, where the `int` of a `SpanningCell` is the number of columns it covers:
+```fs
+table [ column (Raw "fruit"); column (Raw "colour"); column (Raw "crop") ]
+      [ Strings [ "lychee"; "pink"; "summer" ]
+        Cells [ SpanningCell (2, Raw "quince, golden"); Cell (Raw "autumn") ] ]
+```
+Spanning works in grids too — the grid simply reserves a column for each span.
+
 The table functions also takes in the column definitions which are of this form:
 ```fs
 type ColumnDefinition =

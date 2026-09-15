@@ -97,3 +97,29 @@ let withFootersTests =
       result.[1].Footer |> should equal (Some(Raw "avg"))
     }
   ]
+
+[<Tests>]
+let spanningCellTests =
+  testList "spanning cells" [
+    test "a grid reserves one column per span" {
+      grid [ Cells [ SpanningCell (2, Raw "quince"); Cell (Raw "fig") ] ]
+      |> fun g -> g.Columns.Count |> should equal 3
+    }
+
+    test "a grid sizes itself to the widest row" {
+      grid [ Strings [ "lychee"; "papaya" ]
+             Cells [ SpanningCell (3, Raw "damson") ] ]
+      |> fun g -> g.Columns.Count |> should equal 3
+    }
+
+    test "a plain cell counts as a single column" {
+      grid [ Cells [ Cell (Raw "guava"); Cell (Raw "medlar") ] ]
+      |> fun g -> g.Columns.Count |> should equal 2
+    }
+
+    test "a table takes rows of spanning cells" {
+      [ Cells [ SpanningCell (2, Raw "greengage"); Cell (Raw "sloe") ] ]
+      |> table [ column (Raw "fruit"); column (Raw "colour"); column (Raw "crop") ]
+      |> fun t -> t.Rows.Count |> should equal 1
+    }
+  ]

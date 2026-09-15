@@ -51,4 +51,12 @@ type TableExample() =
         |> withCaption "..., have footers, captions, be customized, ..."
         |> toOutputPayload
         |> toConsole
+
+        [ Strings [ "Kiwi"; "green"; "winter" ]
+          Cells [ SpanningCell (2, Pumped "Quince, golden"); Cell (P "autumn") ]
+          Cells [ Cell (P "Fig"); SpanningCell (2, Pumped "purple, late summer") ] ]
+        |> table [ column (Pumped "Fruit"); column (Pumped "Colour"); column (Pumped "Crop") ]
+        |> withTitle "... and have cells spanning several columns."
+        |> toOutputPayload
+        |> toConsole
         0

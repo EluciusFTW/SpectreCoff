@@ -79,16 +79,27 @@ module Column =
 
 [<AutoOpen>]
 module Row =
+    type Cell =
+        | Cell of OutputPayload
+        | SpanningCell of int * OutputPayload
+
     type Row =
         | Payloads of OutputPayload list
         | Strings of string list
         | Numbers of int list
+        | Cells of Cell list
+
+    let private toSpectreCell (cell: Cell) =
+        match cell with
+        | Cell payload -> TableCell (payloadToRenderable payload)
+        | SpanningCell (span, payload) -> TableCell(payloadToRenderable payload).Span span
 
     let private getValues (row: Row) =
         match row with
         | Payloads payloads -> payloads |> List.map payloadToRenderable
         | Strings values -> values |> List.map (fun value -> Text value)
         | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
+        | Cells cells -> cells |> List.map (fun cell -> toSpectreCell cell :> Rendering.IRenderable)
         |> List.toArray
 
     let addRowToTable (table: Table) (row: Row) =
@@ -147,7 +158,8 @@ let grid (rows: Row list) =
            match row with
            | Numbers numbers -> numbers.Length
            | Payloads payloads -> payloads.Length
-           | Strings strings -> strings.Length)
+           | Strings strings -> strings.Length
+           | Cells cells -> cells |> List.sumBy (fun cell -> match cell with Cell _ -> 1 | SpanningCell (span, _) -> span))
         |> List.max
 
     let grid = Grid().AddColumns numberOfColumns
