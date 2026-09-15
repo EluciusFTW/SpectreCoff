@@ -103,13 +103,11 @@ type TableLayout =
     {  Border: TableBorder;
        Sizing: SizingBehaviour;
        HideHeaders: bool;
-       HideFooters: bool;
-       Alignment: Alignment }
+       HideFooters: bool }
 
 let mutable defaultTableLayout: TableLayout =
     {  Border = TableBorder.Rounded
        Sizing = Expand
-       Alignment = Left
        HideHeaders = false
        HideFooters = false }
 

@@ -4,6 +4,15 @@ Versions follow the scheme `<major>.<minor>.<git-depth>`, where `major.minor` tr
 
 Changelog entries are grouped by `major.minor`. If you are on a specific `0.x.y` version and a change listed under `0.x` is not present, you are on an earlier patch — update to the latest `0.x.*` on NuGet to get it.
 
+## 0.57
+
+Tracks _Spectre.Console_ `0.57.2` (up from `0.54.0`), _Spectre.Console.Cli_ `0.55.0` and _Dumpify_ `0.7.0`. No changes to the _SpectreCoff_ API beyond the breaking change below.
+
+### Breaking changes
+
+#### `Table`: `TableLayout.Alignment` removed
+_Spectre.Console_ removed table-level alignment (`Table.LeftAligned()` / `RightAligned()` / `Centered()`) in `0.55`, so the `Alignment` field on `TableLayout` has been dropped rather than left as a field that silently does nothing. Any code constructing a `TableLayout` with `Alignment = ...` needs that field removed. Per-column alignment via `ColumnLayout.Alignment` is unaffected and is now the only way to align table content.
+
 ## 0.54
 
 ### Breaking changes
