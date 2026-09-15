@@ -83,6 +83,16 @@ module private Prompts =
         let prompt = textPrompt<'T> question options
         prompt.DefaultValue answer
 
+    let selectionPromptWithDefault question choices (suggestion: string) =
+        let prompt = selectionPrompt question choices
+        prompt.DefaultValue <- suggestion
+        prompt
+
+    let multiSelectionPromptWithDefault question choices options (suggestion: string) =
+        let prompt = multiSelectionPrompt question choices options
+        prompt.DefaultValue <- suggestion
+        prompt
+
     let cancellableSelectionPrompt question choices =
         let prompt = SelectionPrompt<string option>()
         prompt.AddChoices (choices |> Seq.map Some |> Seq.toArray) |> ignore
@@ -141,6 +151,15 @@ let private toCancellableList (chosen: List<'T>) =
 
 let chooseFromOrCancel (choices: string list) question =
     prompt (Prompts.cancellableSelectionPrompt question choices)
+
+let chooseFromSuggesting suggestion (choices: string list) question =
+    prompt (Prompts.selectionPromptWithDefault question choices suggestion)
+
+let chooseMultipleFromSuggestingWith options suggestion (choices: string list) question =
+    prompt (Prompts.multiSelectionPromptWithDefault question choices options suggestion) |> List.ofSeq
+
+let chooseMultipleFromSuggesting suggestion =
+    chooseMultipleFromSuggestingWith defaultMultiSelectionOptions suggestion
 
 let chooseMultipleFromOrCancelWith options (choices: string list) question =
     prompt (Prompts.cancellableMultiSelectionPrompt question choices options) |> toCancellableList

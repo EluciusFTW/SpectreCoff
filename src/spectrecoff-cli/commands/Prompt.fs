@@ -19,6 +19,8 @@ type PromptExample() =
         let fruits = ["Kiwi"; "Pear"; "Grape"; "Plum"; "Banana" ; "Orange"; "Durian"]
         let chosenFruit = "If you had to pick one, which would it be?" |> chooseFrom fruits
         let chosenFruits = "Which all do you actually like?" |> chooseMultipleFrom fruits
+        let favourite = "And which is the pick of the bunch?" |> chooseFromSuggesting chosenFruit fruits
+        P $"Starting you off on {chosenFruit} there, you settled on {favourite}" |> toConsole
 
         match chosenFruits.Count with
         | 0 -> "You don't like any fruit??"
