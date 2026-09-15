@@ -19,4 +19,8 @@ type FigletExample() =
         "Wars!"
         |> figlet
         |> toConsole
+
+        "Smushed"
+        |> customFigletWithMode FigletLayoutMode.Smushed Left Color.SeaGreen1
+        |> toConsole
         0
