@@ -12,11 +12,12 @@ where the `table` uses the default layout,
 let mutable defaultTableLayout: TableLayout =
     {  Border = TableBorder.Rounded
        Sizing = Expand
-       Alignment = Left
        HideHeaders = false
        HideFooters = false }
 ```
 while the `customTable` function accepts the layout as a further argument.
+
+> Note: there is no table-level alignment — _Spectre.Console_ removed it in `0.55`. Align table content per column via `ColumnLayout.Alignment` instead.
 
 The table functions also takes in the column definitions which are of this form:
 ```fs
