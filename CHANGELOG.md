@@ -10,6 +10,9 @@ Tracks _Spectre.Console_ `0.57.2` (up from `0.54.0`), _Spectre.Console.Cli_ `0.5
 
 ### New features
 
+#### `Figlet`: layout modes
+`FigletLayoutMode` decides how tightly letters are packed — `FullSize`, `Fitted` or `Smushed`. It is read from the new `defaultLayoutMode` mutable, and `customFigletWithMode` sets it per call. `figlet` and `customFiglet` keep their signatures.
+
 #### `Table`: cells spanning several columns
 The new `Cells of Cell list` case on `Row` carries `Cell of OutputPayload` and `SpanningCell of int * OutputPayload`, where the `int` is how many columns the cell covers. Works for grids as well as tables.
 

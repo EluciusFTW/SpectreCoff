@@ -7,6 +7,7 @@ open SpectreCoff.Output
 
 let mutable defaultAlignment = Center
 let mutable defaultColor = pumpedLook.Color
+let mutable defaultLayoutMode = FigletLayoutMode.FullSize
 
 let private applyAlignment alignment figlet = 
     match alignment with
@@ -26,14 +27,23 @@ let private applyColor (colorOption: Color Option) (figlet: FigletText) =
     | None -> ()
     figlet
 
-let customFiglet (alignment: Alignment) (color: Color) content = 
+let private applyLayoutMode mode (figlet: FigletText) =
+    figlet.LayoutMode <- mode
+    figlet
+
+let customFigletWithMode (mode: FigletLayoutMode) (alignment: Alignment) (color: Color) content = 
     FigletText content
     |> applyColor (Some color)
     |> applyAlignment alignment
+    |> applyLayoutMode mode
     |> toRenderable
+
+let customFiglet (alignment: Alignment) (color: Color) content = 
+    customFigletWithMode defaultLayoutMode alignment color content
 
 let figlet content = 
     FigletText content
     |> applyColor defaultColor
     |> applyAlignment defaultAlignment
+    |> applyLayoutMode defaultLayoutMode
     |> toRenderable 
