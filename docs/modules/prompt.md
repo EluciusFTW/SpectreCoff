@@ -13,9 +13,13 @@ where `confirm` is just the boolean special case of ask. The functions not accep
 ```fs
 let mutable defaultOptions: PromptOptions = 
     { Secret = false
-      Optional = false }
+      Optional = false
+      EditableSuggestion = false
+      ClearOnFinish = false }
 ```
 while the others accept an instance of `PromptOptions`.
+
+`EditableSuggestion` decides what the suggestion of `askSuggesting` is worth: left `false` the user either accepts it wholesale or retypes the answer from scratch, set to `true` the suggestion is pre-filled into the input and can be edited in place. `ClearOnFinish` removes the prompt from the console once it has been answered, which is useful when the answer is echoed back in some other shape.
 
 For finite selections, there are a few more functions:
 ```fs
