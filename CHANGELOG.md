@@ -10,6 +10,9 @@ Tracks _Spectre.Console_ `0.57.2` (up from `0.54.0`), _Spectre.Console.Cli_ `0.5
 
 ### New features
 
+#### `Table`: cells spanning several columns
+The new `Cells of Cell list` case on `Row` carries `Cell of OutputPayload` and `SpanningCell of int * OutputPayload`, where the `int` is how many columns the cell covers. Works for grids as well as tables.
+
 #### `Prompt`: cancellable selection prompts
 `chooseFromOrCancel`, `chooseMultipleFromOrCancel`, `chooseMultipleFromOrCancelWith`, `chooseGroupedFromOrCancel` and `chooseGroupedFromOrCancelWith` let the user back out of a selection with `Escape`, returning `None` instead of a choice. Cancelling is distinct from choosing nothing — an optional prompt confirmed without a selection still yields `Some []`.
 
