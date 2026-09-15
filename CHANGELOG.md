@@ -8,6 +8,11 @@ Changelog entries are grouped by `major.minor`. If you are on a specific `0.x.y`
 
 Tracks _Spectre.Console_ `0.57.2` (up from `0.54.0`), _Spectre.Console.Cli_ `0.55.0` and _Dumpify_ `0.7.0`. No changes to the _SpectreCoff_ API beyond the breaking change below.
 
+### New features
+
+#### `Prompt`: cancellable selection prompts
+`chooseFromOrCancel`, `chooseMultipleFromOrCancel`, `chooseMultipleFromOrCancelWith`, `chooseGroupedFromOrCancel` and `chooseGroupedFromOrCancelWith` let the user back out of a selection with `Escape`, returning `None` instead of a choice. Cancelling is distinct from choosing nothing — an optional prompt confirmed without a selection still yields `Some []`.
+
 ### Breaking changes
 
 #### `Table`: `TableLayout.Alignment` removed
