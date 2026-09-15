@@ -18,6 +18,11 @@ The new `Cells of Cell list` case on `Row` carries `Cell of OutputPayload` and `
 
 ### Breaking changes
 
+#### `Prompt`: two new fields on `PromptOptions`
+`PromptOptions` gained `EditableSuggestion` and `ClearOnFinish`, both defaulting to `false`. Code that constructs a `PromptOptions` literally needs the two extra fields; code that builds on `defaultOptions` with a `with` expression is unaffected.
+
+`EditableSuggestion` pre-fills the suggestion of `askSuggesting` into the input so it can be edited in place instead of being accepted wholesale or retyped. `ClearOnFinish` removes the prompt from the console once answered.
+
 #### `Table`: `TableLayout.Alignment` removed
 _Spectre.Console_ removed table-level alignment (`Table.LeftAligned()` / `RightAligned()` / `Centered()`) in `0.55`, so the `Alignment` field on `TableLayout` has been dropped rather than left as a field that silently does nothing. Any code constructing a `TableLayout` with `Alignment = ...` needs that field removed. Per-column alignment via `ColumnLayout.Alignment` is unaffected and is now the only way to align table content.
 

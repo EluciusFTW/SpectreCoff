@@ -37,6 +37,12 @@ type PromptExample() =
             "I'll ask again, but this time I'll suggest 16, it's your secret :)"
             |> askWithSuggesting<int> { defaultOptions with Secret = true } 16
 
+        let amountOnceMore =
+            "And once more, suggesting 16 - this time you can edit it in place"
+            |> askWithSuggesting<int> { defaultOptions with EditableSuggestion = true } 16
+
+        P $"You settled on {amountOnceMore} in the end" |> toConsole
+
         if (amount = amountAgain)
             then "You didn't flinch, huh?"
             else "I see you changed your mind ..."

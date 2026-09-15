@@ -7,7 +7,9 @@ open Spectre.Console
 
 type PromptOptions =
     { Secret: bool
-      Optional: bool }
+      Optional: bool
+      EditableSuggestion: bool
+      ClearOnFinish: bool }
 
 type MultiSelectionPromptOptions =
     { PageSize: int }
@@ -31,7 +33,9 @@ let mutable defaultChoiceGroups =
 
 let mutable defaultOptions =
     { Secret = false
-      Optional = false }
+      Optional = false
+      EditableSuggestion = false
+      ClearOnFinish = false }
 
 let mutable defaultMultiSelectionOptions =
     { PageSize = 10 }
@@ -71,6 +75,8 @@ module private Prompts =
         let prompt = TextPrompt<'T> question
         prompt.IsSecret <- options.Secret
         prompt.AllowEmpty <- options.Optional
+        prompt.EditableDefaultValue <- options.EditableSuggestion
+        prompt.ClearOnFinish <- options.ClearOnFinish
         prompt
 
     let textPromptWithDefault<'T> question (answer: 'T) (options: PromptOptions) =
