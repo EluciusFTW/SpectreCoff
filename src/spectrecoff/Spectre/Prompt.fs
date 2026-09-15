@@ -1,6 +1,8 @@
 [<AutoOpen>]
 module SpectreCoff.Prompt
 
+open System
+open System.Collections.Generic
 open Spectre.Console
 
 type PromptOptions =
@@ -75,6 +77,24 @@ module private Prompts =
         let prompt = textPrompt<'T> question options
         prompt.DefaultValue answer
 
+    let cancellableSelectionPrompt question choices =
+        let prompt = SelectionPrompt<string option>()
+        prompt.AddChoices (choices |> Seq.map Some |> Seq.toArray) |> ignore
+        prompt.Title <- question
+        prompt.Converter <- Option.defaultValue ""
+        prompt.CancelResult <- Func<string option> (fun () -> None)
+        prompt
+
+    let cancellableMultiSelectionPrompt question choices options =
+        let prompt = multiSelectionPrompt question choices options
+        prompt.CancelResult <- Func<List<string>> (fun () -> null)
+        prompt
+
+    let cancellableGroupedMultiSelectionPrompt<'T> options question choiceGroups =
+        let prompt = groupedMultiSelectionPrompt<'T> options question choiceGroups
+        prompt.CancelResult <- Func<List<'T>> (fun () -> null)
+        prompt
+
 let private prompt prompter =
     AnsiConsole.Prompt prompter;
 
@@ -107,3 +127,23 @@ let askWithSuggesting<'T> options answer question =
 
 let confirm question =
     AnsiConsole.Confirm question
+
+let private toCancellableList (chosen: List<'T>) =
+    match chosen with
+    | null -> None
+    | choices -> choices |> List.ofSeq |> Some
+
+let chooseFromOrCancel (choices: string list) question =
+    prompt (Prompts.cancellableSelectionPrompt question choices)
+
+let chooseMultipleFromOrCancelWith options (choices: string list) question =
+    prompt (Prompts.cancellableMultiSelectionPrompt question choices options) |> toCancellableList
+
+let chooseMultipleFromOrCancel =
+    chooseMultipleFromOrCancelWith defaultMultiSelectionOptions
+
+let chooseGroupedFromOrCancelWith<'T> options (groupedChoices: ChoiceGroups<'T>) question =
+    prompt (Prompts.cancellableGroupedMultiSelectionPrompt options question groupedChoices) |> toCancellableList
+
+let chooseGroupedFromOrCancel<'T> =
+    chooseGroupedFromOrCancelWith<'T> defaultGroupedSelectionOptions

@@ -24,6 +24,13 @@ chooseMultipleFrom: (choices: string list) -> string -> string list
 chooseMultipleFromWith: (options: MultiSelectionPromptOptions) -> string list -> string -> string list
 ```          
 
+Each of these has a cancellable counterpart, which lets the user back out with `Escape` and returns an option instead:
+```fs
+chooseFromOrCancel: (choices: string list) -> (question: string) -> string option
+chooseMultipleFromOrCancel: (choices: string list) -> string -> string list option
+chooseMultipleFromOrCancelWith: (options: MultiSelectionPromptOptions) -> string list -> string -> string list option
+```
+
 Again there are defaults in play,
 ```fs
 let mutable defaultMultiSelectionOptions: MultiSelectionPromptOptions = 
@@ -36,6 +43,14 @@ You can also group your choices, allowing you to select a whole group by choosin
 chooseMultipleGroupedFromWith: MultiSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list
 chooseMultipleGroupedFrom: ChoiceGroups<'T> -> string -> 'T list
 ```
+
+and these are cancellable too:
+```fs
+chooseGroupedFromOrCancelWith: MultiSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list option
+chooseGroupedFromOrCancel: ChoiceGroups<'T> -> string -> 'T list option
+```
+
+Note that cancelling is distinct from choosing nothing: an optional prompt that the user confirms without picking anything yields `Some []`, while `None` means they backed out.
 
 Following the now known pattern, the corresponding default options are:
 ```fs

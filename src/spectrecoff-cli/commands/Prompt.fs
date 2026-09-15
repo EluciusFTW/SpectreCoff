@@ -69,4 +69,9 @@ type PromptExample() =
         let stringlyTypedResult = chooseGroupedFrom stringlyTypedFoods "Choose a combination of fruits and berries"
 
         P $"Aha, so combined you like {stringlyTypedResult.Length} kinds of fruits and berries" |> toConsole
+
+        match "Last one - press Escape if you'd rather not say" |> chooseFromOrCancel fruits with
+        | Some fruit -> P $"Noted, {fruit} it is"
+        | None -> Edgy "Fair enough, keeping that to yourself"
+        |> toConsole
         0
