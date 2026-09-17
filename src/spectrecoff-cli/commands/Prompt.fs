@@ -22,13 +22,13 @@ type PromptExample() =
         let favourite = "And which is the pick of the bunch?" |> chooseFromSuggesting chosenFruit fruits
         P $"Starting you off on {chosenFruit} there, you settled on {favourite}" |> toConsole
 
-        match chosenFruits.Count with
-        | 0 -> "You don't like any fruit??"
-        | 1 ->
-            if (chosenFruit = chosenFruits.ToArray()[0])
+        match chosenFruits with
+        | [] -> "You don't like any fruit??"
+        | [ single ] ->
+            if (chosenFruit = single)
                 then "Makes sense"
                 else $"Why didn't you pick {chosenFruit} in the first place?"
-        | _ -> $"Must be nice to like {chosenFruits.Count} different fruit!"
+        | _ -> $"Must be nice to like {chosenFruits.Length} different fruit!"
         |> printMarkedUp
 
         let amount =

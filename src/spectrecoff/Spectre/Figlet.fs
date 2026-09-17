@@ -31,7 +31,7 @@ let private applyLayoutMode mode (figlet: FigletText) =
     figlet.LayoutMode <- mode
     figlet
 
-let customFigletWithMode (mode: FigletLayoutMode) (alignment: Alignment) (color: Color) content = 
+let customFigletWithMode mode (alignment: Alignment) (color: Color) content = 
     FigletText content
     |> applyColor (Some color)
     |> applyAlignment alignment

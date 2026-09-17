@@ -2,6 +2,7 @@ module SpectreCoff.Tests.TableTests
 
 open Expecto
 open FsUnit.Xunit
+open Spectre.Console
 open SpectreCoff
 
 let private leftLayout = {
@@ -117,9 +118,25 @@ let spanningCellTests =
       |> fun g -> g.Columns.Count |> should equal 2
     }
 
-    test "a table takes rows of spanning cells" {
+    test "a table carries the span through to the cell" {
       [ Cells [ SpanningCell (2, Raw "greengage"); Cell (Raw "sloe") ] ]
       |> table [ column (Raw "fruit"); column (Raw "colour"); column (Raw "crop") ]
-      |> fun t -> t.Rows.Count |> should equal 1
+      |> fun t -> (t.Rows |> Seq.head).[0] :?> TableCell
+      |> fun cell -> cell.ColumnSpan |> should equal 2
+    }
+
+    test "a plain cell in a table spans a single column" {
+      [ Cells [ SpanningCell (2, Raw "greengage"); Cell (Raw "sloe") ] ]
+      |> table [ column (Raw "fruit"); column (Raw "colour"); column (Raw "crop") ]
+      |> fun t -> (t.Rows |> Seq.head).[1] :?> TableCell
+      |> fun cell -> cell.ColumnSpan |> should equal 1
+    }
+
+    test "a table refuses a row spanning more columns than it has" {
+      (fun () ->
+        [ Cells [ SpanningCell (9, Raw "greengage") ] ]
+        |> table [ column (Raw "fruit"); column (Raw "colour") ]
+        |> ignore)
+      |> should throw typeof<System.InvalidOperationException>
     }
   ]

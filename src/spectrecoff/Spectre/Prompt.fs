@@ -12,7 +12,8 @@ type PromptOptions =
       ClearOnFinish: bool }
 
 type MultiSelectionPromptOptions =
-    { PageSize: int }
+    { PageSize: int
+      Optional: bool }
 
 type GroupedSelectionPromptOptions =
     { PageSize: int
@@ -38,7 +39,8 @@ let mutable defaultOptions =
       ClearOnFinish = false }
 
 let mutable defaultMultiSelectionOptions =
-    { PageSize = 10 }
+    { PageSize = 10
+      Optional = false }
 
 let mutable defaultGroupedSelectionOptions =
     { PageSize = 10
@@ -58,6 +60,7 @@ module private Prompts =
         prompt.AddChoices (choices |> Seq.toArray) |> ignore
         prompt.Title <- question
         prompt.PageSize <- options.PageSize
+        prompt.Required <- not options.Optional
         prompt
 
     let groupedMultiSelectionPrompt<'T> options question (choiceGroups: ChoiceGroups<'T>) =
@@ -83,12 +86,12 @@ module private Prompts =
         let prompt = textPrompt<'T> question options
         prompt.DefaultValue answer
 
-    let selectionPromptWithDefault question choices (suggestion: string) =
+    let selectionPromptWithDefault question choices suggestion =
         let prompt = selectionPrompt question choices
         prompt.DefaultValue <- suggestion
         prompt
 
-    let multiSelectionPromptWithDefault question choices options (suggestion: string) =
+    let multiSelectionPromptWithDefault question choices options suggestion =
         let prompt = multiSelectionPrompt question choices options
         prompt.DefaultValue <- suggestion
         prompt
@@ -118,7 +121,7 @@ let chooseFrom (choices: string list) question =
     prompt (Prompts.selectionPrompt question choices)
 
 let chooseMultipleFromWith options (choices: string list) question =
-    prompt (Prompts.multiSelectionPrompt question choices options)
+    prompt (Prompts.multiSelectionPrompt question choices options) |> List.ofSeq
 
 let chooseMultipleFrom =
     chooseMultipleFromWith defaultMultiSelectionOptions
