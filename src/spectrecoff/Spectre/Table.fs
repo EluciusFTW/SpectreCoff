@@ -89,7 +89,7 @@ module Row =
         | Numbers of int list
         | Cells of Cell list
 
-    let private toSpectreCell (cell: Cell) =
+    let private toSpectreCell cell =
         match cell with
         | Cell payload -> TableCell (payloadToRenderable payload)
         | SpanningCell (span, payload) -> TableCell(payloadToRenderable payload).Span span

@@ -6,7 +6,7 @@ Changelog entries are grouped by `major.minor`. If you are on a specific `0.x.y`
 
 ## 0.57
 
-Tracks _Spectre.Console_ `0.57.2` (up from `0.54.0`), _Spectre.Console.Cli_ `0.55.0` and _Dumpify_ `0.7.0`. No changes to the _SpectreCoff_ API beyond the breaking change below.
+Tracks _Spectre.Console_ `0.57.2` (up from `0.54.0`), _Spectre.Console.Cli_ `0.55.0` and _Dumpify_ `0.7.0`.
 
 ### New features
 
@@ -20,7 +20,7 @@ The new `Cells of Cell list` case on `Row` carries `Cell of OutputPayload` and `
 `chooseFromSuggesting`, `chooseMultipleFromSuggesting` and `chooseMultipleFromSuggestingWith` start the selection on a given choice, the way `askSuggesting` seeds a text prompt. A suggestion that is not among the choices is ignored and the first choice stays highlighted.
 
 #### `Prompt`: cancellable selection prompts
-`chooseFromOrCancel`, `chooseMultipleFromOrCancel`, `chooseMultipleFromOrCancelWith`, `chooseGroupedFromOrCancel` and `chooseGroupedFromOrCancelWith` let the user back out of a selection with `Escape`, returning `None` instead of a choice. Cancelling is distinct from choosing nothing — an optional prompt confirmed without a selection still yields `Some []`.
+`chooseFromOrCancel`, `chooseMultipleFromOrCancel`, `chooseMultipleFromOrCancelWith`, `chooseGroupedFromOrCancel` and `chooseGroupedFromOrCancelWith` let the user back out of a selection with `Escape`, returning `None` instead of a choice. Cancelling is distinct from choosing nothing — an `Optional` prompt confirmed without a selection still yields `Some []`.
 
 ### Breaking changes
 
@@ -28,6 +28,12 @@ The new `Cells of Cell list` case on `Row` carries `Cell of OutputPayload` and `
 `PromptOptions` gained `EditableSuggestion` and `ClearOnFinish`, both defaulting to `false`. Code that constructs a `PromptOptions` literally needs the two extra fields; code that builds on `defaultOptions` with a `with` expression is unaffected.
 
 `EditableSuggestion` pre-fills the suggestion of `askSuggesting` into the input so it can be edited in place instead of being accepted wholesale or retyped. `ClearOnFinish` removes the prompt from the console once answered.
+
+#### `Prompt`: `Optional` on `MultiSelectionPromptOptions`
+`MultiSelectionPromptOptions` gained an `Optional` field, defaulting to `false`, matching the field of the same name on `GroupedSelectionPromptOptions`. Left at `false` the prompt insists on at least one choice; set to `true` the user may confirm without picking anything. Without it the empty selection the cancellable prompts document was unreachable for the non-grouped multi-select. Code that constructs a `MultiSelectionPromptOptions` literally needs the extra field; code that builds on `defaultMultiSelectionOptions` with a `with` expression is unaffected.
+
+#### `Prompt`: `chooseMultipleFrom` returns an F# list
+`chooseMultipleFrom` and `chooseMultipleFromWith` returned the `System.Collections.Generic.List<string>` they got from _Spectre.Console_, unlike every one of their siblings, and unlike what the documentation claimed. They now return `string list`. Code that used `.Count`, `.ToArray()` or indexing on the result needs `List` functions instead.
 
 #### `Table`: `TableLayout.Alignment` removed
 _Spectre.Console_ removed table-level alignment (`Table.LeftAligned()` / `RightAligned()` / `Centered()`) in `0.55`, so the `Alignment` field on `TableLayout` has been dropped rather than left as a field that silently does nothing. Any code constructing a `TableLayout` with `Alignment = ...` needs that field removed. Per-column alignment via `ColumnLayout.Alignment` is unaffected and is now the only way to align table content.

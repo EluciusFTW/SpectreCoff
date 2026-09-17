@@ -46,23 +46,25 @@ chooseMultipleFromOrCancelWith: (options: MultiSelectionPromptOptions) -> string
 Again there are defaults in play,
 ```fs
 let mutable defaultMultiSelectionOptions: MultiSelectionPromptOptions = 
-    { PageSize = 10 }
+    { PageSize = 10
+      Optional = false }
 ```
+Left at `false`, `Optional` makes the prompt insist on at least one choice; set to `true` the user may confirm without picking anything, and gets an empty list back.
 
 You can also group your choices, allowing you to select a whole group by choosing the parent. This is done by using one of the following functions:
 
 ```fs
-chooseMultipleGroupedFromWith: MultiSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list
-chooseMultipleGroupedFrom: ChoiceGroups<'T> -> string -> 'T list
+chooseGroupedFromWith: GroupedSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list
+chooseGroupedFrom: ChoiceGroups<'T> -> string -> 'T list
 ```
 
 and these are cancellable too:
 ```fs
-chooseGroupedFromOrCancelWith: MultiSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list option
+chooseGroupedFromOrCancelWith: GroupedSelectionPromptOptions -> ChoiceGroups<'T> -> string -> 'T list option
 chooseGroupedFromOrCancel: ChoiceGroups<'T> -> string -> 'T list option
 ```
 
-Note that cancelling is distinct from choosing nothing: an optional prompt that the user confirms without picking anything yields `Some []`, while `None` means they backed out.
+Note that cancelling is distinct from choosing nothing: an `Optional` prompt that the user confirms without picking anything yields `Some []`, while `None` means they backed out.
 
 Following the now known pattern, the corresponding default options are:
 ```fs
@@ -113,7 +115,7 @@ let answer = confirm "Are you sure?"
 
 // Select multiple fruits defined as strings
 let stringlyTypedFoods = { defaultChoiceGroups with Groups = [ { Group = "Fuits"; Choices = [| "Apple"; "Banana"; "Orange" |] }; { Group = "Berries"; Choices = [| "Blueberry"; "Strawberry" |] } ] }
-let stringlyTypedResult = chooseMultipleGroupedFrom stringlyTypedFoods "Choose a combination of fruits and berries"
+let stringlyTypedResult = chooseGroupedFrom stringlyTypedFoods "Choose a combination of fruits and berries"
 
 // Select multiple strongly typed fruits
 let stronglyTypedFoods =
@@ -123,7 +125,7 @@ let stronglyTypedFoods =
           { Group = { Name = "Berries"; Healthiness = None; Tastiness = None }; Choices = [| { Name = "Blueberry"; Healthiness = Some 4; Tastiness = Some 5 }; { Name = "Strawberry"; Healthiness = Some 8; Tastiness = Some 2 } |] } ]}
 
 let stronglyTypedResult =
-    chooseMultipleGroupedFromWith defaultMultiSelectionOptions stronglyTypedFoods "Choose to measure the tastiness and healthiness of your foods"
+    chooseGroupedFromWith defaultGroupedSelectionOptions stronglyTypedFoods "Choose to measure the tastiness and healthiness of your foods"
 ```
 
 ### Cli Example
