@@ -24,18 +24,13 @@ let private applyAlignment alignment path =
     | Left -> path.LeftJustified() |> ignore
     | Center -> path.Centered() |> ignore
     | Right -> path.RightJustified() |> ignore
+
     path
 
-let private toRenderable path = 
-    path
-    :> Rendering.IRenderable
-    |> Renderable
+let private toRenderable path =
+    path :> Rendering.IRenderable |> Renderable
 
 let alignedPath alignment value =
-    TextPath value
-    |> applyAlignment alignment 
-    |> applyLooks 
-    |> toRenderable
+    TextPath value |> applyAlignment alignment |> applyLooks |> toRenderable
 
-let path = 
-    alignedPath defaultAlignment
+let path = alignedPath defaultAlignment

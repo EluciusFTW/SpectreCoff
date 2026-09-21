@@ -4,7 +4,7 @@ open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
-type FigletSettings()  =
+type FigletSettings() =
     inherit CommandSettings()
 
 type FigletExample() =
@@ -12,15 +12,12 @@ type FigletExample() =
     interface ICommandLimiter<FigletSettings>
 
     override _.Execute(_context, _settings, _) =
-        "Star ..."
-        |> customFiglet Left Color.SeaGreen1
-        |> toConsole
+        "Star ..." |> customFiglet Left Color.SeaGreen1 |> toConsole
 
-        "Wars!"
-        |> figlet
-        |> toConsole
+        "Wars!" |> figlet |> toConsole
 
         "Smushed"
         |> customFigletWithMode FigletLayoutMode.Smushed Left Color.SeaGreen1
         |> toConsole
+
         0

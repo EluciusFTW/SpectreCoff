@@ -3,7 +3,7 @@ namespace SpectreCoff.Cli.Commands
 open Spectre.Console.Cli
 open SpectreCoff
 
-type PanelSettings()  =
+type PanelSettings() =
     inherit CommandSettings()
 
 type PanelExample() =
@@ -25,15 +25,18 @@ type PanelExample() =
                 P "... but not always, duh."
             ]
 
-        let header =
-            P " Guiding principles "
-            |> toMarkedUpString
+        let header = P " Guiding principles " |> toMarkedUpString
 
-        principles
-        |> panel header
-        |> toConsole
+        principles |> panel header |> toConsole
 
         P "That surrounding border can be customized easily!"
-        |> customPanel { defaultPanelLayout with Sizing = Expand; BorderColor = Some Spectre.Console.Color.Yellow } " Customization "
+        |> customPanel
+            {
+                defaultPanelLayout with
+                    Sizing = Expand
+                    BorderColor = Some Spectre.Console.Color.Yellow
+            }
+            " Customization "
         |> toConsole
+
         0

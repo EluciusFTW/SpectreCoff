@@ -24,6 +24,7 @@ type ListThemes() =
         |> Array.toList
         |> BulletItems
         |> toConsole
+
         0
 
 type ThemeExample() =
@@ -31,11 +32,9 @@ type ThemeExample() =
 
     let printExample theme =
         selectTheme theme
-        Many [
-            C "The calm fox"
-            P "jumps pumped"
-            E "over the edgy fence"
-        ] |> toConsole
+
+        Many [ C "The calm fox"; P "jumps pumped"; E "over the edgy fence" ]
+        |> toConsole
 
     interface ICommandLimiter<ThemeSettings>
 
@@ -43,9 +42,10 @@ type ThemeExample() =
         let matchingTheme =
             FSharpType.GetUnionCases typeof<SpectreCoffThemes>
             |> Array.tryFind (fun theme -> theme.Name = settings.themeName)
-            |> Option.map (fun case -> FSharpValue.MakeUnion(case, [||] ) :?> SpectreCoffThemes)
+            |> Option.map (fun case -> FSharpValue.MakeUnion(case, [||]) :?> SpectreCoffThemes)
 
         match matchingTheme with
-            | Some theme -> printExample theme
-            | None -> (E $"The theme {settings.themeName} does not exist") |> toConsole
+        | Some theme -> printExample theme
+        | None -> (E $"The theme {settings.themeName} does not exist") |> toConsole
+
         0

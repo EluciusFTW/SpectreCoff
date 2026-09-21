@@ -7,25 +7,29 @@ open Spectre.Console
 open System
 
 // Styles
-let mutable calmLook: Look =
-    { Color = Some Color.SteelBlue
-      BackgroundColor = None
-      Decorations = [ Decoration.None ] }
+let mutable calmLook: Look = {
+    Color = Some Color.SteelBlue
+    BackgroundColor = None
+    Decorations = [ Decoration.None ]
+}
 
-let mutable pumpedLook: Look =
-    { Color = Some Color.DeepSkyBlue3_1
-      BackgroundColor = None
-      Decorations = [ Decoration.Italic ]}
+let mutable pumpedLook: Look = {
+    Color = Some Color.DeepSkyBlue3_1
+    BackgroundColor = None
+    Decorations = [ Decoration.Italic ]
+}
 
-let mutable edgyLook: Look =
-    { Color = Some Color.DarkTurquoise
-      BackgroundColor = None
-      Decorations = [ Decoration.Bold ] }
+let mutable edgyLook: Look = {
+    Color = Some Color.DarkTurquoise
+    BackgroundColor = None
+    Decorations = [ Decoration.Bold ]
+}
 
-let mutable linkLook =
-    { Color = pumpedLook.Color
-      BackgroundColor = None
-      Decorations = [ Decoration.Underline; Decoration.Italic ] }
+let mutable linkLook = {
+    Color = pumpedLook.Color
+    BackgroundColor = None
+    Decorations = [ Decoration.Underline; Decoration.Italic ]
+}
 
 let mutable bulletItemPrefix = " + "
 
@@ -37,8 +41,8 @@ let private padEmoji (emoji: string) =
 let rec private joinSeparatedBy (separator: string) (strings: string list) =
     match strings with
     | [] -> ""
-    | [s] -> s
-    | head::tail -> head + separator + joinSeparatedBy separator tail
+    | [ s ] -> s
+    | head :: tail -> head + separator + joinSeparatedBy separator tail
 
 let private stringifyDecorations (decorations: Decoration list) =
     decorations |> List.map (fun decoration -> decoration.ToString())
@@ -46,19 +50,17 @@ let private stringifyDecorations (decorations: Decoration list) =
 let private stringify (foregroundColorOption: Color option) (backgroundColorOption: Color option) decorations =
     let foregroundColorPart =
         match foregroundColorOption with
-        | Some color -> [$"rgb({color.R},{color.G},{color.B})"]
+        | Some color -> [ $"rgb({color.R},{color.G},{color.B})" ]
         | None -> []
 
     let backgroundColorPart =
         match backgroundColorOption with
-        | Some color -> [$"on rgb({color.R},{color.G},{color.B})"]
+        | Some color -> [ $"on rgb({color.R},{color.G},{color.B})" ]
         | None -> []
 
     let decorationParts = stringifyDecorations decorations
 
-    foregroundColorPart
-    @backgroundColorPart
-    @decorationParts
+    foregroundColorPart @ backgroundColorPart @ decorationParts
     |> joinSeparatedBy " "
 
 let private stringifyLook look =
@@ -74,20 +76,30 @@ let markupString (colorOption: Color option) (decorations: Decoration list) cont
 
 let markupLink label link =
     let style = stringifyLook linkLook
+
     match label with
     | "" -> markup $"{style} link" link
     | _ -> markup $"{style} link={link}" label
 
-let pumped content = content |> markup (stringifyLook pumpedLook)
-let edgy content = content |> markup (stringifyLook edgyLook)
-let calm content = content |> markup (stringifyLook calmLook)
-let vanilla content = content |> markup ""
+let pumped content =
+    content |> markup (stringifyLook pumpedLook)
 
-let printMarkedUpInline content = AnsiConsole.Markup $"{content}"
-let printMarkedUp content = AnsiConsole.Markup $"{content}{Environment.NewLine}"
+let edgy content =
+    content |> markup (stringifyLook edgyLook)
 
-let rec private joinSeparatedByNewline =
-    joinSeparatedBy Environment.NewLine
+let calm content =
+    content |> markup (stringifyLook calmLook)
+
+let vanilla content =
+    content |> markup ""
+
+let printMarkedUpInline content =
+    AnsiConsole.Markup $"{content}"
+
+let printMarkedUp content =
+    AnsiConsole.Markup $"{content}{Environment.NewLine}"
+
+let rec private joinSeparatedByNewline = joinSeparatedBy Environment.NewLine
 
 let appendNewline content =
     content + Environment.NewLine
@@ -100,7 +112,7 @@ type OutputPayload =
     | MarkupC of Color * string
     | MarkupD of Decoration list * string
     | Link of string
-    | LinkWithLabel of string*string
+    | LinkWithLabel of string * string
     | Emoji of string
     | Calm of string
     | Pumped of string
@@ -126,9 +138,7 @@ let NL = NextLine
 let BL = BlankLine
 
 let toOutputPayload value =
-    value
-    :> IRenderable
-    |> Renderable
+    value :> IRenderable |> Renderable
 
 let rec toMarkedUpString (payload: OutputPayload) =
     match payload with
@@ -137,12 +147,12 @@ let rec toMarkedUpString (payload: OutputPayload) =
     | Edgy content -> content |> edgy
     | Vanilla content -> content |> vanilla
     | Raw content -> content
-    | MarkupL (look, content) -> content |> markup (stringifyLook look)
-    | MarkupCD (color, decorations, content) -> content |> markupString (Some color) decorations
-    | MarkupC (color, content) -> content |> markupString (Some color) []
-    | MarkupD (decorations, content) -> content |> markupString None decorations
+    | MarkupL(look, content) -> content |> markup (stringifyLook look)
+    | MarkupCD(color, decorations, content) -> content |> markupString (Some color) decorations
+    | MarkupC(color, content) -> content |> markupString (Some color) []
+    | MarkupD(decorations, content) -> content |> markupString None decorations
     | Link link -> link |> markupLink ""
-    | LinkWithLabel (label, link) -> link |> markupLink label
+    | LinkWithLabel(label, link) -> link |> markupLink label
     | Emoji emoji -> emoji |> padEmoji
     | NextLine -> ""
     | BlankLine -> " "
@@ -152,13 +162,10 @@ let rec toMarkedUpString (payload: OutputPayload) =
             match item with
             | Renderable _ -> failwith "Renderables can't be used within bullet items."
             | BulletItems _ -> failwith "Bullet items can't be used within bullet items."
-            | _ -> Many [C bulletItemPrefix; item])
+            | _ -> Many [ C bulletItemPrefix; item ])
         |> List.map toMarkedUpString
         |> joinSeparatedByNewline
-    | Many payloads ->
-        payloads
-        |> List.map toMarkedUpString
-        |> joinSeparatedBy " "
+    | Many payloads -> payloads |> List.map toMarkedUpString |> joinSeparatedBy " "
     | Renderable _ -> failwith "The payload type 'Renderable' is not stringifyable."
 
 let isStringifyable payload =
@@ -178,7 +185,7 @@ let isStringifyable payload =
     | _ -> false
 
 let combineStringifyables items =
-    Raw (items |> joinSeparatedBy " ")
+    Raw(items |> joinSeparatedBy " ")
 
 let rec reduceRenderables (items: OutputPayload list) =
     match items with
@@ -186,31 +193,24 @@ let rec reduceRenderables (items: OutputPayload list) =
         match tail with
         | head2 :: tail2 ->
             match (isStringifyable head, isStringifyable head2) with
-            | true, true -> reduceRenderables([[head; head2] |> List.map toMarkedUpString |> combineStringifyables]@tail2)
-            | false, true -> [head]@(reduceRenderables tail)
-            | _ -> [head; head2]@(reduceRenderables tail2)
-        | _ -> [head]
+            | true, true ->
+                reduceRenderables (
+                    [ [ head; head2 ] |> List.map toMarkedUpString |> combineStringifyables ]
+                    @ tail2
+                )
+            | false, true -> [ head ] @ (reduceRenderables tail)
+            | _ -> [ head; head2 ] @ (reduceRenderables tail2)
+        | _ -> [ head ]
     | _ -> []
 
 let rec payloadToRenderable (payload: OutputPayload) =
     match payload with
     | Renderable renderable -> renderable
-    | Many payloads ->
-        payloads
-        |> reduceRenderables
-        |> List.map payloadToRenderable
-        |> Rows
-        :> IRenderable
-    | _ ->
-        payload
-        |> toMarkedUpString
-        |> Markup
-        :> IRenderable
+    | Many payloads -> payloads |> reduceRenderables |> List.map payloadToRenderable |> Rows :> IRenderable
+    | _ -> payload |> toMarkedUpString |> Markup :> IRenderable
 
 let toConsoleInline payload =
-    payload
-    |> payloadToRenderable
-    |> AnsiConsole.Write
+    payload |> payloadToRenderable |> AnsiConsole.Write
 
 let toConsole payload =
     payload |> toConsoleInline

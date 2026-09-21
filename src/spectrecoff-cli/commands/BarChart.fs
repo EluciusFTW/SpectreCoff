@@ -13,19 +13,17 @@ type BarChartExample() =
 
     override _.Execute(_context, _settings, _) =
         let items = [
-            ChartItem ("Apple", 12)
-            ChartItem ("Orange", 3)
-            ChartItem ("Banana", 6)
-            ChartItem ("Kiwi", 6)
-            ChartItem ("Strawberry", 15)
-            ChartItem ("Mango", 16)
-            ChartItem ("Peach", 6)
-            ChartItemWithColor ("White", 2, Color.White)
+            ChartItem("Apple", 12)
+            ChartItem("Orange", 3)
+            ChartItem("Banana", 6)
+            ChartItem("Kiwi", 6)
+            ChartItem("Strawberry", 15)
+            ChartItem("Mango", 16)
+            ChartItem("Peach", 6)
+            ChartItemWithColor("White", 2, Color.White)
         ]
+
         alignment <- Left
 
-        items
-        |> barChart "Fruits"
-        |> toConsole
+        items |> barChart "Fruits" |> toConsole
         0
-        

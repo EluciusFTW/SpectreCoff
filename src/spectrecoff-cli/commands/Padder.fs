@@ -4,7 +4,7 @@ open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
-type PadderSettings()  =
+type PadderSettings() =
     inherit CommandSettings()
 
 type PadderExample() =
@@ -16,7 +16,13 @@ type PadderExample() =
         // Let's build some boxes first
         let alienInaAbox =
             (Emoji "alien_monster")
-            |> customPanel { defaultPanelLayout with Sizing = Collapse; Padding = AllEqual 0 } (pumped "Pad me!")
+            |> customPanel
+                {
+                    defaultPanelLayout with
+                        Sizing = Collapse
+                        Padding = AllEqual 0
+                }
+                (pumped "Pad me!")
 
         // If you want to pad any output, you can simply pipe it through,
         // even multiple times
@@ -27,7 +33,5 @@ type PadderExample() =
         |> toConsole
 
         // These padded elements can be composed
-        Many [
-            for i in 1 .. 5 -> alienInaAbox |> padLeft (5*i)
-        ] |> toConsole
+        Many [ for i in 1..5 -> alienInaAbox |> padLeft (5 * i) ] |> toConsole
         0

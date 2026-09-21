@@ -5,59 +5,56 @@ open System
 open System.Collections.Generic
 open Spectre.Console
 
-type PromptOptions =
-    { Secret: bool
-      Optional: bool
-      EditableSuggestion: bool
-      ClearOnFinish: bool }
+type PromptOptions = {
+    Secret: bool
+    Optional: bool
+    EditableSuggestion: bool
+    ClearOnFinish: bool
+}
 
-type MultiSelectionPromptOptions =
-    { PageSize: int
-      Optional: bool }
+type MultiSelectionPromptOptions = { PageSize: int; Optional: bool }
 
-type GroupedSelectionPromptOptions =
-    { PageSize: int
-      Optional: bool
-      SelectionMode: SelectionMode }
+type GroupedSelectionPromptOptions = {
+    PageSize: int
+    Optional: bool
+    SelectionMode: SelectionMode
+}
 
-type ChoiceGroup<'T> =
-    { Group: 'T
-      Choices: 'T array }
+type ChoiceGroup<'T> = { Group: 'T; Choices: 'T array }
 
-type ChoiceGroups<'T> =
-    { Groups: ChoiceGroup<'T> list
-      DisplayFunction: 'T -> string }
+type ChoiceGroups<'T> = {
+    Groups: ChoiceGroup<'T> list
+    DisplayFunction: 'T -> string
+}
 
-let mutable defaultChoiceGroups =
-    { Groups = []
-      DisplayFunction = id }
+let mutable defaultChoiceGroups = { Groups = []; DisplayFunction = id }
 
-let mutable defaultOptions =
-    { Secret = false
-      Optional = false
-      EditableSuggestion = false
-      ClearOnFinish = false }
+let mutable defaultOptions = {
+    Secret = false
+    Optional = false
+    EditableSuggestion = false
+    ClearOnFinish = false
+}
 
-let mutable defaultMultiSelectionOptions =
-    { PageSize = 10
-      Optional = false }
+let mutable defaultMultiSelectionOptions = { PageSize = 10; Optional = false }
 
-let mutable defaultGroupedSelectionOptions =
-    { PageSize = 10
-      Optional = false
-      SelectionMode = SelectionMode.Leaf }
+let mutable defaultGroupedSelectionOptions = {
+    PageSize = 10
+    Optional = false
+    SelectionMode = SelectionMode.Leaf
+}
 
 [<RequireQualifiedAccess>]
 module private Prompts =
     let selectionPrompt question choices =
         let prompt = SelectionPrompt()
-        prompt.AddChoices (choices |> Seq.toArray) |> ignore
+        prompt.AddChoices(choices |> Seq.toArray) |> ignore
         prompt.Title <- question
         prompt
 
     let multiSelectionPrompt question choices (options: MultiSelectionPromptOptions) =
         let prompt = MultiSelectionPrompt()
-        prompt.AddChoices (choices |> Seq.toArray) |> ignore
+        prompt.AddChoices(choices |> Seq.toArray) |> ignore
         prompt.Title <- question
         prompt.PageSize <- options.PageSize
         prompt.Required <- not options.Optional
@@ -65,7 +62,9 @@ module private Prompts =
 
     let groupedMultiSelectionPrompt<'T> options question (choiceGroups: ChoiceGroups<'T>) =
         choiceGroups.Groups
-        |> Seq.fold (fun (prompt: MultiSelectionPrompt<'T>) group -> prompt.AddChoiceGroup<'T>(group.Group, group.Choices)) (MultiSelectionPrompt())
+        |> Seq.fold
+            (fun (prompt: MultiSelectionPrompt<'T>) group -> prompt.AddChoiceGroup<'T>(group.Group, group.Choices))
+            (MultiSelectionPrompt())
         |> fun prompt ->
             prompt.Title <- question
             prompt.PageSize <- options.PageSize
@@ -98,24 +97,24 @@ module private Prompts =
 
     let cancellableSelectionPrompt question choices =
         let prompt = SelectionPrompt<string option>()
-        prompt.AddChoices (choices |> Seq.map Some |> Seq.toArray) |> ignore
+        prompt.AddChoices(choices |> Seq.map Some |> Seq.toArray) |> ignore
         prompt.Title <- question
         prompt.Converter <- Option.defaultValue ""
-        prompt.CancelResult <- Func<string option> (fun () -> None)
+        prompt.CancelResult <- Func<string option>(fun () -> None)
         prompt
 
     let cancellableMultiSelectionPrompt question choices options =
         let prompt = multiSelectionPrompt question choices options
-        prompt.CancelResult <- Func<List<string>> (fun () -> null)
+        prompt.CancelResult <- Func<List<string>>(fun () -> null)
         prompt
 
     let cancellableGroupedMultiSelectionPrompt<'T> options question choiceGroups =
         let prompt = groupedMultiSelectionPrompt<'T> options question choiceGroups
-        prompt.CancelResult <- Func<List<'T>> (fun () -> null)
+        prompt.CancelResult <- Func<List<'T>>(fun () -> null)
         prompt
 
 let private prompt prompter =
-    AnsiConsole.Prompt prompter;
+    AnsiConsole.Prompt prompter
 
 let chooseFrom (choices: string list) question =
     prompt (Prompts.selectionPrompt question choices)
@@ -123,14 +122,13 @@ let chooseFrom (choices: string list) question =
 let chooseMultipleFromWith options (choices: string list) question =
     prompt (Prompts.multiSelectionPrompt question choices options) |> List.ofSeq
 
-let chooseMultipleFrom =
-    chooseMultipleFromWith defaultMultiSelectionOptions
+let chooseMultipleFrom = chooseMultipleFromWith defaultMultiSelectionOptions
 
 let chooseGroupedFromWith<'T> options (groupedChoices: ChoiceGroups<'T>) question =
-    prompt (Prompts.groupedMultiSelectionPrompt options question groupedChoices) |> List.ofSeq
+    prompt (Prompts.groupedMultiSelectionPrompt options question groupedChoices)
+    |> List.ofSeq
 
-let chooseGroupedFrom<'T> =
-    chooseGroupedFromWith<'T> defaultGroupedSelectionOptions
+let chooseGroupedFrom<'T> = chooseGroupedFromWith<'T> defaultGroupedSelectionOptions
 
 let ask<'T> question =
     prompt (Prompts.textPrompt<'T> question defaultOptions)
@@ -159,19 +157,20 @@ let chooseFromSuggesting suggestion (choices: string list) question =
     prompt (Prompts.selectionPromptWithDefault question choices suggestion)
 
 let chooseMultipleFromSuggestingWith options suggestion (choices: string list) question =
-    prompt (Prompts.multiSelectionPromptWithDefault question choices options suggestion) |> List.ofSeq
+    prompt (Prompts.multiSelectionPromptWithDefault question choices options suggestion)
+    |> List.ofSeq
 
 let chooseMultipleFromSuggesting suggestion =
     chooseMultipleFromSuggestingWith defaultMultiSelectionOptions suggestion
 
 let chooseMultipleFromOrCancelWith options (choices: string list) question =
-    prompt (Prompts.cancellableMultiSelectionPrompt question choices options) |> toCancellableList
+    prompt (Prompts.cancellableMultiSelectionPrompt question choices options)
+    |> toCancellableList
 
-let chooseMultipleFromOrCancel =
-    chooseMultipleFromOrCancelWith defaultMultiSelectionOptions
+let chooseMultipleFromOrCancel = chooseMultipleFromOrCancelWith defaultMultiSelectionOptions
 
 let chooseGroupedFromOrCancelWith<'T> options (groupedChoices: ChoiceGroups<'T>) question =
-    prompt (Prompts.cancellableGroupedMultiSelectionPrompt options question groupedChoices) |> toCancellableList
+    prompt (Prompts.cancellableGroupedMultiSelectionPrompt options question groupedChoices)
+    |> toCancellableList
 
-let chooseGroupedFromOrCancel<'T> =
-    chooseGroupedFromOrCancelWith<'T> defaultGroupedSelectionOptions
+let chooseGroupedFromOrCancel<'T> = chooseGroupedFromOrCancelWith<'T> defaultGroupedSelectionOptions

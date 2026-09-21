@@ -4,7 +4,7 @@ open Spectre.Console.Cli
 open SpectreCoff
 open Spectre.Console
 
-type LayoutSettings()  =
+type LayoutSettings() =
     inherit CommandSettings()
 
 type LayoutExample() =
@@ -13,35 +13,40 @@ type LayoutExample() =
 
     override _.Execute(_context, _, _) =
         Many [
-            C "Layouts can be nested and contain any kind of (or no) content. Here a little demonstration using canvas and panel:"
+            C
+                "Layouts can be nested and contain any kind of (or no) content. Here a little demonstration using canvas and panel:"
             BL
         ]
         |> toConsole
 
         let canvasContent =
             canvas (Width 12) (Height 12)
-            |> withPixels (Rectangle (Point(0, 0), Point(11, 11))) Color.Yellow
-            |> withPixels (Rectangle (Point(2, 2), Point(4, 3))) Color.Purple
-            |> withPixels (Rectangle (Point(7, 2), Point(9, 3))) Color.Purple
-            |> withPixels (ColumnSegment (ColumnIndex 8, StartIndex 4, EndIndex 7)) Color.Blue
-            |> withPixels (RowSegment (RowIndex 9, StartIndex 3, EndIndex 8)) Color.Purple
+            |> withPixels (Rectangle(Point(0, 0), Point(11, 11))) Color.Yellow
+            |> withPixels (Rectangle(Point(2, 2), Point(4, 3))) Color.Purple
+            |> withPixels (Rectangle(Point(7, 2), Point(9, 3))) Color.Purple
+            |> withPixels (ColumnSegment(ColumnIndex 8, StartIndex 4, EndIndex 7)) Color.Blue
+            |> withPixels (RowSegment(RowIndex 9, StartIndex 3, EndIndex 8)) Color.Purple
             |> withPixels (Pixels [ (3, 10); (8, 10) ]) Color.Purple
 
         let panelContent =
             E "I am the upper panel"
-            |> customPanel { defaultPanelLayout with Sizing = Expand } (P "Upper!" |> toMarkedUpString)
+            |> customPanel
+                {
+                    defaultPanelLayout with
+                        Sizing = Expand
+                }
+                (P "Upper!" |> toMarkedUpString)
             |> payloadToRenderable
 
         let rootLayout =
             layout "Root"
-            |> splitHorizontally
-                [| layout "upper-child"
-                   layout "lower-child" |> splitVertically [| layout "left-child" |> withRatio 3 ; layout "right-child" |> withRatio 2 |]
-                |]
+            |> splitHorizontally [|
+                layout "upper-child"
+                layout "lower-child"
+                |> splitVertically [| layout "left-child" |> withRatio 3; layout "right-child" |> withRatio 2 |]
+            |]
             |> setChildContent "upper-child" panelContent
             |> setChildContent "right-child" canvasContent
 
-        rootLayout
-        |> toOutputPayload
-        |> toConsole
+        rootLayout |> toOutputPayload |> toConsole
         0

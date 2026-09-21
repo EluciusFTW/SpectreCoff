@@ -5,7 +5,7 @@ open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
-type StatusSettings()  =
+type StatusSettings() =
     inherit CommandSettings()
 
 type StatusExample() =
@@ -13,21 +13,31 @@ type StatusExample() =
     interface ICommandLimiter<StatusSettings>
 
     override _.Execute(_context, _settings, _) =
-        let normalThinkingSpinner: CustomSpinner =
-            { Message = "Thinking"
-              Spinner = Some Spinner.Known.Pong
-              Look = Some { calmLook with Color = Some Color.Green } }
+        let normalThinkingSpinner: CustomSpinner = {
+            Message = "Thinking"
+            Spinner = Some Spinner.Known.Pong
+            Look =
+                Some {
+                    calmLook with
+                        Color = Some Color.Green
+                }
+        }
 
-        let harderThinkingSpinner =
-           { normalThinkingSpinner with
-               Message = "Thinking harder..."
-               Look = Some { calmLook with Color = Some Color.DarkOrange } }
+        let harderThinkingSpinner = {
+            normalThinkingSpinner with
+                Message = "Thinking harder..."
+                Look =
+                    Some {
+                        calmLook with
+                            Color = Some Color.DarkOrange
+                    }
+        }
 
-        let maximumThinkingSpinner =
-            {
-                Message = "Maximum thinking!!!"
-                Look = Some { calmLook with Color = Some Color.Red }
-                Spinner = Some Spinner.Known.Balloon2 }
+        let maximumThinkingSpinner = {
+            Message = "Maximum thinking!!!"
+            Look = Some { calmLook with Color = Some Color.Red }
+            Spinner = Some Spinner.Known.Balloon2
+        }
 
         let asyncProcess (context: StatusContext) =
             async {
@@ -41,11 +51,9 @@ type StatusExample() =
                 do! Async.Sleep 200
                 return "42"
             }
+
         let f = (Status.start "Meaning of Life" asyncProcess)
         "Operation ready, press any key to start" |> C |> toConsole
-        Console.ReadLine () |> ignore
-        f
-        |> Async.RunSynchronously
-        |> P
-        |> toConsole
+        Console.ReadLine() |> ignore
+        f |> Async.RunSynchronously |> P |> toConsole
         0

@@ -13,23 +13,34 @@ type OutputExample() =
 
     override _.Execute(_context, _, _) =
 
-        pumpedLook <- { pumpedLook with Color = Some Color.Fuchsia }
-        edgyLook <- { edgyLook with Color = Some Color.BlueViolet }
-        calmLook <- { calmLook with Color = Some Color.Green }
+        pumpedLook <- {
+            pumpedLook with
+                Color = Some Color.Fuchsia
+        }
+
+        edgyLook <- {
+            edgyLook with
+                Color = Some Color.BlueViolet
+        }
+
+        calmLook <- {
+            calmLook with
+                Color = Some Color.Green
+        }
 
         NL |> toConsole
 
         // There are several ways to print a single line.
         // The generic way
-        MCD (Color.Red, [ Decoration.Underline ], "This is underline red") |> toConsole
-        MD ([ Decoration.Underline; Decoration.Dim ], "This is underline.") |> toConsole
-        MC (Color.Red, "This is red") |> toConsole
-        MC (Color(100uy, 200uy, 233uy), "This is RGB color") |> toConsole
+        MCD(Color.Red, [ Decoration.Underline ], "This is underline red") |> toConsole
+        MD([ Decoration.Underline; Decoration.Dim ], "This is underline.") |> toConsole
+        MC(Color.Red, "This is red") |> toConsole
+        MC(Color(100uy, 200uy, 233uy), "This is RGB color") |> toConsole
         NL |> toConsole
 
-        [V; C; E; P] 
-        |> List.map (fun payload -> payload "Let's test text with illegal c[h]aractes as [well].") 
-        |> Many 
+        [ V; C; E; P ]
+        |> List.map (fun payload -> payload "Let's test text with illegal c[h]aractes as [well].")
+        |> Many
         |> toConsole
 
         // The convenience way
@@ -46,16 +57,32 @@ type OutputExample() =
         NL |> toConsole
 
         // Using Vanilla, Raw and composite styles
-        Vanilla "This let's you pass through without providing any styling." |> toConsole
+        Vanilla "This let's you pass through without providing any styling."
+        |> toConsole
+
         V "V is a short for Vanilla." |> toConsole
         V "Vanilla will ignore any markup in the string - it is escaped." |> toConsole
-        V "If you want to provide a marked up a string, you have to use Raw (or short, R)." |> toConsole
+
+        V "If you want to provide a marked up a string, you have to use Raw (or short, R)."
+        |> toConsole
+
         NL |> toConsole
-        Raw $"""You can use {markupString (Some Color.Purple) [ Decoration.Bold ] "the markup"} function,""" |> toConsole
-        R $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions""" |> toConsole
+
+        Raw $"""You can use {markupString (Some Color.Purple) [ Decoration.Bold ] "the markup"} function,"""
+        |> toConsole
+
+        R $"""or {calm "the calm"}, {pumped "the pumped"} {edgy "or the edgy"} functions"""
+        |> toConsole
+
         R "to utilize the same styles as defined in the current theme." |> toConsole
-        R $"""As you can see, {pumped "Raw"} is especially useful for styles in {edgy "one line!"} (more on that below).""" |> toConsole
-        R $"""Beware however, that using the Raw payload you must [[escape illegal characters]] yourself.""" |> toConsole
+
+        R
+            $"""As you can see, {pumped "Raw"} is especially useful for styles in {edgy "one line!"} (more on that below)."""
+        |> toConsole
+
+        R $"""Beware however, that using the Raw payload you must [[escape illegal characters]] yourself."""
+        |> toConsole
+
         NL |> toConsole
 
         C "As hinted above, " |> toConsoleInline
@@ -64,7 +91,8 @@ type OutputExample() =
         C "to change styles on the same line!" |> toConsole
         NL |> toConsole
 
-        Many [ C "And ..."; P "yet"; E "another!"; C "(more on"; P "Many"; C "below)"] |> toConsole
+        Many [ C "And ..."; P "yet"; E "another!"; C "(more on"; P "Many"; C "below)" ]
+        |> toConsole
 
         // Multiple lines at once
         [
@@ -82,11 +110,7 @@ type OutputExample() =
         Many [
             NL
             C "If you want to list a few items you can use BulletItems: "
-            BulletItems [
-                C "listing"
-                P "several"
-                E "items"
-            ]
+            BulletItems [ C "listing"; P "several"; E "items" ]
             rule "Links and Emojis"
             Many [
                 C "You can easily render clickable links:"
@@ -94,19 +118,17 @@ type OutputExample() =
             ]
             Many [
                 C "Even with a dedicated display text:"
-                LinkWithLabel ("See documentation!", "https://www.spectreconsole.net/markup")
+                LinkWithLabel("See documentation!", "https://www.spectreconsole.net/markup")
             ]
             NL
-            Many [
-                C "You can use emojis by their string literals"
-                Emoji "alien_monster"
-            ]
+            Many [ C "You can use emojis by their string literals"; Emoji "alien_monster" ]
             C $"""or use the constants provided by Spectre {Emoji.Known.Ghost} inline."""
             NL
-        ] |> toConsole
+        ]
+        |> toConsole
 
         // Use extensions on the payload
-        let payload = Many [ NL; P "Printed"; E "using"; NL; C "... the Extension!"]
+        let payload = Many [ NL; P "Printed"; E "using"; NL; C "... the Extension!" ]
         payload.toConsole
 
         // or, if you need to map the payload to a marked up string or renderable

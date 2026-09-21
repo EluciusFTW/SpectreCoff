@@ -11,15 +11,17 @@ type GuideStyle =
     | DoubleLine
     | BoldLine
 
-type TreeLayout =
-    { Sizing: SizingBehaviour
-      Guides: GuideStyle
-      Look: Look }
+type TreeLayout = {
+    Sizing: SizingBehaviour
+    Guides: GuideStyle
+    Look: Look
+}
 
-let mutable defaultTreeLayout: TreeLayout =
-    { Sizing = Collapse
-      Guides = SingleLine
-      Look = calmLook }
+let mutable defaultTreeLayout: TreeLayout = {
+    Sizing = Collapse
+    Guides = SingleLine
+    Look = calmLook
+}
 
 let private applyLayout layout (root: Tree) =
     match layout.Sizing with
@@ -44,20 +46,16 @@ let attachToRoot (nodes: TreeNode list) (root: Tree) =
     root
 
 let node (content: OutputPayload) (nodes: TreeNode list) =
-    content
-    |> payloadToRenderable
-    |> TreeNode
-    |> attach nodes
+    content |> payloadToRenderable |> TreeNode |> attach nodes
 
-let customTree (layout: TreeLayout) (rootContent: OutputPayload ) (nodes: TreeNode list) =
+let customTree (layout: TreeLayout) (rootContent: OutputPayload) (nodes: TreeNode list) =
     rootContent
     |> payloadToRenderable
     |> Tree
     |> applyLayout layout
     |> attachToRoot nodes
 
-let tree =
-    customTree defaultTreeLayout
+let tree = customTree defaultTreeLayout
 
 type Tree with
     member self.toOutputPayload = toOutputPayload self
