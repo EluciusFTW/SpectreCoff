@@ -18,6 +18,7 @@ let canvasImage source =
         | Bytes bytes -> CanvasImage bytes
         | Stream stream -> CanvasImage stream
         | Path path -> CanvasImage path
+
     image.MaxWidth <- maxWidth
     image
 

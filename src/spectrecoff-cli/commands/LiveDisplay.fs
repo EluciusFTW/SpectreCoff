@@ -5,7 +5,7 @@ open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
-type LiveDisplaySettings()  =
+type LiveDisplaySettings() =
     inherit CommandSettings()
 
 type LiveDisplayExample() =
@@ -16,21 +16,30 @@ type LiveDisplayExample() =
         let columns = [
             column (Calm "Number")
             column (Calm "Square")
-            column (Pumped "Cube") |> withLayout { defaultColumnLayout with Alignment = Right }
+            column (Pumped "Cube")
+            |> withLayout {
+                defaultColumnLayout with
+                    Alignment = Right
+            }
         ]
+
         let exampleTable = table columns []
 
         let addRow index table =
-            Numbers [index; pown index 2; pown index 3] |> addRowToTable table
+            Numbers [ index; pown index 2; pown index 3 ] |> addRowToTable table
 
         let operation (context: LiveDisplayContext) =
             task {
-                 for i in 1 .. 20 do
+                for i in 1..20 do
                     exampleTable |> addRow i
                     context.Refresh()
                     do! Task.Delay(200)
             }
 
-        let config = { defaultConfiguration with Overflow = Some VerticalOverflow.Ellipsis }
+        let config = {
+            defaultConfiguration with
+                Overflow = Some VerticalOverflow.Ellipsis
+        }
+
         (startWithCustomConfig config exampleTable operation).Wait()
         0

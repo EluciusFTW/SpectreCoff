@@ -7,22 +7,25 @@ open SpectreCoff.Output
 
 [<AutoOpen>]
 module Column =
-    type ColumnLayout =
-        { Alignment: Alignment
-          LeftPadding: int
-          RightPadding: int
-          Wrap: bool }
+    type ColumnLayout = {
+        Alignment: Alignment
+        LeftPadding: int
+        RightPadding: int
+        Wrap: bool
+    }
 
-    let mutable defaultColumnLayout: ColumnLayout =
-        { Alignment = Center
-          LeftPadding = 2
-          RightPadding = 2
-          Wrap = true }
+    let mutable defaultColumnLayout: ColumnLayout = {
+        Alignment = Center
+        LeftPadding = 2
+        RightPadding = 2
+        Wrap = true
+    }
 
-    type ColumnDefinition =
-        { Header: OutputPayload
-          Footer: Option<OutputPayload>
-          Layout: Option<ColumnLayout> }
+    type ColumnDefinition = {
+        Header: OutputPayload
+        Footer: Option<OutputPayload>
+        Layout: Option<ColumnLayout>
+    }
 
     let private applyDefiniteLayout (layout: ColumnLayout) (column: TableColumn) =
         match layout.Alignment with
@@ -47,7 +50,8 @@ module Column =
     let private addFooter footerOption (column: TableColumn) =
         match footerOption with
         | Some footer -> column.Footer <- payloadToRenderable footer
-        | None -> ignore()
+        | None -> ignore ()
+
         column
 
     let toSpectreColumn (definition: ColumnDefinition) =
@@ -55,11 +59,13 @@ module Column =
         |> applyLayout definition.Layout
         |> addFooter definition.Footer
 
-    let column header =
-        { Header = header; Footer = None; Layout = Some defaultColumnLayout }
+    let column header = {
+        Header = header
+        Footer = None
+        Layout = Some defaultColumnLayout
+    }
 
-    let withLayout layout column =
-        { column with Layout = Some layout }
+    let withLayout layout column = { column with Layout = Some layout }
 
     let withLayouts layouts columns =
         columns
@@ -69,8 +75,7 @@ module Column =
     let withSameLayout layout columns =
         columns |> List.map (fun column -> { column with Layout = Some layout })
 
-    let withFooter footer column =
-        { column with Footer = Some footer }
+    let withFooter footer column = { column with Footer = Some footer }
 
     let withFooters footers columns =
         columns
@@ -91,14 +96,14 @@ module Row =
 
     let private toSpectreCell cell =
         match cell with
-        | Cell payload -> TableCell (payloadToRenderable payload)
-        | SpanningCell (span, payload) -> TableCell(payloadToRenderable payload).Span span
+        | Cell payload -> TableCell(payloadToRenderable payload)
+        | SpanningCell(span, payload) -> TableCell(payloadToRenderable payload).Span span
 
     let private getValues (row: Row) =
         match row with
         | Payloads payloads -> payloads |> List.map payloadToRenderable
         | Strings values -> values |> List.map (fun value -> Text value)
-        | Numbers values -> values |> List.map (fun value -> Text (value.ToString()))
+        | Numbers values -> values |> List.map (fun value -> Text(value.ToString()))
         | Cells cells -> cells |> List.map (fun cell -> toSpectreCell cell :> Rendering.IRenderable)
         |> List.toArray
 
@@ -110,17 +115,19 @@ module Row =
         let values = getValues row
         grid.AddRow(values) |> ignore
 
-type TableLayout =
-    {  Border: TableBorder;
-       Sizing: SizingBehaviour;
-       HideHeaders: bool;
-       HideFooters: bool }
+type TableLayout = {
+    Border: TableBorder
+    Sizing: SizingBehaviour
+    HideHeaders: bool
+    HideFooters: bool
+}
 
-let mutable defaultTableLayout: TableLayout =
-    {  Border = TableBorder.Rounded
-       Sizing = Expand
-       HideHeaders = false
-       HideFooters = false }
+let mutable defaultTableLayout: TableLayout = {
+    Border = TableBorder.Rounded
+    Sizing = Expand
+    HideHeaders = false
+    HideFooters = false
+}
 
 let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list) (rows: Row list) =
     let table = Table()
@@ -128,6 +135,7 @@ let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list)
     match layout.Sizing with
     | Expand -> table.Expand <- true
     | Collapse -> table.Collapse() |> ignore
+
     table.Border <- layout.Border
 
     table.ShowHeaders <- not layout.HideHeaders
@@ -141,30 +149,33 @@ let customTable (layout: TableLayout) (columnDefinitions: ColumnDefinition list)
     table
 
 let withCaption caption (table: Table) =
-    table.Caption <- TableTitle (caption, toSpectreStyle { calmLook with Decorations = [] })
+    table.Caption <- TableTitle(caption, toSpectreStyle { calmLook with Decorations = [] })
     table
 
 let withTitle title (table: Table) =
-    table.Title <- TableTitle (title, toSpectreStyle { pumpedLook with Decorations = [] })
+    table.Title <- TableTitle(title, toSpectreStyle { pumpedLook with Decorations = [] })
     table
 
-let table =
-    customTable defaultTableLayout
+let table = customTable defaultTableLayout
 
 let grid (rows: Row list) =
     let numberOfColumns =
         rows
         |> List.map (fun row ->
-           match row with
-           | Numbers numbers -> numbers.Length
-           | Payloads payloads -> payloads.Length
-           | Strings strings -> strings.Length
-           | Cells cells -> cells |> List.sumBy (fun cell -> match cell with Cell _ -> 1 | SpanningCell (span, _) -> span))
+            match row with
+            | Numbers numbers -> numbers.Length
+            | Payloads payloads -> payloads.Length
+            | Strings strings -> strings.Length
+            | Cells cells ->
+                cells
+                |> List.sumBy (fun cell ->
+                    match cell with
+                    | Cell _ -> 1
+                    | SpanningCell(span, _) -> span))
         |> List.max
 
     let grid = Grid().AddColumns numberOfColumns
-    rows
-    |> List.iter (addRowToGrid grid)
+    rows |> List.iter (addRowToGrid grid)
     grid
 
 type Table with

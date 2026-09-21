@@ -3,10 +3,11 @@ module SpectreCoff.Status
 
 open Spectre.Console
 
-type CustomSpinner =
-    { Message: string
-      Spinner: Spinner Option
-      Look: Look Option }
+type CustomSpinner = {
+    Message: string
+    Spinner: Spinner Option
+    Look: Look Option
+}
 
 type StatusOperation<'Result> = StatusContext -> Async<'Result>
 
@@ -41,15 +42,14 @@ let updateWithCustomSpinner spinner (context: StatusContext) =
 let start<'Result> statusText (operation: StatusOperation<'Result>) =
     async {
         return!
-            AnsiConsole
-                .Status()
-                .StartAsync(statusText, (fun context -> operation context |> Async.StartAsTask))
+            AnsiConsole.Status().StartAsync(statusText, (fun context -> operation context |> Async.StartAsTask))
             |> Async.AwaitTask
     }
 
 let startWithCustomSpinner<'Result> spinner (operation: StatusOperation<'Result>) =
     async {
         let status = AnsiConsole.Status() |> configureStatus spinner
+
         return!
             status.StartAsync(spinner.Message, fun context -> operation context |> Async.StartAsTask)
             |> Async.AwaitTask

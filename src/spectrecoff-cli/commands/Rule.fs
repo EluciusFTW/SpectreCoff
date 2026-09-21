@@ -3,7 +3,7 @@
 open Spectre.Console.Cli
 open SpectreCoff
 
-type RuleSettings()  =
+type RuleSettings() =
     inherit CommandSettings()
 
 type RuleExample() =
@@ -11,17 +11,11 @@ type RuleExample() =
     interface ICommandLimiter<RuleSettings>
 
     override _.Execute(_context, _settings, _) =
-        pumped "Hello"
-        |> alignedRule Left
-        |> toConsoleInline
+        pumped "Hello" |> alignedRule Left |> toConsoleInline
 
-        "Fellow"
-        |> rule
-        |> toConsoleInline
+        "Fellow" |> rule |> toConsoleInline
 
-        edgy "Developer"
-        |> alignedRule Right
-        |> toConsoleInline
+        edgy "Developer" |> alignedRule Right |> toConsoleInline
 
         emptyRule |> toConsole
         0

@@ -3,7 +3,7 @@ namespace SpectreCoff.Cli.Commands
 open Spectre.Console.Cli
 open SpectreCoff
 
-type JsonSettings()  =
+type JsonSettings() =
     inherit CommandSettings()
 
 type JsonExample() =
@@ -18,7 +18,8 @@ type JsonExample() =
                 P "This example is taken directly from Spectre.Console"
                 Emoji "astonished_face"
             ]
-        ] |> toConsole
+        ]
+        |> toConsole
 
         let content =
             """
@@ -39,8 +40,6 @@ type JsonExample() =
             }
             """
 
-        json content
-        |> panel " Some JSON in a panel "
-        |> toConsole
+        json content |> panel " Some JSON in a panel " |> toConsole
 
         0

@@ -4,7 +4,7 @@ open Spectre.Console
 open Spectre.Console.Cli
 open SpectreCoff
 
-type TreeSettings()  =
+type TreeSettings() =
     inherit CommandSettings()
 
 type TreeExample() =
@@ -14,15 +14,13 @@ type TreeExample() =
     override _.Execute(_context, _, _) =
 
         let nodes =
-            [ for i in 1 .. 16 -> (i, node (Calm $"{i}") []) ]
+            [ for i in 1..16 -> (i, node (Calm $"{i}") []) ]
             |> List.map (fun (index, currentNode) ->
                 match index with
-                | i when i % 15 = 0 -> attach [node (Edgy "FizzBuzz") []] currentNode
-                | i when i % 5 = 0 -> attach [node (Pumped "Buzz") []] currentNode
-                | i when i % 3 = 0 -> attach [node (Calm "Fizz") []] currentNode
+                | i when i % 15 = 0 -> attach [ node (Edgy "FizzBuzz") [] ] currentNode
+                | i when i % 5 = 0 -> attach [ node (Pumped "Buzz") [] ] currentNode
+                | i when i % 3 = 0 -> attach [ node (Calm "Fizz") [] ] currentNode
                 | _ -> currentNode)
 
-        tree (Pumped "Fizz-Buzz Tree") nodes
-        |> toOutputPayload
-        |> toConsole
+        tree (Pumped "Fizz-Buzz Tree") nodes |> toOutputPayload |> toConsole
         0

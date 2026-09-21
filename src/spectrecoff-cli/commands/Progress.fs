@@ -15,28 +15,29 @@ type ProgressExample() =
     override _.Execute(_context, _settings, _) =
         let operation (context: ProgressContext) =
             task {
-                let task1 =
-                    "Turtle"
-                    |> HotPercentageTask
-                    |> realizeIn context
-                let task2 =
-                    (60.0, "Rabbit")
-                    |> ColdCustomTask
-                    |> realizeIn context
+                let task1 = "Turtle" |> HotPercentageTask |> realizeIn context
+                let task2 = (60.0, "Rabbit") |> ColdCustomTask |> realizeIn context
+
                 while not context.IsFinished do
                     task1 |> incrementBy 5 |> ignore
+
                     if task1.Value > 50 then
                         startTask task2
+
                     if task2.IsStarted then
                         task2 |> incrementBy 7 |> ignore
+
                     do! Task.Delay(300)
+
                 return "The race is over!"
             }
+
         let template =
             emptyTemplate
             |> withDescriptionColumn
             |> withSpinnerColumn
             |> withRemainingTimeColumn
             |> withProgressBarColumn
+
         (operation |> startCustom template).Result |> P |> toConsole
         0
